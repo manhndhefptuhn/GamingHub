@@ -9,5 +9,7 @@ package Controller;
  * @author Zarius
  */
 public class DummyController {
-    
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
 }
