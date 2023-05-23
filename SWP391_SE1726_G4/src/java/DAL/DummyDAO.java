@@ -9,5 +9,7 @@ package DAL;
  * @author Zarius
  */
 public class DummyDAO {
-  
+    public static void main(String[] args) {
+        System.out.println("hntb");
+    }
 }
