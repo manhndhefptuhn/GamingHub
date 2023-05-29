@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Home
-    Created on : 24-05-2023, 15:35:59
+    Document   : home
+    Created on : 26-05-2023, 12:00:19
     Author     : Zarius
 --%>
 
@@ -14,7 +14,7 @@
     <meta name="keywords" content="Ashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ashion | Template</title>
+    <title>Gaming Hub</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
@@ -33,6 +33,10 @@
 </head>
 
 <body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
 
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
@@ -48,11 +52,11 @@
             </a></li>
         </ul>
         <div class="offcanvas__logo">
-            <a href="./home.html"><img src="<%= request.getContextPath()%>/img/shop/logo.png" alt=""></a>
+            <a href="<%= request.getContextPath()%>/home.jsp"><img src="<%= request.getContextPath()%>/img/shop/logo.png" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
-            <a href="#">Login</a>
+            <a href="">Login</a>
             <a href="#">Register</a>
         </div>
     </div>
@@ -79,10 +83,8 @@
                                     <li><a href="./product-details.html">Product Details</a></li>
                                     <li><a href="./shop-cart.html">Shop Cart</a></li>
                                     <li><a href="./checkout.html">Checkout</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
                             </li>
-                            <li><a href="./blog.html">Blog</a></li>
                             <li><a href="./contact.html">Contact</a></li>
                         </ul>
                     </nav>
@@ -90,8 +92,7 @@
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
-                            <a href="#">Login</a>
-                            <a href="#">Register</a>
+                            <a href="login.jsp">Login</a>
                         </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
@@ -130,7 +131,7 @@
             <div class="col-lg-6">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="/img/shop/10008.png">
+                        <div class="categories__item set-bg" data-setbg="<%= request.getContextPath()%>/img/shop/10008.png">
                             <div class="categories__text">
                                 <h4>Intel PCs </h4>
                                 <p>358 items</p>
@@ -139,7 +140,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="/img/shop/10005.png">
+                        <div class="categories__item set-bg" data-setbg="<%= request.getContextPath()%>/img/shop/10005.png">
                             <div class="categories__text">
                                 <h4>AMD PCs</h4>
                                 <p>273 items</p>
@@ -148,7 +149,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="/img/shop/10002.png">
+                        <div class="categories__item set-bg" data-setbg="<%= request.getContextPath()%>/img/shop/10002.png">
                             <div class="categories__text">
                                 <h4>Work PCs</h4>
                                 <p>159 items</p>
@@ -157,7 +158,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="/img/shop/10004.png">
+                        <div class="categories__item set-bg" data-setbg="<%= request.getContextPath()%>/img/shop/10004.png">
                             <div class="categories__text">
                                 <h4>Laptops</h4>
                                 <p>792 items</p>
@@ -665,63 +666,6 @@
 </section>
 <!-- Services Section End -->
 
-<!--&lt;!&ndash; Instagram Begin &ndash;&gt;-->
-<!--<div class="instagram">-->
-<!--    <div class="container-fluid">-->
-<!--        <div class="row">-->
-<!--            <div class="col-lg-2 col-md-4 col-sm-4 p-0">-->
-<!--                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-1.jpg">-->
-<!--                    <div class="instagram__text">-->
-<!--                        <i class="fa fa-instagram"></i>-->
-<!--                        <a href="#">@ ashion_shop</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-lg-2 col-md-4 col-sm-4 p-0">-->
-<!--                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-2.jpg">-->
-<!--                    <div class="instagram__text">-->
-<!--                        <i class="fa fa-instagram"></i>-->
-<!--                        <a href="#">@ ashion_shop</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-lg-2 col-md-4 col-sm-4 p-0">-->
-<!--                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-3.jpg">-->
-<!--                    <div class="instagram__text">-->
-<!--                        <i class="fa fa-instagram"></i>-->
-<!--                        <a href="#">@ ashion_shop</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-lg-2 col-md-4 col-sm-4 p-0">-->
-<!--                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-4.jpg">-->
-<!--                    <div class="instagram__text">-->
-<!--                        <i class="fa fa-instagram"></i>-->
-<!--                        <a href="#">@ ashion_shop</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-lg-2 col-md-4 col-sm-4 p-0">-->
-<!--                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-5.jpg">-->
-<!--                    <div class="instagram__text">-->
-<!--                        <i class="fa fa-instagram"></i>-->
-<!--                        <a href="#">@ ashion_shop</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-lg-2 col-md-4 col-sm-4 p-0">-->
-<!--                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-6.jpg">-->
-<!--                    <div class="instagram__text">-->
-<!--                        <i class="fa fa-instagram"></i>-->
-<!--                        <a href="#">@ ashion_shop</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--&lt;!&ndash; Instagram End &ndash;&gt;-->
-
 <!-- Footer Section Begin -->
 <footer class="footer">
     <div class="container">
@@ -747,7 +691,6 @@
                     <h6>Quick links</h6>
                     <ul>
                         <li><a href="#">About</a></li>
-                        <li><a href="#">Blogs</a></li>
                         <li><a href="#">Contact</a></li>
                         <li><a href="#">FAQ</a></li>
                     </ul>
@@ -806,16 +749,16 @@
 <!-- Search End -->
 
 <!-- Js Plugins -->
-<script src="../js/jquery-3.3.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery.magnific-popup.min.js"></script>
-<script src="../js/jquery-ui.min.js"></script>
-<script src="../js/mixitup.min.js"></script>
-<script src="../js/jquery.countdown.min.js"></script>
-<script src="../js/jquery.slicknav.js"></script>
-<script src="../js/owl.carousel.min.js"></script>
-<script src="../js/jquery.nicescroll.min.js"></script>
-<script src="../js/main.js"></script>
+<script src="<%= request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
+<script src="<%= request.getContextPath()%>/js/bootstrap.min.js"></script>
+<script src="<%= request.getContextPath()%>/js/jquery.magnific-popup.min.js"></script>
+<script src="<%= request.getContextPath()%>/js/jquery-ui.min.js"></script>
+<script src="<%= request.getContextPath()%>/js/mixitup.min.js"></script>
+<script src="<%= request.getContextPath()%>/js/jquery.countdown.min.js"></script>
+<script src="<%= request.getContextPath()%>/js/jquery.slicknav.js"></script>
+<script src="<%= request.getContextPath()%>/js/owl.carousel.min.js"></script>
+<script src="<%= request.getContextPath()%>/js/jquery.nicescroll.min.js"></script>
+<script src="<%= request.getContextPath()%>/js/main.js"></script>
 </body>
 
 </html>
