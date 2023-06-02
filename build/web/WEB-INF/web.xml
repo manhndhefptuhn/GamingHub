@@ -4,6 +4,14 @@
         <servlet-name>LoginController</servlet-name>
         <servlet-class>Controller.LoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserListController</servlet-name>
+        <servlet-class>Controller.UserListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserDetailServlet</servlet-name>
+        <servlet-class>Controller.UserDetailServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -31,6 +39,14 @@
     <servlet-mapping>
         <servlet-name>forgetPassController</servlet-name>
         <url-pattern>/forgetPass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserListController</servlet-name>
+        <url-pattern>/userListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserDetailServlet</servlet-name>
+        <url-pattern>/userDetailServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
