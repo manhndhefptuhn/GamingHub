@@ -6,8 +6,8 @@ package Controller;
 
 import DAL.UserDAO;
 import Model.User;
-import Verify.RandomPassword;
-import Verify.SendEmail;
+import Service.RandomPassword;
+import Service.SendEmail;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,6 +35,7 @@ public class RegisterController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        
         HttpSession session = request.getSession();
         String fullName = request.getParameter("fullName");
         String email = request.getParameter("email");
@@ -42,21 +43,21 @@ public class RegisterController extends HttpServlet {
         String phoneNum = request.getParameter("phoneNum");
 
         RandomPassword rdpw = new RandomPassword();
-        String password = rdpw.generatePassword();
-
-        String oldPass = password;
+        String oldPassRegis = rdpw.generatePassword();
 
         UserDAO uDAO = new UserDAO();
         SendEmail se = new SendEmail();
+        
         User u = uDAO.checkUserExist(email);
+        
         if (!phoneNum.matches("[0-9]*")) {
             request.setAttribute("phoneNoti", "Your Phone Number is Invalid");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         } else if (u == null) {
-            uDAO.register(fullName, email, oldPass, phoneNum, address);
-            se.sendRegister(email, oldPass, fullName);
+            uDAO.register(fullName, email, oldPassRegis, phoneNum, address);
+            se.sendRegister(email, oldPassRegis, fullName);
             request.setAttribute("notification", "Sign Up successfully, please check your email");
-            session.setAttribute("oldPass", oldPass);
+            session.setAttribute("oldPassRegis", oldPassRegis);
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }else{
             request.setAttribute("emailNoti", "Email is used, please enter again");

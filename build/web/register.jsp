@@ -34,17 +34,16 @@
                             <h2 class="form-title">Sign up</h2>
                             <form action="register" method="POST" class="register-form" id="register-form">
                                 <div class="form-group">
-                                    <input type="text" name="fullName" id="name" placeholder="Your Name"/>
+                                    <input type="text" name="fullName" id="name" placeholder="Your Name" required/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" name="email" id="email" placeholder="Your Email"/>
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="text" name="address" id="address" placeholder="Your Address">
+                                    <input type="email" name="email" id="email" placeholder="Your Email" required/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="phoneNum" id="phone-num" placeholder="Your Phone Number">
+                                    <input type="text" name="address" id="address" placeholder="Your Address" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="phoneNum" id="phone-num" placeholder="Your Phone Number" required>
                                 </div>
                                 <c:if test="${emailNoti!=null}">
                                     <strong style="color: red;">${emailNoti}</strong>
@@ -59,12 +58,12 @@
                                     <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
                                 </div>
                             </form>
-                            <div  class="create-acc">
+                            <div class="create-acc">
                                 <a href="login.jsp" class="text1">Back to Log In</a>
                             </div>
                         </div>
                         <div class="signup-image">
-                            <figure><img src="<%= request.getContextPath()%>/img/signup-image.jpg" alt="sing up image"></figure>
+                            <figure><img src="<%= request.getContextPath()%>/img/signup-image.jpg" alt="Register image"></figure>
                         </div>
                     </div>
                 </div>

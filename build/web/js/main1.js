@@ -1,14 +1,27 @@
-function revealPassword() {
-  var passwordInput = document.getElementById("your-pass");
-  var passwordInput2 = document.getElementById("your-pass2");
-  var revealCheckbox = document.getElementById("reveal-checkbox");
+function togglePasswordVisibility() {
+    var passwordInput = document.getElementById('loginPassword');
+    var revealCheckbox = document.getElementById('revealCheckbox');
 
-  if (revealCheckbox.checked) {
-    passwordInput.type = "text";
-    passwordInput2.type = "text";
-  } else {
-    passwordInput.type = "password";
-    passwordInput2.type = "password";
-  }
+    if (revealCheckbox.checked) {
+        passwordInput.type = 'text';
+    } else {
+        passwordInput.type = 'password';
+    }
 }
 
+function revealPassword() {
+    var passwordInput1 = document.getElementById('old-Pass');
+    var passwordInput2 = document.getElementById('your-pass');
+    var passwordInput3 = document.getElementById('your-pass2');
+    var revealCheckbox = document.getElementById('reveal-checkbox');
+
+    if (revealCheckbox.checked) {
+        passwordInput1.type = 'text';
+        passwordInput2.type = 'text';
+        passwordInput3.type = 'text';
+    } else {
+        passwordInput1.type = 'password';
+        passwordInput2.type = 'password';
+        passwordInput3.type = 'password';
+    }
+}

@@ -21,19 +21,22 @@
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/style1.css">
     </head>
     <body>
-        <!-- Sing in  Form -->
         <%String notification = (String)request.getAttribute("notification");%>
         <section class="sign-in">
             <div class="container">
                 <div class="signin-content">
                     <div class="signin-image">
-                        <figure><img src="<%= request.getContextPath()%>/img/signin-image.jpg" alt="sing up image"></figure>
+                        <figure><img src="<%= request.getContextPath()%>/img/signin-image.jpg" alt="change pass image"></figure>
                     </div>
-
                     <div class="signin-form">
                         <h2 class="form-title">Change password</h2>
                         <form action="changePass" method="POST" class="register-form" id="login-form">
                             <div>
+                                <c:if test="${sessionScope.user != null}">
+                                    <div class="form-group">
+                                        <input type="password" name="oldPassLogin" id="old-Pass" placeholder="Old password"/>
+                                    </div>
+                                </c:if>
                                 <div class="form-group">
                                     <input type="password" name="newPass" id="your-pass" placeholder="New password"/>
                                 </div>
@@ -51,9 +54,16 @@
                                 <input type="submit" name="changePass" id="changePass" class="form-submit" value="Change your password"/>
                             </div>
                         </form>
-                        <div  class="create-acc">
-                            <a href="login.jsp" class="text1">Back to Log In</a>
-                        </div>
+                        <c:if test="${sessionScope.user == null}">
+                            <div class="create-acc">
+                                <a href="login.jsp" class="text1">Back to Log In</a>
+                            </div>
+                        </c:if>
+                        <c:if test="${sessionScope.user != null}">
+                            <div class="create-acc">
+                                <a href="userProfile.jsp" class="text1">Back to your profile</a>
+                            </div>
+                        </c:if>
                     </div>
                 </div>
             </div>

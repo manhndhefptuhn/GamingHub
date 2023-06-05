@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.UUID;
 
 /**
  *
@@ -63,23 +62,25 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String oldPass = (String) session.getAttribute("oldPass");
+        String oldPassRegis = (String) session.getAttribute("oldPassRegis");
+        
         UserDAO uDAO = new UserDAO();
         User u = uDAO.login(email, password);
+        
         if (u == null) {
             request.setAttribute("notification", "Wrong email or password, please try again");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else if (u.isStatus() != true) {
             request.setAttribute("notification", "User is inactive");
             request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else if (password.equals(oldPass)) {
-            session.setAttribute("user", u);
+        } else if (password.equals(oldPassRegis)) {
+            session.setAttribute("userRegis", u);
             request.getRequestDispatcher("changePass.jsp").forward(request, response);
         } else {
-            String token = UUID.randomUUID().toString();
-            session.removeAttribute(oldPass);
+            session.removeAttribute("oldPassRegis");
             session.setAttribute("user", u);
             request.getRequestDispatcher("home.jsp").forward(request, response);
         }
