@@ -113,7 +113,7 @@ public class UpdateUserProfileController extends HttpServlet {
         } else if (request.getParameter("changePass") != null) {
             response.sendRedirect("changePass.jsp");
         } else if (request.getParameter("backToHome") != null) {
-            response.sendRedirect("home.jsp");
+            response.sendRedirect("Home.jsp");
         }
     }
 

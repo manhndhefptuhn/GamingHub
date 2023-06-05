@@ -82,7 +82,7 @@ public class LoginController extends HttpServlet {
         } else {
             session.removeAttribute("oldPassRegis");
             session.setAttribute("user", u);
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+            request.getRequestDispatcher("Home.jsp").forward(request, response);
         }
     }
 

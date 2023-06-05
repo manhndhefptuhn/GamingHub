@@ -56,7 +56,7 @@
                         </form>
                         <c:if test="${sessionScope.user == null}">
                             <div class="create-acc">
-                                <a href="login.jsp" class="text1">Back to Log In</a>
+                                <a href="Login.jsp" class="text1">Back to Log In</a>
                             </div>
                         </c:if>
                         <c:if test="${sessionScope.user != null}">
