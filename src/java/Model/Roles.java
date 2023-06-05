@@ -35,6 +35,6 @@ public class Roles {
     public void setRole_name(String Role_name) {
         this.Role_name = Role_name;
     }
-    
+
     
 }

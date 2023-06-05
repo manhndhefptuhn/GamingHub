@@ -27,7 +27,7 @@
             <div class="container">
                 <div class="signin-content">
                     <div class="signin-image">
-                        <figure><img src="<%= request.getContextPath()%>/img/signin-image.jpg" alt="sing up image"></figure>
+                        <figure><img src="<%= request.getContextPath()%>/img/signin-image.jpg" alt="Sign in image"></figure>
                     </div>
 
                     <div class="signin-form">
@@ -37,12 +37,12 @@
                                 <input type="email" name="email" id="your_email" placeholder="Your Email"/>
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" id="your-pass"  placeholder="Password"/>
+                                <input type="password" name="password" id="loginPassword"  placeholder="Password"/>
                                 <span  class="fa fa-fw field-icon toggle-password"></span>
                             </div>
                             <div>
-                                <input type="checkbox" id="reveal-checkbox" class="agree-term" onclick="revealPassword()"/>
-                                <label for="reveal-checkbox" class="label-agree-term" ><span><span></span></span>Reveal Password</label>                       
+                                <input type="checkbox" id="revealCheckbox" class="reveal-checkbox" onchange="togglePasswordVisibility()">
+                                <label for="revealCheckbox" class="label-agree-term" ><span><span></span></span>Reveal Password</label>                       
                             </div>
                             <div>
                                 <c:if test="${notification != null}">

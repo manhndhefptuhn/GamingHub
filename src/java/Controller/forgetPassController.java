@@ -6,8 +6,8 @@ package Controller;
 
 import DAL.UserDAO;
 import Model.User;
-import Verify.RandomPassword;
-import Verify.SendEmail;
+import Service.RandomPassword;
+import Service.SendEmail;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -82,17 +82,19 @@ public class forgetPassController extends HttpServlet {
         
         UserDAO uDAO = new UserDAO();
         User user = uDAO.checkUserExist(email);
+        
         SendEmail se = new SendEmail();
         RandomPassword rdpw = new RandomPassword();
-        String oldPass = rdpw.generatePassword();
+        
+        String oldPassRegis = rdpw.generatePassword();
         if(user == null){
             request.setAttribute("notification", "Email is not exist");
             request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
         }else{
-            uDAO.changePassword(user.getUser_ID(), oldPass);
-            se.sendForgetPass(email, oldPass, user.getFullName());
+            uDAO.changePassword(user.getUser_ID(), oldPassRegis);
+            se.sendForgetPass(email, oldPassRegis, user.getFullName());
             request.setAttribute("notification", "Request change password, please check your email");
-            session.setAttribute("oldPass", oldPass);
+            session.setAttribute("oldPassRegis", oldPassRegis);
             request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
         }
     }

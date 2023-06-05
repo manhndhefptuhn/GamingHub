@@ -24,7 +24,7 @@ public class UserDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT * FROM [User] WHERE [Email] = '" + email + "' and [Password] = '" + password + "'";
+                String sql = "SELECT * FROM `User` WHERE `Email` = '" + email + "' and `Password` = '" + password + "';";
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
                     User u = new User();
@@ -56,7 +56,7 @@ public class UserDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT * FROM [User] WHERE [Email] = '" + email + "'";
+                String sql = "SELECT * FROM `User` WHERE `Email` = '" + email + "'";
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
                     User u = new User();
@@ -84,18 +84,19 @@ public class UserDAO {
 
     public int register(String fullName, String email, String password, String phoneNum, String address) {
         int row = 0;
-        String sql = "INSERT INTO [User]\n"
-                + "values (?,?,?,?,?,?,'1','1')";
+        String sql = "INSERT INTO `User` \n"
+                + "values (?,?,?,?,?,?,?,'1','1')";
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, fullName);
-            st.setString(2, email);
-            st.setString(3, password);
-            st.setNull(4, Types.NVARCHAR);
-            st.setString(5, phoneNum);
-            st.setString(6, address);
+            st.setNull(1, Types.INTEGER);
+            st.setString(2, fullName);
+            st.setString(3, email);
+            st.setString(4, password);
+            st.setNull(5, Types.NVARCHAR);
+            st.setString(6, phoneNum);
+            st.setString(7, address);
             row = st.executeUpdate();
             st.close();
             con.close();
@@ -109,20 +110,110 @@ public class UserDAO {
     public int changePassword(int user_ID, String newPass) {
         int row = 0;
         try {
-            String sql = "UPDATE [User]\n"
+            String sql = "UPDATE `User`\n"
                     + "   SET \n"
-                    + "      [Password] = ?\n"
-                    + " WHERE [User_ID] = ?\n";
+                    + "      `Password` = ?\n"
+                    + " WHERE `User_ID` = ?\n";
             DBContext db = new DBContext();
             Connection con = db.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, newPass);
-            ps.setInt(2, user_ID);
-            row = ps.executeUpdate();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, newPass);
+            st.setInt(2, user_ID);
+            row = st.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             row = -1;
         }
         return row;
+    }
+    
+    public User getUser(int userID, String password) {
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "SELECT * FROM `User` WHERE `User_ID` = '" + userID + "' and `Password` = '" + password + "';";
+                ResultSet rs = st.executeQuery(sql);
+                if (rs.next()) {
+                    User u = new User();
+                    u.setUser_ID(rs.getInt(1));
+                    u.setFullName(rs.getString(2));
+                    u.setEmail(rs.getString(3));
+                    u.setPassword(rs.getString(4));
+                    u.setProfile_picture(rs.getString(5));
+                    u.setPhone_Number(rs.getString(6));
+                    u.setAddress(rs.getString(7));
+                    u.setStatus(rs.getBoolean(8));
+                    u.setRole_ID(rs.getInt(9));
+                    return u;
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    public int updateUserProfile(String fullName, String phone, String address, String avatarFile, int UserID){
+        int row = 0;
+        try {
+            String sql = "UPDATE `User`\n"
+                    + "   SET \n"
+                    + "      `FullName` = ?,\n"
+                    + "      `Phone_Number` = ?,\n"
+                    + "      `Address` = ?,\n"
+                    + "      `Profile_picture` = ?\n"
+                    + " WHERE `User_ID` = ?\n";
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, fullName);
+            st.setString(2, phone);
+            st.setString(3, address);
+            st.setString(4, avatarFile);
+            st.setInt(5, UserID);
+            row = st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            row = -1;
+        }
+        return row;
+    }
+    
+    public User getUserByID(int userID) {
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "SELECT * FROM `User` WHERE `User_ID` = '" + userID + "';";
+                ResultSet rs = st.executeQuery(sql);
+                if (rs.next()) {
+                    User u = new User();
+                    u.setUser_ID(rs.getInt(1));
+                    u.setFullName(rs.getString(2));
+                    u.setEmail(rs.getString(3));
+                    u.setPassword(rs.getString(4));
+                    u.setProfile_picture(rs.getString(5));
+                    u.setPhone_Number(rs.getString(6));
+                    u.setAddress(rs.getString(7));
+                    u.setStatus(rs.getBoolean(8));
+                    u.setRole_ID(rs.getInt(9));
+                    return u;
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }
