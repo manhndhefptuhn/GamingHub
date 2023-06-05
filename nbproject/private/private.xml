@@ -3,13 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/web/header.jsp</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/web/userProfile.jsp</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/src/java/Model/User.java</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/web/WEB-INF/web.xml</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/src/java/DAL/UserDAO.java</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/web/login.jsp</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/src/java/Controller/UpdateUserProfileController.java</file>
+            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/6-6-2023/SWP391_SE1726_G4/src/java/Controller/UserListController.java</file>
         </group>
     </open-files>
 </project-private>

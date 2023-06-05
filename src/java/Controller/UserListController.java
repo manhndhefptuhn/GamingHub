@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -35,8 +34,8 @@ public class UserListController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        List<User> userList = UserDAO.userList();
-        request.setAttribute("userList", userList);
+        //List<User> userList = UserDAO.userList();
+        //request.setAttribute("userList", userList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("adminDashboard.jsp");
         dispatcher.forward(request, response);
 
