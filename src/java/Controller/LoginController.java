@@ -72,10 +72,10 @@ public class LoginController extends HttpServlet {
         
         if (u == null) {
             request.setAttribute("notification", "Wrong email or password, please try again");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
         } else if (u.isStatus() != true) {
             request.setAttribute("notification", "User is inactive");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
         } else if (password.equals(oldPassRegis)) {
             session.setAttribute("userRegis", u);
             request.getRequestDispatcher("changePass.jsp").forward(request, response);
