@@ -127,10 +127,4 @@ public class UpdateUserProfileController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public String generateUniqueImageName(String originalFilename) {
-        String extension = originalFilename.substring(originalFilename.lastIndexOf('.'));
-        String uniqueName = UUID.randomUUID().toString();
-        return uniqueName + extension;
-    }
-
 }
