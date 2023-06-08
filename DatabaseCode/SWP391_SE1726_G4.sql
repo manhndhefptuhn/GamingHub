@@ -552,7 +552,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Cao Hoàng Việt','vietchhe170297@fpt.edu.vn','Viet11111',NULL,'1231312313','Hà Nội, Việt Nam',1,2),(6,'Nguyen Duc Manh','manhndhe170523@fpt.edu.vn','Manhdz123','img/avatar/1686198445178.png','0123456789','Viet Nam',1,1);
+INSERT INTO `user` VALUES (1,'Cao Hoàng Việt','vietchhe170297@fpt.edu.vn','Viet11111',NULL,'0935091066	','Hà Nội, Việt Nam',1,4),(2,'Nguyễn Đức Mạnh','manhndhe170523@fpt.edu.vn','Manhdz123','','0123456789','Viet Nam',1,1),(3,'Phạm Cao Đức Minh','minhpcdhe170377@fpt.edu.vn		','Minh12345',NULL,'0868659100	','Hà Nội, Việt Nam',1,1),(4,'Bùi Tiến Đạt','datbthe170585@fpt.edu.vn		','Dat123456',NULL,'0389501823	','Hà Nội, Việt Nam',1,2),(5,'Nguyễn Duy Anh','anhndhe170163@fpt.edu.vn		','Anh123456',NULL,'0836889919	','Hà Nội, Việt Nam',1,3),(6,'Nguyễn Văn A','manh24112003@gmaiil.com','Test12345',NULL,'0123456789','Hà Nội, Việt Nam',1,1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -595,4 +595,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-08 20:21:59
+-- Dump completed on 2023-06-08 20:38:26
