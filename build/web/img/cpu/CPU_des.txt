@@ -1,0 +1,148 @@
+
+Intel Core i9-13900
+	Price: $549
+	Socket: LGA1700
+	Core/Thread: 24(8P-Core|16E-Core)/32 thread
+	Cache: 36 MB 
+	eGPU: UHD Intel 770
+	TDP: 65W
+	
+Intel Core i9-13900F
+	Price: $529
+	Socket: LGA1700
+	Core/Thread: 24(8P-Core|16E-Core)/32 thread
+	Cache: 36 MB 
+	eGPU: none
+	TDP: 65W
+
+Intel Core i7-13700
+	Price: $384
+	Socket: LGA1700
+	Core/Thread: 16(8P-Core|8E-Core)/24 thread
+	Cache: 30 MB 
+	eGPU: UHD Intel 770
+	TDP: 65W
+
+Intel Core i7-13700F
+	Price: $364
+	Socket: LGA1700
+	Core/Thread: 24(8P-Core|8E-Core)/24 thread
+	Cache: 30 MB 
+	eGPU: none
+	TDP: 65W
+
+Intel Core i5-13500
+	Price: $232
+	Socket: LGA1700
+	Core/Thread: 14(6P-Core|8E-Core)/20 thread
+	Cache: 24 MB 
+	eGPU: UHD Intel 770
+	TDP: 65W
+
+Intel Core i5-13500F
+	Price: $212
+	Socket: LGA1700
+	Core/Thread: 14(6P-Core|8E-Core)/20 thread
+	Cache: 24 MB 
+	eGPU: none
+	TDP: 65W
+
+
+AMD Ryzen 9 7900
+	Price: $499
+	Socket: AM5
+	Core/Thread: 12 core/24 thread
+	Cache: 64 MB 
+	eGPU: AMD Radeon™ Graphics
+	TDP: 65W
+
+AMD Ryzen 9 7900X
+	Price: $529
+	Socket: AM5
+	Core/Thread: 12 core/24 thread
+	Cache: 64 MB 
+	eGPU: AMD Radeon™ Graphics
+	TDP: 170W
+	
+AMD Ryzen 7 7700
+	Price: $379
+	Socket: AM5
+	Core/Thread: 8 core/16 thread
+	Cache: 32 MB 
+	eGPU: AMD Radeon™ Graphics
+	TDP: 65W
+
+AMD Ryzen 7 7700X
+	Price: $409
+	Socket: AM5
+	Core/Thread: 8 core/16 thread
+	Cache: 32 MB 
+	eGPU: AMD Radeon™ Graphics
+	TDP: 105W
+
+AMD Ryzen 5 7600
+	Price: $269
+	Socket: AM5
+	Core/Thread: 6 core/12 thread
+	Cache: 32 MB 
+	eGPU: AMD Radeon™ Graphics
+	TDP: 65W
+
+AMD Ryzen 5 7600X
+	Price: $299
+	Socket: AM5
+	Core/Thread: 6 core/12 thread
+	Cache: 32 MB 
+	eGPU: AMD Radeon™ Graphics
+	TDP: 105W
+
+
+
+
+AMD RYZEN 3 3300X
+	Price: $135
+	Socket: AM4
+	Core/Thread: 4 core/8 thread
+	Cache: 18 MB 
+	eGPU: None
+	TDP: 65W
+
+AMD RYZEN 3 5300G
+	Price: $130
+	Socket: AM4
+	Core/Thread: 4 core/8 thread
+	Cache: 8 MB 
+	eGPU: AMD Radeon™ Graphics
+	TDP: 65W
+
+AMD PRO ThreadRipper 5995X
+	Price: $7452
+	Socket: sWRX8
+	Core/Thread: 64 core/128 thread
+	Cache: 292 MB 
+	eGPU: None
+	TDP: 280W
+
+INTEL I3 13100F
+	Price: $127
+	Socket: LGA1700
+	Core/Thread: 4 core/8 thread
+	Cache: 12 MB 
+	eGPU: None
+	TDP: 58W
+
+INTEL I3 13100T
+	Price: $134
+	Socket: LGA1700
+	Core/Thread: 4 core/8 thread
+	Cache: 12 MB 
+	eGPU: Intel UHD Graphic 730
+	TDP: 69W
+
+INTEL Xeon Max 9462
+	Price: $7995
+	Socket: LGA 4677
+	Core/Thread: 32 core/64 thread
+	Cache: 75 MB 
+	eGPU: None
+	TDP: 350W 

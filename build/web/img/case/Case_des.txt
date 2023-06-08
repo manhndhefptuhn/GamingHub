@@ -1,0 +1,78 @@
+JETEK EM1
+	Price: 330
+	Dimension: 355 x 170 x 295 mm
+	Extension slots: 4 
+	Front panel ports: 2 x USB 2.0, 1 x 3.5mm, 1 x Micro USB
+	Color: Black
+
+Jetek Mini I8-22B 
+	Price: 490
+	Dimension: 415 x 116 x 300 mm
+	Extension slots: 4 
+	Front panel ports: 2 x USB 2.0, 2 x 3.5mm
+	Color: Black
+
+XIGMATEK NYA 3F RGB
+	Price: 690
+	Dimension: 365 x 200 x 456 mm
+	Extension slots: 7 
+	Front panel ports: USB3.0 x 1 - USB2.0 x2 - Audio in/out x 1 (HD Audio)
+	Color: Black
+
+1st Player XF Black 
+	Price: 890
+	Dimension: 390 x 210 x 480 mm
+	Extension slots: 7 
+	Front panel ports: USB3.0 x 1, USB2.0 x 2 ,HD audio
+	Color: Black
+
+MIK TN10
+	Price: 990
+	Dimension: 372 x 210 x 480 mm
+	Extension slots: 7 
+	Front panel ports: 2 x USB 2.0 + 1 x USB 3.0 + HD Audio
+	Color: Black
+
+
+Cougar Archon 2 Mesh White RGB
+	Price: 1150
+	Dimension: 210 x 470 x 380 mm
+	Extension slots: 7 
+	Front panel ports: USB 3.0 x 2, USB 2.0 x 1, Mic x 1 / Audio x 1, RGB Button
+	Color: Black
+
+MIK LV12 M BLACK
+	Price: 1230
+	Dimension: 428 x 280 x 375 mm
+	Extension slots: 4
+	Front panel ports: USB 3.0 x 2, HD Audio
+	Color: Black
+
+MIK LV12 M WHITE
+	Price: 1330
+	Dimension: 428 x 280 x 375 mm
+	Extension slots: 4
+	Front panel ports: USB 3.0 x 2, HD Audio
+	Color: White
+
+MIK LV12 BLACK
+	Price: 1690
+	Dimension: 455 x 405 x 520 mm
+	Extension slots: 10
+	Front panel ports: USB 3.0 x 1, USB 2.0 x 2, HD Audio
+	Color: Gray
+
+Cougar DarkBlader X7 Midnight Green
+	Price: 1690
+	Dimension: 220 x 486 x 468 mm
+	Extension slots: 9
+	Front panel ports: USB 3.0 x 2, USB 2.0 x 1, HD Audio
+	Color: Black
+
+
+
+
+
+
+
+

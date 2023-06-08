@@ -1,0 +1,177 @@
+MAINBOARD ASUS PRIME H510M-K 
+	Price:$72
+	CPU Socket: LGA120
+	Chipset Type: Intel H510 
+	Memory Clock Speed: 2133 MHz
+	RAM slots: 2 (DDR4)
+	Expansion Slots
+		1 x PCI Express 4.0/3.0 x16 
+		1 x PCI Express 3.0 x1 
+
+MAINBOARD MSI H510M PRO-E
+	Price:$70
+	CPU Socket: LGA120
+	Chipset Type: Intel H510 
+	Memory Clock Speed: 2133 MHz
+	RAM slots: 2 (DDR4)
+	Expansion Slots	
+		1 x PCIe x16
+		2 x PCIe x1
+
+
+MAINBOARD ASUS TUF GAMING B550M-PLUS WIFI II
+	Price:$160
+	CPU Socket: AM4
+	Chipset Type: B550
+	Memory Clock Speed: 2133 MHz
+	RAM slots: 4 (DDR4)
+	Expansion Slots	
+		1 x PCIe 4.0 x16 slot (supports x16 mode)
+		1 x PCIe 3.0 x16 slot (supports x16 mode)
+		1 x PCIe 3.0 x16 slot (supports x4 mode)
+		1 x PCIe 3.0 x1 slot
+
+
+MAINBOARD ASUS PRIME H510M-K R2.0 - CSM (TRAY)
+	Price:$69
+	CPU Socket: LGA 1200
+	Chipset Type: Intel H470
+	Memory Clock Speed: 2133 MHz
+	RAM slots: 2 (DDR4)
+	Expansion Slots	
+		1 x PCIe 4.0/3.0 x16  
+		1 x PCIe 3.0 x1 	
+
+MAINBOARD MSI PRO Z790-P WIFI DDR4
+	Price:$272
+	CPU Socket: LGA 1700
+	Chipset Type: Intel Z790
+	Memory Clock Speed: 2133 MHz
+	RAM slots: 4 (DDR4)
+	Expansion Slots	
+		3x PCIe x16 
+		1x PCIe x1 
+
+MAINBOARD ASUS Prime Z790-A WiFi 6E 
+	Price:$425
+	CPU Socket: LGA 1700
+	Chipset Type: Intel Z790
+	Memory Clock Speed: 2133 MHz
+	RAM slots: 4 (DDR5)
+	Expansion Slots	
+		1 x PCIe 5.0 x16
+		1 x PCIe 4.0 x4	
+		2 x PCIe 3.0 x1
+
+
+Mainboard MSI PRO B660M-E DDR4
+	Price:$114
+	CPU Socket: LGA 1700
+	Chipset Type: Intel Z790
+	Memory Clock Speed: 2133 MHz
+	RAM slots: 2 (DDR4)
+	Expansion Slots	
+		 1 x PCI-E X16
+		 1 x PCI-E X1
+
+ASUS PRIME Z790-P WIFI-CSM
+	Price:$499
+	CPU Socket: LGA 1700
+	Chipset Type: Intel Z790
+	Memory Clock Speed: 2133 MHz
+	RAM slots: 4 (DDR5)
+	Expansion Slots	
+		1 x PCIe 5.0 x16
+		3 x PCIe 4.0 x4	
+
+Gigabyte B550M K AM4 Micro-ATX
+	Price:$139
+	CPU Socket: AM4
+	Chipset Type: B550
+	Memory Clock Speed: 2133 MHz
+	RAM slots: 4 (DDR4)
+	Expansion Slots	
+		1 x PCIe 3.0 
+		1 x PCIe 4.0 
+		
+
+Gigabyte B560 HD3 Intel
+	Price:$149
+	CPU Socket: LGA 1200
+	Chipset Type: Intel Z790
+	Memory Clock Speed: 2666 MHz
+	RAM slots: 4 (DDR4)
+	Expansion Slots	
+		 2x PCIe x16 
+		 2x PCIe Express x1 
+
+Gigabyte Z790 AORUS ELITE AX
+	Price:$429
+	CPU Socket: LGA 1700
+	Chipset Type: Intel Z790
+	Memory Clock Speed: 2666 MHz
+	RAM slots: 4 (DDR5)
+	Expansion Slots	
+		 1x PCIe 5.0 x16, 
+		 2x PCIe 4.0 x16 (x4 Mode)
+
+MSI MPG B650 Edge WiFi AM5 ATX
+	Price:$499
+	CPU Socket: AM5
+	Chipset Type: B650
+	Memory Clock Speed: 3300 MHz
+	RAM slots: 4 (DDR5)
+	Expansion Slots	
+		2x PCIe 4.0 x16
+		1x PCIe 3.0 x1
+
+Asus PRIME B760M-A WIFI
+	Price:$255
+	CPU Socket: LGA 1700
+	Chipset Type: B670
+	Memory Clock Speed: 5333 MHz
+	RAM slots: 4 (DDR4)
+	Expansion Slots	
+		3x PCIe 4.0 x16
+		
+
+MSI PRO Z790-A WIFI
+	Price:$439
+	CPU Socket: LGA 1700
+	Chipset Type: B670
+	Memory Clock Speed: 7200+ MHz
+	RAM slots: 4 (DDR5)
+	Expansion Slots	
+		 PCIe 5.0 x16,
+		 PCIe 4.0 x16, 
+		 2x PCIe 3.0 x1 
+
+ASUS B550-PLUS TUF Gaming Wi-Fi
+	Price:$259
+	CPU Socket: AM4
+	Chipset Type: B550
+	Memory Clock Speed: 4866 MHz
+	RAM slots: 4 (DDR4)
+	Expansion Slots	
+		PCIe 4.0 x16 X16,
+		PCIe 3.0 x16 X16, 
+		PCIe 3.0 x16 X4, 
+		3x PCIe 3.0 x1 
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -35,7 +35,7 @@ public class RegisterController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
+
         HttpSession session = request.getSession();
         String fullName = request.getParameter("fullName");
         String email = request.getParameter("email");
@@ -47,19 +47,25 @@ public class RegisterController extends HttpServlet {
 
         UserDAO uDAO = new UserDAO();
         SendEmail se = new SendEmail();
-        
+
         User u = uDAO.checkUserExist(email);
-        
+        boolean emailSent;
+
         if (!phoneNum.matches("[0-9]*")) {
             request.setAttribute("phoneNoti", "Your Phone Number is Invalid");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         } else if (u == null) {
-            uDAO.register(fullName, email, oldPassRegis, phoneNum, address);
-            se.sendRegister(email, oldPassRegis, fullName);
-            request.setAttribute("notification", "Sign Up successfully, please check your email");
-            session.setAttribute("oldPassRegis", oldPassRegis);
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-        }else{
+            emailSent = se.sendRegister(email, oldPassRegis, fullName);
+            if (emailSent) {
+                uDAO.register(fullName, email, oldPassRegis, phoneNum, address);
+                request.setAttribute("notification", "Sign Up successfully, please check your email");
+                session.setAttribute("oldPassRegis", oldPassRegis);
+                request.getRequestDispatcher("register.jsp").forward(request, response);
+            } else {
+                request.setAttribute("emailNoti", "There something wrong at out server, please try again");
+                request.getRequestDispatcher("register.jsp").forward(request, response);
+            }
+        } else {
             request.setAttribute("emailNoti", "Email is used, please enter again");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
