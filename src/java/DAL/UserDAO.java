@@ -24,7 +24,7 @@ public class UserDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT * FROM `User` WHERE `Email` = '" + email + "' and `Password` = '" + password + "';";
+                String sql = "SELECT * FROM `user` WHERE `Email` = '" + email + "' and `Password` = '" + password + "';";
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
                     User u = new User();
@@ -56,7 +56,7 @@ public class UserDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT * FROM `User` WHERE `Email` = '" + email + "'";
+                String sql = "SELECT * FROM `user` WHERE `Email` = '" + email + "'";
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
                     User u = new User();
@@ -84,7 +84,7 @@ public class UserDAO {
 
     public int register(String fullName, String email, String password, String phoneNum, String address) {
         int row = 0;
-        String sql = "INSERT INTO `User` \n"
+        String sql = "INSERT INTO `user` \n"
                 + "values (?,?,?,?,?,?,?,'1','1')";
         try {
             DBContext db = new DBContext();
@@ -110,7 +110,7 @@ public class UserDAO {
     public int changePassword(int user_ID, String newPass) {
         int row = 0;
         try {
-            String sql = "UPDATE `User`\n"
+            String sql = "UPDATE `user`\n"
                     + "   SET \n"
                     + "      `Password` = ?\n"
                     + " WHERE `User_ID` = ?\n";
@@ -133,7 +133,7 @@ public class UserDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT * FROM `User` WHERE `User_ID` = '" + userID + "' and `Password` = '" + password + "';";
+                String sql = "SELECT * FROM `user` WHERE `User_ID` = '" + userID + "' and `Password` = '" + password + "';";
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
                     User u = new User();
@@ -162,7 +162,7 @@ public class UserDAO {
     public int updateUserProfile(String fullName, String phone, String address, String avatarFile, int UserID){
         int row = 0;
         try {
-            String sql = "UPDATE `User`\n"
+            String sql = "UPDATE `user`\n"
                     + "   SET \n"
                     + "      `FullName` = ?,\n"
                     + "      `Phone_Number` = ?,\n"
@@ -191,7 +191,7 @@ public class UserDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT * FROM `User` WHERE `User_ID` = '" + userID + "';";
+                String sql = "SELECT * FROM `user` WHERE `User_ID` = '" + userID + "';";
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
                     User u = new User();
