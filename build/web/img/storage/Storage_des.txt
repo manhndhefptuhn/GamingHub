@@ -1,0 +1,55 @@
+WD Blue
+	Price:$39
+	Compatible interface: 3.5" Inches SATA III
+	RPM: 7200
+	Transfer Rate: 215 MB/s
+	Capacity: 1TB
+
+WD Black	
+	Price:$85
+	Compatible interface: 3.5" Inches SATA III
+	RPM: 7200
+	Transfer Rate: 150 MB/s
+	Capacity: 1TB
+
+WD Red
+	Price:$219
+	Compatible interface: 3.5" Inches SATA III
+	RPM: 5400
+	Transfer Rate: 180 MB/s
+	Capacity: 8TB
+
+Samsung 980 V8V1T0BW
+	Price:$60
+	Compatible interface: M.2 NVMe Gen3 x4
+	Read speed: 3500 MB/s
+	Write speed: 3000 MB/s
+	Capacity: 1TB
+
+Samsung 970 EVO Plus
+	Price:$65
+	Compatible interface: M.2 NVMe Gen3 x4
+	Read speed: 3500 MB/s
+	Write speed: 3200 MB/s
+	Capacity: 1TB
+
+Samsung 870 Qvo
+	Price:$110
+	Compatible interface: 3.5" Inches SATA III
+	Read speed: 560 MB/s
+	Write speed: 530 MB/s
+	Capacity: 2TB
+
+SSD Kingston A400 960GB SA400S37/960G
+	Price:$85
+	Compatible interface: 3.5" Inches SATA III
+	Read speed: 550 MB/s
+	Write speed: 450 MB/s
+	Capacity: 960GB
+
+MSI SPATIUM M390
+	Price:$94
+	Compatible interface: PCIe G3 Nvme 1.4
+	Read speed: 3300 MB/s
+	Write speed: 300 MB/s
+	Capacity: 1TB

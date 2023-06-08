@@ -424,6 +424,7 @@ ol {
 
 .header__right {
 	text-align: right;
+	padding: 30px 0 27px;
 }
 
 .header__right__auth {
@@ -450,7 +451,6 @@ ol {
 	position: absolute;
 	right: -8px;
 	top: -2px;
-	content: "/";
 	font-size: 13px;
 }
 
@@ -498,59 +498,6 @@ ol {
 
 .canvas__open {
 	display: none;
-}
-
-.userProfile-dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.userProfile-dropdown-btn {
-  background-color: #fff;
-  color: #333;
-  border: none;
-  cursor: pointer;
-  padding: 8px 16px;
-  border-radius: 20px;
-}
-
-.userProfile-dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.userProfile-dropdown-content a {
-  color: #333;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  transition: background-color 0.3s ease;
-}
-
-.userProfile-dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  margin-right: 8px;
-  vertical-align: middle;
-}
-
-.username {
-  font-weight: bold;
-  vertical-align: middle;
-}
-
-.caret {
-  margin-left: 8px;
-  vertical-align: middle;
 }
 
 /*---------------------
@@ -2075,44 +2022,6 @@ ol {
 	width: 335px;
 	background: #e1e1e1;
 	content: "";
-}
-
-.sidebar .navbar .dropdown-toggle::after {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    border: none;
-    content: "\f107";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    transition: .5s;
-}
-
-.sidebar .navbar .dropdown-toggle[aria-expanded=true]::after {
-    transform: rotate(-180deg);
-}
-
-.sidebar .navbar .dropdown-item {
-    padding-left: 25px;
-    border-radius: 0 30px 30px 0;
-}
-
-.content .navbar .dropdown-toggle::after {
-    margin-left: 6px;
-    vertical-align: middle;
-    border: none;
-    content: "\f107";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    transition: .5s;
-}
-
-.content .navbar .dropdown-toggle[aria-expanded=true]::after {
-    transform: rotate(-180deg);
-}
-.bootstrap-datetimepicker-widget.dropdown-menu {
-    padding: 10px;
-    border-radius: 2px;
 }
 
 .nav-item {
@@ -3769,4 +3678,119 @@ ol {
 		width: 100%;
 		font-size: 24px;
 	}
+}
+.texto h1{
+	text-align: center;
+	font-size: 2.5em;
+}
+.main-block{
+	text-align: center;
+
+}
+.table-responsive{
+	table-layout: fixed;
+}
+.dropbtn {
+	margin-right: 10px;
+	padding: 16px;
+	font-size: 16px;
+	border: 1px solid white;
+	cursor: pointer;
+
+
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #00000000;
+	min-width: 200px;
+	z-index: 1;
+	margin-top: 20px;
+}
+
+.dropdown-content a {
+	width: 50%;
+	color: black;
+	text-align: center;
+	padding: 5px 5px;
+	text-decoration: none;
+	display: block;
+}
+
+hr.solid {
+
+	text-align: center;
+}
+
+.show {
+	display: block;
+}
+
+.container {
+	width: 970px;
+	padding: 10px;
+}
+.table{
+	width: 900px;
+	height: 150px;
+	margin-top: 40px;
+}
+
+div.gallery {
+	border: 1px solid #ccc;
+}
+
+div.gallery:hover {
+	border: 1px solid #777;
+}
+
+div.gallery img {
+	width: 100%;
+	height: auto;
+}
+
+div.desc {
+	padding: 15px;
+	text-align: center;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.responsive {
+	padding: 0 6px;
+	float: left;
+	width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px) {
+	.responsive {
+		width: 49.99999%;
+		margin: 6px 0;
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	.responsive {
+		width: 100%;
+	}
+}
+
+.clearfix:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+.text2 h1{
+	margin-top:50px;
+	margin-bottom: 15px;
+	font-size: 40px;
+
 }

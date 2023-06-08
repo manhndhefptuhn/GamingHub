@@ -27,7 +27,6 @@
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/jquery-ui.min.css" type="text/css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/magnific-popup.css" type="text/css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/owl.carousel.min.css" type="text/css">
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/slicknav.min.css" type="text/css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/style.css" type="text/css">
     </head>
     <body>
@@ -42,18 +41,24 @@
             <div class="offcanvas__close">+</div>
             <ul class="offcanvas__widget">
                 <li><span class="icon_search search-switch"></span></li>
-                <li><a href="#"><span class="icon_heart_alt"></span>
-                        <div class="tip">2</div>
-                    </a></li>
-                <li><a href="#"><span class="icon_bag_alt"></span>
-                        <div class="tip">2</div>
-                    </a></li>
+                    <c:if test="${sessionScope.user.getRole_ID() == 1 || sessionScope.user == null}">
+                    <li><a href="#"><span class="icon_heart_alt"></span>
+                            <div class="tip">2</div>
+                        </a></li>
+                    <li><a href="#"><span class="icon_bag_alt"></span>
+                            <div class="tip">2</div>
+                        </a></li>
+                    </c:if>
             </ul>
             <div class="offcanvas__logo">
                 <a href="<%= request.getContextPath()%>/Home.jsp"><img src="<%= request.getContextPath()%>/img/shop/logo1.png" alt="logo"></a>
             </div>
             <div id="mobile-menu-wrap"></div>
-            <a href="Login.jsp">Login</a>
+            <c:if test="${sessionScope.user == null}">
+                <div class="offcanvas__auth">
+                    <a href="Login.jsp">Login</a>
+                </div>
+            </c:if>
         </div>
         <!-- Offcanvas Menu End -->
 
@@ -69,7 +74,7 @@
                     <div class="col-xl-6 col-lg-7">
                         <nav class="header__menu">
                             <ul>
-                                <li class="active"><a href="Home.jsp">Home</a></li>
+                                <li><a href="Home.jsp">Home</a></li>
                                 <li><a href="shop.jsp">Shop</a></li>
                                 <li><a href="#">Pages</a>
                                     <ul class="dropdown">
@@ -91,7 +96,7 @@
                                     <a style="text-transform: uppercase; color: #111111; font-weight: 500;font-size: 15px;"href="Login.jsp">Login</a>
                                 </c:if>
                                 <c:if test="${sessionScope.user != null}">
-                                    <nav class="header__menu" >
+                                    <nav class="header__menu">
                                         <ul>
                                             <li><a>${sessionScope.user.getFullName()}</a>
                                                 <ul class="dropdown">
@@ -110,15 +115,15 @@
                                                         </c:if>
                                                     <li><a href="logout">Log out</a></li>
                                                 </ul>
-                                            </li>
                                         </ul>
                                     </nav>
+                                    </li>
                                 </c:if>        
-
                             </div>
+
                             <ul class="header__right__widget">
-                                <li><span class="icon_search search-switch"></span></li>
                                 <c:if test="${sessionScope.user.getRole_ID() == 1 || sessionScope.user == null}">
+                                    <li><span class="icon_search search-switch"></span></li>
                                     <li><a href="#"><span class="icon_heart_alt"></span>
                                             <div class="tip">2</div>
                                         </a></li>
@@ -143,7 +148,6 @@
         <script src="<%= request.getContextPath()%>/js/jquery-ui.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/mixitup.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/jquery.countdown.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/jquery.slicknav.js"></script>
         <script src="<%= request.getContextPath()%>/js/owl.carousel.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/jquery.nicescroll.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/main.js"></script>

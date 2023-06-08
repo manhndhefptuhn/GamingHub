@@ -14,7 +14,7 @@ import javax.mail.internet.*;
  */
 public class SendEmail {
 
-    public void sendRegister(String toEmail, String password, String fullName) {
+    public boolean sendRegister(String toEmail, String password, String fullName) {
         //provide sender's email ID
         String fromEmail = "ghub31291@gmail.com";
         String fromPassword = "wlwgwerbsfqipnan";
@@ -202,13 +202,15 @@ public class SendEmail {
 
             //send the email message
             Transport.send(message);
+            return true;
 
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return false;
         }
     }
     
-    public void sendForgetPass(String toEmail, String password, String fullName) {
+    public boolean sendForgetPass(String toEmail, String password, String fullName) {
         //provide sender's email ID
         String fromEmail = "ghub31291@gmail.com";
         String fromPassword = "wlwgwerbsfqipnan";
@@ -396,9 +398,10 @@ public class SendEmail {
 
             //send the email message
             Transport.send(message);
-
+            return true;
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return false;
         }
     }
 }

@@ -1,0 +1,116 @@
+GIGABYTE GeForce RTX 4090 GAMING OC 24G
+	Price:$2258
+	Base clock: 2535 MHz
+	CUDA cores: 16384
+	VRAM: 24GB GDDR6X
+	TDP: 1000W
+	PCIe slot: PCIe 4.0 x16	
+
+
+
+ASUS Dual GeForce RTX 3060 White 8G GDDR6
+	Price:$362
+	Base clock: 1807MHz
+	CUDA cores: 3584
+	VRAM: 8GB GDDR6
+	TDP: 650W
+	PCIe slot: PCIe x16
+	
+Gigabyte GeForce GTX 1660 SUPER OC 6GB GDDR6
+	Price:$225
+	Base clock: 1830MHz
+	CUDA cores: 1408
+	VRAM: 6GB GDDR6
+	TDP: 450W
+	PCIe slot: PCIe 3.0 x16
+
+GIGABYTE AORUS GeForce RTX 4060 Ti ELITE 8G
+	Price:$619
+	Base clock: 2655MHz
+	CUDA cores: 4352
+	VRAM: 8GB GDDR6
+	TDP: 500W
+	PCIe slot: PCIe 4.0 x16
+
+
+GIGABYTE AORUS GeForce RTX 4090 XTREME WATERFORCE 24G
+	Price:$2513
+	Base clock: 2565MHz
+	CUDA cores: 16384
+	VRAM: 24GB GDDR6X
+	TDP: 850W
+	PCIe slot: PCIe 4.0 x16
+
+GIGABYTE GeForce RTX 3060 Ti VISION OC 8G (LHR)
+	Price:$532
+	Base clock: 1755MHz
+	CUDA cores: 4864
+	VRAM: 8GB GDDR6
+	TDP: 650W
+	PCIe slot: PCIe 4.0 x16
+	
+
+GIGABYTE GeForce RTX 4060 Ti EAGLE 8G
+	Price:$532
+	Base clock: 2535MHz
+	CUDA cores: 4352
+	VRAM: 8GB GDDR6
+	TDP: 500W
+	PCIe slot: PCIe 4.0 x16	
+
+
+GIGABYTE GeForce RTX 4070 Ti AERO OC 12G
+	Price:$1235
+	Base clock: 2640MHz
+	CUDA cores: 7680
+	VRAM: 12GB GDDR6X
+	TDP: 750W
+	PCIe slot: PCIe 4.0 x16	
+
+GIGABYTE Radeon RX 6600 XT GAMING OC 8G
+	Price:$555
+	Base clock: 1968MHz
+	Cores: 2048
+	VRAM: 8GB GDDR6
+	TDP: 500W
+	PCIe slot: PCIe 4.0 x16	
+
+GIGABYTE Radeon RX 6700 XT GAMING OC 12G
+	Price:$1064
+	Base clock: 2622MHz
+	Cores: 2560
+	VRAM: 12GB GDDR6
+	TDP: 650W
+	PCIe slot: PCIe 4.0 x16	
+
+ASUS TUF Gaming Radeon RX 6800 OC Edition 16GB GDDR6
+	Price:$1193
+	Base clock: 2190MHz
+	Cores: 3840
+	VRAM: 16GB GDDR6
+	TDP: 650W
+	PCIe slot: PCIe 4.0 x16
+
+GIGABYTE Radeon RX 7900 XT GAMING OC 20G
+	Price:$1277
+	Base clock: 2535MHz
+	Cores: 5376
+	VRAM: 20GB GDDR6
+	TDP: 800W
+	PCIe slot: PCIe 4.0 x16
+
+ASUS TUF Gaming Radeon RX 7900 XTX OC Edition 24GB GDDR6
+	Price:$1533
+	Base clock: 2565MHz
+	Cores: 6144
+	VRAM: 20GB GDDR6
+	TDP: 850W
+	PCIe slot: PCIe 4.0 x16
+
+GIGABYTE AORUS Radeon RX 6900 XT MASTER 16G
+	Price:$1703
+	Base clock: 2335MHz
+	Cores: 5120
+	VRAM: 16GB GDDR6
+	TDP: 850W
+	PCIe slot: PCIe 4.0 x16

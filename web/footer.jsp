@@ -25,7 +25,6 @@
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/jquery-ui.min.css" type="text/css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/magnific-popup.css" type="text/css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/owl.carousel.min.css" type="text/css">
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/slicknav.min.css" type="text/css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/style.css" type="text/css">
     </head>
     <body>
@@ -60,6 +59,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="footer__copyright__text">
+                            <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </footer>
         <!-- Footer Section End -->
@@ -80,7 +86,6 @@
         <script src="<%= request.getContextPath()%>/js/jquery-ui.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/mixitup.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/jquery.countdown.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/jquery.slicknav.js"></script>
         <script src="<%= request.getContextPath()%>/js/owl.carousel.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/jquery.nicescroll.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/main.js"></script>

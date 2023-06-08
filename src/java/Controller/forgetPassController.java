@@ -39,7 +39,7 @@ public class forgetPassController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet forgetPassController</title>");            
+            out.println("<title>Servlet forgetPassController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet forgetPassController at " + request.getContextPath() + "</h1>");
@@ -79,23 +79,29 @@ public class forgetPassController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         String email = request.getParameter("email");
-        
+
         UserDAO uDAO = new UserDAO();
         User user = uDAO.checkUserExist(email);
-        
+
         SendEmail se = new SendEmail();
         RandomPassword rdpw = new RandomPassword();
-        
+        boolean emailSent;
+
         String oldPassRegis = rdpw.generatePassword();
-        if(user == null){
+        if (user == null) {
             request.setAttribute("notification", "Email is not exist");
             request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
-        }else{
-            uDAO.changePassword(user.getUser_ID(), oldPassRegis);
-            se.sendForgetPass(email, oldPassRegis, user.getFullName());
-            request.setAttribute("notification", "Request change password, please check your email");
-            session.setAttribute("oldPassRegis", oldPassRegis);
-            request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
+        } else {
+            emailSent = se.sendForgetPass(email, oldPassRegis, user.getFullName());
+            if (emailSent) {
+                uDAO.changePassword(user.getUser_ID(), oldPassRegis);
+                request.setAttribute("notification", "Request change password, please check your email");
+                session.setAttribute("oldPassRegis", oldPassRegis);
+                request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
+            }else{
+                request.setAttribute("notification", "There something wrong at out server, please try again");
+                request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
+            }
         }
     }
 
