@@ -12,6 +12,8 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Profile</title>
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/style2.css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/bootstrap.min.css">
@@ -130,10 +132,10 @@
                                 </c:if>
                                 <div class="row gutters">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                        <div class="text-right">
-                                            <input type="submit" id="update" name="update" value="Update" class="btn btn-primary">
-                                            <input type="submit" id="changepass" name="changePass" value="Change Password" class="btn btn-primary">
-                                            <input type="submit" id="backtohome" name="backToHome" value="Back to Homepage" class="btn btn-dark">
+                                        <div class="text-center"">
+                                                <input type="submit" id="update" name="update" value="Update" class="btn btn-primary">
+                                                <input type="submit" id="changepass" name="changePass" value="Change Password" class="btn btn-primary">
+                                                <input type="submit" id="backtohome" name="backToHome" value="Back to Homepage" class="btn btn-dark">
                                         </div>
                                     </div>
                                 </div>
