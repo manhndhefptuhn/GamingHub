@@ -98,7 +98,7 @@
                                 <c:if test="${sessionScope.user != null}">
                                     <nav class="header__menu">
                                         <ul>
-                                            <li><a>${sessionScope.user.getFullName()}</a>
+                                            <li>${sessionScope.user.getFullName()}
                                                 <ul class="dropdown">
                                                     <li><a href="userProfile">My Profile</a></li>
                                                         <c:if test="${sessionScope.user.getRole_ID() == 1}">
