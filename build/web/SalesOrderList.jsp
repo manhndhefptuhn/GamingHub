@@ -100,24 +100,18 @@
     </nav>
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-<!--      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">-->
-
-<!--        <div class="btn-toolbar mb-2 mb-md-0">-->
-<!--          <div class="btn-group mr-2">-->
-<!--            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>-->
-<!--            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>-->
-<!--          </div>-->
-<!--          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">-->
-<!--            <span data-feather="calendar"></span>-->
-<!--            This week-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-
-
-
       <h2>Order List</h2>
-      <div><button type="button" id="filter" name="filter">Filter</button></div>
+      <div class="search_bar">
+        <input type="email" id="email" name="email" type="text" id="text" name="text" type="tel" id="phone" name="phone" placeholder="Enter email, name, phone">
+        <select name="status" id="status">
+          <option value="All Status">All Status</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+        <input type="date" id="search_date" name="search_date">
+        <button type="button" id="search" name="search">Search</button>
+        <button type="button" id="add" name="add"><a href="AdminAddUser.html" style="color: white">Add new user</a></button>
+      </div>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
@@ -200,4 +194,5 @@
 <script src="../js/dashboard.js"></script>
 </body>
 </html>
+
 

@@ -25,23 +25,9 @@
             <div class="user-profile">
               <div class="user-avatar">
                 <img src="https://bootdey.com/img/Content/avatar/avatar7.png"  id="profile-pic"alt="User">
-                <label for="input-img">Change picture</label>
-                <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-img">
               </div>
-              <h5 class="user-name">Yuki Hayashi</h5>
-              <h6 class="user-email">yuki@Maxwell.com</h6>
-            </div>
-            <div class="about">
-              <select name="roles" id="roles">
-                <option value="All Roles">All Roles</option>
-                <option value="Admin">Admin</option>
-                <option value="Sale">Sale</option>
-                <option value="Customer">Customer</option>
-                <option value="Marketing">Marketing</option>
-                <option value="Support">Support</option>
-              </select>
-
-
+              <h6 class="user-email">Admin</h6>
+              <h5 class="user-name">Setting Detail</h5>
             </div>
 
           </div>
@@ -61,16 +47,11 @@
 
             <div class="col-lg-12">
               <div class="form-group">
-                <label for="phone">Phone</label>
+                <label for="phone">Status</label>
                 <input type="tel" class="form-control" id="settingvalue"  placeholder="Enter value">
               </div>
             </div>
-            <div class="col-lg-12">
-              <div class="form-group">
-                <label for="text">Address</label>
-                <input type="text" class="form-control" id="address" placeholder=" Address">
-              </div>
-            </div>
+
           </div>
           <div class="row gutters">
           </div>
