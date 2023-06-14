@@ -52,7 +52,7 @@
 
                                 <div class="form-group">
                                     <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" required/>
-                                    <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree to <a href="#" class="term-service" onclick="openPopup()">Terms and Conditions</a></label>
+                                    <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree to <a class="term-service" onclick="openPopup()" style="text-decoration: underline;">Terms and Conditions</a></label>
                                 </div>
                                 <div id="popup" class="popup">
                                     <div class="popup-content">
@@ -188,7 +188,7 @@
                                     <strong style="color: red;">${notification}</strong>
                                 </c:if>
                                 <div class="form-group form-button">
-                                    <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                                    <input type="submit" name="signup" id="signup" class="form-submit" value="Sign Up"/>
                                 </div>
                             </form>
                         </div>

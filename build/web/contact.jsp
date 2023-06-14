@@ -26,6 +26,7 @@
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/jquery-ui.min.css" type="text/css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/magnific-popup.css" type="text/css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/owl.carousel.min.css" type="text/css">
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/slicknav.min.css" type="text/css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/style.css" type="text/css">
     </head>
 
@@ -101,6 +102,7 @@
         <script src="<%= request.getContextPath()%>/js/jquery-ui.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/mixitup.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/jquery.countdown.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery.slicknav.js"></script>
         <script src="<%= request.getContextPath()%>/js/owl.carousel.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/jquery.nicescroll.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/main.js"></script>

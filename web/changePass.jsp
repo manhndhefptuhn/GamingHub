@@ -27,6 +27,16 @@
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="<%= request.getContextPath()%>/img/signin-image.jpg" alt="change pass image"></figure>
+                            <c:if test="${sessionScope.user == null}">
+                            <div class="create-acc">
+                                <a href="Login.jsp" class="signup-image-link">Back to Log In</a>
+                            </div>
+                        </c:if>
+                        <c:if test="${sessionScope.user != null}">
+                            <div class="create-acc">
+                                <a href="userProfile.jsp" class="signup-image-link">Back to your profile</a>
+                            </div>
+                        </c:if>
                     </div>
                     <div class="signin-form">
                         <h2 class="form-title">Change password</h2>
@@ -57,23 +67,14 @@
                                     <input type="submit" name="changePass" id="changePass" class="form-submit" value="Change your password"/>
                                 </div>
                         </form>
-                        <c:if test="${sessionScope.user == null}">
-                            <div class="create-acc">
-                                <a href="Login.jsp" class="text1">Back to Log In</a>
-                            </div>
-                        </c:if>
-                        <c:if test="${sessionScope.user != null}">
-                            <div class="create-acc">
-                                <a href="userProfile.jsp" class="text1">Back to your profile</a>
-                            </div>
-                        </c:if>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- JS -->
-        <script src="<%= request.getContextPath()%>/jquery/jquery.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/main1.js"></script>
+        </div>
+    </section>
+    <!-- JS -->
+    <script src="<%= request.getContextPath()%>/jquery/jquery.min.js"></script>
+    <script src="<%= request.getContextPath()%>/js/main1.js"></script>
 
-    </body>
+</body>
 </html>

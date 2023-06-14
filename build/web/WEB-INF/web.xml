@@ -16,6 +16,10 @@
         <servlet-name>UpdateUserProfileController</servlet-name>
         <servlet-class>Controller.UpdateUserProfileController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeController</servlet-name>
+        <servlet-class>Controller.HomeController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -56,12 +60,16 @@
         <servlet-name>UpdateUserProfileController</servlet-name>
         <url-pattern>/updateUserProfile</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeController</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>Home.jsp</welcome-file>
+        <welcome-file>home</welcome-file>
     </welcome-file-list>
 </web-app>
