@@ -25,8 +25,8 @@ public class RoleDAO {
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
                     Roles r = new Roles();
-                    r.setRole_name(rs.getString(2));
-                    return r.getRole_name();
+                    r.setRoleName(rs.getString(2));
+                    return r.getRoleName();
                 }
                 rs.close();
                 st.close();

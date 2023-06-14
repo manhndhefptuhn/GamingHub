@@ -55,7 +55,7 @@
                                 <input type="submit" name="signin" id="signin" class="form-submit" value="Sign in"/>
                             </div>
                             <div class="container-swap">
-                                <div class="div_left">
+                                <div class="div_left" style="text-align:left;">
                                     <input type="checkbox" name="rememberMe" id="remember-me" class="agree-term" value="true"/>
                                     <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>                       
                                 </div>
