@@ -34,9 +34,11 @@ public class GetUserProfile extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User u = (User)session.getAttribute("user");
+        String notification = (String)request.getAttribute("notification");
         RoleDAO rDAO = new RoleDAO();
         String roleName = rDAO.getRoleNameByID(u.getRole_ID());
         request.setAttribute("userRole", roleName);
+        request.setAttribute("notification", notification);
         request.getRequestDispatcher("userProfile.jsp").forward(request, response);
     }
 

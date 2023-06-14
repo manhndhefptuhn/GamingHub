@@ -62,7 +62,7 @@
                                     </li>
                                     <li>
                                         <h6><i class="fa fa-phone"></i> Phone</h6>
-                                        <p><span>02473005588</span><span>0365616718</span></p>
+                                        <p><span>0365616718</span></p>
                                     </li>
                                     <li>
                                         <h6><i class="fa fa-headphones"></i> Support</h6>
@@ -75,7 +75,7 @@
                                 <form action="#">
                                     <input type="text" placeholder="Name">
                                     <input type="text" placeholder="Email">
-                                    <input type="text" placeholder="Phone Number">
+                                    <input type="text" placeholder="Subject">
                                     <textarea placeholder="Message"></textarea>
                                     <button type="submit" class="site-btn">Send Message</button>
                                 </form>

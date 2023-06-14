@@ -88,10 +88,10 @@ public class UpdateUserProfileController extends HttpServlet {
                 ServletContext context = getServletContext();
 
                 // Get the real path to the project folder
-                String projectFolderPath = context.getRealPath("/");
+                String projectFolderPath = context.getRealPath("/img");
                 System.out.println(projectFolderPath);
                 // Specify the directory to save the image
-                String uploadDirectory = projectFolderPath + "img\\avatar\\";
+                String uploadDirectory = projectFolderPath + "/avatar/";
                 File directory = new File(uploadDirectory);
                 if (!directory.exists()) {
                     directory.mkdirs();
