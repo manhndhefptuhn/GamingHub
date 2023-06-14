@@ -34,25 +34,28 @@
                             <div>
                                 <c:if test="${sessionScope.user != null}">
                                     <div class="form-group">
+                                        <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                                         <input type="password" name="oldPassLogin" id="old-Pass" placeholder="Old password"/>
                                     </div>
                                 </c:if>
                                 <div class="form-group">
+                                    <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
                                     <input type="password" name="newPass" id="your-pass" placeholder="New password"/>
                                 </div>
                                 <div class="form-group">
+                                    <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
                                     <input type="password" name="reNewPass" id="your-pass2" placeholder="Re-enter password"/>
                                 </div>
-
-                                <input type="checkbox" id="reveal-checkbox" class="agree-term" onclick="revealPassword()"/>
-                                <label for="reveal-checkbox" class="label-agree-term" ><span><span></span></span>Reveal Password</label>                       
-                            </div>
-                            <c:if test="${notification != null}">
-                                <strong style="color:red;">${notification}</strong>
-                            </c:if>
-                            <div class="form-group form-button">
-                                <input type="submit" name="changePass" id="changePass" class="form-submit" value="Change your password"/>
-                            </div>
+                                <div>
+                                    <input type="checkbox" id="reveal-checkbox" class="agree-term" onclick="revealPassword()"/>
+                                    <label for="reveal-checkbox" class="label-agree-term" ><span><span></span></span>Reveal Password</label>                       
+                                </div>
+                                <c:if test="${notification != null}">
+                                    <strong style="color:red;">${notification}</strong>
+                                </c:if>
+                                <div class="form-group form-button">
+                                    <input type="submit" name="changePass" id="changePass" class="form-submit" value="Change your password"/>
+                                </div>
                         </form>
                         <c:if test="${sessionScope.user == null}">
                             <div class="create-acc">

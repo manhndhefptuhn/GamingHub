@@ -28,17 +28,19 @@
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="<%= request.getContextPath()%>/img/signin-image.jpg" alt="Sign in image"></figure>
+                        <a href="register.jsp" class="signup-image-link">Create an account</a>
                     </div>
 
                     <div class="signin-form">
                         <h2 class="form-title">Sign in </h2>
                         <form action="login" method="POST" class="register-form" id="login-form">
                             <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
                                 <input type="email" name="email" id="your_email" placeholder="Your Email"/>
                             </div>
                             <div class="form-group">
+                                <label for="your_pass"><i class="zmdi zmdi-key"></i></label>
                                 <input type="password" name="password" id="loginPassword"  placeholder="Password"/>
-                                <span  class="fa fa-fw field-icon toggle-password"></span>
                             </div>
                             <div>
                                 <input type="checkbox" id="revealCheckbox" class="reveal-checkbox" onchange="togglePasswordVisibility()">
@@ -61,11 +63,7 @@
                                     <a href="forgetPassword.jsp" class="forgetpass">Forgot password</a>
                                 </div>
                             </div>       
-
                         </form>
-                        <div  class="create-acc">
-                            <a href="register.jsp" class="text1">Sign Up</a>
-                        </div>
                     </div>
                 </div>
             </div>

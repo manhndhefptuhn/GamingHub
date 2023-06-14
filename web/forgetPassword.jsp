@@ -27,12 +27,14 @@
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="<%= request.getContextPath()%>/img/signin-image.jpg" alt="sing up image"></figure>
+                        <a href="Login.jsp" class="signup-image-link">Back to Log In</a>
                     </div>
 
                     <div class="signin-form">
                         <h2 class="form-title">Reset password</h2>
                         <form action="forgetPass" method="POST" class="register-form" id="login-form">
                             <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
                                 <input type="email" name="email" id="your_email" placeholder="Your Email"/>
                             </div>
                             <c:if test="${notification != null}">
@@ -44,9 +46,6 @@
                                 </div>
                             </div>
                         </form>
-                        <div  class="create-acc">
-                            <a href="Login.jsp" class="text1">Back to Log In</a>
-                        </div>
                     </div>
                 </div>
             </div>
