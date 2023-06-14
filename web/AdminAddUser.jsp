@@ -10,10 +10,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Add new user</title>
-  <link rel="stylesheet" href="<%= request.getContextPath()%>/css/style2.css">
-  <link rel="stylesheet" href="<%= request.getContextPath()%>/css/bootstrap.min.css">
-  <link rel="stylesheet" href="<%= request.getContextPath()%>/scss/extra/userProfile.scss">
-  <link rel="stylesheet" href="<%= request.getContextPath()%>/js/">
+  <link rel="stylesheet" href="../css/style2.css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../scss/extra/userProfile.scss">
+  <link rel="stylesheet" href="../js/">
 </head>
 <body>
 <div class="dash-container">

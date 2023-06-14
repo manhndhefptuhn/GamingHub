@@ -20,9 +20,9 @@
 
 
   <!-- Bootstrap core CSS -->
-  <link href="<%= request.getContextPath()%>/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="<%= request.getContextPath()%>/css/dashboard.css">
-  <link rel="stylesheet" href="<%= request.getContextPath()%>/css/style3.css">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/style3.css">
 
 
 
@@ -45,7 +45,7 @@
 
 
   <!-- Custom styles for this template -->
-  <link href="<%= request.getContextPath()%>/css/dashboard.css" rel="stylesheet">
+  <link href="../css/dashboard.css" rel="stylesheet">
 </head>
 <body>
 
@@ -177,11 +177,11 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="<%= request.getContextPath()%>/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="<%= request.getContextPath()%>/assets/dist/js/bootstrap.bundle.min.js"></script>
+<script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-<script src="<%= request.getContextPath()%>/js/dashboard.js"></script>
+<script src="../js/dashboard.js"></script>
 </body>
 </html>
