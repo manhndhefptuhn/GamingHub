@@ -9,92 +9,94 @@ package Model;
  * @author Zarius
  */
 public class PC {
-    private int product_ID;
-    private int mainboard_ID;
-    private int cpu_ID;
-    private int ram_ID;
-    private int vga_ID;
-    private int storage_ID;
-    private int psu_ID;
-    private int case_ID;
+    private int productID;
+    private int mainboardID;
+    private int cpuID;
+    private int ramID;
+    private int vgaID;
+    private int storageID;
+    private int psuID;
+    private int caseID;
 
     public PC() {
     }
 
-    public PC(int product_ID, int mainboard_ID, int cpu_ID, int ram_ID, int vga_ID, int storage_ID, int psu_ID, int case_ID) {
-        this.product_ID = product_ID;
-        this.mainboard_ID = mainboard_ID;
-        this.cpu_ID = cpu_ID;
-        this.ram_ID = ram_ID;
-        this.vga_ID = vga_ID;
-        this.storage_ID = storage_ID;
-        this.psu_ID = psu_ID;
-        this.case_ID = case_ID;
+    public PC(int productID, int mainboardID, int cpuID, int ramID, int vgaID, int storageID, int psuID, int caseID) {
+        this.productID = productID;
+        this.mainboardID = mainboardID;
+        this.cpuID = cpuID;
+        this.ramID = ramID;
+        this.vgaID = vgaID;
+        this.storageID = storageID;
+        this.psuID = psuID;
+        this.caseID = caseID;
     }
 
-    public int getProduct_ID() {
-        return product_ID;
+    public int getProductID() {
+        return productID;
     }
 
-    public void setProduct_ID(int product_ID) {
-        this.product_ID = product_ID;
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
-    public int getMainboard_ID() {
-        return mainboard_ID;
+    public int getMainboardID() {
+        return mainboardID;
     }
 
-    public void setMainboard_ID(int mainboard_ID) {
-        this.mainboard_ID = mainboard_ID;
+    public void setMainboardID(int mainboardID) {
+        this.mainboardID = mainboardID;
     }
 
-    public int getCpu_ID() {
-        return cpu_ID;
+    public int getCpuID() {
+        return cpuID;
     }
 
-    public void setCpu_ID(int cpu_ID) {
-        this.cpu_ID = cpu_ID;
+    public void setCpuID(int cpuID) {
+        this.cpuID = cpuID;
     }
 
-    public int getRam_ID() {
-        return ram_ID;
+    public int getRamID() {
+        return ramID;
     }
 
-    public void setRam_ID(int ram_ID) {
-        this.ram_ID = ram_ID;
+    public void setRamID(int ramID) {
+        this.ramID = ramID;
     }
 
-    public int getVga_ID() {
-        return vga_ID;
+    public int getVgaID() {
+        return vgaID;
     }
 
-    public void setVga_ID(int vga_ID) {
-        this.vga_ID = vga_ID;
+    public void setVgaID(int vgaID) {
+        this.vgaID = vgaID;
     }
 
-    public int getStorage_ID() {
-        return storage_ID;
+    public int getStorageID() {
+        return storageID;
     }
 
-    public void setStorage_ID(int storage_ID) {
-        this.storage_ID = storage_ID;
+    public void setStorageID(int storageID) {
+        this.storageID = storageID;
     }
 
-    public int getPsu_ID() {
-        return psu_ID;
+    public int getPsuID() {
+        return psuID;
     }
 
-    public void setPsu_ID(int psu_ID) {
-        this.psu_ID = psu_ID;
+    public void setPsuID(int psuID) {
+        this.psuID = psuID;
     }
 
-    public int getCase_ID() {
-        return case_ID;
+    public int getCaseID() {
+        return caseID;
     }
 
-    public void setCase_ID(int case_ID) {
-        this.case_ID = case_ID;
+    public void setCaseID(int caseID) {
+        this.caseID = caseID;
     }
+
+    
     
     
 }
