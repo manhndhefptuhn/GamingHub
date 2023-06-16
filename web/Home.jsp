@@ -52,7 +52,6 @@
         </section>
         <!-- Banner Section End -->
 
-
         <!-- Product Section Begin -->
         <section class="product spad">
             <div class="container">
@@ -65,18 +64,18 @@
                     <div class="col-lg-8 col-md-8">
                         <ul class="filter__controls">
                             <li class="active" data-filter="*">All</li>
-                            <li data-filter=".women">Intel PCs</li>
-                            <li data-filter=".men">AMD PCs</li>
+                            <li data-filter=".intel">Intel PCs</li>
+                            <li data-filter=".amd">AMD PCs</li>
                         </ul>
                     </div>
                 </div>
                 <div class="row property__gallery">
-                    <div class="col-lg-3 col-md-4 col-sm-6 mix women">
+                    <div class="col-lg-3 col-md-4 col-sm-6 mix intel">
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                            <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath()%>/img/case/corsair_4000d_airflow_tg_black.jpg">
                                 <div class="label new">New</div>
                                 <ul class="product__hover">
-                                    <li><a href="<%= request.getContextPath()%>/img/product/product-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
+                                    <li><a href="<%= request.getContextPath()%>/img/case/corsair_4000d_airflow_tg_black.jpg" class="image-popup"><spjpg"an class="arrow_expand"></span></a></li>
                                     <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                     <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                                 </ul>
@@ -94,7 +93,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 mix men">
+                    <div class="col-lg-3 col-md-4 col-sm-6 mix intel">
                         <div class="product__item">
                             <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
                                 <ul class="product__hover">
@@ -116,7 +115,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 mix accessories">
+                    <div class="col-lg-3 col-md-4 col-sm-6 ">
                         <div class="product__item">
                             <div class="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
                                 <div class="label stockout">out of stock</div>

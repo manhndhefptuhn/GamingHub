@@ -5,10 +5,12 @@
 package Controller;
 
 import DAL.CPUDAO;
+import DAL.ProductDAO;
 import DAL.RAMDAO;
 import DAL.SliderDAO;
 import DAL.VGADAO;
 import Model.CPU;
+import Model.Product;
 import Model.RAM;
 import Model.Slider;
 import Model.VGA;
@@ -43,6 +45,7 @@ public class HomeController extends HttpServlet {
         CPUDAO cDAO = new CPUDAO();
         RAMDAO rDAO = new RAMDAO();
         VGADAO vDAO = new VGADAO();
+        ProductDAO pDAO = new ProductDAO();
         
         //Slider
         ArrayList<Slider> listSlider = slDAO.getAllSlider();
@@ -59,6 +62,17 @@ public class HomeController extends HttpServlet {
         //RAM
         ArrayList<RAM> listThreeRandomRAM = rDAO.getThreeRandomRAM();
         session.setAttribute("threeRAM", listThreeRandomRAM);
+        
+        //Intel PC
+        ArrayList<Product> listFourRandomIntelPC = pDAO.getFourRandomIntelPC();
+        session.setAttribute("listFourRandomIntelPC", listFourRandomIntelPC);
+        
+        //AMD PC
+        ArrayList<Product> listFourRandomAMDPC = pDAO.getFourRandomAMDPC();
+        session.setAttribute("listFourRandomAMDPC", listFourRandomAMDPC);
+        
+        
+        
         
         request.getRequestDispatcher("Home.jsp").forward(request, response);
     }

@@ -14,19 +14,20 @@ public class Case {
     private int price;
     private String description;
     private String image;
-    private int component_ID;
+    private int componentID;
 
     public Case() {
     }
 
-    public Case(int caseID, String caseName, int price, String description, String image, int component_ID) {
+    public Case(int caseID, String caseName, int price, String description, String image, int componentID) {
         this.caseID = caseID;
         this.caseName = caseName;
         this.price = price;
         this.description = description;
         this.image = image;
-        this.component_ID = component_ID;
+        this.componentID = componentID;
     }
+
 
     public int getCaseID() {
         return caseID;
@@ -68,12 +69,13 @@ public class Case {
         this.image = image;
     }
 
-    public int getComponent_ID() {
-        return component_ID;
+    public int getComponentID() {
+        return componentID;
     }
 
-    public void setComponent_ID(int component_ID) {
-        this.component_ID = component_ID;
+    public void setComponentID(int componentID) {
+        this.componentID = componentID;
     }
+
     
 }

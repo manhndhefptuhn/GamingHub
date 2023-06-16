@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="phone"><i class="zmdi zmdi-phone"></i></label>
-                                    <input type="text" name="phoneNum" id="phone-num" placeholder="Your Phone Number" required>
+                                    <input type="text" name="phoneNum" id="phone-num" placeholder="Your Phone Number" pattern="[0-9]{10}" required>
                                 </div>
 
                                 <div class="form-group">
