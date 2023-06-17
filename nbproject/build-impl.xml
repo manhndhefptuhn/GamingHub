@@ -1256,8 +1256,8 @@ exists or setup the property manually. For example like this:
     <target if="netbeans.home" name="-profile-check">
         <condition property="profiler.configured">
             <or>
-                <contains casesensitive="true" string="${run.jvmargs.ide}" substring="-agentpath:"/>
-                <contains casesensitive="true" string="${run.jvmargs.ide}" substring="-javaagent:"/>
+                <contains casesensitive="false" string="${run.jvmargs.ide}" substring="-agentpath:"/>
+                <contains casesensitive="false" string="${run.jvmargs.ide}" substring="-javaagent:"/>
             </or>
         </condition>
     </target>

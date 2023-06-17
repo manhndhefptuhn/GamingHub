@@ -68,10 +68,9 @@ public class CaseDAO {
                 st.close();
                 con.close();
             }
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return -1;
     }
 }
