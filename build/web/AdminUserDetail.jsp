@@ -89,14 +89,6 @@
     </div>
   </div>
 </div>
-<!--<script>-->
-<!--    let profilePic = document.getElementById("profile-pic");-->
-<!--    let inputFile = document.getElementById("input-img");-->
-
-<!--    inputFile.onchange = function (){-->
-<!--        profilePic.src = URL.createObjectURL(inputFile.files[0]);-->
-<!--    }-->
-<!--</script>-->
 </body>
 
 </html>
