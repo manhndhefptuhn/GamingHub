@@ -26,6 +26,20 @@ function revealPassword() {
     }
 }
 
+function revealPassword1() {
+    var passwordInput2 = document.getElementById('your-pass');
+    var passwordInput3 = document.getElementById('your-pass2');
+    var revealCheckbox = document.getElementById('reveal-checkbox');
+
+    if (revealCheckbox.checked) {
+        passwordInput2.type = 'text';
+        passwordInput3.type = 'text';
+    } else {
+        passwordInput2.type = 'password';
+        passwordInput3.type = 'password';
+    }
+}
+
 function openPopup() {
     var popup = document.getElementById('popup');
     popup.style.display = 'block';

@@ -13,6 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Sign in</title>
+        <link rel="icon" type="image/png" href="<%= request.getContextPath()%>/img/shop/logo1.png"/>
 
         <!-- Font Icon -->
         <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
@@ -34,10 +35,20 @@
                     <div class="signin-form">
                         <h2 class="form-title">Sign in </h2>
                         <form action="login" method="POST" class="register-form" id="login-form">
-                            <div class="form-group">
-                                <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="your_email" placeholder="Your Email"/>
-                            </div>
+                            <c:choose>
+                                <c:when test="${email != null}">
+                                    <div class="form-group">
+                                        <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                        <input type="email" name="email" id="your_email" placeholder="Your Email" value="${email}"/>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="form-group">
+                                        <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                        <input type="email" name="email" id="your_email" placeholder="Your Email"/>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                             <div class="form-group">
                                 <label for="your_pass"><i class="zmdi zmdi-key"></i></label>
                                 <input type="password" name="password" id="loginPassword"  placeholder="Password"/>

@@ -85,7 +85,7 @@ public class UserDAO {
     public int register(String fullName, String email, String password, String phoneNum, String address) {
         int row = 0;
         String sql = "INSERT INTO `user` \n"
-                + "values (?,?,?,?,?,?,?,'1','1')";
+                + "values (?,?,?,?,?,?,?,'0','1')";
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();

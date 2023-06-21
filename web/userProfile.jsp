@@ -79,7 +79,7 @@
                                     <div class="user-profile">
                                         <div class="user-avatar">
                                             <c:choose>
-                                                <c:when test="${sessionScope.user.getProfile_picture() == null}">
+                                                <c:when test="${sessionScope.user.getProfile_picture() == null || sessionScope.user.getProfile_picture() eq ''}">
                                                     <img src="<%= request.getContextPath()%>/img/default-avatar.png" alt="Avatar" id="avatar-img" onclick="openFileInput()">
                                                 </c:when>
                                                 <c:otherwise>

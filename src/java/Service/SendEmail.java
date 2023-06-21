@@ -14,7 +14,7 @@ import javax.mail.internet.*;
  */
 public class SendEmail {
 
-    public boolean sendRegister(String toEmail, String password, String fullName) {
+    public boolean sendPassword(String toEmail, String password, String fullName, String subject) {
         //provide sender's email ID
         String fromEmail = "ghub31291@gmail.com";
         String fromPassword = "wlwgwerbsfqipnan";
@@ -49,7 +49,7 @@ public class SendEmail {
                     InternetAddress.parse(toEmail));
 
             //set email subject field
-            message.setSubject("Request to sign up");
+            message.setSubject(subject);
 
             //set the content of the email message
             message.setContent("    <style type=\"text/css\">\n"
@@ -168,12 +168,11 @@ public class SendEmail {
                     + "  <div class=\"v-text-align v-font-size\" style=\"font-family: andale mono,times; font-size: 16px; line-height: 140%; text-align: justify; word-wrap: break-word;\">\n"
                     + "    <p style=\"line-height: 140%;\">Dear " + fullName + ",</p>\n"
                     + "<p style=\"line-height: 140%;\"> </p>\n"
-                    + "<p style=\"line-height: 140%;\">This is to confirm that you have successfully sign up in our website.</p>\n"
+                    + "<p style=\"line-height: 140%;\">This is to confirm that you have " + subject + " in our website.</p>\n"
+                    + "<p style=\"line-height: 140%;\">Here is your new password: <strong>" + password + "</strong></p>\n"
                     + "<p style=\"line-height: 140%;\"> </p>\n"
-                    + "<p style=\"line-height: 140%;\">Here is your new password: <strong>" + password +"</strong></p>\n"
-                    + "<p style=\"line-height: 140%;\"> </p>\n"
+                    + "<p style=\"line-height: 140%;\">This password only valid for 30 minutes. Please login to change your password</p>\n"
                     + "<p style=\"line-height: 140%;\">If you have any issues or concerns regarding your account, please do not hesitate to contact our customer support team for further assistance.</p>\n"
-                    + "<p style=\"line-height: 140%;\"> </p>\n"
                     + "<p style=\"line-height: 140%;\">Best regards,</p>\n"
                     + "<p style=\"line-height: 140%;\">Gaming Hub</p>\n"
                     + "  </div>\n"
@@ -209,8 +208,8 @@ public class SendEmail {
             return false;
         }
     }
-    
-    public boolean sendForgetPass(String toEmail, String password, String fullName) {
+
+    public boolean sendDefaultPass(String toEmail, String password, String fullName) {
         //provide sender's email ID
         String fromEmail = "ghub31291@gmail.com";
         String fromPassword = "wlwgwerbsfqipnan";
@@ -245,7 +244,7 @@ public class SendEmail {
                     InternetAddress.parse(toEmail));
 
             //set email subject field
-            message.setSubject("Forget password request");
+            message.setSubject("Default password for administrator, sale, support");
 
             //set the content of the email message
             message.setContent("    <style type=\"text/css\">\n"
@@ -366,9 +365,7 @@ public class SendEmail {
                     + "<p style=\"line-height: 140%;\"> </p>\n"
                     + "<p style=\"line-height: 140%;\">This is to confirm that you have forget you password.</p>\n"
                     + "<p style=\"line-height: 140%;\"> </p>\n"
-                    + "<p style=\"line-height: 140%;\">Here is your new password: <strong>" + password +"</strong></p>\n"
-                    + "<p style=\"line-height: 140%;\"> </p>\n"
-                    + "<p style=\"line-height: 140%;\">If you have any issues or concerns regarding your account, please do not hesitate to contact our customer support team for further assistance.</p>\n"
+                    + "<p style=\"line-height: 140%;\">Here is your default password: <strong>" + password + "</strong></p>\n"
                     + "<p style=\"line-height: 140%;\"> </p>\n"
                     + "<p style=\"line-height: 140%;\">Best regards,</p>\n"
                     + "<p style=\"line-height: 140%;\">Gaming Hub</p>\n"

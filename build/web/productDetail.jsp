@@ -13,6 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Product Detail</title>
+        <link rel="icon" type="image/png" href="path-to-your-favicon"/>
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
@@ -28,6 +29,31 @@
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/owl.carousel.min.css" type="text/css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/slicknav.min.css" type="text/css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/style.css" type="text/css">
+        <style>
+            table {
+                font-family: "Montserrat", sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th{
+                border: 1px solid #000000;
+                text-align: left;
+                padding: 8px;
+            }
+            td{
+                border: 1px solid #000000;
+                text-align: left;
+                padding: 8px;
+                background-color: #dddddd;
+            }
+            td:nth-child(1){
+                width: 30%;
+            }
+            td:nth-child(2){
+                background-color: #ffffff;
+                width: 70%
+            }
+        </style>
     </head>
 
     <body>
@@ -39,9 +65,9 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="breadcrumb__links">
-                            <a href="home.jsp"><i class="fa fa-home"></i> Home</a>
-                            <a href="#">Women’s </a>
-                            <span>Essential structured blazer</span>
+                            <a href="home"><i class="fa fa-home"></i> Home</a>
+                            <a href="#">Shop</a>
+                            <span>${product.getProductName()}</span>
                         </div>
                     </div>
                 </div>
@@ -56,32 +82,26 @@
                     <div class="col-lg-6">
                         <div class="product__details__pic">
                             <div class="product__details__pic__left product__thumb nice-scroll">
-                                <a class="pt active" href="#product-1">
-                                    <img src="img/product/details/thumb-1.jpg" alt="">
-                                </a>
-                                <a class="pt" href="#product-2">
-                                    <img src="img/product/details/thumb-2.jpg" alt="">
-                                </a>
-                                <a class="pt" href="#product-3">
-                                    <img src="img/product/details/thumb-3.jpg" alt="">
-                                </a>
-                                <a class="pt" href="#product-4">
-                                    <img src="img/product/details/thumb-4.jpg" alt="">
-                                </a>
+                                <c:forEach var="image" items="${listImageOfProduct}" varStatus="loop">
+                                    <c:set var="index" value="${loop.index + 1}" /> 
+                                    <a class="pt ${loop.first ? 'active' : ''}" href="#product-${index}">
+                                        <img src="<%= request.getContextPath()%>/${image.getImages()}" alt="">
+                                    </a>
+                                </c:forEach>
                             </div>
                             <div class="product__details__slider__content">
                                 <div class="product__details__pic__slider owl-carousel">
-                                    <img data-hash="product-1" class="product__big__img" src="img/product/details/product-1.jpg" alt="">
-                                    <img data-hash="product-2" class="product__big__img" src="img/product/details/product-3.jpg" alt="">
-                                    <img data-hash="product-3" class="product__big__img" src="img/product/details/product-2.jpg" alt="">
-                                    <img data-hash="product-4" class="product__big__img" src="img/product/details/product-4.jpg" alt="">
+                                    <c:forEach var="image" items="${listImageOfProduct}" varStatus="loop">
+                                        <img data-hash="product-${loop.index + 1}" class="product__big__img" src="<%= request.getContextPath()%>/${image.getImages()}" alt="">
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="col-lg-6">
                         <div class="product__details__text">
-                            <h3>Essential structured blazer <span>Brand: SKMEIMore Men Watches from SKMEI</span></h3>
+                            <h3>${product.getProductName()}</h3>
                             <div class="rating">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -90,20 +110,30 @@
                                 <i class="fa fa-star"></i>
                                 <span>( 138 reviews )</span>
                             </div>
-                            <div class="product__details__price">$ 75.0 <span>$ 83.0</span></div>
-                            <p>Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit, sed quia consequuntur
-                                magni lores eos qui ratione voluptatem sequi nesciunt.</p>
+                            <c:if test="${product.getProductStatusID() == 0}">
+                                <div class="product__details__price">$ ${originalPrice}</div>
+                            </c:if>
+                            <c:if test="${product.getProductStatusID() == 1}">
+                                <div class="product__details__price">$ ${originalPrice}</div>
+                            </c:if>
+                            <c:if test="${product.getProductStatusID() == 2}">
+                                <div class="product__details__price">$ ${salePrice} <span>$ ${originalPrice}</span></div>
+                            </c:if>
+                            <p>${product.getDescription()}</p>
                             <div class="product__details__button">
-                                <div class="quantity">
-                                    <span>Quantity:</span>
-                                    <div class="pro-qty">
-                                        <input type="text" value="1">
-                                    </div>
-                                </div>
-                                <a href="#" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a>
+                                <c:choose>
+                                    <c:when test="${product.getQuantity() == 0}">
+                                        <a class="cart-btn" style="background: #111111">Out of stock</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="#?productID=${product.getProductID()}" class="cart-btn">
+                                            <span class="icon_bag_alt"></span> Add to cart</a>
+                                    </c:otherwise>
+                                </c:choose>
                                 <ul>
-                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                    <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
+                                    <c:if test="${sessionScope.user.getRole_ID() == 1}">
+                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                            </c:if>
                                 </ul>
                             </div>
                         </div>
@@ -112,54 +142,75 @@
                         <div class="product__details__tab">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Description</a>
+                                    <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Specification</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Specification</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Reviews ( 2 )</a>
+                                    <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Reviews ( 2 )</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                                    <h6>Description</h6>
-                                    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                        quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                        Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                        voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                        consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                        consequat massa quis enim.</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                        dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                        nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                        quis, sem.</p>
+                                    <table>
+                                        <tr>
+                                            <th>Component Type</th>
+                                            <th>Component Name</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Mainboard</td><td>${mainboard.getMainboardName()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CPU</td><td>${cpu.getCpuName()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>RAM</td><td>${ram.getRamName()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>VGA</td><td>${vga.getVgaName()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Storage</td><td>${storage.getStorageName()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>PSU</td><td>${psu.getPsuName()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Case</td><td>${casePC.getCaseName()}</td>
+                                        </tr>
+                                    </table>
                                 </div>
                                 <div class="tab-pane" id="tabs-2" role="tabpanel">
-                                    <h6>Specification</h6>
-                                    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                        quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                        Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                        voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                        consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                        consequat massa quis enim.</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                        dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                        nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                        quis, sem.</p>
-                                </div>
-                                <div class="tab-pane" id="tabs-3" role="tabpanel">
-                                    <h6>Reviews ( 2 )</h6>
-                                    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                        quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                        Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                        voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                        consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                        consequat massa quis enim.</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                        dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                        nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                        quis, sem.</p>
+                                    <div class="blog__details__comment">
+                                        <h5>3 Comment</h5>
+                                        <c:if test="${sessionScope.user.getRole_ID() == 1}">
+                                            <a href="#" class="leave-btn">Leave a comment</a>
+                                        </c:if>
+                                        <div class="blog__comment__item">
+                                            <div class="blog__comment__item__pic">
+                                                <img src="<%= request.getContextPath()%>/img/default-avatar.png" alt="">
+                                            </div>
+                                            <div class="blog__comment__item__text">
+                                                <h6>Brandon Kelley</h6>
+                                                <p>This is comment.</p>
+                                                    <a class="image-popup" href="<%= request.getContextPath()%>/img/case/1st_Player_XF_Black.jpg">
+                                                    <img src="<%= request.getContextPath()%>/img/case/1st_Player_XF_Black.jpg" alt="" style="width:10%; "></a>
+                                                <ul>
+                                                    <li><i class="fa fa-clock-o"></i> Seb 17, 2019</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="blog__comment__item blog__comment__item--reply">
+                                            <div class="blog__comment__item__pic">
+                                                <img src="<%= request.getContextPath()%>/img/default-avatar.png" alt="">
+                                            </div>
+                                            <div class="blog__comment__item__text">
+                                                <h6>Brandon Kelley</h6>
+                                                <p>This is reply</p>
+                                                <ul>
+                                                    <li><i class="fa fa-clock-o"></i> Seb 17, 2019</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -171,114 +222,80 @@
                             <h5>RELATED PRODUCTS</h5>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-1.jpg">
-                                <div class="label new">New</div>
-                                <ul class="product__hover">
-                                    <li><a href="img/product/related/rp-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <h6><a href="#">Buttons tweed blazer</a></h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                    <c:set var="listCaseID" value="${requestScope.listCaseID}" />
+                    <c:set var="listImage" value="${requestScope.listImage}" />
+                    <c:set var="listRelatedPCPrice" value="${requestScope.listRelatedPCPrice}" />
+                    <c:set var="listSalePrice" value="${requestScope.listSalePrice}" />
+                    <c:forEach var="listRelated" items="${listRelated}">
+                        <c:set var="productID" value="${listRelated.getProductID()}" />
+                        <c:set var="caseID" value="${listCaseID[productID]}" />
+                        <c:set var="caseObject" value="${listImage[caseID]}" />
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <c:if test="${listRelated.getProductStatusID() == 0}">
+                                <div class="product__item">
+                                </c:if>
+                                <c:if test="${listRelated.getProductStatusID() == 1}">
+                                    <div class="product__item">
+                                    </c:if>
+                                    <c:if test="${listRelated.getProductStatusID() == 2}">
+                                        <div class="product__item sale">
+                                        </c:if>
+                                        <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath()%>/${caseObject.getImage()}">
+                                            <c:if test="${listRelated.getQuantity() == 0}">
+                                                <div class="label stockout">out of stock</div>
+                                            </c:if>
+                                            <c:if test="${listRelated.getProductStatusID() == 1}">
+                                                <div class="label new">New</div>
+                                            </c:if>
+                                            <c:if test="${listRelated.getProductStatusID() == 2}">
+                                                <div class="label sale">Sale</div>
+                                            </c:if>
+                                            <ul class="product__hover">
+                                                <li><a href="productDetail?productID=${listRelated.getProductID()}"><span class="arrow_expand"></span></a></li>
+                                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="product__item__text">
+                                            <h6><a href="#">${listRelated.getProductName()}</a></h6>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                            <c:if test="${listRelated.getProductStatusID() == 0}">
+                                                <div class="product__price">$ ${listRelatedPCPrice[productID]}</div>
+                                            </c:if>
+                                            <c:if test="${listRelated.getProductStatusID() == 1}">
+                                                <div class="product__price">$ ${listRelatedPCPrice[productID]}</div>
+                                            </c:if>
+                                            <c:if test="${listRelated.getProductStatusID() == 2}">
+                                                <div class="product__price">$ ${listSalePrice[productID]} <span>$ ${listRelatedPCPrice[productID]}</span></div>
+                                            </c:if>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="product__price">$ 59.0</div>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-2.jpg">
-                                <ul class="product__hover">
-                                    <li><a href="img/product/related/rp-2.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <h6><a href="#">Flowy striped skirt</a></h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="product__price">$ 49.0</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-3.jpg">
-                                <div class="label stockout">out of stock</div>
-                                <ul class="product__hover">
-                                    <li><a href="img/product/related/rp-3.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <h6><a href="#">Cotton T-Shirt</a></h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="product__price">$ 59.0</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-4.jpg">
-                                <ul class="product__hover">
-                                    <li><a href="img/product/related/rp-4.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <h6><a href="#">Slim striped pocket shirt</a></h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="product__price">$ 59.0</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Product Details Section End -->
+                    </section>
+                    <!-- Product Details Section End -->
 
-        <%@include file="footer.jsp" %>
+                    <%@include file="footer.jsp" %>
 
-        <!-- Js Plugins -->
-        <script src="<%= request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/bootstrap.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/jquery.magnific-popup.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/jquery-ui.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/mixitup.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/jquery.countdown.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/jquery.slicknav.js"></script>
-        <script src="<%= request.getContextPath()%>/js/owl.carousel.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/jquery.nicescroll.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/main.js"></script>
-    </body>
+                    <!-- Js Plugins -->
+                    <script src="<%= request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
+                    <script src="<%= request.getContextPath()%>/js/bootstrap.min.js"></script>
+                    <script src="<%= request.getContextPath()%>/js/jquery.magnific-popup.min.js"></script>
+                    <script src="<%= request.getContextPath()%>/js/jquery-ui.min.js"></script>
+                    <script src="<%= request.getContextPath()%>/js/mixitup.min.js"></script>
+                    <script src="<%= request.getContextPath()%>/js/jquery.countdown.min.js"></script>
+                    <script src="<%= request.getContextPath()%>/js/jquery.slicknav.js"></script>
+                    <script src="<%= request.getContextPath()%>/js/owl.carousel.min.js"></script>
+                    <script src="<%= request.getContextPath()%>/js/jquery.nicescroll.min.js"></script>
+                    <script src="<%= request.getContextPath()%>/js/main.js"></script>
+                    </body>
 
-</html>
+                    </html>

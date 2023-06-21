@@ -4,7 +4,9 @@
  */
 package Controller;
 
+import DAL.PasswordResetDAO;
 import DAL.UserDAO;
+import Model.PasswordReset;
 import Model.User;
 import Service.RandomPassword;
 import Service.SendEmail;
@@ -12,7 +14,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -77,30 +78,56 @@ public class forgetPassController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
         String email = request.getParameter("email");
 
+        PasswordResetDAO pwrsDAO = new PasswordResetDAO();
         UserDAO uDAO = new UserDAO();
         User user = uDAO.checkUserExist(email);
 
         SendEmail se = new SendEmail();
         RandomPassword rdpw = new RandomPassword();
+
         boolean emailSent;
 
-        String oldPassRegis = rdpw.generatePassword();
+        String resetPassword = rdpw.generatePassword();
+        String defaultPassword = "1234@1234a";
+
         if (user == null) {
             request.setAttribute("notification", "Email is not exist");
             request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
         } else {
-            emailSent = se.sendForgetPass(email, oldPassRegis, user.getFullName());
-            if (emailSent) {
-                uDAO.changePassword(user.getUser_ID(), oldPassRegis);
-                request.setAttribute("notification", "Request change password, please check your email");
-                session.setAttribute("oldPassRegis", oldPassRegis);
-                request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
-            }else{
-                request.setAttribute("notification", "There something wrong at out server, please try again");
-                request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
+            if (user.getRole_ID() == 1) {
+                emailSent = se.sendPassword(email, resetPassword, user.getFullName(), "request new password");
+                PasswordReset pwrs = pwrsDAO.checkExistRecord(user.getUser_ID());
+                if (emailSent) {
+                    if (pwrs != null) {
+                        pwrsDAO.updateResetPassword(pwrs.getResetID(), resetPassword);
+                        uDAO.changePassword(user.getUser_ID(), resetPassword);
+                        request.setAttribute("notification", "New password is sent, please login again");
+                        request.setAttribute("email", email);
+                        request.getRequestDispatcher("Login.jsp").forward(request, response);
+                    } else {
+                        pwrsDAO.resetPassword(user.getUser_ID(), resetPassword);
+                        uDAO.changePassword(user.getUser_ID(), resetPassword);
+                        request.setAttribute("notification", "New password is sent, please login again");
+                        request.setAttribute("email", email);
+                        request.getRequestDispatcher("Login.jsp").forward(request, response);
+                    }
+                } else {
+                    request.setAttribute("notification", "There something wrong at out server, please try again");
+                    request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
+                }
+            } else {
+                emailSent = se.sendDefaultPass(email, defaultPassword, user.getFullName());
+                if (emailSent) {
+                    uDAO.changePassword(user.getUser_ID(), defaultPassword);
+                    request.setAttribute("email", email);
+                    request.setAttribute("notification", "Password is set to default, please check email and login again");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("notification", "There something wrong at out server, please try again");
+                    request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
+                }
             }
         }
     }

@@ -36,14 +36,13 @@ public class RegisterController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        HttpSession session = request.getSession();
         String fullName = request.getParameter("fullName");
         String email = request.getParameter("email");
         String address = request.getParameter("address");
         String phoneNum = request.getParameter("phoneNum");
 
         RandomPassword rdpw = new RandomPassword();
-        String oldPassRegis = rdpw.generatePassword();
+        String password = rdpw.generatePassword();
 
         UserDAO uDAO = new UserDAO();
         SendEmail se = new SendEmail();
@@ -55,12 +54,12 @@ public class RegisterController extends HttpServlet {
             request.setAttribute("phoneNoti", "Your Phone Number is Invalid");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         } else if (u == null) {
-            emailSent = se.sendRegister(email, oldPassRegis, fullName);
+            emailSent = se.sendPassword(email, password, fullName, "request to register");
             if (emailSent) {
-                uDAO.register(fullName, email, oldPassRegis, phoneNum, address);
-                request.setAttribute("notification", "Sign Up successfully, please check your email");
-                session.setAttribute("oldPassRegis", oldPassRegis);
-                request.getRequestDispatcher("register.jsp").forward(request, response);
+                uDAO.register(fullName, email, password, phoneNum, address);
+                request.setAttribute("email", email);
+                request.setAttribute("notification", "Sign Up successfully, please check your email for password");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
             } else {
                 request.setAttribute("emailNoti", "There something wrong at out server, please try again");
                 request.getRequestDispatcher("register.jsp").forward(request, response);

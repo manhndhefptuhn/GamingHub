@@ -27,12 +27,7 @@
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="<%= request.getContextPath()%>/img/signin-image.jpg" alt="change pass image"></figure>
-                            <c:if test="${sessionScope.user == null}">
-                            <div class="create-acc">
-                                <a href="Login.jsp" class="signup-image-link">Back to Log In</a>
-                            </div>
-                        </c:if>
-                        <c:if test="${sessionScope.user != null}">
+                            <c:if test="${sessionScope.user != null}">
                             <div class="create-acc">
                                 <a href="userProfile.jsp" class="signup-image-link">Back to your profile</a>
                             </div>
@@ -42,24 +37,41 @@
                         <h2 class="form-title">Change password</h2>
                         <form action="changePass" method="POST" class="register-form" id="login-form">
                             <div>
-                                <c:if test="${sessionScope.user != null}">
-                                    <div class="form-group">
-                                        <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                        <input type="password" name="oldPassLogin" id="old-Pass" placeholder="Old password"/>
-                                    </div>
-                                </c:if>
-                                <div class="form-group">
-                                    <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                    <input type="password" name="newPass" id="your-pass" placeholder="New password"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                    <input type="password" name="reNewPass" id="your-pass2" placeholder="Re-enter password"/>
-                                </div>
-                                <div>
-                                    <input type="checkbox" id="reveal-checkbox" class="agree-term" onclick="revealPassword()"/>
-                                    <label for="reveal-checkbox" class="label-agree-term" ><span><span></span></span>Reveal Password</label>                       
-                                </div>
+                                <c:choose>
+                                    <c:when test="${sessionScope.user != null}">
+                                        <div class="form-group">
+                                            <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                            <input type="password" name="oldPassLogin" id="old-Pass" placeholder="Old password"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                            <input type="password" name="newPass" id="your-pass" placeholder="New password"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                            <input type="password" name="reNewPass" id="your-pass2" placeholder="Re-enter password"/>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="reveal-checkbox" class="agree-term" onclick="revealPassword()"/>
+                                            <label for="reveal-checkbox" class="label-agree-term" ><span><span></span></span>Reveal Password</label>                       
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="form-group">
+                                            <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                            <input type="password" name="newPass" id="your-pass" placeholder="New password"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                            <input type="password" name="reNewPass" id="your-pass2" placeholder="Re-enter password"/>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="reveal-checkbox" class="agree-term" onclick="revealPassword1()"/>
+                                            <label for="reveal-checkbox" class="label-agree-term" ><span><span></span></span>Reveal Password</label>                       
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+
                                 <c:if test="${notification != null}">
                                     <strong style="color:red;">${notification}</strong>
                                 </c:if>
