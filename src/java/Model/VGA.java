@@ -14,21 +14,20 @@ public class VGA {
     private int price;
     private String description;
     private String image;
-    private int componentID;
+    private boolean status;
 
     public VGA() {
     }
 
-    public VGA(int vgaID, String vgaName, int price, String description, String image, int componentID) {
+    public VGA(int vgaID, String vgaName, int price, String description, String image, boolean status) {
         this.vgaID = vgaID;
         this.vgaName = vgaName;
         this.price = price;
         this.description = description;
         this.image = image;
-        this.componentID = componentID;
+        this.status = status;
     }
 
-   
 
     public int getVgaID() {
         return vgaID;
@@ -70,15 +69,13 @@ public class VGA {
         this.image = image;
     }
 
-    public int getComponentID() {
-        return componentID;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setComponentID(int componentID) {
-        this.componentID = componentID;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
-    
-    
     
 }

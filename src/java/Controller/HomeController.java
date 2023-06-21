@@ -5,15 +5,15 @@
 package Controller;
 
 import DAL.CPUDAO;
+import DAL.CaseDAO;
+import DAL.PCDAO;
 import DAL.ProductDAO;
 import DAL.RAMDAO;
 import DAL.SliderDAO;
 import DAL.VGADAO;
-import Model.CPU;
+import Model.Case;
 import Model.Product;
-import Model.RAM;
 import Model.Slider;
-import Model.VGA;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  *
@@ -42,36 +43,51 @@ public class HomeController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         SliderDAO slDAO = new SliderDAO();
-        CPUDAO cDAO = new CPUDAO();
-        RAMDAO rDAO = new RAMDAO();
-        VGADAO vDAO = new VGADAO();
         ProductDAO pDAO = new ProductDAO();
+        CaseDAO caseDAO = new CaseDAO();
+        PCDAO pcDAO = new PCDAO();
         
         //Slider
         ArrayList<Slider> listSlider = slDAO.getAllSlider();
-        session.setAttribute("listSlider", listSlider);
+        request.setAttribute("listSlider", listSlider);
         
-        //CPU
-        ArrayList<CPU> listThreeRandomCPU = cDAO.getThreeRandomCPU();
-        session.setAttribute("threeCPU", listThreeRandomCPU);
+        //Gaming PC
+        ArrayList<Product> listFourGamingPC = pDAO.getFourGamingPC();
+        request.setAttribute("listFourGamingPC", listFourGamingPC);
         
-        //VGA
-        ArrayList<VGA> listThreeRandomVGA = vDAO.getThreeRandomVGA();
-        session.setAttribute("threeVGA", listThreeRandomVGA);
+        //Map to get original Price and sale price of gaming product
+        Map<Integer, Integer> listGamingProductPrice = pDAO.getOriginalPriceByID(listFourGamingPC);
+        request.setAttribute("listGamingProductPrice", listGamingProductPrice);
+        Map<Integer, Integer> listGamingProductSalePrice = pDAO.getSalePriceByID(listFourGamingPC, 10.0);
+        request.setAttribute("listGamingProductSalePrice", listGamingProductSalePrice);
         
-        //RAM
-        ArrayList<RAM> listThreeRandomRAM = rDAO.getThreeRandomRAM();
-        session.setAttribute("threeRAM", listThreeRandomRAM);
+        //workPC
+        ArrayList<Product> listFourWorkPC = pDAO.getFourWorkStationPC();
+        request.setAttribute("listFourWorkPC", listFourWorkPC);
         
-        //Intel PC
-        ArrayList<Product> listFourRandomIntelPC = pDAO.getFourRandomIntelPC();
-        session.setAttribute("listFourRandomIntelPC", listFourRandomIntelPC);
-        
-        //AMD PC
-        ArrayList<Product> listFourRandomAMDPC = pDAO.getFourRandomAMDPC();
-        session.setAttribute("listFourRandomAMDPC", listFourRandomAMDPC);
+        //Map to get original Price and sale price of work product
+        Map<Integer, Integer> listWorkProductPrice = pDAO.getOriginalPriceByID(listFourWorkPC);
+        request.setAttribute("listWorkProductPrice", listWorkProductPrice);
+        Map<Integer, Integer> listWorkProductSalePrice = pDAO.getSalePriceByID(listFourWorkPC, 10.0);
+        request.setAttribute("listWorkProductSalePrice", listWorkProductSalePrice);
         
         
+        //Mini PC
+        ArrayList<Product> listFourMiniPC = pDAO.getFourMiniPC();
+        request.setAttribute("listFourMiniPC", listFourMiniPC);
+        
+        //Map to get original Price and sale price of mini product
+        Map<Integer, Integer> listMiniProductPrice = pDAO.getOriginalPriceByID(listFourMiniPC);
+        request.setAttribute("listMiniProductPrice", listMiniProductPrice);
+        Map<Integer, Integer> listMiniProductSalePrice = pDAO.getSalePriceByID(listFourMiniPC, 10.0);
+        request.setAttribute("listMiniProductSalePrice", listMiniProductSalePrice);
+        
+        
+        //MapToGetImage
+        Map<Integer, Case> listImage = caseDAO.getCaseByCaseID();
+        request.setAttribute("listImage", listImage);
+        Map<Integer, Integer> listCaseID = pcDAO.getCaseIDByProductID();
+        request.setAttribute("listCaseID", listCaseID);
         
         
         request.getRequestDispatcher("Home.jsp").forward(request, response);

@@ -75,10 +75,10 @@ public class UpdateUserProfileController extends HttpServlet {
             int userID = Integer.parseInt(request.getParameter("userID"));
             // Process the image file
             Part imagePart = request.getPart("image");
-
+            long maxSizeBytes = 5 * 1024 * 1024; // 5 MB
             UserDAO uDAO = new UserDAO();
             // Check if an image was uploaded
-            if (imagePart != null && imagePart.getSize() > 0) {
+            if (imagePart != null && imagePart.getSize() < maxSizeBytes) {
                 // Generate a unique image name
                 String originalFilename = imagePart.getSubmittedFileName();
                 String extension = originalFilename.substring(originalFilename.lastIndexOf('.'));
@@ -108,11 +108,14 @@ public class UpdateUserProfileController extends HttpServlet {
                 session.setAttribute("user", u);
                 request.setAttribute("notification", "Update Information Successfully!");
                 request.getRequestDispatcher("userProfile").forward(request, response);
+            }else{
+                request.setAttribute("notification", "The images size is too large. Please insert smaller size!");
+                request.getRequestDispatcher("userProfile").forward(request, response);
             }
         } else if (request.getParameter("changePass") != null) {
             response.sendRedirect("changePass.jsp");
         } else if (request.getParameter("backToHome") != null) {
-            response.sendRedirect("Home.jsp");
+            response.sendRedirect("home");
         }
     }
 

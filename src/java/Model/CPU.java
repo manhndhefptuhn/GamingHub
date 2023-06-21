@@ -14,21 +14,19 @@ public class CPU {
     private int price;
     private String description;
     private String image;
-    private int componentID;
+    private boolean status;
 
     public CPU() {
     }
 
-    public CPU(int cpuID, String cpuName, int price, String description, String image, int componentID) {
+    public CPU(int cpuID, String cpuName, int price, String description, String image, boolean status) {
         this.cpuID = cpuID;
         this.cpuName = cpuName;
         this.price = price;
         this.description = description;
         this.image = image;
-        this.componentID = componentID;
+        this.status = status;
     }
-
-    
 
     public int getCpuID() {
         return cpuID;
@@ -70,15 +68,12 @@ public class CPU {
         this.image = image;
     }
 
-    public int getComponentID() {
-        return componentID;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setComponentID(int componentID) {
-        this.componentID = componentID;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
-
-    
-    
     
 }

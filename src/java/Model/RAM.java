@@ -14,21 +14,21 @@ public class RAM {
     private int price;
     private String description;
     private String image;
-    private int componentID;
+    private boolean status;
 
     public RAM() {
     }
 
-    public RAM(int ramID, String ramName, int price, String description, String image, int componentID) {
+    public RAM(int ramID, String ramName, int price, String description, String image, boolean status) {
         this.ramID = ramID;
         this.ramName = ramName;
         this.price = price;
         this.description = description;
         this.image = image;
-        this.componentID = componentID;
+        this.status = status;
     }
 
-   
+    
 
     public int getRamID() {
         return ramID;
@@ -70,12 +70,12 @@ public class RAM {
         this.image = image;
     }
 
-    public int getComponentID() {
-        return componentID;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setComponentID(int componentID) {
-        this.componentID = componentID;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     

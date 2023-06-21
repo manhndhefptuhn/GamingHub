@@ -4,7 +4,9 @@
  */
 package Controller;
 
+import DAL.PasswordResetDAO;
 import DAL.UserDAO;
+import Model.PasswordReset;
 import Model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,6 +15,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import static java.lang.System.currentTimeMillis;
+import java.sql.Timestamp;
 
 /**
  *
@@ -62,27 +66,46 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String oldPassRegis = (String) session.getAttribute("oldPassRegis");
-        
+
+        PasswordResetDAO pwrsDAO = new PasswordResetDAO();
         UserDAO uDAO = new UserDAO();
+
         User u = uDAO.login(email, password);
-        
+        String defaultPassword = "1234@1234a";
+        long thirtyMinutesMillis;
+
         if (u == null) {
             request.setAttribute("notification", "Wrong email or password, please try again");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
-        } else if (u.isStatus() != true) {
-            request.setAttribute("notification", "User is inactive");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-        } else if (password.equals(oldPassRegis)) {
-            session.setAttribute("userRegis", u);
-            request.getRequestDispatcher("changePass.jsp").forward(request, response);
         } else {
-            session.removeAttribute("oldPassRegis");
-            session.setAttribute("user", u);
-            request.getRequestDispatcher("Home.jsp").forward(request, response);
+            PasswordReset pwrs = pwrsDAO.checkExistRecord(u.getUser_ID());
+            if (u.isStatus() != true) {
+                request.setAttribute("notification", "User is inactive");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            } else if (pwrs != null) {
+                long currentTimeMillis = System.currentTimeMillis();
+                Timestamp currentTime = new Timestamp(currentTimeMillis);
+                thirtyMinutesMillis = 30 * 60 * 1000L; // 30 minutes in milliseconds
+                Timestamp expiryTime = new Timestamp(pwrs.getTimeCreated().getTime() + thirtyMinutesMillis);
+                if (currentTime.after(expiryTime) && u.getRole_ID() == 1) {
+                    request.setAttribute("email", email);
+                    request.setAttribute("notification", "Your password is expired, please request password again");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                } else if (currentTime.before(expiryTime) && u.getRole_ID() == 1) {
+                    session.setAttribute("userChange", u);
+                    request.getRequestDispatcher("changePass.jsp").forward(request, response);
+                }
+            } else if (password.equals(defaultPassword) && u.getRole_ID() == 2 || u.getRole_ID() == 3 || u.getRole_ID() == 4) {
+                session.setAttribute("userChange", u);
+                request.getRequestDispatcher("changePass.jsp").forward(request, response);
+            } else {
+                session.removeAttribute("userChange");
+                session.setAttribute("user", u);
+                request.getRequestDispatcher("home").forward(request, response);
+            }
         }
     }
 

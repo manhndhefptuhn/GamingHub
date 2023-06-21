@@ -18,14 +18,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
               rel="stylesheet">
 
-        <!-- Css Styles -->
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/bootstrap.min.css" type="text/css">
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/font-awesome.min.css" type="text/css">
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/elegant-icons.css" type="text/css">
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/jquery-ui.min.css" type="text/css">
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/magnific-popup.css" type="text/css">
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/owl.carousel.min.css" type="text/css">
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/style.css" type="text/css">
     </head>
     <body>
         <!-- Footer Section Begin -->
@@ -36,25 +28,21 @@
                         <div class="footer__widget">
                             <h6>Quick links</h6>
                             <ul>
-                                <li><a href="#">About</a></li>
+                                <li><a href="home">Home</a></li>
+                                <li><a href="#">Shop</a></li>
                                 <li><a href="contact.jsp">Contact</a></li>
-                                <li><a href="#">FAQ</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="footer__newslatter">
-                            <h6>NEWSLETTER</h6>
-                            <form action="#">
-                                <input type="text" placeholder="Email">
-                                <button type="submit" class="site-btn">Subscribe</button>
-                            </form>
+                            <h6>WHERE TO FIND US</h6>
                             <div class="footer__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                                <a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
+                                <a href="https://twitter.com/"><i class="fa fa-twitter"></i></a>
+                                <a href="https://www.youtube.com/"><i class="fa fa-youtube-play"></i></a>
+                                <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
+                                <a href="https://www.pinterest.com/"><i class="fa fa-pinterest"></i></a>
                             </div>
                         </div>
                     </div>
@@ -80,14 +68,6 @@
             </div>
         </div>
         <!-- Search End -->
-        <script src="<%= request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/bootstrap.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/jquery.magnific-popup.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/jquery-ui.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/mixitup.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/jquery.countdown.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/owl.carousel.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/jquery.nicescroll.min.js"></script>
-        <script src="<%= request.getContextPath()%>/js/main.js"></script>
+ 
     </body>
 </html>

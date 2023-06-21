@@ -2906,6 +2906,8 @@ ol {
 .blog__comment__item__pic {
 	float: left;
 	margin-right: 25px;
+        width: 10%;
+        height: auto;
 }
 
 .blog__comment__item__pic img {
@@ -3626,6 +3628,7 @@ ol {
 	.blog__comment__item__pic {
 		float: none;
 		margin-bottom: 20px;
+                width: 20%;
 	}
 	.discount__content form {
 		width: 100%;

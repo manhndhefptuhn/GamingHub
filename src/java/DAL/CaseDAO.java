@@ -6,6 +6,7 @@ package DAL;
 
 import Context.DBContext;
 import Model.Case;
+import Model.Mainboard;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -18,7 +19,7 @@ import java.util.Map;
  */
 public class CaseDAO {
 
-    public Map<Integer, Case> getCaseByID() {
+    public Map<Integer, Case> getCaseByCaseID() {
         Map<Integer, Case> listImage = new HashMap<>();
         DBContext db = new DBContext();
         try {
@@ -35,7 +36,7 @@ public class CaseDAO {
                     c.setPrice(rs.getInt(3));
                     c.setDescription(rs.getString(4));
                     c.setImage(rs.getString(5));
-                    c.setComponentID(rs.getInt(6));
+                    c.setStatus(rs.getBoolean(6));
                     listImage.put(c.getCaseID(), c);
                 }
                 rs.close();
@@ -49,28 +50,34 @@ public class CaseDAO {
         }
         return listImage;
     }
-
-    public int getCaseIDByProductID(int productID) {
+    
+    public Case getCaseByID(int caseID) {
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT c.* FROM `case` as c INNER JOIN `pc` as pc "
-                        + "ON c.Case_ID = pc.Case_ID where pc.product_ID =" + productID + ";";
+                String sql = "SELECT * FROM `case` where `Case_ID` = " + caseID + ";";
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
                     Case c = new Case();
                     c.setCaseID(rs.getInt(1));
-                    return c.getCaseID();
+                    c.setCaseName(rs.getString(2));
+                    c.setPrice(rs.getInt(3));
+                    c.setDescription(rs.getString(4));
+                    c.setImage(rs.getString(5));
+                    c.setStatus(rs.getBoolean(6));
+                    return c;
                 }
                 rs.close();
                 st.close();
                 con.close();
             }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return -1;
+        return null;
     }
+
 }

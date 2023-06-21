@@ -33,13 +33,14 @@
     <body>
         <%@include file="header.jsp" %>
 
+        <%String sendContactNoti = (String)request.getAttribute("sendContactNoti");%>
         <!-- Breadcrumb Begin -->
         <div class="breadcrumb-option">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="breadcrumb__links">
-                            <a href="Home.jsp"><i class="fa fa-home"></i> Home</a>
+                            <a href="home"><i class="fa fa-home"></i> Home</a>
                             <span>Contact</span>
                         </div>
                     </div>
@@ -59,7 +60,7 @@
                                 <ul>
                                     <li>
                                         <h6><i class="fa fa-map-marker"></i> Address</h6>
-                                        <p>Đất Thổ Cư Hòa Lạc, Km29 Đường Cao Tốc 08, Thạch Hoà, Thạch Thất, Hà Nội 10000, Vietnam</p>
+                                        <p>164 P. Thái Hà, Trung Liệt, Đống Đa, Hà Nội ,Vietnam</p>
                                     </li>
                                     <li>
                                         <h6><i class="fa fa-phone"></i> Phone</h6>
@@ -73,11 +74,15 @@
                             </div>
                             <div class="contact__form">
                                 <h5>SEND MESSAGE</h5>
-                                <form action="#">
-                                    <input type="text" placeholder="Name">
-                                    <input type="text" placeholder="Email">
-                                    <input type="text" placeholder="Subject">
-                                    <textarea placeholder="Message"></textarea>
+                                <c:if test="${sendContactNoti!=null}">
+                                    <p style="color: red;"><span>${notification}</span></p>
+                                </c:if>
+                                <form action="sendMessage" method="POST">
+                                    <input type="text" placeholder="Name" name="name" required>
+                                    <input type="text" placeholder="Email" name="email" required>
+                                    <input type="text" placeholder="Subject" name="subject" required>
+                                    <textarea placeholder="Message" name="message" required></textarea>
+
                                     <button type="submit" class="site-btn">Send Message</button>
                                 </form>
                             </div>
@@ -85,7 +90,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="contact__map">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.485409667761!2d105.52448401023918!3d21.013254988231292!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345b465a4e65fb%3A0xaae6040cfabe8fe!2sFPT%20University!5e0!3m2!1sen!2s!4v1685411585649!5m2!1sen!2s" height="780" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.4999396102803!2d105.8179498102391!3d21.012673088251297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abd7a4041695%3A0xa594770e41494bdb!2sGearvn!5e0!3m2!1sen!2s!4v1687228782454!5m2!1sen!2s" height="700" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>
