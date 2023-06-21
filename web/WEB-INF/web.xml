@@ -44,6 +44,18 @@
         <servlet-name>forgetPassController</servlet-name>
         <servlet-class>Controller.forgetPassController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetFeedbackList</servlet-name>
+        <servlet-class>Controller.GetFeedbackList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetSupportDashBoardInfo</servlet-name>
+        <servlet-class>Controller.GetSupportDashBoardInfo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>searchFeedback</servlet-name>
+        <servlet-class>Controller.searchFeedback</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -79,6 +91,18 @@
     <servlet-mapping>
         <servlet-name>ProductDetailController</servlet-name>
         <url-pattern>/productDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetFeedbackList</servlet-name>
+        <url-pattern>/GetFeedbackList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetSupportDashBoardInfo</servlet-name>
+        <url-pattern>/GetSupportDashBoardInfo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>searchFeedback</servlet-name>
+        <url-pattern>/searchFeedback</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
