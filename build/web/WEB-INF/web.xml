@@ -21,16 +21,12 @@
         <servlet-class>Controller.HomeController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetFeedbackList</servlet-name>
-        <servlet-class>Controller.GetFeedbackList</servlet-class>
+        <servlet-name>SendMessageController</servlet-name>
+        <servlet-class>Controller.SendMessageController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetSupportDashBoardInfo</servlet-name>
-        <servlet-class>Controller.GetSupportDashBoardInfo</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>searchFeedback</servlet-name>
-        <servlet-class>Controller.searchFeedback</servlet-class>
+        <servlet-name>ProductDetailController</servlet-name>
+        <servlet-class>Controller.ProductDetailController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -47,6 +43,18 @@
     <servlet>
         <servlet-name>forgetPassController</servlet-name>
         <servlet-class>Controller.forgetPassController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetFeedbackList</servlet-name>
+        <servlet-class>Controller.GetFeedbackList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetSupportDashBoardInfo</servlet-name>
+        <servlet-class>Controller.GetSupportDashBoardInfo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>searchFeedback</servlet-name>
+        <servlet-class>Controller.searchFeedback</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
@@ -75,6 +83,14 @@
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendMessageController</servlet-name>
+        <url-pattern>/sendMessage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductDetailController</servlet-name>
+        <url-pattern>/productDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetFeedbackList</servlet-name>

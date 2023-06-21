@@ -5,8 +5,8 @@
 --%>
 
 
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 <%@ page import="Model.Feedback" %>
 <%@ page import="Model.User" %>
 <%@ page import="java.util.List" %>
@@ -23,6 +23,7 @@
         <title>Feedback Details</title>
     </head>
     <body>
+        <%@include file="header.jsp" %>
         <h1>Feedback Details</h1>
 
 

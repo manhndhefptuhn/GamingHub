@@ -35,7 +35,8 @@
         <title>Feedback List</title>
     </head>
     
-    <body>         
+    <body>     
+        <%@include file="header.jsp" %>
     
         
 <!--        side navigation-->
