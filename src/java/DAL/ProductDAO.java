@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -82,7 +83,7 @@ public class ProductDAO {
         }
         return listWorkPC;
     }
-    
+
     public ArrayList<Product> getFourMiniPC() {
         ArrayList<Product> listMini = new ArrayList<>();
         try {
@@ -324,4 +325,36 @@ public class ProductDAO {
         }
         return listRand;
     }
+
+    public List<Product> getAllProducts() {
+        List<Product> products = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "SELECT * FROM product";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Product product = new Product();
+                    product.setProductID(rs.getInt(1));
+                    product.setProductName(rs.getString(2));
+                    product.setDescription(rs.getString(3));
+                    product.setStatus(rs.getBoolean(4));
+                    product.setQuantity(rs.getInt(5));
+                    product.setProductStatusID(rs.getInt(6));
+                    product.setCategoryID(rs.getInt(7));
+                    products.add(product);
+                }
+                rs.close();
+                ps.close();
+                con.close();
+            }
+            return products;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
 }

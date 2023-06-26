@@ -137,7 +137,7 @@
                                             <td>${customer.getEmail()}</td>
                                             <td>${customer.getPhone_Number()}</td>
                                             <td>${customer.getAddress()}</td>
-                                            <td>${customer.isStatus()}</td>
+                                            <td>${customer.isStatus() ? 'active' : 'inactive'}</td>
                                             <td><a href="ViewCustomerController?id=${customer.getUser_ID()}">View</a></td>
                                         </tr>
                                     </c:forEach>

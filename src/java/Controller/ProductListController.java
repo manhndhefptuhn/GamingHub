@@ -5,7 +5,9 @@
 
 package Controller;
 
+import DAL.ProductDAO;
 import DAL.UserDAO;
+import Model.Product;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,12 +15,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
  * @author Tien Dat
  */
-public class ViewCustomerController extends HttpServlet {
+public class ProductListController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -28,14 +31,21 @@ public class ViewCustomerController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int userID = Integer.parseInt(request.getParameter("id"));
-        UserDAO uDAO = new UserDAO();
-        User customer = uDAO.getCustomerById(userID);
-        request.setAttribute("customer", customer);
-        request.getRequestDispatcher("SalesViewCustomer.jsp").forward(request, response);
-    }
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ProductListController</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ProductListController at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -48,7 +58,9 @@ public class ViewCustomerController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        List<Product> products = new ProductDAO().getAllProducts();
+        request.setAttribute("products", products);
+        request.getRequestDispatcher("productList.jsp").forward(request, response);
     } 
 
     /** 
