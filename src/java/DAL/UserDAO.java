@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -211,6 +213,85 @@ public class UserDAO {
                 con.close();
             }
 
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    public List<User> getAllCustomers(String search, Boolean statusFilter) {
+        List<User> customers = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "SELECT * FROM user WHERE Role_ID = 1";
+                if (search != null && !search.trim().isEmpty()) {
+                    sql += " AND FullName LIKE ?";
+                }
+                if (statusFilter != null) {
+                    sql += " AND Status = ?";
+                }
+                PreparedStatement ps = con.prepareStatement(sql);
+                int parameterIndex = 1;
+                if (search != null && !search.trim().isEmpty()) {
+                    String searchLike = "%" + search.trim() + "%";
+                    ps.setString(parameterIndex++, searchLike);
+                }
+                if (statusFilter != null) {
+                    ps.setBoolean(parameterIndex++, statusFilter);
+                }
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    User customer = new User();
+                    customer.setUser_ID(rs.getInt("User_ID"));
+                    customer.setFullName(rs.getString("FullName"));
+                    customer.setEmail(rs.getString("Email"));
+                    customer.setPassword(rs.getString("Password"));
+                    customer.setProfile_picture(rs.getString("Profile_picture"));
+                    customer.setPhone_Number(rs.getString("Phone_Number"));
+                    customer.setAddress(rs.getString("Address"));
+                    customer.setStatus(rs.getBoolean("Status"));
+                    customer.setRole_ID(rs.getInt("Role_ID"));
+                    customers.add(customer);
+                }
+                rs.close();
+                ps.close();
+                con.close();
+            }
+            return customers;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public User getCustomerById(int id) {
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "SELECT * FROM `user` WHERE `Role_ID` = 1 AND `User_ID`=?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    User customer = new User();
+                    customer.setUser_ID(rs.getInt("User_ID"));
+                    customer.setFullName(rs.getString("FullName"));
+                    customer.setEmail(rs.getString("Email"));
+                    customer.setPassword(rs.getString("Password"));
+                    customer.setProfile_picture(rs.getString("Profile_picture"));
+                    customer.setPhone_Number(rs.getString("Phone_Number"));
+                    customer.setAddress(rs.getString("Address"));
+                    customer.setStatus(rs.getBoolean("Status"));
+                    customer.setRole_ID(rs.getInt("Role_ID"));
+                    rs.close();
+                    ps.close();
+                    con.close();
+                    return customer;
+                }
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
