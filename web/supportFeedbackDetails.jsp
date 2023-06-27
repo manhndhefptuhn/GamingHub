@@ -5,8 +5,7 @@
 --%>
 
 
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page import="Model.Feedback" %>
 <%@ page import="Model.User" %>
 <%@ page import="Model.FeedbackReply" %>
@@ -26,11 +25,12 @@
 <html>
     <head>
         <title>Feedback Details</title>
+        
     </head>
     <body>
         
 <!--    uncomment to display header-->
-<%--<%@include file="header.jsp" %>--%>
+<%@include file="header.jsp" %>
         
 
 
@@ -51,7 +51,7 @@
                     
                                     <tr>
                                         <td>Feedback ID: <%= x.getFeedbackId()%></td></br>
-                                        <td><a href="ProductDetailController?productID=<%= x.getProductId() %>">Product ID: <%=x.getProductId()%></a></td></br>
+                                        <td><a href="productDetail?productID=<%= x.getProductId() %>">Product ID: <%=x.getProductId()%></a></td></br>
                                         <td>User ID: <%=x.getUserId()%></td></br>
                                         <td>User Name: <%=u.getFullName()%></td></br>
                                         <td>User Contact: <%=u.getEmail()%></td></br>
@@ -90,7 +90,7 @@
                                 for(FeedbackReply x: feedbackRep) {
 %>
                                     <p>      <%=x.getResponseContent()%></p>
-                                    <a href="supportEditFeedbackResponse?responseId=<%= x.getResponseId() %>">edit</a><br>
+                                    <a href="#">edit</a><br>
                                     <a href="supportDeleteFeedbackResponse?responseId=<%= x.getResponseId() %>">delete</a><br>
 <% 
                                 }                            

@@ -98,7 +98,7 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("userChange", u);
                     request.getRequestDispatcher("changePass.jsp").forward(request, response);
                 }
-            } else if (password.equals(defaultPassword) && u.getRole_ID() == 2 || u.getRole_ID() == 3 || u.getRole_ID() == 4) {
+            } else if (password.equals(defaultPassword) && u.getRole_ID() == 2 ||password.equals(defaultPassword) && u.getRole_ID() == 3 ||password.equals(defaultPassword) && u.getRole_ID() == 4) {
                 session.setAttribute("userChange", u);
                 request.getRequestDispatcher("changePass.jsp").forward(request, response);
             } else {

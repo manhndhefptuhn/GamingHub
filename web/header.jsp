@@ -96,7 +96,7 @@
                                                         <li><a href="#">Sale Dashboard</a></li>
                                                         </c:if>
                                                         <c:if test="${sessionScope.user.getRole_ID() == 3}">
-                                                        <li><a href="#">Support Dashboard</a></li>
+                                                        <li><a href="GetSupportDashboardInfo">Support Dashboard</a></li>
                                                         </c:if>
                                                         <c:if test="${sessionScope.user.getRole_ID() == 4}">
                                                         <li><a href="#">Admin Dashboard</a></li>
