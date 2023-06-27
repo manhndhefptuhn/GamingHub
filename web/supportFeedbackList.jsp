@@ -32,13 +32,15 @@
               .row.content {height: auto;} 
             }
         </style>
+
+        
         <title>Feedback List</title>
     </head>
     
     <body>         
     
 <!--    uncomment to display header-->
-<%--<%@include file="header.jsp" %>--%>
+<%@include file="header.jsp" %>
         
 <!--        side navigation-->
         <div class="container-fluid">
