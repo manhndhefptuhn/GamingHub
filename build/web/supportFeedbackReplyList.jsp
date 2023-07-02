@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <%
   List<FeedbackReply> lst = (List<FeedbackReply>) request.getAttribute("lst");
+  String xName = (String)request.getAttribute("search");
 %>
 
 <html>
@@ -30,14 +31,13 @@
             @media screen and (max-width: 767px) {
               .row.content {height: auto;} 
             }
+            
         </style>
-        
-
         
         <title>Support Reply</title>
     </head>
     <body>
-        <%@include file="header.jsp" %>
+    <%@include file="header.jsp" %>   
 
         <div class="container-fluid">
           <div class="row content"> 
@@ -53,9 +53,17 @@
                 </ul><br>
             </div>
            
+             <!--        search feedback with name -->
+            <div class="col-sm-9">
+               <div class="well">                                     
+                    <form action="searchResponse" method="POST">
+                        <p>Search Feedback Response: <input type="text" name="name" value=""/> <input type="submit" value="Search"> 
+                    </form>
+               </div>               
+            </div>
             
             <!--       Reply table-->
-            <div>                  
+            <div class="col-sm-9">                  
                 <table class="TableofFeedback" border="1">
                     <br>
                     <thead>
@@ -68,19 +76,31 @@
                         </tr>
                     </thead>
                     <tbody>
+                        
+                        <%
+                            if(xName != null){
+                        %>                          
+                            <h2>Searched results for "<%= xName%>"</h2>
+                        <%
+                            }
+                        %>
+                        
                         <%
                         if(lst.isEmpty()){
-                            out.println("no list");
+                            out.println("No feedback found");
                             }else{
                         if(!lst.isEmpty()){
                         %>
+                        
+                            
+                        
                         <%
                             for(FeedbackReply x: lst) {
                         %>
                         <tr class="box">
     <!--                        get the feedback ID for getting details-->
-                            <td><%=x.getResponseId()%></td>
-                            <td> <%= x.getFeedbackId() %></td>
+                            <td><a href="GetFeedbackDetails?id=<%= x.getFeedbackId() %>"><%=x.getResponseId()%></a></td>
+                            <td><%=x.getFeedbackId()%></td>
                             <td><%=x.getUserId()%></td>
                             <td><%=x.getResponseDate()%></td>
                             <td><%=x.getResponseContent()%></td>                                                
@@ -98,5 +118,6 @@
           </div>
         </div>
         
+                              
     </body>
 </html>

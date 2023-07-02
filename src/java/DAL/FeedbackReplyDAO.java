@@ -5,6 +5,7 @@
 package DAL;
 
 import Context.DBContext;
+import Model.Feedback;
 import Model.FeedbackReply;
 
 import java.sql.Connection;
@@ -121,12 +122,14 @@ public class FeedbackReplyDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "UPDATE `feedback_response`\n" +
-                                "SET `Response_content` = `"+newContent+"`\n" +
-                                "WHERE `Response_ID` = "+feedbackResId+";";
-                ResultSet rs = st.executeQuery(sql);
+                int rowsAffected = st.executeUpdate("UPDATE `feedback_response` SET `Response_content` = '" +newContent+ "' WHERE `Response_ID` = "+feedbackResId+";");
 
-                rs.close();
+                if (rowsAffected > 0) {
+                    System.out.println("Row updated successfully.");
+                } else {
+                    System.out.println("No rows were updated.");
+                }
+
                 st.close();
                 con.close();
             }
@@ -197,9 +200,39 @@ public class FeedbackReplyDAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
+        
 
         
     }
+        
+      //reply content  
+    public ArrayList<FeedbackReply> getFeedbackWithName(String feedbackName) {
+        ArrayList<FeedbackReply> listFeedback = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "select * from `feedback_response` where `Response_content` like '%" +feedbackName+ "%';";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    FeedbackReply f = new FeedbackReply();
+                    f.setResponseId(rs.getInt(1));
+                    f.setFeedbackId(rs.getInt(2));
+                    f.setUserId(rs.getInt(3));
+                    f.setResponseDate(rs.getDate(4));
+                    f.setResponseContent(rs.getString(5));
+                    listFeedback.add(f);
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return listFeedback;
+    }  
     
 }
