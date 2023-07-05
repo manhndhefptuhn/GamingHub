@@ -257,15 +257,15 @@ public class FeedbackDAO {
         return listFeedback;
     }
     
-    //Get feedback via feedback name   
-    public ArrayList<Feedback> getFeedbackWithName(String feedbackName) {
+    //Get feedback via feedback content  
+    public ArrayList<Feedback> getFeedbackWithName(String feedbackContent) {
         ArrayList<Feedback> listFeedback = new ArrayList<>();
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "select * from `feedback` where `Content` like '%" +feedbackName+ "%';";
+                String sql = "select * from `feedback` where `Content` like '%" +feedbackContent+ "%';";
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
                     Feedback f = new Feedback();

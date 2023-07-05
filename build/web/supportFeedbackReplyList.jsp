@@ -57,7 +57,7 @@
             <div class="col-sm-9">
                <div class="well">                                     
                     <form action="searchResponse" method="POST">
-                        <p>Search Feedback Response: <input type="text" name="name" value=""/> <input type="submit" value="Search"> 
+                        <p>Search Response: <input type="text" name="name" value=""/> <input type="submit" value="Search"> 
                     </form>
                </div>               
             </div>

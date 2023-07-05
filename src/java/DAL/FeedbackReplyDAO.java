@@ -5,7 +5,6 @@
 package DAL;
 
 import Context.DBContext;
-import Model.Feedback;
 import Model.FeedbackReply;
 
 import java.sql.Connection;
@@ -205,15 +204,15 @@ public class FeedbackReplyDAO {
         
     }
         
-      //reply content  
-    public ArrayList<FeedbackReply> getFeedbackWithName(String feedbackName) {
+      //search reply content  
+    public ArrayList<FeedbackReply> getFeedbackWithName(String feedbackResContent) {
         ArrayList<FeedbackReply> listFeedback = new ArrayList<>();
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "select * from `feedback_response` where `Response_content` like '%" +feedbackName+ "%';";
+                String sql = "select * from `feedback_response` where `Response_content` like '%" +feedbackResContent+ "%';";
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
                     FeedbackReply f = new FeedbackReply();
