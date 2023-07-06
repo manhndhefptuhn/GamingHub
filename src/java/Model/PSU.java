@@ -12,23 +12,18 @@ public class PSU {
     private int psuID;
     private String psuName;
     private int price;
-    private String description;
-    private String image;
     private boolean status;
 
     public PSU() {
     }
 
-    public PSU(int psuID, String psuName, int price, String description, String image, boolean status) {
+    public PSU(int psuID, String psuName, int price, boolean status) {
         this.psuID = psuID;
         this.psuName = psuName;
         this.price = price;
-        this.description = description;
-        this.image = image;
         this.status = status;
     }
 
-    
 
     public int getPsuID() {
         return psuID;
@@ -46,28 +41,12 @@ public class PSU {
         this.psuName = psuName;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
     public void setPrice(int price) {
         this.price = price;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public int getPrice() {
+        return price;
     }
 
     public boolean isStatus() {

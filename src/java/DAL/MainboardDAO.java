@@ -29,9 +29,7 @@ public class MainboardDAO {
                     m.setMainboardID(rs.getInt(1));
                     m.setMainboardName(rs.getString(2));
                     m.setPrice(rs.getInt(3));
-                    m.setDescription(rs.getString(4));
-                    m.setImage(rs.getString(5));
-                    m.setStatus(rs.getBoolean(6));
+                    m.setStatus(rs.getBoolean(4));
                     return m;
                 }
                 rs.close();

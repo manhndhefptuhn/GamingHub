@@ -5,7 +5,6 @@
 package DAL;
 
 import Context.DBContext;
-import Model.Mainboard;
 import Model.PSU;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -29,9 +28,7 @@ public class PSUDAO {
                     psu.setPsuID(rs.getInt(1));
                     psu.setPsuName(rs.getString(2));
                     psu.setPrice(rs.getInt(3));
-                    psu.setDescription(rs.getString(4));
-                    psu.setImage(rs.getString(5));
-                    psu.setStatus(rs.getBoolean(6));
+                    psu.setStatus(rs.getBoolean(4));
                     return psu;
                 }
                 rs.close();

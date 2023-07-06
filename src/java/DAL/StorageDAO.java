@@ -28,9 +28,7 @@ public class StorageDAO {
                     s.setStorageID(rs.getInt(1));
                     s.setStorageName(rs.getString(2));
                     s.setPrice(rs.getInt(3));
-                    s.setDescription(rs.getString(4));
-                    s.setImage(rs.getString(5));
-                    s.setStatus(rs.getBoolean(6));
+                    s.setStatus(rs.getBoolean(4));
                     return s;
                 }
                 rs.close();

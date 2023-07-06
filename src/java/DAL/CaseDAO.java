@@ -6,7 +6,6 @@ package DAL;
 
 import Context.DBContext;
 import Model.Case;
-import Model.Mainboard;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -34,16 +33,13 @@ public class CaseDAO {
                     c.setCaseID(rs.getInt(1));
                     c.setCaseName(rs.getString(2));
                     c.setPrice(rs.getInt(3));
-                    c.setDescription(rs.getString(4));
-                    c.setImage(rs.getString(5));
-                    c.setStatus(rs.getBoolean(6));
+                    c.setImage(rs.getString(4));
+                    c.setStatus(rs.getBoolean(5));
                     listImage.put(c.getCaseID(), c);
                 }
                 rs.close();
                 st.close();
                 con.close();
-            } else {
-                System.out.println("Not connected");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -64,9 +60,8 @@ public class CaseDAO {
                     c.setCaseID(rs.getInt(1));
                     c.setCaseName(rs.getString(2));
                     c.setPrice(rs.getInt(3));
-                    c.setDescription(rs.getString(4));
-                    c.setImage(rs.getString(5));
-                    c.setStatus(rs.getBoolean(6));
+                    c.setImage(rs.getString(4));
+                    c.setStatus(rs.getBoolean(5));
                     return c;
                 }
                 rs.close();
