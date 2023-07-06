@@ -67,7 +67,6 @@
                     <c:set var="listImage" value="${requestScope.listImage}" />
                     <c:set var="listGamingProductPrice" value="${requestScope.listGamingProductPrice}" />
                     <c:set var="listGamingProductSalePrice" value="${requestScope.listGamingProductSalePrice}" />
-                    <c:set var="listGamingFeedback" value="${requestScope.listGamingFeedback}" />
                     <c:forEach var="listFourGamingPC" items="${listFourGamingPC}">
                         <c:set var="productID" value="${listFourGamingPC.getProductID()}" />
                         <c:set var="caseID" value="${listCaseID[productID]}" />
@@ -95,25 +94,19 @@
                                             <ul class="product__hover">
                                                 <li><a href="productDetail?productID=${listFourGamingPC.getProductID()}"><span class="arrow_expand"></span></a></li>
                                                         <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                                    <li><a href="addToWishlist?productID=${listFourGamingPC.getProductID()}"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="addToCart?productID=${listFourGamingPC.getProductID()}"><span class="icon_bag_alt"></span></a></li>
+                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                                                         </c:if> 
                                             </ul>
                                         </div>
                                         <div class="product__item__text">
-                                            <h6>${listFourGamingPC.getProductName()}</h6>
+                                            <h6><a href="#">${listFourGamingPC.getProductName()}</a></h6>
                                             <div class="rating">
-                                                <c:set var="rating" value="${listGamingFeedback[productID]}" />
-                                                <c:forEach var="counter" begin="1" end="5">
-                                                    <c:choose>
-                                                        <c:when test="${counter <= rating}">
-                                                            <i class="fa fa-star"></i>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:forEach>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
                                             </div>
                                             <c:if test="${listFourGamingPC.getProductStatusID() == 0}">
                                                 <div class="product__price">$ ${listGamingProductPrice[productID]}</div>
@@ -139,7 +132,6 @@
                         <div class="row property__gallery">
                             <c:set var="listWorkProductPrice" value="${requestScope.listWorkProductPrice}" />
                             <c:set var="listWorkProductSalePrice" value="${requestScope.listWorkProductSalePrice}" />
-                            <c:set var="listWorkFeedback" value="${requestScope.listWorkFeedback}" />
                             <c:forEach var="listFourWorkPC" items="${listFourWorkPC}">
                                 <c:set var="productID" value="${listFourWorkPC.getProductID()}" />
                                 <c:set var="caseID" value="${listCaseID[productID]}" />
@@ -167,25 +159,19 @@
                                                     <ul class="product__hover">
                                                         <li><a href="productDetail?productID=${listFourWorkPC.getProductID()}"><span class="arrow_expand"></span></a></li>
                                                                 <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                                            <li><a href="addToWishlist?productID=${listFourWorkPC.getProductID()}"><span class="icon_heart_alt"></span></a></li>
-                                                            <li><a href="addToCart?productID=${listFourWorkPC.getProductID()}"><span class="icon_bag_alt"></span></a></li>
+                                                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                                                                 </c:if>
                                                     </ul>
                                                 </div>
                                                 <div class="product__item__text">
-                                                    <h6>${listFourWorkPC.getProductName()}</h6>
+                                                    <h6><a href="#">${listFourWorkPC.getProductName()}</a></h6>
                                                     <div class="rating">
-                                                        <c:set var="rating" value="${listWorkFeedback[productID]}" />
-                                                        <c:forEach var="counter" begin="1" end="5">
-                                                            <c:choose>
-                                                                <c:when test="${counter <= rating}">
-                                                                    <i class="fa fa-star"></i>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </c:forEach>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
                                                     </div>
                                                     <c:if test="${listFourWorkPC.getProductStatusID() == 0}">
                                                         <div class="product__price">$ ${listWorkProductPrice[productID]}</div>
@@ -211,7 +197,6 @@
                                 <div class="row property__gallery">
                                     <c:set var="listMiniProductPrice" value="${requestScope.listMiniProductPrice}" />
                                     <c:set var="listMiniProductSalePrice" value="${requestScope.listMiniProductSalePrice}" />
-                                    <c:set var="listMiniFeedback" value="${requestScope.listMiniFeedback}" />
                                     <c:forEach var="listFourMiniPC" items="${listFourMiniPC}">
                                         <c:set var="productID" value="${listFourMiniPC.getProductID()}" />
                                         <c:set var="caseID" value="${listCaseID[productID]}" />
@@ -240,25 +225,19 @@
                                                                 <ul class="product__hover">
                                                                     <li><a href="productDetail?productID=${listFourMiniPC.getProductID()}"><span class="arrow_expand"></span></a></li>
                                                                             <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                                                        <li><a href="addToWishlist?productID=${listFourMiniPC.getProductID()}"><span class="icon_heart_alt"></span></a></li>
-                                                                        <li><a href="addToCart?productID=${listFourMiniPC.getProductID()}"><span class="icon_bag_alt"></span></a></li>
+                                                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                                                        <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                                                                             </c:if>
                                                                 </ul>
                                                             </div>
                                                             <div class="product__item__text">
-                                                                <h6>${listFourMiniPC.getProductName()}</h6>
+                                                                <h6><a href="#">${listFourMiniPC.getProductName()}</a></h6>
                                                                 <div class="rating">
-                                                                    <c:set var="rating" value="${listMiniFeedback[productID]}" />
-                                                                    <c:forEach var="counter" begin="1" end="5">
-                                                                        <c:choose>
-                                                                            <c:when test="${counter <= rating}">
-                                                                                <i class="fa fa-star"></i>
-                                                                            </c:when>
-                                                                            <c:otherwise>
-                                                                                <i class="fa fa-star-o"></i>
-                                                                            </c:otherwise>
-                                                                        </c:choose>
-                                                                    </c:forEach>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
                                                                 </div>
                                                                 <c:if test="${listFourMiniPC.getProductStatusID() == 0}">
                                                                     <div class="product__price">$ ${listMiniProductPrice[productID]}</div>

@@ -66,7 +66,6 @@ public class Feedback {
         this.createdDate = createdDate;
     }
 
-
     public String getContent() {
         return content;
     }

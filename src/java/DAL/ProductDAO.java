@@ -5,9 +5,8 @@
 package DAL;
 
 import Context.DBContext;
-import Model.Cart;
+import Model.PC;
 import Model.Product;
-import Model.Wishlist;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,13 +28,7 @@ public class ProductDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT p.*, AVG(f.Rating) AS highest_rating\n"
-                        + "                   FROM PRODUCT AS p\n"
-                        + "                   LEFT JOIN feedback AS f ON p.Product_ID = f.Product_ID\n"
-                        + "                   WHERE p.Category_ID = 1 AND p.Status = 1\n"
-                        + "                   GROUP BY p.Product_ID\n"
-                        + "                   ORDER BY highest_rating DESC, p.Product_ID ASC\n"
-                        + "                   LIMIT 4;";
+                String sql = "SELECT p.* from PRODUCT as p WHERE Category_ID = 1 and Status = 1 ORDER BY p.Product_ID asc LIMIT 4;";
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
                     Product p = new Product();
@@ -66,13 +59,7 @@ public class ProductDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT p.*, AVG(f.Rating) AS highest_rating\n"
-                        + "                   FROM PRODUCT AS p\n"
-                        + "                   LEFT JOIN feedback AS f ON p.Product_ID = f.Product_ID\n"
-                        + "                   WHERE p.Category_ID = 3 AND p.Status = 1\n"
-                        + "                   GROUP BY p.Product_ID\n"
-                        + "                   ORDER BY highest_rating DESC, p.Product_ID ASC\n"
-                        + "                   LIMIT 4;";
+                String sql = "SELECT p.* from PRODUCT as p WHERE Category_ID = 3 and Status = 1 ORDER BY p.Product_ID asc LIMIT 4;";
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
                     Product p = new Product();
@@ -95,7 +82,7 @@ public class ProductDAO {
         }
         return listWorkPC;
     }
-
+    
     public ArrayList<Product> getFourMiniPC() {
         ArrayList<Product> listMini = new ArrayList<>();
         try {
@@ -103,13 +90,7 @@ public class ProductDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT p.*, AVG(f.Rating) AS highest_rating\n"
-                        + "                   FROM PRODUCT AS p\n"
-                        + "                   LEFT JOIN feedback AS f ON p.Product_ID = f.Product_ID\n"
-                        + "                   WHERE p.Category_ID = 2 AND p.Status = 1\n"
-                        + "                   GROUP BY p.Product_ID\n"
-                        + "                   ORDER BY highest_rating DESC, p.Product_ID ASC\n"
-                        + "                   LIMIT 4;";
+                String sql = "SELECT p.* from PRODUCT as p WHERE Category_ID = 2 and Status = 1 ORDER BY p.Product_ID asc LIMIT 4;";
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
                     Product p = new Product();
@@ -164,6 +145,7 @@ public class ProductDAO {
                 }
                 st.close();
                 con.close();
+            } else {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -203,6 +185,7 @@ public class ProductDAO {
                 }
                 st.close();
                 con.close();
+            } else {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -242,7 +225,8 @@ public class ProductDAO {
     public Integer getSalePriceByID(int productID, double salePercentage) {
         DBContext db = new DBContext();
         double productPrice, salePrice;
-        try (Connection con = db.getConnection()){
+        try {
+            Connection con = db.getConnection();
             if (con != null) {
                 String sql = "SELECT pc.product_ID, (m.price + c.price + r.price + v.price + s.price + p.price + ca.price) AS product_price\n"
                         + "FROM pc\n"
@@ -265,6 +249,7 @@ public class ProductDAO {
                 rs.close();
                 st.close();
                 con.close();
+            } else {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -275,7 +260,8 @@ public class ProductDAO {
     public Integer getOriginalPriceByID(int productID) {
         DBContext db = new DBContext();
         double productPrice;
-        try (Connection con = db.getConnection()) {
+        try {
+            Connection con = db.getConnection();
             if (con != null) {
                 String sql = "SELECT pc.product_ID, (m.price + c.price + r.price + v.price + s.price + p.price + ca.price) AS product_price\n"
                         + "FROM pc\n"
@@ -297,6 +283,7 @@ public class ProductDAO {
                 rs.close();
                 st.close();
                 con.close();
+            } else {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -331,253 +318,10 @@ public class ProductDAO {
                 st.close();
                 con.close();
             }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return listRand;
     }
-
-    public ArrayList<Product> getAllProduct() {
-        ArrayList<Product> listProduct = new ArrayList<>();
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT p.* from PRODUCT as p WHERE Status = 1 ORDER BY p.product_id";
-                Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    Product p = new Product();
-                    p.setProductID(rs.getInt(1));
-                    p.setProductName(rs.getString(2));
-                    p.setDescription(rs.getString(3));
-                    p.setStatus(rs.getBoolean(4));
-                    p.setQuantity(rs.getInt(5));
-                    p.setProductStatusID(rs.getInt(6));
-                    p.setCategoryID(rs.getInt(7));
-                    listProduct.add(p);
-                }
-                rs.close();
-                st.close();
-                con.close();
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return listProduct;
-    }
-
-    public ArrayList<Product> getAllProductByCategory(int categoryID) {
-        ArrayList<Product> listProduct = new ArrayList<>();
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT p.* from PRODUCT as p WHERE p.Status = 1 and p.Category_ID = " + categoryID + " ORDER BY p.product_id;";
-                Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    Product p = new Product();
-                    p.setProductID(rs.getInt(1));
-                    p.setProductName(rs.getString(2));
-                    p.setDescription(rs.getString(3));
-                    p.setStatus(rs.getBoolean(4));
-                    p.setQuantity(rs.getInt(5));
-                    p.setProductStatusID(rs.getInt(6));
-                    p.setCategoryID(rs.getInt(7));
-                    listProduct.add(p);
-                }
-                rs.close();
-                st.close();
-                con.close();
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return listProduct;
-    }
-
-    public ArrayList<Product> getAllProductByCategoryAndCpuName(int categoryID, String cpuName) {
-        ArrayList<Product> listProduct = new ArrayList<>();
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT p.* from PRODUCT as p \n"
-                        + "INNER JOIN pc as pc ON p.Product_ID = pc.Product_ID\n"
-                        + "INNER JOIN cpu as cpu ON pc.CPU_ID = cpu.CPU_ID\n"
-                        + "WHERE p.Status = 1 and p.Category_ID = " + categoryID + " and cpu.CPU_Name like '%" + cpuName + "%'  ORDER BY p.product_id;";
-                Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    Product p = new Product();
-                    p.setProductID(rs.getInt(1));
-                    p.setProductName(rs.getString(2));
-                    p.setDescription(rs.getString(3));
-                    p.setStatus(rs.getBoolean(4));
-                    p.setQuantity(rs.getInt(5));
-                    p.setProductStatusID(rs.getInt(6));
-                    p.setCategoryID(rs.getInt(7));
-                    listProduct.add(p);
-                }
-                rs.close();
-                st.close();
-                con.close();
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return listProduct;
-    }
-
-    public ArrayList<Product> getAllProductByCategoryAndProductStatus(int categoryID, int productStatus) {
-        ArrayList<Product> listProduct = new ArrayList<>();
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT p.* from PRODUCT as p "
-                        + "WHERE p.Status = 1 and p.Category_ID = " + categoryID + " and p.Product_Status_ID = " + productStatus + " "
-                        + "ORDER BY p.product_id;";
-                Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    Product p = new Product();
-                    p.setProductID(rs.getInt(1));
-                    p.setProductName(rs.getString(2));
-                    p.setDescription(rs.getString(3));
-                    p.setStatus(rs.getBoolean(4));
-                    p.setQuantity(rs.getInt(5));
-                    p.setProductStatusID(rs.getInt(6));
-                    p.setCategoryID(rs.getInt(7));
-                    listProduct.add(p);
-                }
-                rs.close();
-                st.close();
-                con.close();
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return listProduct;
-    }
-
-    public Map<Integer, String> getWishlistProductNameByProductID(ArrayList<Wishlist> listWishList) {
-        Map<Integer, String> listName = new HashMap<>();
-        DBContext db = new DBContext();
-        String productName;
-        int productID;
-        try {
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "Select * FROM `product` WHERE Product_ID = ?;";
-                PreparedStatement st = con.prepareStatement(sql);
-                for (Wishlist wishlist : listWishList) {
-                    st.setInt(1, wishlist.getProductID());
-                    ResultSet rs = st.executeQuery();
-                    if (rs.next()) {
-                        productID = rs.getInt("Product_ID");
-                        productName = rs.getString("Product_Name");
-                        listName.put(productID, productName);
-                    }
-                    rs.close();
-                }
-                st.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return listName;
-    }
-
-    public Map<Integer, String> getCartProductNameByProductID(ArrayList<Cart> listCart) {
-        Map<Integer, String> listName = new HashMap<>();
-        DBContext db = new DBContext();
-        String productName;
-        int productID;
-        try {
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "Select * FROM `product` WHERE Product_ID = ?;";
-                PreparedStatement st = con.prepareStatement(sql);
-                for (Cart cart : listCart) {
-                    st.setInt(1, cart.getProductID());
-                    ResultSet rs = st.executeQuery();
-                    if (rs.next()) {
-                        productID = rs.getInt("Product_ID");
-                        productName = rs.getString("Product_Name");
-                        listName.put(productID, productName);
-                    }
-                    rs.close();
-                }
-                st.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return listName;
-    }
-
-    public Map<Integer, Integer> getProductStatusByProductID(ArrayList<Wishlist> listWishList) {
-        Map<Integer, Integer> listName = new HashMap<>();
-        DBContext db = new DBContext();
-        int productID, productStatus;
-        try {
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "Select * FROM `product` WHERE Product_ID = ?;";
-                PreparedStatement st = con.prepareStatement(sql);
-                for (Wishlist wishlist : listWishList) {
-                    st.setInt(1, wishlist.getProductID());
-                    ResultSet rs = st.executeQuery();
-                    if (rs.next()) {
-                        productID = rs.getInt("Product_ID");
-                        productStatus = rs.getInt("Product_Status_ID");
-                        listName.put(productID, productStatus);
-                    }
-                    rs.close();
-                }
-                st.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return listName;
-    }
-
-    public Map<Integer, Integer> getProductQuantityByID(ArrayList<Cart> listCart) {
-        Map<Integer, Integer> listQuantity = new HashMap<>();
-        DBContext db = new DBContext();
-        int productID, quantity;
-        try {
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "Select * FROM `product` WHERE Product_ID = ?;";
-                PreparedStatement st = con.prepareStatement(sql);
-                for (Cart cart : listCart) {
-                    st.setInt(1, cart.getProductID());
-                    ResultSet rs = st.executeQuery();
-                    if (rs.next()) {
-                        productID = rs.getInt("Product_ID");
-                        quantity = rs.getInt("Quantity");
-                        listQuantity.put(productID, quantity);
-                    }
-                    rs.close();
-                }
-                st.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return listQuantity;
-    }
-
 }

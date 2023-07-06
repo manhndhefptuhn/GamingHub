@@ -66,7 +66,7 @@
                     <div class="col-lg-12">
                         <div class="breadcrumb__links">
                             <a href="home"><i class="fa fa-home"></i> Home</a>
-                            <a href="shop">Shop</a>
+                            <a href="#">Shop</a>
                             <span>${product.getProductName()}</span>
                         </div>
                     </div>
@@ -103,18 +103,12 @@
                         <div class="product__details__text">
                             <h3>${product.getProductName()}</h3>
                             <div class="rating">
-                                <c:set var="rating" value="${rating}" />
-                                <c:forEach var="counter" begin="1" end="5">
-                                    <c:choose>
-                                        <c:when test="${counter <= rating}">
-                                            <i class="fa fa-star"></i>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <i class="fa fa-star-o"></i>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
-                                <span>( ${totalFeedback} reviews )</span>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <span>( 138 reviews )</span>
                             </div>
                             <c:if test="${product.getProductStatusID() == 0}">
                                 <div class="product__details__price">$ ${originalPrice}</div>
@@ -132,13 +126,13 @@
                                         <a class="cart-btn" style="background: #111111">Out of stock</a>
                                     </c:when>
                                     <c:otherwise>
-                                        <a href="addToCart?productID=${product.getProductID()}" class="cart-btn">
+                                        <a href="#?productID=${product.getProductID()}" class="cart-btn">
                                             <span class="icon_bag_alt"></span> Add to cart</a>
-                                        </c:otherwise>
-                                    </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
                                 <ul>
                                     <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                        <li><a href="addToWishlist?productID=${product.getProductID()}"><span class="icon_heart_alt"></span></a></li>
+                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                             </c:if>
                                 </ul>
                             </div>
@@ -151,7 +145,7 @@
                                     <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Specification</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Reviews ( ${totalFeedback} )</a>
+                                    <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Reviews ( 2 )</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
@@ -185,82 +179,38 @@
                                     </table>
                                 </div>
                                 <div class="tab-pane" id="tabs-2" role="tabpanel">
-                                    <c:set var="listFeedback" value="${requestScope.listFeedback}" />
-                                    <c:choose>
-                                        <c:when test="${empty listFeedback}">
-                                            <div class="blog__details__comment">
-                                                <h5>No Comment</h5>
-                                                <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                                    <a href="#" class="leave-btn">Leave a comment</a>
-                                                </c:if>
+                                    <div class="blog__details__comment">
+                                        <h5>3 Comment</h5>
+                                        <c:if test="${sessionScope.user.getRole_ID() == 1}">
+                                            <a href="#" class="leave-btn">Leave a comment</a>
+                                        </c:if>
+                                        <div class="blog__comment__item">
+                                            <div class="blog__comment__item__pic">
+                                                <img src="<%= request.getContextPath()%>/img/default-avatar.png" alt="">
                                             </div>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <div class="blog__details__comment">
-                                                <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                                    <a href="#" class="leave-btn">Leave a comment</a>
-                                                </c:if>
-                                                <c:set var="listUser" value="${requestScope.listUser}" />
-                                                <c:set var="listResponse" value="${requestScope.listResponse}" />
-                                                <c:set var="listUserResponse" value="${requestScope.listUserResponse}" />
-                                                <c:forEach var="listFeedback" items="${listFeedback}">
-                                                    <c:set var="feedbackID" value="${listFeedback.getFeedbackID()}" />
-                                                    <c:set var="response" value="${listResponse[feedbackID]}" />
-                                                    <c:set var="userObject" value="${listUser[listFeedback.getUserID()]}" />
-                                                    <c:set var="userResponse" value="${listUserResponse[response.getUserID()]}" />
-                                                    <div class="blog__comment__item">
-                                                        <div class="blog__comment__item__pic">
-                                                            <c:choose>
-                                                                <c:when test="${userObject.getProfile_picture() == null || userObject.getProfile_picture() eq ''}">
-                                                                    <img src="<%= request.getContextPath()%>/img/default-avatar.png" alt="">
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <img src="<%= request.getContextPath()%>/${userObject.getProfile_picture()}" alt="">
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </div>
-                                                        <div class="blog__comment__item__text">
-                                                            <h6>${userObject.getFullName()}</h6>
-                                                            <div class="rating">
-                                                                <c:forEach begin="1" end="${listFeedback.getRating()}" var="star">
-                                                                    <i class="fa fa-star"></i>
-                                                                </c:forEach>
-                                                            </div>
-                                                            <p>${listFeedback.getContent()}</p>
-                                                            <c:if test="${listFeedback.getImage() != null}">
-                                                                <a class="image-popup" href="<%= request.getContextPath()%>/${listFeedback.getImage()}">
-                                                                    <img src="<%= request.getContextPath()%>/${listFeedback.getImage()}" alt="" style="width:10%; "></a>
-                                                                </c:if>
-                                                            <ul>
-                                                                <li><i class="fa fa-clock-o"></i>${listFeedback.getCreatedDate()}</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <c:if test="${response != null}">
-                                                        <div class="blog__comment__item blog__comment__item--reply">
-                                                            <div class="blog__comment__item__pic">
-                                                                <c:choose>
-                                                                    <c:when test="${userResponse.getProfile_picture() == null || userResponse.getProfile_picture() eq ''}">
-                                                                        <img src="<%= request.getContextPath()%>/img/default-avatar.png" alt="">
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        <img src="<%= request.getContextPath()%>/${userResponse.getProfile_picture()}" alt="">
-                                                                    </c:otherwise>
-                                                                </c:choose>
-                                                            </div>
-                                                            <div class="blog__comment__item__text">
-                                                                <h6>${userResponse.getFullName()}</h6>
-                                                                <p>${response.getResponseContent()}</p>
-                                                                <ul>
-                                                                    <li><i class="fa fa-clock-o"></i>${response.getResponseDate()}</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </c:if> 
-                                                </c:forEach>   
+                                            <div class="blog__comment__item__text">
+                                                <h6>Brandon Kelley</h6>
+                                                <p>This is comment.</p>
+                                                    <a class="image-popup" href="<%= request.getContextPath()%>/img/case/1st_Player_XF_Black.jpg">
+                                                    <img src="<%= request.getContextPath()%>/img/case/1st_Player_XF_Black.jpg" alt="" style="width:10%; "></a>
+                                                <ul>
+                                                    <li><i class="fa fa-clock-o"></i> Seb 17, 2019</li>
+                                                </ul>
                                             </div>
-                                        </c:otherwise>
-                                    </c:choose>
+                                        </div>
+                                        <div class="blog__comment__item blog__comment__item--reply">
+                                            <div class="blog__comment__item__pic">
+                                                <img src="<%= request.getContextPath()%>/img/default-avatar.png" alt="">
+                                            </div>
+                                            <div class="blog__comment__item__text">
+                                                <h6>Brandon Kelley</h6>
+                                                <p>This is reply</p>
+                                                <ul>
+                                                    <li><i class="fa fa-clock-o"></i> Seb 17, 2019</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -276,7 +226,6 @@
                     <c:set var="listImage" value="${requestScope.listImage}" />
                     <c:set var="listRelatedPCPrice" value="${requestScope.listRelatedPCPrice}" />
                     <c:set var="listSalePrice" value="${requestScope.listSalePrice}" />
-                    <c:set var="listRelatedFeedback" value="${requestScope.listRelatedFeedback}" />
                     <c:forEach var="listRelated" items="${listRelated}">
                         <c:set var="productID" value="${listRelated.getProductID()}" />
                         <c:set var="caseID" value="${listCaseID[productID]}" />
@@ -303,26 +252,18 @@
                                             </c:if>
                                             <ul class="product__hover">
                                                 <li><a href="productDetail?productID=${listRelated.getProductID()}"><span class="arrow_expand"></span></a></li>
-                                                        <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                                    <li><a href="addToWishlist?productID=${listRelated.getProductID()}"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="addToCart?productID=${listRelated.getProductID()}"><span class="icon_bag_alt"></span></a></li>
-                                                        </c:if>
+                                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                                             </ul>
                                         </div>
                                         <div class="product__item__text">
-                                            <h6>${listRelated.getProductName()}</h6>
+                                            <h6><a href="#">${listRelated.getProductName()}</a></h6>
                                             <div class="rating">
-                                                <c:set var="rating" value="${listRelatedFeedback[productID]}" />
-                                                <c:forEach var="counter" begin="1" end="5">
-                                                    <c:choose>
-                                                        <c:when test="${counter <= rating}">
-                                                            <i class="fa fa-star"></i>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:forEach>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
                                             </div>
                                             <c:if test="${listRelated.getProductStatusID() == 0}">
                                                 <div class="product__price">$ ${listRelatedPCPrice[productID]}</div>

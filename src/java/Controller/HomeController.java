@@ -4,17 +4,16 @@
  */
 package Controller;
 
-import DAL.CartDAO;
+import DAL.CPUDAO;
 import DAL.CaseDAO;
-import DAL.FeedbackDAO;
 import DAL.PCDAO;
 import DAL.ProductDAO;
+import DAL.RAMDAO;
 import DAL.SliderDAO;
-import DAL.WishlistDAO;
+import DAL.VGADAO;
 import Model.Case;
 import Model.Product;
 import Model.Slider;
-import Model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,53 +46,41 @@ public class HomeController extends HttpServlet {
         ProductDAO pDAO = new ProductDAO();
         CaseDAO caseDAO = new CaseDAO();
         PCDAO pcDAO = new PCDAO();
-        WishlistDAO wlDAO = new WishlistDAO();
-        FeedbackDAO fDAO = new FeedbackDAO();
-        CartDAO cartDAO = new CartDAO();
         
-        int totalWishlistProduct, totalCartProduct;
-        User u = (User) session.getAttribute("user");
-
         //Slider
         ArrayList<Slider> listSlider = slDAO.getAllSlider();
         request.setAttribute("listSlider", listSlider);
-
+        
         //Gaming PC
         ArrayList<Product> listFourGamingPC = pDAO.getFourGamingPC();
         request.setAttribute("listFourGamingPC", listFourGamingPC);
-
+        
         //Map to get original Price and sale price of gaming product
         Map<Integer, Integer> listGamingProductPrice = pDAO.getOriginalPriceByID(listFourGamingPC);
         request.setAttribute("listGamingProductPrice", listGamingProductPrice);
         Map<Integer, Integer> listGamingProductSalePrice = pDAO.getSalePriceByID(listFourGamingPC, 10.0);
         request.setAttribute("listGamingProductSalePrice", listGamingProductSalePrice);
-        Map<Integer, Integer> listGamingFeedback = fDAO.getStarByProductID(listFourGamingPC);
-        request.setAttribute("listGamingFeedback", listGamingFeedback);
-
         
         //workPC
         ArrayList<Product> listFourWorkPC = pDAO.getFourWorkStationPC();
         request.setAttribute("listFourWorkPC", listFourWorkPC);
-
+        
         //Map to get original Price and sale price of work product
         Map<Integer, Integer> listWorkProductPrice = pDAO.getOriginalPriceByID(listFourWorkPC);
         request.setAttribute("listWorkProductPrice", listWorkProductPrice);
         Map<Integer, Integer> listWorkProductSalePrice = pDAO.getSalePriceByID(listFourWorkPC, 10.0);
         request.setAttribute("listWorkProductSalePrice", listWorkProductSalePrice);
-        Map<Integer, Integer> listWorkFeedback = fDAO.getStarByProductID(listFourWorkPC);
-        request.setAttribute("listWorkFeedback", listWorkFeedback);
-
+        
+        
         //Mini PC
         ArrayList<Product> listFourMiniPC = pDAO.getFourMiniPC();
         request.setAttribute("listFourMiniPC", listFourMiniPC);
-
+        
         //Map to get original Price and sale price of mini product
         Map<Integer, Integer> listMiniProductPrice = pDAO.getOriginalPriceByID(listFourMiniPC);
         request.setAttribute("listMiniProductPrice", listMiniProductPrice);
         Map<Integer, Integer> listMiniProductSalePrice = pDAO.getSalePriceByID(listFourMiniPC, 10.0);
         request.setAttribute("listMiniProductSalePrice", listMiniProductSalePrice);
-        Map<Integer, Integer> listMiniFeedback = fDAO.getStarByProductID(listFourMiniPC);
-        request.setAttribute("listMiniFeedback", listMiniFeedback);
         
         
         //MapToGetImage
@@ -101,14 +88,8 @@ public class HomeController extends HttpServlet {
         request.setAttribute("listImage", listImage);
         Map<Integer, Integer> listCaseID = pcDAO.getCaseIDByProductID();
         request.setAttribute("listCaseID", listCaseID);
-
-        if (u != null && u.getRole_ID() == 1) {
-            totalWishlistProduct = wlDAO.getTotalWishlistProduct(u.getUser_ID());
-            session.setAttribute("totalWishlistProduct", totalWishlistProduct);
-            totalCartProduct = cartDAO.getTotalCartProduct(u.getUser_ID());
-            session.setAttribute("totalCartProduct", totalCartProduct);
-        }
-
+        
+        
         request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
 

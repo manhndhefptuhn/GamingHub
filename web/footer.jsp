@@ -29,7 +29,7 @@
                             <h6>Quick links</h6>
                             <ul>
                                 <li><a href="home">Home</a></li>
-                                <li><a href="shop">Shop</a></li>
+                                <li><a href="#">Shop</a></li>
                                 <li><a href="contact.jsp">Contact</a></li>
                             </ul>
                         </div>

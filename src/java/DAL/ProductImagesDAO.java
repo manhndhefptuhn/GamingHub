@@ -24,7 +24,7 @@ public class ProductImagesDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT * FROM `product_images` WHERE Product_ID = " + productID + ";";
+                String sql = "SELECT * FROM `product_images` WHERE Product_ID + " + productID + ";";
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
                     Product_Images primg = new Product_Images();

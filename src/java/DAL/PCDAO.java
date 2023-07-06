@@ -41,6 +41,7 @@ public class PCDAO {
                 rs.close();
                 st.close();
                 con.close();
+            } else {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

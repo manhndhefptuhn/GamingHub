@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/java/Controller/CheckoutController.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>52</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< Updated upstream
-        <group/>
-=======
         <group>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/web/cartContact.jsp</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/src/java/Controller/CartContactController.java</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/src/java/Controller/CartController.java</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/web/js/main.js</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/web/header.jsp</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/src/java/Service/ConfigVNPay.java</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/web/cart.jsp</file>
+            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/src/java/Model/Feedback.java</file>
+            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/SWP391_SE1726_G4/src/java/DAL/FeedbackDAO.java</file>
         </group>
->>>>>>> Stashed changes
     </open-files>
 </project-private>
