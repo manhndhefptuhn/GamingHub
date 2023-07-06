@@ -35,7 +35,7 @@ public class FeedbackDAO {
                     f.setFeedbackID(rs.getInt(1));
                     f.setUserID(rs.getInt(2));
                     f.setProductID(rs.getInt(3));
-                    f.setCreatedDate(rs.getString(4));
+                    f.setCreatedDate(rs.getDate(4));
                     f.setContent(rs.getString(5));
                     f.setImage(rs.getString(6));
                     f.setRating(rs.getDouble(7));

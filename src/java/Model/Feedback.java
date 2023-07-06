@@ -4,6 +4,8 @@
  */
 package Model;
 
+import java.util.Date;
+
 /**
  *
  * @author Zarius
@@ -12,7 +14,7 @@ public class Feedback {
     private int feedbackID;
     private int userID;
     private int productID;
-    private String createdDate;
+    private Date createdDate;
     private String content;
     private String image;
     private double rating;
@@ -21,7 +23,7 @@ public class Feedback {
     public Feedback() {
     }
 
-    public Feedback(int feedbackID, int userID, int productID, String createdDate, String content, String image, double rating, boolean status) {
+    public Feedback(int feedbackID, int userID, int productID, Date createdDate, String content, String image, double rating, boolean status) {
         this.feedbackID = feedbackID;
         this.userID = userID;
         this.productID = productID;
@@ -56,13 +58,14 @@ public class Feedback {
         this.productID = productID;
     }
 
-    public String getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
+
 
     public String getContent() {
         return content;
