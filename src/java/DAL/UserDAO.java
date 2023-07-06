@@ -13,7 +13,8 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.HashMap;
+import java.util.Map;
 /**
  *
  * @author Zarius
@@ -292,6 +293,60 @@ public class UserDAO {
                     return customer;
                 }
             }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    public Map<Integer, User> getUserByUserID() {
+        Map<Integer, User> listUser = new HashMap<>();
+        DBContext db = new DBContext();
+        try {
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "Select * FROM `user`";
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    User u = new User();
+                    u.setUser_ID(rs.getInt(1));
+                    u.setFullName(rs.getString(2));
+                    u.setEmail(rs.getString(3));
+                    u.setPassword(rs.getString(4));
+                    u.setProfile_picture(rs.getString(5));
+                    u.setPhone_Number(rs.getString(6));
+                    u.setAddress(rs.getString(7));
+                    u.setStatus(rs.getBoolean(8));
+                    u.setRole_ID(rs.getInt(9));
+                    listUser.put(u.getUser_ID(), u);
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return listUser;
+    }
+    
+    public Integer getRandomSaler() {
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "SELECT * FROM `user` WHERE Role_ID = 2 and Status = 1 ORDER BY RAND() LIMIT 1;";
+                ResultSet rs = st.executeQuery(sql);
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

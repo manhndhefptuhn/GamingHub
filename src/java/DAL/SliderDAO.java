@@ -33,7 +33,6 @@ public class SliderDAO {
                     sl.setBacklink(rs.getString(4));
                     sl.setNote(rs.getString(5));
                     sl.setStatus(rs.getBoolean(6));
-                    sl.setUpdatedBy(rs.getInt(7));
                     listSlider.add(sl);
                 }
                 rs.close();

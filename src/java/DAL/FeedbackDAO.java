@@ -12,7 +12,9 @@ package DAL;
 import Context.DBContext;
 import Model.Feedback;
 import Model.FeedbackDashboard;
+import Model.Product;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -32,10 +34,10 @@ public class FeedbackDAO {
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
                     Feedback f = new Feedback();
-                    f.setFeedbackID(rs.getInt(1));
-                    f.setUserID(rs.getInt(2));
-                    f.setProductID(rs.getInt(3));
-                    f.setCreatedDate(rs.getDate(4));
+                    f.setFeedbackId(rs.getInt(1));
+                    f.setUserId(rs.getInt(2));
+                    f.setProductId(rs.getInt(3));
+                    f.setCreateDate(rs.getDate(4));
                     f.setContent(rs.getString(5));
                     f.setImage(rs.getString(6));
                     f.setRating(rs.getDouble(7));
