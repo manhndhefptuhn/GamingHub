@@ -48,6 +48,10 @@
         <servlet-name>GetFeedbackReplyList</servlet-name>
         <servlet-class>Controller.GetFeedbackReplyList</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>searchResponse</servlet-name>
+        <servlet-class>Controller.searchResponse</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -167,6 +171,10 @@
     <servlet-mapping>
         <servlet-name>supportDeleteFeedbackResponse</servlet-name>
         <url-pattern>/supportDeleteFeedbackResponse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>searchResponse</servlet-name>
+        <url-pattern>/searchResponse</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

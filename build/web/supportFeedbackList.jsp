@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <%
   List<Feedback> lst = (List<Feedback>) request.getAttribute("lst");
+  String xName = (String)request.getAttribute("search");
 %>
 
 
@@ -31,9 +32,9 @@
             @media screen and (max-width: 767px) {
               .row.content {height: auto;} 
             }
-        </style>
+            
 
-        
+        </style>
         <title>Feedback List</title>
     </head>
     
@@ -87,22 +88,35 @@
              <!--        display feedback list-->
             <div class="col-sm-9">            
                     <table class="TableofFeedback" border="1">
-                        <thead>
-                            <tr>
-                                <th scope="col"> Feedback ID </th>
-                                <th scope="col"> User ID </th>
-                                <th scope="col"> Create date </th>
-                                <th scope="col"> Rating </th>
-                                <th scope="col"> Status </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%
+
+                        <%
+                            if(xName != null){
+                        %>                          
+                            <h2>Searched results for "<%= xName%>"</h2>
+                        <%
+                            }
+                        %>
+                        
+                        <%
                             if(lst.isEmpty()){
-                                out.println("no list");
+                                out.println("<h2>No feedback found</h2>");
                                 }else{
+                        %>
+
+                            <%
                             if(!lst.isEmpty()){
                             %>
+                                <thead>
+                                    <tr>
+                                        <th scope="col"> Feedback ID </th>
+                                        <th scope="col"> User ID </th>
+                                        <th scope="col"> Create date </th>
+                                        <th scope="col"> Rating </th>
+                                        <th scope="col"> Status </th>
+                                        <th scope="col"> Content </th>
+                                    </tr>
+                                </thead>
+                                <tbody>                            
                             <%
                                 for(Feedback x: lst) {
                             %>
@@ -112,21 +126,23 @@
                                 <td><%=x.getUserId()%></td>
                                 <td><%=x.getCreateDate()%></td>
                                 <td><%=x.getRating()%></td>
-                                <td><%=x.getStatus()%></td>                                                
+                                <td><%=x.getStatus()%></td>   
+                                <td><%=x.getContent()%></td>  
                             </tr>
                             <% } %>  
                             <% } else {%> 
-                        <h2>No products found</h2>
+                        <h2>No feedback found</h2>
                         <% }
                             } %> 
-                        </tbody>
+                                </tbody>
                     </table>               
             </div>
              
-                        
+                                
                         
            </div>
-        </div>              
+        </div>                           
+                                
     </body>
 </html>
 

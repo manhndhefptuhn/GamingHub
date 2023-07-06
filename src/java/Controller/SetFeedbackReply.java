@@ -19,13 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class SetFeedbackReply extends HttpServlet {
    
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -68,7 +62,7 @@ public class SetFeedbackReply extends HttpServlet {
             out.println("<title>Support Response</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h3>Update successfully</h3>");
+            out.println("<h3>Response successfully</h3>");
             out.println("<a href =\"GetFeedbackList\">Back to list</a>");
             out.println("</body>");
             out.println("</html>");

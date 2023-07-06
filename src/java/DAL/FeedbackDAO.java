@@ -362,7 +362,47 @@ public class FeedbackDAO {
         return listFeedback;
     }
     
+
+    //Get feedback via feedback content  
+    public ArrayList<Feedback> getFeedbackWithName(String feedbackContent) {
+        ArrayList<Feedback> listFeedback = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "select * from `feedback` where `Content` like '%" +feedbackContent+ "%';";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    Feedback f = new Feedback();
+                    f.setFeedbackId(rs.getInt(1));
+                    f.setUserId(rs.getInt(2));
+                    f.setProductId(rs.getInt(3));
+                    f.setCreateDate(rs.getDate(4));
+                    f.setContent(rs.getString(5));
+                    f.setImage(rs.getString(6));
+                    f.setRating(rs.getDouble(7));
+                    f.setStatus(rs.getBoolean(8));
+                    listFeedback.add(f);
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return listFeedback;
+    }
     
+    
+
+    
+    
+    
+    //for dashboard info
+
     public ArrayList<FeedbackDashboard> getFeedbackDashboardInfo() {
         ArrayList<FeedbackDashboard> listFeedback = new ArrayList<>();
         try {
@@ -411,23 +451,7 @@ public class FeedbackDAO {
         }
         return listFeedback;
     }
-    
-    
-    
-    
-    
-    //dummy method
-    public ArrayList<Feedback> getFeedbackWithName(String feedbackName) {
-        ArrayList<Feedback> listFeedback = new ArrayList<>();
-        Feedback fb;
-        
-        fb = new Feedback(5,5,5,null,"good","good",4.5, true);
-        listFeedback.add(fb);
-                
-        return listFeedback;
-
-    }
-  
+       
     
     
 }

@@ -24,22 +24,49 @@
 
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <title>Feedback Details</title>
-        
     </head>
+    
+    <style>
+            .form-popup {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                border: 3px solid #f1f1f1;
+                border-radius: 15px;
+                text-align: center;
+            }
+        
+            .delete {
+                text-align: center;
+                display: none;
+                position: fixed;
+                z-index: 1;
+                padding-top: 100px;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+    </style>
     <body>
         
-<!--    uncomment to display header-->
-<%@include file="header.jsp" %>
+        <!--    uncomment to display header-->
+        <%@include file="header.jsp" %>
         
-
-
-<!--        display feedback details-->
+        <!--display feedback details-->
         <h1>Feedback Details</h1>
                           
                     <%
                         if(feedbackDetails.isEmpty()){
-                            out.println("no");
+                            out.println("No Feedback Found");
                         }
                         else{
                             if(!feedbackDetails.isEmpty()){
@@ -67,21 +94,28 @@
                         <% }
                         } %>        
         <br>
-    
-        
-        
-        
 
+        
+        
 <%
             if(feedbackDetails.get(0).getStatus()){               
 %>
 <!-- feedback status = true, displaying replies and edit/delete/ add reply -->
                 <br>
                 <br>
-                <h4>Previous reply</h4>
+                <h3>Previous reply</h3>
 <%
                         if(feedbackRep.isEmpty()){
-                            out.println("no");
+%>
+                            <h3>Add reply</h3>
+                            <form method="post" action="SetFeedbackReply">  
+                                <input type="text" name="reply" required>
+                                <input type="hidden" name="feedbackId" value ="<%=feedbackDetails.get(0).getFeedbackId()%>">
+                                <input type="hidden" name="userId" value ="<%=feedbackDetails.get(0).getUserId()%>">            
+                                <br><br>
+                                <input type="submit" value="Reply">
+                            </form>
+<%                          
                         }
                         else{
                             if(!feedbackRep.isEmpty()){
@@ -89,19 +123,23 @@
 <%
                                 for(FeedbackReply x: feedbackRep) {
 %>
-                                    <p>      <%=x.getResponseContent()%></p>
-                                    <a href="#">edit</a><br>
-                                    <a href="supportDeleteFeedbackResponse?responseId=<%= x.getResponseId() %>">delete</a><br>
-<% 
+                                    <p><%=x.getResponseContent()%></p>
+                                                                                   
+                                    <!-- Delete confirmation-->
+                                       
+                                    <a href="supportDeleteFeedbackResponse?responseId=<%= x.getResponseId() %>" onclick="return confirm('Delete this response?');">Delete</a>
+                                    <br>
+                                        
+<%  
                                 }                            
 %>                             
 <% 
                             }
 %>                        
 
-                            <h5>Add more reply</h5>
+                            <h3>Add more reply</h3>
                             <form method="post" action="SetFeedbackReply">  
-                                <input type="text" name="reply">
+                                <input type="text" name="reply" required>
                                 <input type="hidden" name="feedbackId" value ="<%=feedbackDetails.get(0).getFeedbackId()%>">
                                 <input type="hidden" name="userId" value ="<%=feedbackDetails.get(0).getUserId()%>">            
                                 <br><br>
@@ -118,18 +156,23 @@
             }
             else{
 %>
-<!-- status feedback = false, displaying a form to get reply-->
-        <h5>Reply</h5>
-        <form method="post" action="SetFeedbackReply">  
-            <input type="text" name="reply">
-            <input type="hidden" name="feedbackId" value ="<%=feedbackDetails.get(0).getFeedbackId()%>">
-            <input type="hidden" name="userId" value ="<%=feedbackDetails.get(0).getUserId()%>">            
-            <br><br>
-            <input type="submit" value="Reply">
-        </form>
+                <!-- status feedback = false, displaying a form to get reply-->
+                        <h3>Reply</h3>
+                        <form method="post" action="SetFeedbackReply">  
+                            <input type="text" name="reply" required>
+                            <input type="hidden" name="feedbackId" value ="<%=feedbackDetails.get(0).getFeedbackId()%>">
+                            <input type="hidden" name="userId" value ="<%=feedbackDetails.get(0).getUserId()%>">            
+                            <br><br>
+                            <input type="submit" value="Reply">
+                        </form>
         
        <% }
-        %>
+        %>     
+            
+        
+
+        
+        
         
         
     </body>

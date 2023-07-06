@@ -58,18 +58,21 @@ public class searchFeedback extends HttpServlet {
         FeedbackDAO u = new FeedbackDAO();
         
         //get list with param from search
-        String xName = request.getParameter("name").trim();       
+        String xName = request.getParameter("name").trim();  
+
         
         
         if(xName.equalsIgnoreCase("")){
             List<Feedback> lst = u.getFeedback();/////default list
             request.setAttribute("lst", lst);
+            request.setAttribute("search", xName);
             request.getRequestDispatcher("supportFeedbackList.jsp").forward(request, response);
         }
         
         else{
             List<Feedback> lst = u.getFeedbackWithName(xName);/////with name
             request.setAttribute("lst", lst);
+            request.setAttribute("search", xName);
             request.getRequestDispatcher("supportFeedbackList.jsp").forward(request, response);
         }
 
