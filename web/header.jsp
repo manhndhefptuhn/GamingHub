@@ -20,7 +20,48 @@
         <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
               rel="stylesheet">
+        <style>
+            .toast-container {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                width: 300px;
+                background-color: #333;
+                color: #fff;
+                padding: 15px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                z-index: 9999;
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
 
+            .toast-progress {
+                height: 5px;
+                background-color: gray;
+                margin-top: 10px;
+                border-radius: 3px;
+                position: relative;
+            }
+
+            .toast-progress-bar {
+                height: 100%;
+                background-color: blue;
+                width: 0;
+                border-radius: 3px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                transition: width 4s linear;
+            }
+
+            .toast-close-button {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                color: #ccc;
+                cursor: pointer;
+            }
+        </style>
 
     </head>
     <body>
@@ -35,12 +76,13 @@
             <div class="offcanvas__close">+</div>
             <ul class="offcanvas__widget">
                 <li><span class="icon_search search-switch"></span></li>
-                    <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                    <li><a href="#"><span class="icon_heart_alt"></span>
-                            <div class="tip">2</div>
+
+                <c:if test="${sessionScope.user.getRole_ID() == 1}">
+                    <li><a href="wishlist"><span class="icon_heart_alt"></span>
+                            <div class="tip">${sessionScope.totalWishlistProduct}</div>
                         </a></li>
-                    <li><a href="#"><span class="icon_bag_alt"></span>
-                            <div class="tip">2</div>
+                    <li><a href="cart"><span class="icon_bag_alt"></span>
+                            <div class="tip">${sessionScope.totalCartProduct}</div>
                         </a></li>
                     </c:if>
 
@@ -70,7 +112,7 @@
                         <nav class="header__menu">
                             <ul>
                                 <li><a href="home">Home</a></li>
-                                <li><a href="shop.jsp">Shop</a></li>
+                                <li><a href="shop">Shop</a></li>
                                 <li><a href="contact.jsp">Contact</a></li>
                             </ul>
                         </nav>
@@ -112,14 +154,13 @@
                             <ul class="header__right__widget">
                                 <li><span class="icon_search search-switch"></span></li>
                                     <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                        <li><a href="#"><span class="icon_heart_alt"></span>
-                                                <div class="tip">2</div>
-                                            </a></li>
-                                        <li><a href="#"><span class="icon_bag_alt"></span>
-                                                <div class="tip">2</div>
-                                            </a></li>
+                                    <li><a href="wishlist"><span class="icon_heart_alt"></span>
+                                            <div class="tip">${sessionScope.totalWishlistProduct}</div>
+                                        </a></li>
+                                    <li><a href="cart"><span class="icon_bag_alt"></span>
+                                            <div class="tip">${sessionScope.totalCartProduct}</div>
+                                        </a></li>
                                     </c:if>
-
                             </ul>
                         </div>
                     </div>
@@ -129,7 +170,81 @@
                 </div>
             </div>
         </header>
-        <!-- Header Section End -->
+        <c:set var="notification" value="${sessionScope.notification}" />
+        <c:if test="${not empty notification}">
+            <div id="toast" class="toast-container">
+                <div class="toast-content">
+                    ${notification}
+                    <span class="toast-close-button" onclick="closeToast()">&#x2715;</span>
+                </div>
+                <div class="toast-progress">
+                    <div id="toast-progress-bar" class="toast-progress-bar"></div>
+                </div>
+            </div>
+            <c:remove var="notification" scope="session" />
+        </c:if>
 
+        <c:set var="wrongNotification" value="${sessionScope.wrongNotification}" />
+        <c:if test="${not empty wrongNotification}">
+            <div id="toast" class="toast-container">
+                <div class="toast-content">
+                    ${wrongNotification}
+                    <span class="toast-close-button" onclick="closeToast()">&#x2715;</span>
+                </div>
+                <div class="toast-progress">
+                    <div style="background-color: #f22c2c;" id="toast-progress-bar" class="toast-progress-bar"></div>
+                </div>
+            </div>
+            <c:remove var="wrongNotification" scope="session" />
+        </c:if>
+        
+        <c:set var="successNoti" value="${sessionScope.successNoti}" />
+        <c:if test="${not empty successNoti}">
+            <div id="toast" class="toast-container">
+                <div class="toast-content">
+                    ${successNoti}
+                    <span class="toast-close-button" onclick="closeToast()">&#x2715;</span>
+                </div>
+                <div class="toast-progress">
+                    <div style="background-color: #91f051;" id="toast-progress-bar" class="toast-progress-bar"></div>
+                </div>
+            </div>
+            <c:remove var="successNoti" scope="session" />
+        </c:if>
+        <!-- Header Section End -->
+        <script>
+            // JavaScript to handle the toast notification display and timeout
+            window.onload = function () {
+                var toast = document.getElementById('toast');
+                toast.style.opacity = '1';
+
+                // Set the notification duration (in milliseconds)
+                var duration = 5000;
+
+                // Start the progress bar animation
+                var progressBar = document.getElementById('toast-progress-bar');
+                progressBar.style.width = '100%';
+                progressBar.style.transition = 'width ' + (duration / 1000) + 's linear';
+
+                // Hide the toast after the duration
+                setTimeout(function () {
+                    hideToast();
+                }, duration);
+            }
+
+            function hideToast() {
+                var toast = document.getElementById('toast');
+                toast.style.opacity = '0';
+
+                // After fading out, hide the toast
+                setTimeout(function () {
+                    toast.style.display = 'none';
+                }, 500);
+            }
+
+            function closeToast() {
+                hideToast();
+            }
+        </script>
     </body>
 </html>

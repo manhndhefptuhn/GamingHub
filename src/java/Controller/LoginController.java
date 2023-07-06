@@ -6,6 +6,7 @@ package Controller;
 
 import DAL.PasswordResetDAO;
 import DAL.UserDAO;
+import DAL.WishlistDAO;
 import Model.PasswordReset;
 import Model.User;
 import jakarta.servlet.ServletException;
@@ -15,7 +16,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import static java.lang.System.currentTimeMillis;
 import java.sql.Timestamp;
 
 /**
@@ -73,8 +73,11 @@ public class LoginController extends HttpServlet {
         PasswordResetDAO pwrsDAO = new PasswordResetDAO();
         UserDAO uDAO = new UserDAO();
 
+        WishlistDAO wlDAO = new WishlistDAO();
+
         User u = uDAO.login(email, password);
         String defaultPassword = "1234@1234a";
+        
         long thirtyMinutesMillis;
 
         if (u == null) {
@@ -98,7 +101,7 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("userChange", u);
                     request.getRequestDispatcher("changePass.jsp").forward(request, response);
                 }
-            } else if (password.equals(defaultPassword) && u.getRole_ID() == 2 || u.getRole_ID() == 3 || u.getRole_ID() == 4) {
+            } else if (password.equals(defaultPassword) && u.getRole_ID() == 2 || password.equals(defaultPassword) && u.getRole_ID() == 3 || password.equals(defaultPassword) && u.getRole_ID() == 4) {
                 session.setAttribute("userChange", u);
                 request.getRequestDispatcher("changePass.jsp").forward(request, response);
             } else {

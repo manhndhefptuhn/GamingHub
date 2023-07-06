@@ -150,7 +150,7 @@ CREATE TABLE `feedback` (
   KEY `FK__Feedback__Produc__5535A963` (`Product_ID`),
   CONSTRAINT `FK__Feedback__Produc__5535A963` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`),
   CONSTRAINT `FK__Feedback__User_I__5441852A` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,6 +159,7 @@ CREATE TABLE `feedback` (
 
 LOCK TABLES `feedback` WRITE;
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
+INSERT INTO `feedback` VALUES (1,2,1,'2023-06-20','Good product','img/feedback/XIGMATEK_NYA_3F_RGB_1.png',5,1),(2,3,1,'2023-06-21','Greate product','img/feedback/XIGMATEK_NYA_3F_RGB_2.png',4,1);
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +181,7 @@ CREATE TABLE `feedback_response` (
   KEY `FK_Feedback_Response_User_HE823740_idx` (`User_ID`),
   CONSTRAINT `FK_Feedback_Response_Feedback_HE237402` FOREIGN KEY (`Feedback_ID`) REFERENCES `feedback` (`Feedback_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Feedback_Response_User_HE823740` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,6 +190,7 @@ CREATE TABLE `feedback_response` (
 
 LOCK TABLES `feedback_response` WRITE;
 /*!40000 ALTER TABLE `feedback_response` DISABLE KEYS */;
+INSERT INTO `feedback_response` VALUES (1,1,5,'2023-06-23','Thank you for choosing our product');
 /*!40000 ALTER TABLE `feedback_response` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -700,4 +702,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-21 11:04:08
+-- Dump completed on 2023-06-21 20:38:35

@@ -15,19 +15,17 @@ public class Slider {
     private String backlink;
     private String note;
     private boolean status;
-    private int updatedBy;
 
     public Slider() {
     }
 
-    public Slider(int sliderID, String sliderTitle, String sliderImage, String backlink, String note, boolean status, int updatedBy) {
+    public Slider(int sliderID, String sliderTitle, String sliderImage, String backlink, String note, boolean status) {
         this.sliderID = sliderID;
         this.sliderTitle = sliderTitle;
         this.sliderImage = sliderImage;
         this.backlink = backlink;
         this.note = note;
         this.status = status;
-        this.updatedBy = updatedBy;
     }
 
     public int getSliderID() {
@@ -53,15 +51,7 @@ public class Slider {
     public void setSliderImage(String sliderImage) {
         this.sliderImage = sliderImage;
     }
-
-    public int getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(int updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
+    
     public String getBacklink() {
         return backlink;
     }
