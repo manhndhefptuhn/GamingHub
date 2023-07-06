@@ -41,7 +41,6 @@ public class AddToCartController extends HttpServlet {
         HttpSession session = request.getSession();
         CartDAO cartDAO = new CartDAO();
         ProductDAO pDAO = new ProductDAO();
-        WishlistDAO wlDAO = new WishlistDAO();
 
         int productID = Integer.parseInt(request.getParameter("productID"));
         User u = (User) session.getAttribute("user");
@@ -65,7 +64,7 @@ public class AddToCartController extends HttpServlet {
                         response.sendRedirect(extractPath(request.getHeader("Referer")));
                     }
                 } else if (p.getProductStatusID() == 2) {
-                    salePrice = pDAO.getSalePriceByID(productID, 10.0);
+                    salePrice = pDAO.getSalePriceByID(productID);
                     totalCost = salePrice * 1;
                     row = cartDAO.addToCart(u.getUser_ID(), productID, salePrice, 1, totalCost);
                     if (row >= 1) {

@@ -15,20 +15,23 @@ public class Product {
     private boolean status;
     private int quantity;
     private int productStatusID;
+    private double salePercentage;
     private int categoryID;
 
     public Product() {
     }
 
-    public Product(int productID, String productName, String description, boolean status, int quantity, int productStatusID, int categoryID) {
+    public Product(int productID, String productName, String description, boolean status, int quantity, int productStatusID, double salePercentage, int categoryID) {
         this.productID = productID;
         this.productName = productName;
         this.description = description;
         this.status = status;
         this.quantity = quantity;
         this.productStatusID = productStatusID;
+        this.salePercentage = salePercentage;
         this.categoryID = categoryID;
     }
+
 
     public int getProductID() {
         return productID;
@@ -85,5 +88,12 @@ public class Product {
     public void setCategoryID(int categoryID) {
         this.categoryID = categoryID;
     }
-    
+
+    public double getSalePercentage() {
+        return salePercentage;
+    }
+
+    public void setSalePercentage(double salePercentage) {
+        this.salePercentage = salePercentage;
+    }
 }

@@ -6,7 +6,6 @@ package DAL;
 
 import Context.DBContext;
 import Model.Cart;
-import Model.PC;
 import Model.Product;
 import Model.Wishlist;
 import java.sql.Connection;
@@ -47,7 +46,8 @@ public class ProductDAO {
                     p.setStatus(rs.getBoolean(4));
                     p.setQuantity(rs.getInt(5));
                     p.setProductStatusID(rs.getInt(6));
-                    p.setCategoryID(rs.getInt(7));
+                    p.setSalePercentage(rs.getDouble(7));
+                    p.setCategoryID(rs.getInt(8));
                     listGaming.add(p);
                 }
                 rs.close();
@@ -84,7 +84,8 @@ public class ProductDAO {
                     p.setStatus(rs.getBoolean(4));
                     p.setQuantity(rs.getInt(5));
                     p.setProductStatusID(rs.getInt(6));
-                    p.setCategoryID(rs.getInt(7));
+                    p.setSalePercentage(rs.getDouble(7));
+                    p.setCategoryID(rs.getInt(8));
                     listWorkPC.add(p);
                 }
                 rs.close();
@@ -121,7 +122,8 @@ public class ProductDAO {
                     p.setStatus(rs.getBoolean(4));
                     p.setQuantity(rs.getInt(5));
                     p.setProductStatusID(rs.getInt(6));
-                    p.setCategoryID(rs.getInt(7));
+                    p.setSalePercentage(rs.getDouble(7));
+                    p.setCategoryID(rs.getInt(8));
                     listMini.add(p);
                 }
                 rs.close();
@@ -134,7 +136,6 @@ public class ProductDAO {
         }
         return listMini;
     }
-
 
     public Map<Integer, Integer> getOriginalPriceByID(ArrayList<Product> productList) {
         Map<Integer, Integer> listPrice = new HashMap<>();
@@ -175,15 +176,15 @@ public class ProductDAO {
         return listPrice;
     }
 
-    public Map<Integer, Integer> getSalePriceByID(ArrayList<Product> productList, double salePercentage) {
+    public Map<Integer, Integer> getSalePriceByID(ArrayList<Product> productList) {
         Map<Integer, Integer> listPrice = new HashMap<>();
         DBContext db = new DBContext();
         int productID;
-        double productPrice, salePrice;
+        double productPrice, salePercentage, salePrice;
         try {
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT pc.product_ID, (m.price + c.price + r.price + v.price + s.price + p.price + ca.price) AS product_price\n"
+                String sql = "SELECT pro.SalePercentage, pc.product_ID, (m.price + c.price + r.price + v.price + s.price + p.price + ca.price) AS product_price\n"
                         + "FROM pc\n"
                         + "INNER JOIN mainboard m ON pc.Mainboard_ID = m.Mainboard_ID \n"
                         + "INNER JOIN `cpu` c ON pc.CPU_ID = c.CPU_ID\n"
@@ -192,6 +193,7 @@ public class ProductDAO {
                         + "INNER JOIN `storage` s ON pc.Storage_ID = s.Storage_ID\n"
                         + "INNER JOIN psu p ON pc.PSU_ID = p.PSU_ID\n"
                         + "INNER JOIN `case` ca ON pc.Case_ID = ca.Case_ID\n"
+                        + "INNER JOIN `product` pro ON pc.Product_ID = pro.Product_ID\n"
                         + "WHERE pc.product_ID = ?";
                 PreparedStatement st = con.prepareStatement(sql);
                 for (Product product : productList) {
@@ -200,6 +202,7 @@ public class ProductDAO {
                     if (rs.next()) {
                         productID = rs.getInt("product_ID");
                         productPrice = rs.getDouble("product_price");
+                        salePercentage = rs.getDouble("SalePercentage");
                         salePrice = productPrice * (1 - (salePercentage / 100));
                         listPrice.put(productID, (int) salePrice);
                     }
@@ -231,7 +234,8 @@ public class ProductDAO {
                     p.setStatus(rs.getBoolean(4));
                     p.setQuantity(rs.getInt(5));
                     p.setProductStatusID(rs.getInt(6));
-                    p.setCategoryID(rs.getInt(7));
+                    p.setSalePercentage(rs.getDouble(7));
+                    p.setCategoryID(rs.getInt(8));
                     return p;
                 }
                 rs.close();
@@ -244,12 +248,12 @@ public class ProductDAO {
         return null;
     }
 
-    public Integer getSalePriceByID(int productID, double salePercentage) {
+    public Integer getSalePriceByID(int productID) {
         DBContext db = new DBContext();
-        double productPrice, salePrice;
-        try (Connection con = db.getConnection()){
+        double productPrice, salePrice, salePercentage;
+        try ( Connection con = db.getConnection()) {
             if (con != null) {
-                String sql = "SELECT pc.product_ID, (m.price + c.price + r.price + v.price + s.price + p.price + ca.price) AS product_price\n"
+                String sql = "SELECT pro.SalePercentage, pc.product_ID, (m.price + c.price + r.price + v.price + s.price + p.price + ca.price) AS product_price\n"
                         + "FROM pc\n"
                         + "INNER JOIN mainboard m ON pc.Mainboard_ID = m.Mainboard_ID \n"
                         + "INNER JOIN `cpu` c ON pc.CPU_ID = c.CPU_ID\n"
@@ -258,12 +262,14 @@ public class ProductDAO {
                         + "INNER JOIN `storage` s ON pc.Storage_ID = s.Storage_ID\n"
                         + "INNER JOIN psu p ON pc.PSU_ID = p.PSU_ID\n"
                         + "INNER JOIN `case` ca ON pc.Case_ID = ca.Case_ID\n"
+                        + "INNER JOIN `product` pro ON pc.Product_ID = pro.Product_ID\n"
                         + "WHERE pc.product_ID = ?";
                 PreparedStatement st = con.prepareStatement(sql);
                 st.setInt(1, productID);
                 ResultSet rs = st.executeQuery();
                 if (rs.next()) {
                     productPrice = rs.getDouble("product_price");
+                    salePercentage = rs.getDouble("SalePercentage");
                     salePrice = productPrice * (1 - (salePercentage / 100));
                     return (int) salePrice;
                 }
@@ -280,7 +286,7 @@ public class ProductDAO {
     public Integer getOriginalPriceByID(int productID) {
         DBContext db = new DBContext();
         double productPrice;
-        try (Connection con = db.getConnection()){
+        try ( Connection con = db.getConnection()) {
             if (con != null) {
                 String sql = "SELECT pc.product_ID, (m.price + c.price + r.price + v.price + s.price + p.price + ca.price) AS product_price\n"
                         + "FROM pc\n"
@@ -329,7 +335,8 @@ public class ProductDAO {
                     p.setStatus(rs.getBoolean(4));
                     p.setQuantity(rs.getInt(5));
                     p.setProductStatusID(rs.getInt(6));
-                    p.setCategoryID(rs.getInt(7));
+                    p.setSalePercentage(rs.getDouble(7));
+                    p.setCategoryID(rs.getInt(8));
                     listRand.add(p);
                 }
                 rs.close();
@@ -353,15 +360,16 @@ public class ProductDAO {
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    Product product = new Product();
-                    product.setProductID(rs.getInt(1));
-                    product.setProductName(rs.getString(2));
-                    product.setDescription(rs.getString(3));
-                    product.setStatus(rs.getBoolean(4));
-                    product.setQuantity(rs.getInt(5));
-                    product.setProductStatusID(rs.getInt(6));
-                    product.setCategoryID(rs.getInt(7));
-                    products.add(product);
+                    Product p = new Product();
+                    p.setProductID(rs.getInt(1));
+                    p.setProductName(rs.getString(2));
+                    p.setDescription(rs.getString(3));
+                    p.setStatus(rs.getBoolean(4));
+                    p.setQuantity(rs.getInt(5));
+                    p.setProductStatusID(rs.getInt(6));
+                    p.setSalePercentage(rs.getDouble(7));
+                    p.setCategoryID(rs.getInt(8));
+                    products.add(p);
                 }
                 rs.close();
                 ps.close();
@@ -373,6 +381,7 @@ public class ProductDAO {
         }
         return null;
     }
+
     public ArrayList<Product> getAllProduct() {
         ArrayList<Product> listProduct = new ArrayList<>();
         try {
@@ -390,7 +399,8 @@ public class ProductDAO {
                     p.setStatus(rs.getBoolean(4));
                     p.setQuantity(rs.getInt(5));
                     p.setProductStatusID(rs.getInt(6));
-                    p.setCategoryID(rs.getInt(7));
+                    p.setSalePercentage(rs.getDouble(7));
+                    p.setCategoryID(rs.getInt(8));
                     listProduct.add(p);
                 }
                 rs.close();
@@ -421,7 +431,8 @@ public class ProductDAO {
                     p.setStatus(rs.getBoolean(4));
                     p.setQuantity(rs.getInt(5));
                     p.setProductStatusID(rs.getInt(6));
-                    p.setCategoryID(rs.getInt(7));
+                    p.setSalePercentage(rs.getDouble(7));
+                    p.setCategoryID(rs.getInt(8));
                     listProduct.add(p);
                 }
                 rs.close();
@@ -455,7 +466,8 @@ public class ProductDAO {
                     p.setStatus(rs.getBoolean(4));
                     p.setQuantity(rs.getInt(5));
                     p.setProductStatusID(rs.getInt(6));
-                    p.setCategoryID(rs.getInt(7));
+                    p.setSalePercentage(rs.getDouble(7));
+                    p.setCategoryID(rs.getInt(8));
                     listProduct.add(p);
                 }
                 rs.close();
@@ -488,7 +500,8 @@ public class ProductDAO {
                     p.setStatus(rs.getBoolean(4));
                     p.setQuantity(rs.getInt(5));
                     p.setProductStatusID(rs.getInt(6));
-                    p.setCategoryID(rs.getInt(7));
+                    p.setSalePercentage(rs.getDouble(7));
+                    p.setCategoryID(rs.getInt(8));
                     listProduct.add(p);
                 }
                 rs.close();
