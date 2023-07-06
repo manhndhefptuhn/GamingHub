@@ -96,7 +96,7 @@ public class ProductDetailController extends HttpServlet {
         int originalPrice = pDAO.getOriginalPriceByID(productID);
         request.setAttribute("originalPrice", originalPrice);
 
-        int salePrice = pDAO.getSalePriceByID(productID, 10.0);
+        int salePrice = pDAO.getSalePriceByID(productID);
         request.setAttribute("salePrice", salePrice);
 
         int rating = fDAO.getStarByProductID(productID);
@@ -111,7 +111,7 @@ public class ProductDetailController extends HttpServlet {
         Map<Integer, Integer> listRelatedPCPrice = pDAO.getOriginalPriceByID(listRelated);
         request.setAttribute("listRelatedPCPrice", listRelatedPCPrice);
 
-        Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listRelated, 10.0);
+        Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listRelated);
         request.setAttribute("listSalePrice", listSalePrice);
         
         Map<Integer, Integer> listRelatedFeedback = fDAO.getStarByProductID(listRelated);

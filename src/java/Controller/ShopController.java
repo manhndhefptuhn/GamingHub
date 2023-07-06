@@ -85,7 +85,7 @@ public class ShopController extends HttpServlet {
                 Map<Integer, Integer> listOriginalPrice = pDAO.getOriginalPriceByID(listProduct);
                 request.setAttribute("listOriginalPrice", listOriginalPrice);
 
-                Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listProduct, 10.0);
+                Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listProduct);
                 request.setAttribute("listSalePrice", listSalePrice);
             } else if (productStatusParam != null && !productStatusParam.isEmpty()) {
                 productStatus = Integer.parseInt(productStatusParam);
@@ -106,7 +106,7 @@ public class ShopController extends HttpServlet {
                 Map<Integer, Integer> listOriginalPrice = pDAO.getOriginalPriceByID(listProduct);
                 request.setAttribute("listOriginalPrice", listOriginalPrice);
 
-                Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listProduct, 10.0);
+                Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listProduct);
                 request.setAttribute("listSalePrice", listSalePrice);
             } else {
                 ArrayList<Product> listAllCategoryProduct = pDAO.getAllProductByCategory(categoryID);
@@ -128,7 +128,7 @@ public class ShopController extends HttpServlet {
                 Map<Integer, Integer> listOriginalPrice = pDAO.getOriginalPriceByID(listProduct);
                 request.setAttribute("listOriginalPrice", listOriginalPrice);
 
-                Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listProduct, 10.0);
+                Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listProduct);
                 request.setAttribute("listSalePrice", listSalePrice);
             }
         } else {
@@ -152,7 +152,7 @@ public class ShopController extends HttpServlet {
             Map<Integer, Integer> listOriginalPrice = pDAO.getOriginalPriceByID(listProduct);
             request.setAttribute("listOriginalPrice", listOriginalPrice);
 
-            Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listProduct, 10.0);
+            Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listProduct);
             request.setAttribute("listSalePrice", listSalePrice);
         }
 

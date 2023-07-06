@@ -65,7 +65,7 @@ public class HomeController extends HttpServlet {
         //Map to get original Price and sale price of gaming product
         Map<Integer, Integer> listGamingProductPrice = pDAO.getOriginalPriceByID(listFourGamingPC);
         request.setAttribute("listGamingProductPrice", listGamingProductPrice);
-        Map<Integer, Integer> listGamingProductSalePrice = pDAO.getSalePriceByID(listFourGamingPC, 10.0);
+        Map<Integer, Integer> listGamingProductSalePrice = pDAO.getSalePriceByID(listFourGamingPC);
         request.setAttribute("listGamingProductSalePrice", listGamingProductSalePrice);
         Map<Integer, Integer> listGamingFeedback = fDAO.getStarByProductID(listFourGamingPC);
         request.setAttribute("listGamingFeedback", listGamingFeedback);
@@ -78,7 +78,7 @@ public class HomeController extends HttpServlet {
         //Map to get original Price and sale price of work product
         Map<Integer, Integer> listWorkProductPrice = pDAO.getOriginalPriceByID(listFourWorkPC);
         request.setAttribute("listWorkProductPrice", listWorkProductPrice);
-        Map<Integer, Integer> listWorkProductSalePrice = pDAO.getSalePriceByID(listFourWorkPC, 10.0);
+        Map<Integer, Integer> listWorkProductSalePrice = pDAO.getSalePriceByID(listFourWorkPC);
         request.setAttribute("listWorkProductSalePrice", listWorkProductSalePrice);
         Map<Integer, Integer> listWorkFeedback = fDAO.getStarByProductID(listFourWorkPC);
         request.setAttribute("listWorkFeedback", listWorkFeedback);
@@ -90,7 +90,7 @@ public class HomeController extends HttpServlet {
         //Map to get original Price and sale price of mini product
         Map<Integer, Integer> listMiniProductPrice = pDAO.getOriginalPriceByID(listFourMiniPC);
         request.setAttribute("listMiniProductPrice", listMiniProductPrice);
-        Map<Integer, Integer> listMiniProductSalePrice = pDAO.getSalePriceByID(listFourMiniPC, 10.0);
+        Map<Integer, Integer> listMiniProductSalePrice = pDAO.getSalePriceByID(listFourMiniPC);
         request.setAttribute("listMiniProductSalePrice", listMiniProductSalePrice);
         Map<Integer, Integer> listMiniFeedback = fDAO.getStarByProductID(listFourMiniPC);
         request.setAttribute("listMiniFeedback", listMiniFeedback);

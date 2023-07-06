@@ -69,7 +69,7 @@ public class WishListController extends HttpServlet {
         
         Map<Integer, Integer> listWishlistSalePrice = new HashMap<>();
         for (Wishlist wishlist : listWishList) {
-            productSalePrice = pDAO.getSalePriceByID(wishlist.getProductID(), 10.0);
+            productSalePrice = pDAO.getSalePriceByID(wishlist.getProductID());
             listWishlistSalePrice.put(wishlist.getProductID(), productSalePrice);
         }
         request.setAttribute("listWishlistProductPrice", listWishlistProductPrice);
