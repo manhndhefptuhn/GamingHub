@@ -12,19 +12,15 @@ public class VGA {
     private int vgaID;
     private String vgaName;
     private int price;
-    private String description;
-    private String image;
     private boolean status;
 
     public VGA() {
     }
 
-    public VGA(int vgaID, String vgaName, int price, String description, String image, boolean status) {
+    public VGA(int vgaID, String vgaName, int price, boolean status) {
         this.vgaID = vgaID;
         this.vgaName = vgaName;
         this.price = price;
-        this.description = description;
-        this.image = image;
         this.status = status;
     }
 
@@ -51,22 +47,6 @@ public class VGA {
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public boolean isStatus() {

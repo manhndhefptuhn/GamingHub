@@ -12,21 +12,18 @@ public class CPU {
     private int cpuID;
     private String cpuName;
     private int price;
-    private String description;
-    private String image;
     private boolean status;
 
     public CPU() {
     }
 
-    public CPU(int cpuID, String cpuName, int price, String description, String image, boolean status) {
+    public CPU(int cpuID, String cpuName, int price, boolean status) {
         this.cpuID = cpuID;
         this.cpuName = cpuName;
         this.price = price;
-        this.description = description;
-        this.image = image;
         this.status = status;
     }
+
 
     public int getCpuID() {
         return cpuID;
@@ -50,22 +47,6 @@ public class CPU {
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public boolean isStatus() {
