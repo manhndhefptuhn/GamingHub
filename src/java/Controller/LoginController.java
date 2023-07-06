@@ -73,8 +73,6 @@ public class LoginController extends HttpServlet {
         PasswordResetDAO pwrsDAO = new PasswordResetDAO();
         UserDAO uDAO = new UserDAO();
 
-        WishlistDAO wlDAO = new WishlistDAO();
-
         User u = uDAO.login(email, password);
         String defaultPassword = "1234@1234a";
         
@@ -101,7 +99,7 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("userChange", u);
                     request.getRequestDispatcher("changePass.jsp").forward(request, response);
                 }
-            } else if (password.equals(defaultPassword) && u.getRole_ID() == 2 || password.equals(defaultPassword) && u.getRole_ID() == 3 || password.equals(defaultPassword) && u.getRole_ID() == 4) {
+            } else if (password.equals(defaultPassword) && u.getRole_ID() == 2 ||password.equals(defaultPassword) && u.getRole_ID() == 3 ||password.equals(defaultPassword) && u.getRole_ID() == 4)  {
                 session.setAttribute("userChange", u);
                 request.getRequestDispatcher("changePass.jsp").forward(request, response);
             } else {
