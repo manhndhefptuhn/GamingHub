@@ -12,7 +12,6 @@ Gaming Hub is a web-application built JSP/Servlet. It provides users with viewin
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 - [License](#license)
-- [Acknowledgments](#acknowledgments)
 - [Contact](#contact)
 
 ## Installation
