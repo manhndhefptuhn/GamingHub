@@ -43,73 +43,78 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        SliderDAO slDAO = new SliderDAO();
-        ProductDAO pDAO = new ProductDAO();
-        CaseDAO caseDAO = new CaseDAO();
-        PCDAO pcDAO = new PCDAO();
-        WishlistDAO wlDAO = new WishlistDAO();
-        FeedbackDAO fDAO = new FeedbackDAO();
-        CartDAO cartDAO = new CartDAO();
-        
-        int totalWishlistProduct, totalCartProduct;
-        User u = (User) session.getAttribute("user");
+        try {
+            SliderDAO slDAO = new SliderDAO();
+            ProductDAO pDAO = new ProductDAO();
+            CaseDAO caseDAO = new CaseDAO();
+            PCDAO pcDAO = new PCDAO();
+            WishlistDAO wlDAO = new WishlistDAO();
+            FeedbackDAO fDAO = new FeedbackDAO();
+            CartDAO cartDAO = new CartDAO();
 
-        //Slider
-        ArrayList<Slider> listSlider = slDAO.getAllSlider();
-        request.setAttribute("listSlider", listSlider);
+            int totalWishlistProduct, totalCartProduct;
+            User u = (User) session.getAttribute("user");
 
-        //Gaming PC
-        ArrayList<Product> listFourGamingPC = pDAO.getFourGamingPC();
-        request.setAttribute("listFourGamingPC", listFourGamingPC);
+            //Slider
+            ArrayList<Slider> listSlider = slDAO.getAllSlider();
+            request.setAttribute("listSlider", listSlider);
 
-        //Map to get original Price and sale price of gaming product
-        Map<Integer, Integer> listGamingProductPrice = pDAO.getOriginalPriceByID(listFourGamingPC);
-        request.setAttribute("listGamingProductPrice", listGamingProductPrice);
-        Map<Integer, Integer> listGamingProductSalePrice = pDAO.getSalePriceByID(listFourGamingPC);
-        request.setAttribute("listGamingProductSalePrice", listGamingProductSalePrice);
-        Map<Integer, Integer> listGamingFeedback = fDAO.getStarByProductID(listFourGamingPC);
-        request.setAttribute("listGamingFeedback", listGamingFeedback);
+            //Gaming PC
+            ArrayList<Product> listFourGamingPC = pDAO.getFourGamingPC();
+            request.setAttribute("listFourGamingPC", listFourGamingPC);
 
-        
-        //workPC
-        ArrayList<Product> listFourWorkPC = pDAO.getFourWorkStationPC();
-        request.setAttribute("listFourWorkPC", listFourWorkPC);
+            //Map to get original Price and sale price of gaming product
+            Map<Integer, Integer> listGamingProductPrice = pDAO.getOriginalPriceByID(listFourGamingPC);
+            request.setAttribute("listGamingProductPrice", listGamingProductPrice);
+            Map<Integer, Integer> listGamingProductSalePrice = pDAO.getSalePriceByID(listFourGamingPC);
+            request.setAttribute("listGamingProductSalePrice", listGamingProductSalePrice);
+            Map<Integer, Integer> listGamingFeedback = fDAO.getStarByProductID(listFourGamingPC);
+            request.setAttribute("listGamingFeedback", listGamingFeedback);
 
-        //Map to get original Price and sale price of work product
-        Map<Integer, Integer> listWorkProductPrice = pDAO.getOriginalPriceByID(listFourWorkPC);
-        request.setAttribute("listWorkProductPrice", listWorkProductPrice);
-        Map<Integer, Integer> listWorkProductSalePrice = pDAO.getSalePriceByID(listFourWorkPC);
-        request.setAttribute("listWorkProductSalePrice", listWorkProductSalePrice);
-        Map<Integer, Integer> listWorkFeedback = fDAO.getStarByProductID(listFourWorkPC);
-        request.setAttribute("listWorkFeedback", listWorkFeedback);
+            //workPC
+            ArrayList<Product> listFourWorkPC = pDAO.getFourWorkStationPC();
+            request.setAttribute("listFourWorkPC", listFourWorkPC);
 
-        //Mini PC
-        ArrayList<Product> listFourMiniPC = pDAO.getFourMiniPC();
-        request.setAttribute("listFourMiniPC", listFourMiniPC);
+            //Map to get original Price and sale price of work product
+            Map<Integer, Integer> listWorkProductPrice = pDAO.getOriginalPriceByID(listFourWorkPC);
+            request.setAttribute("listWorkProductPrice", listWorkProductPrice);
+            Map<Integer, Integer> listWorkProductSalePrice = pDAO.getSalePriceByID(listFourWorkPC);
+            request.setAttribute("listWorkProductSalePrice", listWorkProductSalePrice);
+            Map<Integer, Integer> listWorkFeedback = fDAO.getStarByProductID(listFourWorkPC);
+            request.setAttribute("listWorkFeedback", listWorkFeedback);
 
-        //Map to get original Price and sale price of mini product
-        Map<Integer, Integer> listMiniProductPrice = pDAO.getOriginalPriceByID(listFourMiniPC);
-        request.setAttribute("listMiniProductPrice", listMiniProductPrice);
-        Map<Integer, Integer> listMiniProductSalePrice = pDAO.getSalePriceByID(listFourMiniPC);
-        request.setAttribute("listMiniProductSalePrice", listMiniProductSalePrice);
-        Map<Integer, Integer> listMiniFeedback = fDAO.getStarByProductID(listFourMiniPC);
-        request.setAttribute("listMiniFeedback", listMiniFeedback);
-        
-        
-        //MapToGetImage
-        Map<Integer, Case> listImage = caseDAO.getCaseByCaseID();
-        request.setAttribute("listImage", listImage);
-        Map<Integer, Integer> listCaseID = pcDAO.getCaseIDByProductID();
-        request.setAttribute("listCaseID", listCaseID);
+            //Mini PC
+            ArrayList<Product> listFourMiniPC = pDAO.getFourMiniPC();
+            request.setAttribute("listFourMiniPC", listFourMiniPC);
 
-        if (u != null && u.getRole_ID() == 1) {
-            totalWishlistProduct = wlDAO.getTotalWishlistProduct(u.getUser_ID());
-            session.setAttribute("totalWishlistProduct", totalWishlistProduct);
-            totalCartProduct = cartDAO.getTotalCartProduct(u.getUser_ID());
-            session.setAttribute("totalCartProduct", totalCartProduct);
+            //Map to get original Price and sale price of mini product
+            Map<Integer, Integer> listMiniProductPrice = pDAO.getOriginalPriceByID(listFourMiniPC);
+            request.setAttribute("listMiniProductPrice", listMiniProductPrice);
+            Map<Integer, Integer> listMiniProductSalePrice = pDAO.getSalePriceByID(listFourMiniPC);
+            request.setAttribute("listMiniProductSalePrice", listMiniProductSalePrice);
+            Map<Integer, Integer> listMiniFeedback = fDAO.getStarByProductID(listFourMiniPC);
+            request.setAttribute("listMiniFeedback", listMiniFeedback);
+
+            //MapToGetImage
+            Map<Integer, Case> listImage = caseDAO.getCaseByCaseID();
+            request.setAttribute("listImage", listImage);
+            Map<Integer, Integer> listCaseID = pcDAO.getCaseIDByProductID();
+            request.setAttribute("listCaseID", listCaseID);
+
+            if (u != null && u.getRole_ID() == 1) {
+                totalWishlistProduct = wlDAO.getTotalWishlistProduct(u.getUser_ID());
+                session.setAttribute("totalWishlistProduct", totalWishlistProduct);
+                totalCartProduct = cartDAO.getTotalCartProduct(u.getUser_ID());
+                session.setAttribute("totalCartProduct", totalCartProduct);
+            }
+
+            request.getRequestDispatcher("Home.jsp").forward(request, response);
+        } catch (Exception e) {
+            // Handle any exception that occurs during processing
+            e.printStackTrace(); // Print the exception details (for debugging purposes)
+            session.setAttribute("wrongNotification", "An error occurred while processing your request");
+            request.getRequestDispatcher("Home.jsp").forward(request, response);
         }
-
-        request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
