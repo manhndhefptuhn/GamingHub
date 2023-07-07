@@ -19,6 +19,9 @@ Gaming Hub is a web-application built JSP/Servlet. It provides users with viewin
 ```bash
 git clone https://github.com/manhndhefptuhn/SWP391_SE1726_G4.git
 ```
+* Download JDK 11 from [Oracle](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)
+* Download MySQL 8.0 from [MySQL](https://dev.mysql.com/downloads/windows/installer/8.0.html)
+* Best recommend to use [Netbeans 13](https://netbeans.apache.org/download/nb13/nb13.html) to run this project.
 
 ## Usage
 For more detailed usage examples, please refer to User Guide.
