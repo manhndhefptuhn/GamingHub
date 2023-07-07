@@ -12,7 +12,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -32,42 +31,7 @@ public class RegisterController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
-        String fullName = request.getParameter("fullName");
-        String email = request.getParameter("email");
-        String address = request.getParameter("address");
-        String phoneNum = request.getParameter("phoneNum");
-
-        RandomPassword rdpw = new RandomPassword();
-        String password = rdpw.generatePassword();
-
-        UserDAO uDAO = new UserDAO();
-        SendEmail se = new SendEmail();
-
-        User u = uDAO.checkUserExist(email);
-        boolean emailSent;
-
-        if (!phoneNum.matches("[0-9]*")) {
-            request.setAttribute("phoneNoti", "Your Phone Number is Invalid");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-        } else if (u == null) {
-            emailSent = se.sendPassword(email, password, fullName, "request to register");
-            if (emailSent) {
-                uDAO.register(fullName, email, password, phoneNum, address);
-                request.setAttribute("email", email);
-                request.setAttribute("notification", "Sign Up successfully, please check your email for password");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            } else {
-                request.setAttribute("emailNoti", "There something wrong at out server, please try again");
-                request.getRequestDispatcher("register.jsp").forward(request, response);
-            }
-        } else {
-            request.setAttribute("emailNoti", "Email is used, please enter again");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -96,7 +60,51 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            if (request.getParameter("agree-term") == null) {
+                request.setAttribute("notification", "You must accept to terms and conditions");
+                request.getRequestDispatcher("register.jsp").forward(request, response);
+                return;
+            }
+            String fullName = request.getParameter("fullName");
+            String email = request.getParameter("email");
+            String address = request.getParameter("address");
+            String phoneNum = request.getParameter("phoneNum");
+
+            RandomPassword rdpw = new RandomPassword();
+            String password = rdpw.generatePassword();
+
+            UserDAO uDAO = new UserDAO();
+            SendEmail se = new SendEmail();
+
+            User u = uDAO.checkUserExist(email);
+            boolean emailSent;
+
+            if (!phoneNum.matches("[0-9]*")) {
+                request.setAttribute("notification", "Your Phone Number is Invalid");
+                request.getRequestDispatcher("register.jsp").forward(request, response);
+                return;
+            } else if (u == null) {
+                emailSent = se.sendPassword(email, password, fullName, "request to register");
+                if (emailSent) {
+                    uDAO.register(fullName, email, password, phoneNum, address);
+                    request.setAttribute("email", email);
+                    request.setAttribute("notification", "Sign Up successfully, please check your email for password");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("notification", "There something wrong at out server, please try again");
+                    request.getRequestDispatcher("register.jsp").forward(request, response);
+                }
+            } else {
+                request.setAttribute("notification", "Email is used, please enter again");
+                request.getRequestDispatcher("register.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            // Handle any exception that occurs during processing
+            e.printStackTrace(); // Print the exception details (for debugging purposes)
+            request.setAttribute("notification", "An error occurred while processing your request");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+        }
     }
 
     /**

@@ -65,33 +65,35 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
+        try {
+            HttpSession session = request.getSession();
 
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
 
-        PasswordResetDAO pwrsDAO = new PasswordResetDAO();
-        UserDAO uDAO = new UserDAO();
+            PasswordResetDAO pwrsDAO = new PasswordResetDAO();
+            UserDAO uDAO = new UserDAO();
 
-        User u = uDAO.login(email, password);
-        String defaultPassword = "1234@1234a";
-        long thirtyMinutesMillis;
+            User u = uDAO.login(email, password);
+            String defaultPassword = "1234@1234a";
+            long thirtyMinutesMillis;
 
-        //If not found in user table in case wrong password or wrong email or null
-        if (u == null) {
-            request.setAttribute("notification", "Wrong email or password, please try again");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-        //If have record in user table
-        } else {
-            //Check if have record in table passwordReset in case forgot passsword
-            PasswordReset pwrs = pwrsDAO.checkExistRecord(u.getUser_ID());
+            //If not found in user table in case wrong password or wrong email or null
+            if (u == null) {
+                request.setAttribute("notification", "Wrong email or password, please try again");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+                return;
+            }
             //if user status is false cannot login
             if (u.isStatus() != true) {
                 request.setAttribute("notification", "User is inactive");
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
-            //else if user status is true check if in table passwordReset have record in case user forgot password
-            } else if (pwrs != null) {
-                //if have set the time expired to 30 minutes
+                return;
+            }
+            PasswordReset pwrs = pwrsDAO.checkExistRecord(u.getUser_ID());
+            //Check if have record in table passwordReset in case forgot passsword
+            if (pwrs != null) {
+                // If a password reset record exists, check for password expiration
                 long currentTimeMillis = System.currentTimeMillis();
                 Timestamp currentTime = new Timestamp(currentTimeMillis);
                 thirtyMinutesMillis = 30 * 60 * 1000L; // 30 minutes in milliseconds
@@ -102,21 +104,27 @@ public class LoginController extends HttpServlet {
                     request.setAttribute("email", email);
                     request.setAttribute("notification", "Your password is expired, please request password again");
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
-                //if not expired required user to change password 
+                    return;
+                    //if not expired required user to change password 
                 } else if (currentTime.before(expiryTime) && u.getRole_ID() == 1) {
                     session.setAttribute("userChange", u);
                     request.getRequestDispatcher("changePass.jsp").forward(request, response);
+
                 }
                 //if user is not customer, have default password and when login require to change
-            } else if (password.equals(defaultPassword) && u.getRole_ID() == 2 ||password.equals(defaultPassword) && u.getRole_ID() == 3 ||password.equals(defaultPassword) && u.getRole_ID() == 4) {
+            } else if (password.equals(defaultPassword) && (u.getRole_ID() == 2 || u.getRole_ID() == 3 || u.getRole_ID() == 4)) {
                 session.setAttribute("userChange", u);
                 request.getRequestDispatcher("changePass.jsp").forward(request, response);
                 //else user can login and set attribute
-            } else {
-                session.removeAttribute("userChange");
-                session.setAttribute("user", u);
-                request.getRequestDispatcher("home").forward(request, response);
             }
+            session.removeAttribute("userChange");
+            session.setAttribute("user", u);
+            request.getRequestDispatcher("home").forward(request, response);
+        } catch (Exception e) {
+            // Handle any exception that occurs during processing
+            e.printStackTrace(); // Print the exception details (for debugging purposes)
+            request.setAttribute("notification", "An error occurred while processing your request");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
         }
     }
 

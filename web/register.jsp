@@ -177,13 +177,6 @@
                                         <p>As long as the website and the information and services on the website are provided free of charge, we will not be liable for any loss or damage of any nature.</p>
                                     </div>
                                 </div>
-
-                                <c:if test="${emailNoti!=null}">
-                                    <strong style="color: red;">${emailNoti}</strong>
-                                </c:if>
-                                <c:if test="${phoneNoti!=null}">
-                                    <strong style="color: red;">${phoneNoti}</strong>
-                                </c:if>
                                 <c:if test="${notification!=null}">
                                     <strong style="color: red;">${notification}</strong>
                                 </c:if>
