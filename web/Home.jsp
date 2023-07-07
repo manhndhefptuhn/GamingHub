@@ -73,226 +73,223 @@
                         <c:set var="caseID" value="${listCaseID[productID]}" />
                         <c:set var="caseObject" value="${listImage[caseID]}" />
                         <div class="col-lg-3 col-md-4 col-sm-6">
-                            <c:if test="${listFourGamingPC.getProductStatusID() == 0}">
+                            <c:if test="${listFourGamingPC.getProductStatusID() == 0 || listFourGamingPC.getProductStatusID() == 1}">
                                 <div class="product__item">
                                 </c:if>
-                                <c:if test="${listFourGamingPC.getProductStatusID() == 1}">
-                                    <div class="product__item">
+                                <c:if test="${listFourGamingPC.getProductStatusID() == 2}">
+                                    <div class="product__item sale">
                                     </c:if>
-                                    <c:if test="${listFourGamingPC.getProductStatusID() == 2}">
-                                        <div class="product__item sale">
+                                    <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath()%>/${caseObject.getImage()}">
+                                        <c:if test="${listFourGamingPC.getQuantity() == 0}">
+                                            <div class="label stockout">out of stock</div>
                                         </c:if>
-                                        <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath()%>/${caseObject.getImage()}">
-                                            <c:if test="${listFourGamingPC.getQuantity() == 0}">
-                                                <div class="label stockout">out of stock</div>
-                                            </c:if>
-                                            <c:if test="${listFourGamingPC.getProductStatusID() == 1}">
-                                                <div class="label new">New</div>
-                                            </c:if>
-                                            <c:if test="${listFourGamingPC.getProductStatusID() == 2}">
-                                                <div class="label sale">Sale</div>
-                                            </c:if>
-                                            <ul class="product__hover">
-                                                <li><a href="productDetail?productID=${listFourGamingPC.getProductID()}"><span class="arrow_expand"></span></a></li>
-                                                        <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                                    <li><a href="addToWishlist?productID=${listFourGamingPC.getProductID()}"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="addToCart?productID=${listFourGamingPC.getProductID()}"><span class="icon_bag_alt"></span></a></li>
-                                                        </c:if> 
-                                            </ul>
-                                        </div>
-                                        <div class="product__item__text">
-                                            <h6>${listFourGamingPC.getProductName()}</h6>
-                                            <div class="rating">
-                                                <c:set var="rating" value="${listGamingFeedback[productID]}" />
-                                                <c:forEach var="counter" begin="1" end="5">
-                                                    <c:choose>
-                                                        <c:when test="${counter <= rating}">
-                                                            <i class="fa fa-star"></i>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:forEach>
-                                            </div>
-                                            <c:if test="${listFourGamingPC.getProductStatusID() == 0}">
-                                                <div class="product__price">$ ${listGamingProductPrice[productID]}</div>
-                                            </c:if>
-                                            <c:if test="${listFourGamingPC.getProductStatusID() == 1}">
-                                                <div class="product__price">$ ${listGamingProductPrice[productID]}</div>
-                                            </c:if>
-                                            <c:if test="${listFourGamingPC.getProductStatusID() == 2}">
-                                                <div class="product__price">$ ${listGamingProductSalePrice[productID]} <span>$ ${listGamingProductPrice[productID]}</span></div>
-                                            </c:if>
-                                        </div>
+                                        <c:if test="${listFourGamingPC.getProductStatusID() == 1}">
+                                            <div class="label new">New</div>
+                                        </c:if>
+                                        <c:if test="${listFourGamingPC.getProductStatusID() == 2}">
+                                            <div class="label sale">Sale</div>
+                                        </c:if>
+                                        <ul class="product__hover">
+                                            <li><a href="productDetail?productID=${listFourGamingPC.getProductID()}"><span class="arrow_expand"></span></a></li>
+                                                    <c:if test="${sessionScope.user.getRole_ID() == 1}">
+                                                <li><a href="addToWishlist?productID=${listFourGamingPC.getProductID()}"><span class="icon_heart_alt"></span></a></li>
+                                                <li><a href="addToCart?productID=${listFourGamingPC.getProductID()}"><span class="icon_bag_alt"></span></a></li>
+                                                    </c:if> 
+                                        </ul>
                                     </div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12">
-                                <div class="section-title">
-                                    <h4>Workstation PC</h4>
+                                    <div class="product__item__text">
+                                        <h6>${listFourGamingPC.getProductName()}</h6>
+                                        <div class="rating">
+                                            <c:set var="rating" value="${listGamingFeedback[productID]}" />
+                                            <c:forEach var="counter" begin="1" end="5">
+                                                <c:choose>
+                                                    <c:when test="${counter <= rating}">
+                                                        <i class="fa fa-star"></i>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+                                        </div>
+                                        <c:if test="${listFourGamingPC.getProductStatusID() == 0}">
+                                            <div class="product__price">$ ${listGamingProductPrice[productID]}</div>
+                                        </c:if>
+                                        <c:if test="${listFourGamingPC.getProductStatusID() == 1}">
+                                            <div class="product__price">$ ${listGamingProductPrice[productID]}</div>
+                                        </c:if>
+                                        <c:if test="${listFourGamingPC.getProductStatusID() == 2}">
+                                            <div class="product__price">$ ${listGamingProductSalePrice[productID]} <span>$ ${listGamingProductPrice[productID]}</span></div>
+                                        </c:if>
+                                    </div>
                                 </div>
                             </div>
+                        </c:forEach>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="section-title">
+                                <h4>Workstation PC</h4>
+                            </div>
                         </div>
-                        <div class="row property__gallery">
-                            <c:set var="listWorkProductPrice" value="${requestScope.listWorkProductPrice}" />
-                            <c:set var="listWorkProductSalePrice" value="${requestScope.listWorkProductSalePrice}" />
-                            <c:set var="listWorkFeedback" value="${requestScope.listWorkFeedback}" />
-                            <c:forEach var="listFourWorkPC" items="${listFourWorkPC}">
-                                <c:set var="productID" value="${listFourWorkPC.getProductID()}" />
-                                <c:set var="caseID" value="${listCaseID[productID]}" />
-                                <c:set var="caseObject" value="${listImage[caseID]}" />
-                                <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <c:if test="${listFourWorkPC.getProductStatusID() == 0}">
+                    </div>
+                    <div class="row property__gallery">
+                        <c:set var="listWorkProductPrice" value="${requestScope.listWorkProductPrice}" />
+                        <c:set var="listWorkProductSalePrice" value="${requestScope.listWorkProductSalePrice}" />
+                        <c:set var="listWorkFeedback" value="${requestScope.listWorkFeedback}" />
+                        <c:forEach var="listFourWorkPC" items="${listFourWorkPC}">
+                            <c:set var="productID" value="${listFourWorkPC.getProductID()}" />
+                            <c:set var="caseID" value="${listCaseID[productID]}" />
+                            <c:set var="caseObject" value="${listImage[caseID]}" />
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <c:if test="${listFourWorkPC.getProductStatusID() == 0}">
+                                    <div class="product__item">
+                                    </c:if>
+                                    <c:if test="${listFourWorkPC.getProductStatusID() == 1}">
                                         <div class="product__item">
                                         </c:if>
-                                        <c:if test="${listFourWorkPC.getProductStatusID() == 1}">
-                                            <div class="product__item">
+                                        <c:if test="${listFourWorkPC.getProductStatusID() == 2}">
+                                            <div class="product__item sale">
                                             </c:if>
-                                            <c:if test="${listFourWorkPC.getProductStatusID() == 2}">
-                                                <div class="product__item sale">
+                                            <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath()%>/${caseObject.getImage()}">
+                                                <c:if test="${listFourWorkPC.getQuantity() == 0}">
+                                                    <div class="label stockout">out of stock</div>
                                                 </c:if>
-                                                <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath()%>/${caseObject.getImage()}">
-                                                    <c:if test="${listFourWorkPC.getQuantity() == 0}">
-                                                        <div class="label stockout">out of stock</div>
-                                                    </c:if>
-                                                    <c:if test="${listFourWorkPC.getProductStatusID() == 1}">
-                                                        <div class="label new">New</div>
-                                                    </c:if>
-                                                    <c:if test="${listFourWorkPC.getProductStatusID() == 2}">
-                                                        <div class="label sale">Sale</div>
-                                                    </c:if>
-                                                    <ul class="product__hover">
-                                                        <li><a href="productDetail?productID=${listFourWorkPC.getProductID()}"><span class="arrow_expand"></span></a></li>
-                                                                <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                                            <li><a href="addToWishlist?productID=${listFourWorkPC.getProductID()}"><span class="icon_heart_alt"></span></a></li>
-                                                            <li><a href="addToCart?productID=${listFourWorkPC.getProductID()}"><span class="icon_bag_alt"></span></a></li>
-                                                                </c:if>
-                                                    </ul>
+                                                <c:if test="${listFourWorkPC.getProductStatusID() == 1}">
+                                                    <div class="label new">New</div>
+                                                </c:if>
+                                                <c:if test="${listFourWorkPC.getProductStatusID() == 2}">
+                                                    <div class="label sale">Sale</div>
+                                                </c:if>
+                                                <ul class="product__hover">
+                                                    <li><a href="productDetail?productID=${listFourWorkPC.getProductID()}"><span class="arrow_expand"></span></a></li>
+                                                            <c:if test="${sessionScope.user.getRole_ID() == 1}">
+                                                        <li><a href="addToWishlist?productID=${listFourWorkPC.getProductID()}"><span class="icon_heart_alt"></span></a></li>
+                                                        <li><a href="addToCart?productID=${listFourWorkPC.getProductID()}"><span class="icon_bag_alt"></span></a></li>
+                                                            </c:if>
+                                                </ul>
+                                            </div>
+                                            <div class="product__item__text">
+                                                <h6>${listFourWorkPC.getProductName()}</h6>
+                                                <div class="rating">
+                                                    <c:set var="rating" value="${listWorkFeedback[productID]}" />
+                                                    <c:forEach var="counter" begin="1" end="5">
+                                                        <c:choose>
+                                                            <c:when test="${counter <= rating}">
+                                                                <i class="fa fa-star"></i>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <i class="fa fa-star-o"></i>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:forEach>
                                                 </div>
-                                                <div class="product__item__text">
-                                                    <h6>${listFourWorkPC.getProductName()}</h6>
-                                                    <div class="rating">
-                                                        <c:set var="rating" value="${listWorkFeedback[productID]}" />
-                                                        <c:forEach var="counter" begin="1" end="5">
-                                                            <c:choose>
-                                                                <c:when test="${counter <= rating}">
-                                                                    <i class="fa fa-star"></i>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </c:forEach>
-                                                    </div>
-                                                    <c:if test="${listFourWorkPC.getProductStatusID() == 0}">
-                                                        <div class="product__price">$ ${listWorkProductPrice[productID]}</div>
-                                                    </c:if>
-                                                    <c:if test="${listFourWorkPC.getProductStatusID() == 1}">
-                                                        <div class="product__price">$ ${listWorkProductPrice[productID]}</div>
-                                                    </c:if>
-                                                    <c:if test="${listFourWorkPC.getProductStatusID() == 2}">
-                                                        <div class="product__price">$ ${listWorkProductSalePrice[productID]} <span>$ ${listWorkProductPrice[productID]}</span></div>
-                                                    </c:if>
-                                                </div>
+                                                <c:if test="${listFourWorkPC.getProductStatusID() == 0}">
+                                                    <div class="product__price">$ ${listWorkProductPrice[productID]}</div>
+                                                </c:if>
+                                                <c:if test="${listFourWorkPC.getProductStatusID() == 1}">
+                                                    <div class="product__price">$ ${listWorkProductPrice[productID]}</div>
+                                                </c:if>
+                                                <c:if test="${listFourWorkPC.getProductStatusID() == 2}">
+                                                    <div class="product__price">$ ${listWorkProductSalePrice[productID]} <span>$ ${listWorkProductPrice[productID]}</span></div>
+                                                </c:if>
                                             </div>
                                         </div>
-                                    </c:forEach>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="section-title">
-                                            <h4>Mini PC</h4>
-                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="section-title">
+                                        <h4>Mini PC</h4>
                                     </div>
                                 </div>
-                                <div class="row property__gallery">
-                                    <c:set var="listMiniProductPrice" value="${requestScope.listMiniProductPrice}" />
-                                    <c:set var="listMiniProductSalePrice" value="${requestScope.listMiniProductSalePrice}" />
-                                    <c:set var="listMiniFeedback" value="${requestScope.listMiniFeedback}" />
-                                    <c:forEach var="listFourMiniPC" items="${listFourMiniPC}">
-                                        <c:set var="productID" value="${listFourMiniPC.getProductID()}" />
-                                        <c:set var="caseID" value="${listCaseID[productID]}" />
-                                        <c:set var="caseObject" value="${listImage[caseID]}" />
-                                        <div class="col-lg-3 col-md-4 col-sm-6">
-                                            <div class="product__item">
-                                                <c:if test="${listFourMiniPC.getProductStatusID() == 0}">
+                            </div>
+                            <div class="row property__gallery">
+                                <c:set var="listMiniProductPrice" value="${requestScope.listMiniProductPrice}" />
+                                <c:set var="listMiniProductSalePrice" value="${requestScope.listMiniProductSalePrice}" />
+                                <c:set var="listMiniFeedback" value="${requestScope.listMiniFeedback}" />
+                                <c:forEach var="listFourMiniPC" items="${listFourMiniPC}">
+                                    <c:set var="productID" value="${listFourMiniPC.getProductID()}" />
+                                    <c:set var="caseID" value="${listCaseID[productID]}" />
+                                    <c:set var="caseObject" value="${listImage[caseID]}" />
+                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                        <div class="product__item">
+                                            <c:if test="${listFourMiniPC.getProductStatusID() == 0}">
+                                                <div class="product__item">
+                                                </c:if>
+                                                <c:if test="${listFourMiniPC.getProductStatusID() == 1}">
                                                     <div class="product__item">
                                                     </c:if>
-                                                    <c:if test="${listFourMiniPC.getProductStatusID() == 1}">
-                                                        <div class="product__item">
+                                                    <c:if test="${listFourMiniPC.getProductStatusID() == 2}">
+                                                        <div class="product__item sale">
                                                         </c:if>
-                                                        <c:if test="${listFourMiniPC.getProductStatusID() == 2}">
-                                                            <div class="product__item sale">
+                                                        <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath()%>/${caseObject.getImage()}">
+                                                            <c:if test="${listFourMiniPC.getQuantity() == 0}">
+                                                                <div class="label stockout">out of stock</div>
                                                             </c:if>
-                                                            <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath()%>/${caseObject.getImage()}">
-                                                                <c:if test="${listFourMiniPC.getQuantity() == 0}">
-                                                                    <div class="label stockout">out of stock</div>
-                                                                </c:if>
-                                                                <c:if test="${listFourMiniPC.getProductStatusID() == 1}">
-                                                                    <div class="label new">New</div>
-                                                                </c:if>
-                                                                <c:if test="${listFourMiniPC.getProductStatusID() == 2}">
-                                                                    <div class="label sale">Sale</div>
-                                                                </c:if>
-                                                                <ul class="product__hover">
-                                                                    <li><a href="productDetail?productID=${listFourMiniPC.getProductID()}"><span class="arrow_expand"></span></a></li>
-                                                                            <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                                                        <li><a href="addToWishlist?productID=${listFourMiniPC.getProductID()}"><span class="icon_heart_alt"></span></a></li>
-                                                                        <li><a href="addToCart?productID=${listFourMiniPC.getProductID()}"><span class="icon_bag_alt"></span></a></li>
-                                                                            </c:if>
-                                                                </ul>
+                                                            <c:if test="${listFourMiniPC.getProductStatusID() == 1}">
+                                                                <div class="label new">New</div>
+                                                            </c:if>
+                                                            <c:if test="${listFourMiniPC.getProductStatusID() == 2}">
+                                                                <div class="label sale">Sale</div>
+                                                            </c:if>
+                                                            <ul class="product__hover">
+                                                                <li><a href="productDetail?productID=${listFourMiniPC.getProductID()}"><span class="arrow_expand"></span></a></li>
+                                                                        <c:if test="${sessionScope.user.getRole_ID() == 1}">
+                                                                    <li><a href="addToWishlist?productID=${listFourMiniPC.getProductID()}"><span class="icon_heart_alt"></span></a></li>
+                                                                    <li><a href="addToCart?productID=${listFourMiniPC.getProductID()}"><span class="icon_bag_alt"></span></a></li>
+                                                                        </c:if>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="product__item__text">
+                                                            <h6>${listFourMiniPC.getProductName()}</h6>
+                                                            <div class="rating">
+                                                                <c:set var="rating" value="${listMiniFeedback[productID]}" />
+                                                                <c:forEach var="counter" begin="1" end="5">
+                                                                    <c:choose>
+                                                                        <c:when test="${counter <= rating}">
+                                                                            <i class="fa fa-star"></i>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <i class="fa fa-star-o"></i>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
+                                                                </c:forEach>
                                                             </div>
-                                                            <div class="product__item__text">
-                                                                <h6>${listFourMiniPC.getProductName()}</h6>
-                                                                <div class="rating">
-                                                                    <c:set var="rating" value="${listMiniFeedback[productID]}" />
-                                                                    <c:forEach var="counter" begin="1" end="5">
-                                                                        <c:choose>
-                                                                            <c:when test="${counter <= rating}">
-                                                                                <i class="fa fa-star"></i>
-                                                                            </c:when>
-                                                                            <c:otherwise>
-                                                                                <i class="fa fa-star-o"></i>
-                                                                            </c:otherwise>
-                                                                        </c:choose>
-                                                                    </c:forEach>
-                                                                </div>
-                                                                <c:if test="${listFourMiniPC.getProductStatusID() == 0}">
-                                                                    <div class="product__price">$ ${listMiniProductPrice[productID]}</div>
-                                                                </c:if>
-                                                                <c:if test="${listFourMiniPC.getProductStatusID() == 1}">
-                                                                    <div class="product__price">$ ${listMiniProductPrice[productID]}</div>
-                                                                </c:if>
-                                                                <c:if test="${listFourMiniPC.getProductStatusID() == 2}">
-                                                                    <div class="product__price">$ ${listMiniProductSalePrice[productID]} <span>$ ${listMiniProductPrice[productID]}</span></div>
-                                                                </c:if>
-                                                            </div>
+                                                            <c:if test="${listFourMiniPC.getProductStatusID() == 0}">
+                                                                <div class="product__price">$ ${listMiniProductPrice[productID]}</div>
+                                                            </c:if>
+                                                            <c:if test="${listFourMiniPC.getProductStatusID() == 1}">
+                                                                <div class="product__price">$ ${listMiniProductPrice[productID]}</div>
+                                                            </c:if>
+                                                            <c:if test="${listFourMiniPC.getProductStatusID() == 2}">
+                                                                <div class="product__price">$ ${listMiniProductSalePrice[productID]} <span>$ ${listMiniProductPrice[productID]}</span></div>
+                                                            </c:if>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </c:forEach>
-                                        </div>
+                                            </div>
+                                        </c:forEach>
                                     </div>
-                                    </section>
-                                    <!-- Product Section End -->
+                                </div>
+                                </section>
+                                <!-- Product Section End -->
 
 
-                                    <%@include file="footer.jsp" %>
+                                <%@include file="footer.jsp" %>
 
-                                    <!-- Js Plugins -->
-                                    <script src="<%= request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
-                                    <script src="<%= request.getContextPath()%>/js/bootstrap.min.js"></script>
-                                    <script src="<%= request.getContextPath()%>/js/jquery.magnific-popup.min.js"></script>
-                                    <script src="<%= request.getContextPath()%>/js/jquery-ui.min.js"></script>
-                                    <script src="<%= request.getContextPath()%>/js/mixitup.min.js"></script>
-                                    <script src="<%= request.getContextPath()%>/js/jquery.countdown.min.js"></script>
-                                    <script src="<%= request.getContextPath()%>/js/jquery.slicknav.js"></script>
-                                    <script src="<%= request.getContextPath()%>/js/owl.carousel.min.js"></script>
-                                    <script src="<%= request.getContextPath()%>/js/jquery.nicescroll.min.js"></script>
-                                    <script src="<%= request.getContextPath()%>/js/main.js"></script>
-                                    </body>
+                                <!-- Js Plugins -->
+                                <script src="<%= request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
+                                <script src="<%= request.getContextPath()%>/js/bootstrap.min.js"></script>
+                                <script src="<%= request.getContextPath()%>/js/jquery.magnific-popup.min.js"></script>
+                                <script src="<%= request.getContextPath()%>/js/jquery-ui.min.js"></script>
+                                <script src="<%= request.getContextPath()%>/js/mixitup.min.js"></script>
+                                <script src="<%= request.getContextPath()%>/js/jquery.countdown.min.js"></script>
+                                <script src="<%= request.getContextPath()%>/js/jquery.slicknav.js"></script>
+                                <script src="<%= request.getContextPath()%>/js/owl.carousel.min.js"></script>
+                                <script src="<%= request.getContextPath()%>/js/jquery.nicescroll.min.js"></script>
+                                <script src="<%= request.getContextPath()%>/js/main.js"></script>
+                                </body>
 
-                                    </html>
+                                </html>

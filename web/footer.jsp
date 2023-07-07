@@ -24,7 +24,15 @@
         <footer class="footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="footer__about">
+                            <div class="footer__logo">
+                                <a href="home"><img src="<%= request.getContextPath()%>/img/shop/logo1.png" alt="logo"></a>
+                            </div>
+                            <p>Experience PC Excellence with Gaming Hub - Your Trusted Source for Cutting-Edge Technology</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="footer__widget">
                             <h6>Quick links</h6>
                             <ul>
@@ -34,7 +42,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="footer__newslatter">
                             <h6>WHERE TO FIND US</h6>
                             <div class="footer__social">
@@ -62,12 +70,12 @@
         <div class="search-model">
             <div class="h-100 d-flex align-items-center justify-content-center">
                 <div class="search-close-switch">+</div>
-                <form class="search-model-form">
+                <form class="search-model-form" method="GET" action="home">
                     <input type="text" id="search-input" placeholder="Search here.....">
                 </form>
             </div>
         </div>
         <!-- Search End -->
- 
+
     </body>
 </html>

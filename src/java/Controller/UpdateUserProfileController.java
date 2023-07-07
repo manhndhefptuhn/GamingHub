@@ -21,7 +21,6 @@ import java.io.IOException;
  *
  * @author Zarius
  */
-@MultipartConfig
 public class UpdateUserProfileController extends HttpServlet {
 
     /**

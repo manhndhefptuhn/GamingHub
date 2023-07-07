@@ -76,8 +76,7 @@
             <div class="offcanvas__close">+</div>
             <ul class="offcanvas__widget">
                 <li><span class="icon_search search-switch"></span></li>
-
-                <c:if test="${sessionScope.user.getRole_ID() == 1}">
+                    <c:if test="${sessionScope.user.getRole_ID() == 1}">
                     <li><a href="wishlist"><span class="icon_heart_alt"></span>
                             <div class="tip">${sessionScope.totalWishlistProduct}</div>
                         </a></li>
@@ -85,7 +84,6 @@
                             <div class="tip">${sessionScope.totalCartProduct}</div>
                         </a></li>
                     </c:if>
-
             </ul>
             <div class="offcanvas__logo">
                 <a href="home"><img src="<%= request.getContextPath()%>/img/shop/logo1.png" alt="logo"></a>
@@ -105,7 +103,7 @@
                 <div class="row">
                     <div class="col-xl-3 col-lg-2">
                         <div class="header__logo">
-                            <a href="home"><img src="<%= request.getContextPath()%>/img/shop/logo1.png" alt=""></a>
+                            <a href="home"><img src="<%= request.getContextPath()%>/img/shop/logo1.png" alt="logo"></a>
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-7">
@@ -197,7 +195,7 @@
             </div>
             <c:remove var="wrongNotification" scope="session" />
         </c:if>
-        
+
         <c:set var="successNoti" value="${sessionScope.successNoti}" />
         <c:if test="${not empty successNoti}">
             <div id="toast" class="toast-container">
