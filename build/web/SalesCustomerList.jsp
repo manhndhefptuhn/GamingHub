@@ -12,21 +12,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
-        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-        <meta name="generator" content="Hugo 0.101.0">
         <title>Sales Customer List</title>
-
         <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/">
-
-
-
         <!-- Bootstrap core CSS -->
         <link href="<%= request.getContextPath()%>/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/dashboard.css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/style3.css">
-
-
-
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -43,24 +34,15 @@
                 }
             }
         </style>
-
-
-        <!-- Custom styles for this template -->
         <link href="<%= request.getContextPath()%>/css/dashboard.css" rel="stylesheet">
     </head>
     <body>
 
         <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#"></a>
+            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="home"></a>
             <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <ul class="navbar-nav px-3" >
-                <li class="nav-item text-nowrap">
-                    <a class="nav-link" href="#">Sales</a>
-                </li>
-            </ul>
         </nav>
 
         <div class="container-fluid">
@@ -69,7 +51,7 @@
                     <div class="sidebar-sticky pt-3">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
+                                <a class="nav-link active" href=""> <!-- User Profile -->
                                     <div>
                                         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" width="100px" id="profile-pic"alt="User">
                                         <h1>Sales</h1>
@@ -79,7 +61,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <span data-feather="home"></span>
-                                    Dashboard <span class="sr-only">(current)</span>
+                                    Dashboard <span class="sr-only"></span>
                                 </a>
                             </li>
                             <li class="nav-item">

@@ -54,13 +54,9 @@ public class searchFeedback extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {       
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         FeedbackDAO u = new FeedbackDAO();
-        
         //get list with param from search
         String xName = request.getParameter("name").trim();  
-
-        
         
         if(xName.equalsIgnoreCase("")){
             List<Feedback> lst = u.getFeedback();/////default list
@@ -68,7 +64,6 @@ public class searchFeedback extends HttpServlet {
             request.setAttribute("search", xName);
             request.getRequestDispatcher("supportFeedbackList.jsp").forward(request, response);
         }
-        
         else{
             List<Feedback> lst = u.getFeedbackWithName(xName);/////with name
             request.setAttribute("lst", lst);
