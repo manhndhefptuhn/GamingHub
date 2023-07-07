@@ -76,7 +76,7 @@
                                     <strong style="color:red;">${notification}</strong>
                                 </c:if>
                                 <div class="form-group form-button">
-                                    <input type="submit" name="changePass" id="changePass" class="form-submit" value="Change your password"/>
+                                    <input style="width:100%;" type="submit" name="changePass" id="changePass" class="form-submit" value="Change your password"/>
                                 </div>
                         </form>
                     </div>

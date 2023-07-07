@@ -5,7 +5,6 @@
 package Controller;
 
 import DAL.RoleDAO;
-import Model.Roles;
 import Model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

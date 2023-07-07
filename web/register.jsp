@@ -50,7 +50,7 @@
                                     <input type="text" name="phoneNum" id="phone-num" placeholder="Your Phone Number" pattern="[0-9]{10}" required>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" style="margin-bottom: 0;">
                                     <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" required/>
                                     <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree to <a class="term-service" onclick="openPopup()" style="text-decoration: underline;">Terms and Conditions</a></label>
                                 </div>
@@ -188,7 +188,7 @@
                                     <strong style="color: red;">${notification}</strong>
                                 </c:if>
                                 <div class="form-group form-button">
-                                    <input type="submit" name="signup" id="signup" class="form-submit" value="Sign Up"/>
+                                    <input style="width: 100%;" type="submit" name="signup" id="signup" class="form-submit" value="Sign Up"/>
                                 </div>
                             </form>
                         </div>

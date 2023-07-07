@@ -77,30 +77,41 @@ public class LoginController extends HttpServlet {
         String defaultPassword = "1234@1234a";
         long thirtyMinutesMillis;
 
+        //If not found in user table in case wrong password or wrong email or null
         if (u == null) {
             request.setAttribute("notification", "Wrong email or password, please try again");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
+        //If have record in user table
         } else {
+            //Check if have record in table passwordReset in case forgot passsword
             PasswordReset pwrs = pwrsDAO.checkExistRecord(u.getUser_ID());
+            //if user status is false cannot login
             if (u.isStatus() != true) {
                 request.setAttribute("notification", "User is inactive");
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
+            //else if user status is true check if in table passwordReset have record in case user forgot password
             } else if (pwrs != null) {
+                //if have set the time expired to 30 minutes
                 long currentTimeMillis = System.currentTimeMillis();
                 Timestamp currentTime = new Timestamp(currentTimeMillis);
                 thirtyMinutesMillis = 30 * 60 * 1000L; // 30 minutes in milliseconds
+                //get time the request forgot password was created
                 Timestamp expiryTime = new Timestamp(pwrs.getTimeCreated().getTime() + thirtyMinutesMillis);
+                //if it after 30 minutes require to send another email
                 if (currentTime.after(expiryTime) && u.getRole_ID() == 1) {
                     request.setAttribute("email", email);
                     request.setAttribute("notification", "Your password is expired, please request password again");
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
+                //if not expired required user to change password 
                 } else if (currentTime.before(expiryTime) && u.getRole_ID() == 1) {
                     session.setAttribute("userChange", u);
                     request.getRequestDispatcher("changePass.jsp").forward(request, response);
                 }
+                //if user is not customer, have default password and when login require to change
             } else if (password.equals(defaultPassword) && u.getRole_ID() == 2 ||password.equals(defaultPassword) && u.getRole_ID() == 3 ||password.equals(defaultPassword) && u.getRole_ID() == 4) {
                 session.setAttribute("userChange", u);
                 request.getRequestDispatcher("changePass.jsp").forward(request, response);
+                //else user can login and set attribute
             } else {
                 session.removeAttribute("userChange");
                 session.setAttribute("user", u);

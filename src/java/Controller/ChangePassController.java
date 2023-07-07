@@ -86,27 +86,36 @@ public class ChangePassController extends HttpServlet {
 
         UserDAO uDAO = new UserDAO();
 
+        //if user request new password in login page then login
         if (userChange != null) {
             PasswordReset pwrs = pwrsDAO.checkExistRecord(userChange.getUser_ID());
+            //if re enter passsword is different from new password
             if (!newPass.equals(reNewPass)) {
                 request.setAttribute("notification", "The new password you just enter is not match! Please enter again");
                 request.getRequestDispatcher("changePass.jsp").forward(request, response);
+            //check for length of the password
             } else if (newPass.length() <= 8 || newPass.length() > 32) {
                 request.setAttribute("notification", "Your password must greater than 8 and smaller than 32 characters");
                 request.getRequestDispatcher("changePass.jsp").forward(request, response);
+            //check if there is a request in table passwordReset and new pass is equals to password in password reset
             } else if (pwrs != null && newPass.equals(pwrs.getResetPassword())) {
                 request.setAttribute("notification", "The old and new password is the same");
                 request.getRequestDispatcher("changePass.jsp").forward(request, response);
+            //else it is not equals
             } else if (pwrs != null && !newPass.equals(pwrs.getResetPassword())) {
+                //delete the record in passwordReset table
                 pwrsDAO.deleteRecord(userChange.getUser_ID());
+                //change the password of the user
                 uDAO.changePassword(userChange.getUser_ID(), newPass);
                 request.setAttribute("email", userChange.getEmail());
                 session.removeAttribute("userChange");
                 request.setAttribute("notification", "Change password successfully, please login again");
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
+            //else if not in password reset table (for another role except customer)
             } else if (pwrs == null && newPass.equals(defaultPassword)) {
                 request.setAttribute("notification", "The old and new password is the same");
                 request.getRequestDispatcher("changePass.jsp").forward(request, response);
+            //change password for role not customer
             } else if(pwrs == null && !newPass.equals(defaultPassword)){
                 uDAO.changePassword(userChange.getUser_ID(), newPass);
                 request.setAttribute("email", userChange.getEmail());
@@ -114,8 +123,11 @@ public class ChangePassController extends HttpServlet {
                 request.setAttribute("notification", "Change password successfully, please login again");
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
+        //if already login and change password in profile
         } else if (u != null) {
             User currentUser = uDAO.getUser(u.getUser_ID(), oldPassLogin);
+            System.out.println(currentUser);
+            //check if the old password is correct
             if (currentUser == null) {
                 request.setAttribute("notification", "The old password is wrong");
                 request.getRequestDispatcher("changePass.jsp").forward(request, response);
@@ -131,7 +143,7 @@ public class ChangePassController extends HttpServlet {
             } else {
                 uDAO.changePassword(currentUser.getUser_ID(), newPass);
                 request.setAttribute("notification", "Change password successfully");
-                request.getRequestDispatcher("userProfile.jsp").forward(request, response);
+                request.getRequestDispatcher("userProfile").forward(request, response);
             }
         }
     }

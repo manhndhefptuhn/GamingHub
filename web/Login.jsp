@@ -14,10 +14,8 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Sign in</title>
         <link rel="icon" type="image/png" href="<%= request.getContextPath()%>/img/shop/logo1.png"/>
-
         <!-- Font Icon -->
         <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
-
         <!-- Main css -->
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/style1.css">
     </head>
@@ -29,7 +27,7 @@
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="<%= request.getContextPath()%>/img/signin-image.jpg" alt="Sign in image"></figure>
-                        <a href="register.jsp" class="signup-image-link">Create an account</a>
+                        <a href="home" class="signup-image-link">Home</a>
                     </div>
 
                     <div class="signin-form">
@@ -39,41 +37,40 @@
                                 <c:when test="${email != null}">
                                     <div class="form-group">
                                         <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                        <input type="email" name="email" id="your_email" placeholder="Your Email" value="${email}"/>
+                                        <input type="email" name="email" id="your_email" placeholder="Your Email" value="${email}" required/>
                                     </div>
                                 </c:when>
                                 <c:otherwise>
                                     <div class="form-group">
                                         <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                        <input type="email" name="email" id="your_email" placeholder="Your Email"/>
+                                        <input type="email" name="email" id="your_email" placeholder="Your Email" required/>
                                     </div>
                                 </c:otherwise>
                             </c:choose>
                             <div class="form-group">
                                 <label for="your_pass"><i class="zmdi zmdi-key"></i></label>
-                                <input type="password" name="password" id="loginPassword"  placeholder="Password"/>
+                                <input type="password" name="password" id="loginPassword"  placeholder="Password" required/>
                             </div>
-                            <div>
-                                <input type="checkbox" id="revealCheckbox" class="reveal-checkbox" onchange="togglePasswordVisibility()">
-                                <label for="revealCheckbox" class="label-agree-term" ><span><span></span></span>Reveal Password</label>                       
-                            </div>
-                            <div>
-                                <c:if test="${notification != null}">
-                                    <strong style="color: red;">${notification}</strong>
-                                </c:if>
-                            </div>
-                            <div class="form-group form-button">
-                                <input type="submit" name="signin" id="signin" class="form-submit" value="Sign in"/>
-                            </div>
-                            <div class="container-swap">
+                            <div class="form-group" style="margin-bottom: 0;">
                                 <div class="div_left" style="text-align:left;">
-                                    <input type="checkbox" name="rememberMe" id="remember-me" class="agree-term" value="true"/>
-                                    <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>                       
+                                    <div>
+                                        <input type="checkbox" id="revealCheckbox" class="reveal-checkbox" onchange="togglePasswordVisibility()">
+                                        <label for="revealCheckbox" class="label-agree-term" ><span><span></span></span>Reveal Password</label>                       
+                                    </div>
                                 </div>
                                 <div class="div_right">
                                     <a href="forgetPassword.jsp" class="forgetpass">Forgot password</a>
                                 </div>
-                            </div>       
+                            </div> 
+                            <c:if test="${notification != null}">
+                                <div>
+                                    <strong style="color: red;">${notification}</strong>
+                                </div>
+                            </c:if>
+                            <div class="form-group form-button">
+                                <input style="width: 100%" type="submit" name="signin" id="signin" class="form-submit" value="Sign in"/>
+                            </div>
+                            <p class="forgetpass">Not have account?<a href="register.jsp" class="forgetpass" style="padding-bottom: 2em;">Create new account</a></p>
                         </form>
                     </div>
                 </div>
