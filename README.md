@@ -31,13 +31,18 @@ For a complete list of features, please refer to Software Requirement Specificat
 
 ## Documentation
 For Software Requirement Specification, please check out our document in Github Respiratory.
+
 For Software Designment Document, please check out our document in Github Respiratory.
 
 ## Contributing
 manhndhefptuhn
+
 pkdminh
+
 datbui1406
+
 HomNayToiBuon1
+
 V-coding-gamedev
 
 ## License
