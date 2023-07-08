@@ -24,7 +24,7 @@ public class CartDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT Count(*) as totalCartProduct From `Cart` where User_ID = " + userID + ";";
+                String sql = "SELECT Count(*) as totalCartProduct From `cart` where User_ID = " + userID + ";";
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
                     int totalWishlistProduct = rs.getInt("totalCartProduct");
@@ -145,7 +145,7 @@ public class CartDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT * FROM `Cart` where User_ID = " + userID + " and `Product_ID` = " + productID + ";";
+                String sql = "SELECT * FROM `cart` where User_ID = " + userID + " and `Product_ID` = " + productID + ";";
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
                     int currentQuantity = rs.getInt("Quantity");

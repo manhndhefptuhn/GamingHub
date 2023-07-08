@@ -31,8 +31,8 @@ public class ProductDAO {
             if (con != null) {
                 Statement st = con.createStatement();
                 String sql = "SELECT p.*, AVG(f.Rating) AS highest_rating\n"
-                        + "                   FROM PRODUCT AS p\n"
-                        + "                   LEFT JOIN feedback AS f ON p.Product_ID = f.Product_ID\n"
+                        + "                   FROM `product` AS p\n"
+                        + "                   LEFT JOIN `feedback` AS f ON p.Product_ID = f.Product_ID\n"
                         + "                   WHERE p.Category_ID = 1 AND p.Status = 1\n"
                         + "                   GROUP BY p.Product_ID\n"
                         + "                   ORDER BY highest_rating DESC, p.Product_ID ASC\n"
@@ -69,8 +69,8 @@ public class ProductDAO {
             if (con != null) {
                 Statement st = con.createStatement();
                 String sql = "SELECT p.*, AVG(f.Rating) AS highest_rating\n"
-                        + "                   FROM PRODUCT AS p\n"
-                        + "                   LEFT JOIN feedback AS f ON p.Product_ID = f.Product_ID\n"
+                        + "                   FROM `product` AS p\n"
+                        + "                   LEFT JOIN `feedback` AS f ON p.Product_ID = f.Product_ID\n"
                         + "                   WHERE p.Category_ID = 3 AND p.Status = 1\n"
                         + "                   GROUP BY p.Product_ID\n"
                         + "                   ORDER BY highest_rating DESC, p.Product_ID ASC\n"
@@ -107,8 +107,8 @@ public class ProductDAO {
             if (con != null) {
                 Statement st = con.createStatement();
                 String sql = "SELECT p.*, AVG(f.Rating) AS highest_rating\n"
-                        + "                   FROM PRODUCT AS p\n"
-                        + "                   LEFT JOIN feedback AS f ON p.Product_ID = f.Product_ID\n"
+                        + "                   FROM `product` AS p\n"
+                        + "                   LEFT JOIN `feedback` AS f ON p.Product_ID = f.Product_ID\n"
                         + "                   WHERE p.Category_ID = 2 AND p.Status = 1\n"
                         + "                   GROUP BY p.Product_ID\n"
                         + "                   ORDER BY highest_rating DESC, p.Product_ID ASC\n"
@@ -146,7 +146,7 @@ public class ProductDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 String sql = "SELECT pc.product_ID, (m.price + c.price + r.price + v.price + s.price + p.price + ca.price) AS product_price\n"
-                        + "FROM pc\n"
+                        + "FROM `pc`\n"
                         + "INNER JOIN mainboard m ON pc.Mainboard_ID = m.Mainboard_ID \n"
                         + "INNER JOIN `cpu` c ON pc.CPU_ID = c.CPU_ID\n"
                         + "INNER JOIN ram r ON pc.RAM_ID = r.RAM_ID\n"
@@ -185,7 +185,7 @@ public class ProductDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 String sql = "SELECT pro.SalePercentage, pc.product_ID, (m.price + c.price + r.price + v.price + s.price + p.price + ca.price) AS product_price\n"
-                        + "FROM pc\n"
+                        + "FROM `pc`\n"
                         + "INNER JOIN mainboard m ON pc.Mainboard_ID = m.Mainboard_ID \n"
                         + "INNER JOIN `cpu` c ON pc.CPU_ID = c.CPU_ID\n"
                         + "INNER JOIN ram r ON pc.RAM_ID = r.RAM_ID\n"
@@ -323,8 +323,8 @@ public class ProductDAO {
             if (con != null) {
                 Statement st = con.createStatement();
                 String sql = "SELECT p.*\n"
-                        + "FROM product as p\n"
-                        + "WHERE Status = 1 and p.Category_ID = " + categoryID + " and p.product_ID NOT IN (" + productID + ")\n"
+                        + "FROM `product` as p\n"
+                        + "WHERE p.status = 1 and p.Category_ID = " + categoryID + " and p.product_ID NOT IN (" + productID + ")\n"
                         + "ORDER BY RAND() LIMIT 4;";
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
@@ -356,7 +356,7 @@ public class ProductDAO {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT * FROM product";
+                String sql = "SELECT * FROM `product`";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -388,7 +388,7 @@ public class ProductDAO {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT p.* from PRODUCT as p WHERE Status = 1 ORDER BY p.product_id";
+                String sql = "SELECT p.* from `product` as p WHERE Status = 1 ORDER BY p.product_id";
                 Statement st = con.createStatement();
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
@@ -420,7 +420,7 @@ public class ProductDAO {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT p.* from PRODUCT as p WHERE p.Status = 1 and p.Category_ID = " + categoryID + " ORDER BY p.product_id;";
+                String sql = "SELECT p.* from `product` as p WHERE p.Status = 1 and p.Category_ID = " + categoryID + " ORDER BY p.product_id;";
                 Statement st = con.createStatement();
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
@@ -452,7 +452,7 @@ public class ProductDAO {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT p.* from PRODUCT as p \n"
+                String sql = "SELECT p.* from `product` as p \n"
                         + "INNER JOIN pc as pc ON p.Product_ID = pc.Product_ID\n"
                         + "INNER JOIN cpu as cpu ON pc.CPU_ID = cpu.CPU_ID\n"
                         + "WHERE p.Status = 1 and p.Category_ID = " + categoryID + " and cpu.CPU_Name like '%" + cpuName + "%'  ORDER BY p.product_id;";
@@ -487,7 +487,7 @@ public class ProductDAO {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT p.* from PRODUCT as p "
+                String sql = "SELECT p.* from `product` as p "
                         + "WHERE p.Status = 1 and p.Category_ID = " + categoryID + " and p.Product_Status_ID = " + productStatus + " "
                         + "ORDER BY p.product_id;";
                 Statement st = con.createStatement();
