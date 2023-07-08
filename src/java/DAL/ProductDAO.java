@@ -628,4 +628,92 @@ public class ProductDAO {
         }
         return listQuantity;
     }
+    
+    public int getTotalNumberOfProduct(){
+        try{
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            
+            if (con != null){
+                Statement st = con.createStatement();
+//                String sql = "select COUNT(*) from Product";
+                String sql = "select COUNT(*) from Product where product_Id >= 1 AND product_Id <= 10";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()){
+                    return rs.getInt(1); 
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return 0; 
+    }
+    
+    public int getQuantityOfProductByProductName(int id) {
+        try{
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            
+            if (con != null){
+                Statement st = con.createStatement();
+                String sql = "select quantity from Product where product_id = " + id;
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()){
+                    return rs.getInt(1); 
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return 0; 
+    }
+    
+    public List<Product> getAllProduct1(){
+        List<Product> productList = new ArrayList<>(); 
+        
+        try{
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            
+            if (con != null){
+                Statement st = con.createStatement();
+                String sql = "SELECT * FROM product WHERE product_Id >= 1 AND product_Id <= 10;";
+                ResultSet rs = st.executeQuery(sql); 
+                while (rs.next()){
+                    Product product = new Product();
+                    product.setProductID(rs.getInt("product_Id"));
+                    product.setProductName(rs.getString("product_Name"));
+                    product.setStatus(rs.getBoolean("status"));
+                    product.setQuantity(rs.getInt("quantity"));
+
+                productList.add(product);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return productList; 
+    }
+        
+    
+    
+    public static void main(String[] args) {
+        ProductDAO pDAO = new ProductDAO(); 
+        
+        int result = pDAO.getTotalNumberOfProduct();
+        System.out.println("Result: " + result);
+
+//        int result = pDAO.getQuantityOfProductByProductName(1);
+//        System.out.println("Result: " + result);
+
+    
+//        List<Product> productList = pDAO.getAllProduct();
+//        
+//        for (Product product : productList){
+//            System.out.println(product);
+//        }
+        
+    }
 }

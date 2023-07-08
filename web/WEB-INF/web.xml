@@ -132,6 +132,46 @@
         <servlet-name>supportDeleteFeedbackResponse</servlet-name>
         <servlet-class>Controller.Support.supportDeleteFeedbackResponse</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserDetailServlet</servlet-name>
+        <servlet-class>Controller.UserDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUserController</servlet-name>
+        <servlet-class>Controller.EditUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateUserController</servlet-name>
+        <servlet-class>Controller.UpdateUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserSearchResultController</servlet-name>
+        <servlet-class>Controller.UserSearchResultController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewSliderController</servlet-name>
+        <servlet-class>Controller.ViewSliderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteSliderController</servlet-name>
+        <servlet-class>Controller.DeleteSliderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchSliderController</servlet-name>
+        <servlet-class>Controller.SearchSliderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateSliderController</servlet-name>
+        <servlet-class>Controller.UpdateSliderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditSliderController</servlet-name>
+        <servlet-class>Controller.EditSliderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDashboardController</servlet-name>
+        <servlet-class>Controller.AdminDashboardController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -255,6 +295,46 @@
     <servlet-mapping>
         <servlet-name>SuccessfulCheckoutController</servlet-name>
         <url-pattern>/successful</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserDetailServlet</servlet-name>
+        <url-pattern>/userDetailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUserController</servlet-name>
+        <url-pattern>/editUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateUserController</servlet-name>
+        <url-pattern>/updateUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserSearchResultController</servlet-name>
+        <url-pattern>/userSearchResultController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewSliderController</servlet-name>
+        <url-pattern>/viewSliderController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteSliderController</servlet-name>
+        <url-pattern>/deleteSliderController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchSliderController</servlet-name>
+        <url-pattern>/searchSliderController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateSliderController</servlet-name>
+        <url-pattern>/updateSliderController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditSliderController</servlet-name>
+        <url-pattern>/editSliderController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDashboardController</servlet-name>
+        <url-pattern>/adminDashboardController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
