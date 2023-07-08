@@ -2,99 +2,95 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>Controller.LoginController</servlet-class>
+        <servlet-class>Controller.Common.LoginController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogOutController</servlet-name>
-        <servlet-class>Controller.LogOutController</servlet-class>
+        <servlet-class>Controller.Common.LogOutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetUserProfile</servlet-name>
-        <servlet-class>Controller.GetUserProfile</servlet-class>
+        <servlet-class>Controller.Common.GetUserProfile</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateUserProfileController</servlet-name>
-        <servlet-class>Controller.UpdateUserProfileController</servlet-class>
+        <servlet-class>Controller.Common.UpdateUserProfileController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>HomeController</servlet-name>
-        <servlet-class>Controller.HomeController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SendMessageController</servlet-name>
-        <servlet-class>Controller.SendMessageController</servlet-class>
+        <servlet-class>Controller.Public.HomeController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProductDetailController</servlet-name>
-        <servlet-class>Controller.ProductDetailController</servlet-class>
+        <servlet-class>Controller.Public.ProductDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CustomerListController</servlet-name>
-        <servlet-class>Controller.CustomerListController</servlet-class>
+        <servlet-class>Controller.Sale.CustomerListController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ViewCustomerController</servlet-name>
-        <servlet-class>Controller.ViewCustomerController</servlet-class>
+        <servlet-class>Controller.Sale.ViewCustomerController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProductListController</servlet-name>
-        <servlet-class>Controller.ProductListController</servlet-class>
+        <servlet-class>Controller.Sale.ProductListController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetFeedbackReplyList</servlet-name>
-        <servlet-class>Controller.GetFeedbackReplyList</servlet-class>
+        <servlet-class>Controller.Support.GetFeedbackReplyList</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>searchResponse</servlet-name>
-        <servlet-class>Controller.searchResponse</servlet-class>
+        <servlet-class>Controller.Support.searchResponse</servlet-class>
     </servlet>
-        <servlet>
+    <servlet>
         <servlet-name>ShopController</servlet-name>
-        <servlet-class>Controller.ShopController</servlet-class>
+        <servlet-class>Controller.Public.ShopController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>WishListController</servlet-name>
-        <servlet-class>Controller.WishListController</servlet-class>
+        <servlet-class>Controller.Customer.WishListController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddToWishlistController</servlet-name>
-        <servlet-class>Controller.AddToWishlistController</servlet-class>
+        <servlet-class>Controller.Customer.AddToWishlistController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RemoveWishlistController</servlet-name>
-        <servlet-class>Controller.RemoveWishlistController</servlet-class>
+        <servlet-class>Controller.Customer.RemoveWishlistController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddToCartController</servlet-name>
-        <servlet-class>Controller.AddToCartController</servlet-class>
+        <servlet-class>Controller.Customer.AddToCartController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CartController</servlet-name>
-        <servlet-class>Controller.CartController</servlet-class>
+        <servlet-class>Controller.Customer.CartController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RemoveCartController</servlet-name>
-        <servlet-class>Controller.RemoveCartController</servlet-class>
+        <servlet-class>Controller.Customer.RemoveCartController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateCartController</servlet-name>
-        <servlet-class>Controller.UpdateCartController</servlet-class>
+        <servlet-class>Controller.Customer.UpdateCartController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CartContactController</servlet-name>
-        <servlet-class>Controller.CartContactController</servlet-class>
+        <servlet-class>Controller.Customer.CartContactController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CheckoutController</servlet-name>
-        <servlet-class>Controller.CheckoutController</servlet-class>
+        <servlet-class>Controller.Customer.CheckoutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddToOrderController</servlet-name>
-        <servlet-class>Controller.AddToOrderController</servlet-class>
+        <servlet-class>Controller.Customer.AddToOrderController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SuccessfulCheckoutController</servlet-name>
-        <servlet-class>Controller.SuccessfulCheckoutController</servlet-class>
+        <servlet-class>Controller.Customer.SuccessfulCheckoutController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -102,19 +98,19 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>RegisterController</servlet-name>
-        <servlet-class>Controller.RegisterController</servlet-class>
+        <servlet-class>Controller.Common.RegisterController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ChangePassController</servlet-name>
-        <servlet-class>Controller.ChangePassController</servlet-class>
+        <servlet-class>Controller.Common.ChangePassController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>forgetPassController</servlet-name>
-        <servlet-class>Controller.forgetPassController</servlet-class>
+        <servlet-class>Controller.Common.forgetPassController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetFeedbackList</servlet-name>
-        <servlet-class>Controller.GetFeedbackList</servlet-class>
+        <servlet-class>Controller.Support.GetFeedbackList</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetSupportDashBoardInfo</servlet-name>
@@ -122,19 +118,19 @@
     </servlet>
     <servlet>
         <servlet-name>searchFeedback</servlet-name>
-        <servlet-class>Controller.searchFeedback</servlet-class>
+        <servlet-class>Controller.Support.searchFeedback</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SetFeedbackReply</servlet-name>
-        <servlet-class>Controller.SetFeedbackReply</servlet-class>
+        <servlet-class>Controller.Support.SetFeedbackReply</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>supportEditFeedback</servlet-name>
-        <servlet-class>Controller.supportEditFeedbackResponse</servlet-class>
+        <servlet-class>Controller.Support.supportEditFeedbackResponse</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>supportDeleteFeedbackResponse</servlet-name>
-        <servlet-class>Controller.supportDeleteFeedbackResponse</servlet-class>
+        <servlet-class>Controller.Support.supportDeleteFeedbackResponse</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
@@ -163,10 +159,6 @@
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SendMessageController</servlet-name>
-        <url-pattern>/sendMessage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductDetailController</servlet-name>
@@ -216,7 +208,7 @@
         <servlet-name>searchResponse</servlet-name>
         <url-pattern>/searchResponse</url-pattern>
     </servlet-mapping>
-       <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ShopController</servlet-name>
         <url-pattern>/shop</url-pattern>
     </servlet-mapping>
