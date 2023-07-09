@@ -6,9 +6,7 @@
 package Controller.Sale;
 
 import DAL.ProductDAO;
-import DAL.UserDAO;
 import Model.Product;
-import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;

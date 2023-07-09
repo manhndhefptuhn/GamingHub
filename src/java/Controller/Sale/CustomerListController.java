@@ -58,15 +58,9 @@ public class CustomerListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String search = request.getParameter("search");
-        String statusFilter = request.getParameter("statusFilter");
-        Boolean statusFilterValue = null;
-        if (statusFilter != null && !statusFilter.isEmpty()) {
-            statusFilterValue = Boolean.valueOf(statusFilter);
-        }
-        List<User> customers = new UserDAO().getAllCustomers(search, statusFilterValue);
+        List<User> customers = new UserDAO().getAllCustomers();
         request.setAttribute("customers", customers);
-        request.getRequestDispatcher("SalesCustomerList.jsp").forward(request, response);
+        request.getRequestDispatcher("SaleCustomerList.jsp").forward(request, response);
     }
 
     /**

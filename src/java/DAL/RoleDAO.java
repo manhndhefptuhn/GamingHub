@@ -7,7 +7,6 @@ package DAL;
 import Context.DBContext;
 import Model.Roles;
 import Model.User;
-import Model.Wishlist;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

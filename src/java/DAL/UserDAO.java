@@ -221,45 +221,31 @@ public class UserDAO {
         return null;
     }
     
-    public List<User> getAllCustomers(String search, Boolean statusFilter) {
+    public List<User> getAllCustomers() {
         List<User> customers = new ArrayList<>();
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT * FROM `user` WHERE Role_ID = 1";
-                if (search != null && !search.trim().isEmpty()) {
-                    sql += " AND FullName LIKE ?";
-                }
-                if (statusFilter != null) {
-                    sql += " AND Status = ?";
-                }
-                PreparedStatement ps = con.prepareStatement(sql);
-                int parameterIndex = 1;
-                if (search != null && !search.trim().isEmpty()) {
-                    String searchLike = "%" + search.trim() + "%";
-                    ps.setString(parameterIndex++, searchLike);
-                }
-                if (statusFilter != null) {
-                    ps.setBoolean(parameterIndex++, statusFilter);
-                }
-                ResultSet rs = ps.executeQuery();
+                Statement st = con.createStatement();
+                String sql = "select * from `user` where `role_id` = 1";
+                ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
-                    User customer = new User();
-                    customer.setUser_ID(rs.getInt("User_ID"));
-                    customer.setFullName(rs.getString("FullName"));
-                    customer.setEmail(rs.getString("Email"));
-                    customer.setPassword(rs.getString("Password"));
-                    customer.setProfile_picture(rs.getString("Profile_picture"));
-                    customer.setPhone_Number(rs.getString("Phone_Number"));
-                    customer.setAddress(rs.getString("Address"));
-                    customer.setStatus(rs.getBoolean("Status"));
-                    customer.setRole_ID(rs.getInt("Role_ID"));
-                    customers.add(customer);
+                    User u = new User();
+                    u.setUser_ID(rs.getInt(1));
+                    u.setFullName(rs.getString(2));
+                    u.setEmail(rs.getString(3));
+                    u.setPassword(rs.getString(4));
+                    u.setProfile_picture(rs.getString(5));
+                    u.setPhone_Number(rs.getString(6));
+                    u.setAddress(rs.getString(7));
+                    u.setStatus(rs.getBoolean(8));
+                    u.setRole_ID(rs.getInt(9));
+                    customers.add(u);
                 }
                 rs.close();
-                ps.close();
                 con.close();
+                st.close();
             }
             return customers;
         } catch (Exception e) {
@@ -278,20 +264,20 @@ public class UserDAO {
                 ps.setInt(1, id);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    User customer = new User();
-                    customer.setUser_ID(rs.getInt("User_ID"));
-                    customer.setFullName(rs.getString("FullName"));
-                    customer.setEmail(rs.getString("Email"));
-                    customer.setPassword(rs.getString("Password"));
-                    customer.setProfile_picture(rs.getString("Profile_picture"));
-                    customer.setPhone_Number(rs.getString("Phone_Number"));
-                    customer.setAddress(rs.getString("Address"));
-                    customer.setStatus(rs.getBoolean("Status"));
-                    customer.setRole_ID(rs.getInt("Role_ID"));
+                    User u = new User();
+                    u.setUser_ID(rs.getInt(1));
+                    u.setFullName(rs.getString(2));
+                    u.setEmail(rs.getString(3));
+                    u.setPassword(rs.getString(4));
+                    u.setProfile_picture(rs.getString(5));
+                    u.setPhone_Number(rs.getString(6));
+                    u.setAddress(rs.getString(7));
+                    u.setStatus(rs.getBoolean(8));
+                    u.setRole_ID(rs.getInt(9));
                     rs.close();
                     ps.close();
                     con.close();
-                    return customer;
+                    return u;
                 }
             }
         } catch (Exception e) {

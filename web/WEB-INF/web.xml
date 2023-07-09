@@ -37,14 +37,6 @@
         <servlet-class>Controller.Sale.ProductListController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetFeedbackReplyList</servlet-name>
-        <servlet-class>Controller.Support.GetFeedbackReplyList</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>searchResponse</servlet-name>
-        <servlet-class>Controller.Support.searchResponse</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ShopController</servlet-name>
         <servlet-class>Controller.Public.ShopController</servlet-class>
     </servlet>
@@ -113,10 +105,6 @@
         <servlet-class>Controller.GetSupportDashBoardInfo</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>searchFeedback</servlet-name>
-        <servlet-class>Controller.Support.searchFeedback</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SetFeedbackReply</servlet-name>
         <servlet-class>Controller.Support.SetFeedbackReply</servlet-class>
     </servlet>
@@ -176,6 +164,18 @@
         <servlet-name>CreateSliderController</servlet-name>
         <servlet-class>Controller.Admin.CreateSliderController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FeedbackListController</servlet-name>
+        <servlet-class>Controller.Support.FeedbackListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateFalseFeedback</servlet-name>
+        <servlet-class>Controller.Support.UpdateFalseFeedback</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateTrueFeedback</servlet-name>
+        <servlet-class>Controller.Support.UpdateTrueFeedback</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -214,31 +214,23 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetFeedbackList</servlet-name>
-        <url-pattern>/GetFeedbackList</url-pattern>
+        <url-pattern>/feedbackList123</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetSupportDashBoardInfo</servlet-name>
         <url-pattern>/GetSupportDashBoardInfo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>searchFeedback</servlet-name>
-        <url-pattern>/searchFeedback</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>CustomerListController</servlet-name>
-        <url-pattern>/CustomerListController</url-pattern>
+        <url-pattern>/customerList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewCustomerController</servlet-name>
-        <url-pattern>/ViewCustomerController</url-pattern>
+        <url-pattern>/viewCustomer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductListController</servlet-name>
         <url-pattern>/ProductListController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetFeedbackReplyList</servlet-name>
-        <url-pattern>/GetFeedbackReplyList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SetFeedbackReply</servlet-name>
@@ -251,10 +243,6 @@
     <servlet-mapping>
         <servlet-name>supportDeleteFeedbackResponse</servlet-name>
         <url-pattern>/supportDeleteFeedbackResponse</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>searchResponse</servlet-name>
-        <url-pattern>/searchResponse</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ShopController</servlet-name>
@@ -351,6 +339,18 @@
     <servlet-mapping>
         <servlet-name>CreateSliderController</servlet-name>
         <url-pattern>/createSlider</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackListController</servlet-name>
+        <url-pattern>/feedbackList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateFalseFeedback</servlet-name>
+        <url-pattern>/falseFeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateTrueFeedback</servlet-name>
+        <url-pattern>/trueFeedback</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

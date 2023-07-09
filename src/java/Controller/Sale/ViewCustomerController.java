@@ -5,10 +5,10 @@
 
 package Controller.Sale;
 
+import DAL.RoleDAO;
 import DAL.UserDAO;
 import Model.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,9 +32,12 @@ public class ViewCustomerController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         int userID = Integer.parseInt(request.getParameter("id"));
         UserDAO uDAO = new UserDAO();
+        RoleDAO rDAO = new RoleDAO();
         User customer = uDAO.getCustomerById(userID);
+        String customerRole = rDAO.getRoleNameByID(customer.getRole_ID());
         request.setAttribute("customer", customer);
-        request.getRequestDispatcher("SalesViewCustomer.jsp").forward(request, response);
+        request.setAttribute("customerRole", customerRole);
+        request.getRequestDispatcher("SaleViewCustomer.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
