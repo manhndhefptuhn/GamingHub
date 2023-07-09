@@ -5,14 +5,11 @@
 package Controller.Admin;
 
 import DAL.SliderDAO;
-import Model.Slider;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 /**
  *
@@ -34,12 +31,19 @@ public class DeleteSliderController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
-        
+        SliderDAO slDAO = new SliderDAO();
+        int row;
         String id = request.getParameter("id");
         if (id != null){
             int sliderID = Integer.parseInt(id);
-            SliderDAO.deleteSlider(sliderID); 
-            response.sendRedirect(request.getContextPath() + "/DeleteSliderMessage.jsp");
+            row = slDAO.deleteSlider(sliderID); 
+            if(row >= 1){
+                request.setAttribute("notification", "Delete slider successfully");
+                request.getRequestDispatcher("sliderList").forward(request, response);
+            }else{
+                request.setAttribute("notification", "There's something wrong, please try again later");
+                request.getRequestDispatcher("sliderList").forward(request, response);
+            }
         }
     }
 

@@ -228,7 +228,7 @@ public class UserDAO {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT * FROM user WHERE Role_ID = 1";
+                String sql = "SELECT * FROM `user` WHERE Role_ID = 1";
                 if (search != null && !search.trim().isEmpty()) {
                     sql += " AND FullName LIKE ?";
                 }

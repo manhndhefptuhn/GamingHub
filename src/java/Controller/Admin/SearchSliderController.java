@@ -6,14 +6,12 @@ package Controller.Admin;
 
 import DAL.SliderDAO;
 import Model.Slider;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -34,15 +32,16 @@ public class SearchSliderController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
+        SliderDAO slDAO = new SliderDAO();
         String searchID = request.getParameter("searchID");
-        
-        if (searchID != null){
+
+        if (searchID != null && !searchID.isEmpty()) {
             int ID = Integer.parseInt(searchID);
-            List<Slider> foundSlider = SliderDAO.getSliderByID(ID); 
-            request.setAttribute("foundSlider", foundSlider);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("FoundSlider.jsp");
-            dispatcher.forward(request, response);
+            ArrayList<Slider> foundSlider = slDAO.getSliderByID(ID);
+            request.setAttribute("sliderList", foundSlider);
+            request.getRequestDispatcher("AdminSliderList.jsp").forward(request, response);
+        }else{
+            request.getRequestDispatcher("sliderList").forward(request, response);
         }
     }
 

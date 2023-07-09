@@ -63,7 +63,7 @@ public class FeedbackDAO {
         try {
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT Product_ID, AVG(Rating) AS average_rating FROM feedback WHERE Product_ID = ?;";
+                String sql = "SELECT Product_ID, AVG(Rating) AS average_rating FROM `feedback` WHERE Product_ID = ?;";
                 PreparedStatement st = con.prepareStatement(sql);
                 for (Product product : productList) {
                     st.setInt(1, product.getProductID());
@@ -90,7 +90,7 @@ public class FeedbackDAO {
         try {
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT Product_ID, AVG(Rating) AS average_rating FROM feedback WHERE Product_ID = ?;";
+                String sql = "SELECT Product_ID, AVG(Rating) AS average_rating FROM `feedback` WHERE Product_ID = ?;";
                 PreparedStatement st = con.prepareStatement(sql);
                 st.setInt(1, productID);
                 ResultSet rs = st.executeQuery();
@@ -114,7 +114,7 @@ public class FeedbackDAO {
         try {
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT Count(*) as totalFeedback FROM feedback WHERE Product_ID = ?;";
+                String sql = "SELECT Count(*) as totalFeedback FROM `feedback` WHERE Product_ID = ?;";
                 PreparedStatement st = con.prepareStatement(sql);
                 st.setInt(1, productID);
                 ResultSet rs = st.executeQuery();

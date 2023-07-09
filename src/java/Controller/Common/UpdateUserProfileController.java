@@ -82,7 +82,6 @@ public class UpdateUserProfileController extends HttpServlet {
                 String originalFilename = imagePart.getSubmittedFileName();
                 String extension = originalFilename.substring(originalFilename.lastIndexOf('.'));
                 String uniqueImageName = System.currentTimeMillis() + extension;
-                System.out.println(uniqueImageName);
                 ServletContext context = getServletContext();
 
                 // Get the real path to the project folder
@@ -97,7 +96,6 @@ public class UpdateUserProfileController extends HttpServlet {
 
                 // Create the destination file path
                 String destinationFilePath = uploadDirectory + uniqueImageName;
-                System.out.println(destinationFilePath);
                 // Save the uploaded image to the destination path
                 imagePart.write(destinationFilePath);
 

@@ -23,7 +23,7 @@ public class PCDAO {
         try {
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "Select * FROM `PC`";
+                String sql = "Select * FROM `pc`";
                 Statement st = con.createStatement();
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {

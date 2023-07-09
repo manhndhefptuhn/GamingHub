@@ -6,14 +6,15 @@ package Controller.Admin;
 
 import DAL.SliderDAO;
 import Model.Slider;
+import jakarta.servlet.ServletContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import jakarta.servlet.annotation.MultipartConfig;
+import java.io.File;
 
 /**
  *
@@ -34,40 +35,65 @@ public class EditSliderController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int sliderID = Integer.parseInt(request.getParameter("sliderId"));
-        String title = request.getParameter("title");
-        
-        Part sliderPicturePart = request.getPart("sliderPicture"); 
-        String sliderPictureFileName = "";
-        if (sliderPicturePart != null) {
-            sliderPictureFileName = sliderPicturePart.getSubmittedFileName();
-            String storagePath = "D:/SWP391_Project_UploadedProfilePicture/"; // Đường dẫn tới thư mục lưu trữ ảnh trên máy chủ
-            String fullPath = storagePath + sliderPictureFileName;
+        if (request.getParameter("back") != null) {
+            request.getRequestDispatcher("sliderList").forward(request, response);
+        } else if (request.getParameter("update") != null) {
+            //attribute
+            int sliderID = Integer.parseInt(request.getParameter("sliderId"));
+            String title = request.getParameter("title");
+            Part sliderPicturePart = request.getPart("sliderPicture");
+            String backlink = request.getParameter("backlink");
+            String note = request.getParameter("note");
+            boolean status = Boolean.valueOf(request.getParameter("status"));
 
-            // Sao chép ảnh mới vào vị trí lưu trữ
-            sliderPicturePart.write(fullPath);
-        }
-        
-        String backlink = request.getParameter("backlink");
-        String note = request.getParameter("note");
-        boolean status = Boolean.valueOf(request.getParameter("status"));
-        int updatedBy = Integer.parseInt(request.getParameter("updatedBy"));
-        
-        Slider updatedSlider = new Slider(); 
-        updatedSlider.setSliderID(sliderID);
-        updatedSlider.setSliderTitle(title);
-        updatedSlider.setSliderImage(sliderPictureFileName);
-        updatedSlider.setBacklink(backlink);
-        updatedSlider.setNote(note);
-        updatedSlider.setStatus(status);
-        updatedSlider.setSliderID(sliderID);
-        
-        SliderDAO sDAO = new SliderDAO(); 
-        int rowsAffected = sDAO.editSliderInfo(updatedSlider); 
-        if (rowsAffected > 0){
-            response.sendRedirect("viewSliderController");
-        } else {
-            response.sendRedirect("Home.jsp");
+            if (sliderPicturePart != null) {
+//                sliderPictureFileName = sliderPicturePart.getSubmittedFileName();
+//                String storagePath = "D:/SWP391_Project_UploadedProfilePicture/"; // Đường dẫn tới thư mục lưu trữ ảnh trên máy chủ
+//                String fullPath = storagePath + sliderPictureFileName;
+//
+//                // Sao chép ảnh mới vào vị trí lưu trữ
+//                sliderPicturePart.write(fullPath);
+
+                // Generate a unique image name
+                String originalFilename = sliderPicturePart.getSubmittedFileName();
+                String extension = originalFilename.substring(originalFilename.lastIndexOf('.'));
+                String uniqueImageName = System.currentTimeMillis() + extension;
+                ServletContext context = getServletContext();
+
+                // Get the real path to the project folder
+                String projectFolderPath = context.getRealPath("/img");
+                // Specify the directory to save the image
+                String uploadDirectory = projectFolderPath + "/slider/";
+                File directory = new File(uploadDirectory);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                // Create the destination file path
+                String destinationFilePath = uploadDirectory + uniqueImageName;
+                System.out.println(destinationFilePath);
+                // Save the uploaded image to the destination path
+                sliderPicturePart.write(destinationFilePath);
+
+                String imagePath = "img/slider/" + uniqueImageName;
+                Slider updatedSlider = new Slider();
+                updatedSlider.setSliderID(sliderID);
+                updatedSlider.setSliderTitle(title);
+                updatedSlider.setSliderImage(imagePath);
+                updatedSlider.setBacklink(backlink);
+                updatedSlider.setNote(note);
+                updatedSlider.setStatus(status);
+                
+                SliderDAO sDAO = new SliderDAO();
+                int rowsAffected = sDAO.editSliderInfo(updatedSlider);
+                if (rowsAffected > 0) {
+                    request.setAttribute("notification", "Update Slider Successsfully");
+                    request.getRequestDispatcher("sliderList").forward(request, response);
+                } else {
+                    request.setAttribute("notification", "Something wrong, please try again");
+                    request.getRequestDispatcher("sliderList").forward(request, response);
+                }
+            }
         }
     }
 

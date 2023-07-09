@@ -6,7 +6,6 @@ package Controller.Customer;
 
 import DAL.CartDAO;
 import DAL.ProductDAO;
-import DAL.WishlistDAO;
 import Model.Cart;
 import Model.Product;
 import Model.User;
@@ -98,7 +97,7 @@ public class AddToCartController extends HttpServlet {
                 }
             }
         } else {
-            session.setAttribute("wrongNotification", "You must login or register to buy this product");
+            session.setAttribute("wrongNotification", "You must login as customer or register to buy this product");
             response.sendRedirect(extractPath(request.getHeader("Referer")));
         }
     }
