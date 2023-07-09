@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  *
@@ -26,9 +25,8 @@ public class EditUserController extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         
         UserDAO uDAO = new UserDAO(); 
-        String userID = request.getParameter("id"); 
-        User user = uDAO.getUserById(userID); 
-        
+        int userID = Integer.parseInt(request.getParameter("id")); 
+        User user = uDAO.getUserByID(userID); 
         if (user != null){
             request.setAttribute("user", user);
             request.getRequestDispatcher("/EditUser.jsp").forward(request, response);

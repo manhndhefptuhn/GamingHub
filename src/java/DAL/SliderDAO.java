@@ -10,8 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -177,6 +177,49 @@ public class SliderDAO {
             ps.setBoolean(5, slider.isStatus());
             ps.setInt(6, slider.getSliderID());
             row = ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            row = -1;
+        }
+        return row;
+    }
+
+    public int updateStatusSlider(int id, int i) {
+        int row = 0;
+        try {
+            String sql = "UPDATE `slider`\n"
+                    + "   SET `status` = ?\n"
+                    + " WHERE `slider_id` = ?";
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, i);
+            st.setInt(2, id);
+            row = st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            row = -1;
+        }
+        return row;
+    }
+    
+    public int createSlider(Slider createSlider) {
+        int row = 0;
+        String sql = "INSERT INTO `slider` \n"
+                + "values (?,?,?,?,?,?)";
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setNull(1, Types.INTEGER);
+            st.setString(2, createSlider.getSliderTitle());
+            st.setString(3, createSlider.getSliderImage());
+            st.setString(4, createSlider.getBacklink());
+            st.setString(5, createSlider.getNote());
+            st.setBoolean(6, createSlider.isStatus());
+            row = st.executeUpdate();
+            st.close();
+            con.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             row = -1;

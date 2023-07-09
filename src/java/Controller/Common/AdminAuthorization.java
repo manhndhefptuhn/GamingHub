@@ -20,7 +20,7 @@ import java.io.IOException;
  *
  * @author Zarius
  */
-@WebFilter(filterName = "AdminAuthorization", urlPatterns = {"/adminDashboard"})
+@WebFilter(filterName = "AdminAuthorization", urlPatterns = {"/"})
 public class AdminAuthorization implements Filter {
 
     // The filter configuration object we are associated with.  If

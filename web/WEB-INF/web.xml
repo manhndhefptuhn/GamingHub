@@ -129,8 +129,8 @@
         <servlet-class>Controller.Support.supportDeleteFeedbackResponse</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserDetailServlet</servlet-name>
-        <servlet-class>Controller.Admin.UserDetailServlet</servlet-class>
+        <servlet-name>UserDetailController</servlet-name>
+        <servlet-class>Controller.Admin.UserDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditUserController</servlet-name>
@@ -141,20 +141,12 @@
         <servlet-class>Controller.Admin.UpdateUserController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserSearchResultController</servlet-name>
-        <servlet-class>Controller.Admin.UserSearchResultController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SliderListController</servlet-name>
         <servlet-class>Controller.Admin.SliderListController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteSliderController</servlet-name>
         <servlet-class>Controller.Admin.DeleteSliderController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SearchSliderController</servlet-name>
-        <servlet-class>Controller.Admin.SearchSliderController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SliderDetailController</servlet-name>
@@ -167,6 +159,22 @@
     <servlet>
         <servlet-name>AdminDashboardController</servlet-name>
         <servlet-class>Controller.Admin.AdminDashboardController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserListController</servlet-name>
+        <servlet-class>Controller.Admin.UserListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateTrueSlider</servlet-name>
+        <servlet-class>Controller.Admin.UpdateTrueSlider</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateFalseSlider</servlet-name>
+        <servlet-class>Controller.Admin.UpdateFalseSlider</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateSliderController</servlet-name>
+        <servlet-class>Controller.Admin.CreateSliderController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -297,8 +305,8 @@
         <url-pattern>/successful</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserDetailServlet</servlet-name>
-        <url-pattern>/userDetailServlet</url-pattern>
+        <servlet-name>UserDetailController</servlet-name>
+        <url-pattern>/userDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditUserController</servlet-name>
@@ -309,20 +317,12 @@
         <url-pattern>/updateUserController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserSearchResultController</servlet-name>
-        <url-pattern>/userSearchResultController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>SliderListController</servlet-name>
         <url-pattern>/sliderList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteSliderController</servlet-name>
         <url-pattern>/deleteSlider</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SearchSliderController</servlet-name>
-        <url-pattern>/searchSliderController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SliderDetailController</servlet-name>
@@ -335,6 +335,22 @@
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
         <url-pattern>/adminDashboardController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserListController</servlet-name>
+        <url-pattern>/userList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateTrueSlider</servlet-name>
+        <url-pattern>/trueSlider</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateFalseSlider</servlet-name>
+        <url-pattern>/falseSlider</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateSliderController</servlet-name>
+        <url-pattern>/createSlider</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
