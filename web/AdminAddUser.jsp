@@ -4,101 +4,193 @@
     Author     : User
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Add new user</title>
-  <link rel="stylesheet" href="../css/style2.css">
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
-  <link rel="stylesheet" href="../scss/extra/userProfile.scss">
-  <link rel="stylesheet" href="../js/">
-</head>
-<body>
-<div class="container">
-  <div class="row gutters">
-    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-      <div class="card h-100">
-        <div class="card-body">
-          <div class="account-settings">
-            <div class="user-profile">
-              <div class="user-avatar">
-                <img src="https://bootdey.com/img/Content/avatar/avatar7.png"  id="profile-pic"alt="User">
-                <label for="input-img">Change picture</label>
-                <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-img">
-              </div>
-
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>Admin User Detail</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="<%= request.getContextPath()%>/css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <style>
+            .datatable-bottom, .datatable-top, .datatable-sorter, thead{
+                display: none;
+            }
+            input{
+                width: 50%;
+            }
+        </style>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="#">Gaming Hub</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="home">Home</a></li>
+                        <li><a class="dropdown-item" href="userProfile">User Profile</a></li>
+                        <li><hr class="dropdown-divider"/></li>
+                        <li><a class="dropdown-item" href="logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Head</div>
+                            <a class="nav-link" href="#">
+                                <div class="sb-nav-link-icon"><i class="fa fa-pie-chart"></i></div>
+                                Dashboard
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Management</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fa fa-user"></i></div>
+                                User Management
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="userList">User List</a>
+                                    <a class="nav-link" href="#">Add An User</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutsTwo" aria-expanded="false" aria-controls="collapseLayoutsTwo">
+                                <div class="sb-nav-link-icon"><i class="fa fa-folder-open"></i></div>
+                                Slider Management
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayoutsTwo" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="sliderList">Slider List</a>
+                                    <a class="nav-link" href="AdminAddSlider.jsp">Add A Slider</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutsThree" aria-expanded="false" aria-controls="collapseLayoutsThree">
+                                <div class="sb-nav-link-icon"><i class="fa fa-cogs"></i></div>
+                                Setting Management
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayoutsThree" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="#">Setting List</a>
+                                    <a class="nav-link" href="#">???</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="sb-sidenav-footer">
+                        <c:if test="${sessionScope.user != null}">
+                            <div class="small">Logged in as: ${sessionScope.user.getFullName()}</div>
+                        </c:if>
+                    </div>
+                </nav>
             </div>
-            <div class="about">
-              <select name="roles" id="roles">
-                <option value="All Roles">All Roles</option>
-                <option value="Admin">Admin</option>
-                <option value="Sales">Sales</option>
-                <option value="Customer">Customer</option>
-                <option value="Support">Support</option>
-              </select>
-
-
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">User Detail</h1>
+                        <div class="card mb-4">
+                            <form method="POST" action="" enctype="multipart/form-data">
+                                <c:set var="userDetail" value="${requestScope.userDetail}" />
+                                <div class="card-body">
+                                    <input type="hidden" name="userID" value="${userDetail.getUser_ID()}" />
+                                    <table id="datatablesSimple">
+                                        <tbody>
+                                            <tr>
+                                                <th>Name</th>
+                                                <td><input type="text" id="name" name="fullName" value="${userDetail.getFullName()}"/><br></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Email</th>
+                                                <td><input style="background-color:#C5C5C5;" type="email" id="email" name="email" value="${userDetail.getEmail()}" readonly/><br></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Password</th>
+                                                <td><input type="password" id="password" name="password" value="${userDetail.getPassword()}"/><br></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Profile Picture</th>
+                                                <td><img id="previewImage" src="<%= request.getContextPath()%>/${userDetail.getProfile_picture()}" width="150" height="150"/>
+                                                    <input type="file" id="profilePicture" name="profilePicture" accept="image/*" onchange="previewProfilePicture(event)"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Phone Number</th>
+                                                <td><input type="text" id="phone" name="phone" placeholder="Enter phone number" value="${userDetail.getPhone_Number()}"/><br></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Address</th>
+                                                <td><input type="text" id="address" name="address" value="${userDetail.getAddress()}"/><br></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Status</th>
+                                                <td><input type="text" id="status" name="status" value="${userDetail.isStatus()}"/><br></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Role Name</th>
+                                                <td>
+                                                    <select name="role" id="role">
+                                                        <option value="${userDetail.getRole_ID()}">${userRole}</option>
+                                                        <c:forEach var="listRole" items="${listRole}">
+                                                            <c:if test="${listRole.getRoleID() ne userDetail.getRole_ID()}">
+                                                                <option value="${listRole.getRoleID()}">${listRole.getRoleName()}</option>
+                                                            </c:if> 
+                                                        </c:forEach>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                    </table>
+                                    <input type="submit" name="back" value="Back" class="btn-update"/>
+                                    <input type="submit" name="update" value="Update" class="btn-update"/>  
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Gaming Hub 2023</div>
+                        </div>
+                    </div>
+                </footer>
             </div>
-
-          </div>
         </div>
-      </div>
-    </div>
-    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-      <div class="card h-100">
-        <div class="card-body">
-          <div class="row gutters">
-            <div class="col-lg-12">
-              <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input type="text" class="form-control" id="fullName" placeholder="Enter full name">
-              </div>
-            </div>
-            <div class="col-lg-12">
-              <div class="form-group">
-                <label for="fullName">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email">
-              </div>
-            </div>
-            <div class="col-lg-12">
-              <div class="form-group">
-                <label for="phone">Phone</label>
-                <input type="tel" class="form-control" id="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Enter phone number">
-              </div>
-            </div>
-            <div class="col-lg-12">
-              <div class="form-group">
-                <label for="text">Address</label>
-                <input type="text" class="form-control" id="address" placeholder=" Address">
-              </div>
-            </div>
-          </div>
-          <div class="row gutters">
-          </div>
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <div class="text-right">
-                <button type="button" id="add" name="add" class="btn btn-primary">Add</button>
+        <script>
+            function previewProfilePicture(event) {
+                var input = event.target;
+                var preview = document.getElementById('previewImage');
 
-                <button type="button" id="back" name="back" class="btn btn-dark"><a href="AdminUserList.html" style="color: white">Back</a></button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!--<script>-->
-<!--    let profilePic = document.getElementById("profile-pic");-->
-<!--    let inputFile = document.getElementById("input-img");-->
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-<!--    inputFile.onchange = function (){-->
-<!--        profilePic.src = URL.createObjectURL(inputFile.files[0]);-->
-<!--    }-->
-<!--</script>-->
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="<%= request.getContextPath()%>/js/scripts1.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="<%= request.getContextPath()%>/js/datatables-simple-demo1.js"></script>
+    </body>
 </body>
 
 </html>

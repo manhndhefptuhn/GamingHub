@@ -1,202 +1,166 @@
 <%-- 
-    Document   : AdminUserList
-    Created on : Jun 9, 2023, 10:59:06 AM
-    Author     : User
+    Document   : AdminUserListGood
+    Created on : 09-07-2023, 14:05:30
+    Author     : Zarius
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Hugo 0.101.0">
-  <title>Admin UserList</title>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>Admin User List</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="<%= request.getContextPath()%>/css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="#">Gaming Hub</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="home">Home</a></li>
+                        <li><a class="dropdown-item" href="#!">User Profile</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Head</div>
+                            <a class="nav-link" href="#">
+                                <div class="sb-nav-link-icon"><i class="fa fa-pie-chart"></i></div>
+                                Dashboard
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Management</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fa fa-user"></i></div>
+                                User Management
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="userList">User List</a>
+                                    <a class="nav-link" href="#">Add An User</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutsTwo" aria-expanded="false" aria-controls="collapseLayoutsTwo">
+                                <div class="sb-nav-link-icon"><i class="fa fa-folder-open"></i></div>
+                                Slider Management
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayoutsTwo" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="sliderList">Slider List</a>
+                                    <a class="nav-link" href="AdminAddSlider.jsp">Add A Slider</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutsThree" aria-expanded="false" aria-controls="collapseLayoutsThree">
+                                <div class="sb-nav-link-icon"><i class="fa fa-cogs"></i></div>
+                                Setting Management
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayoutsThree" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="#">Setting List</a>
+                                    <a class="nav-link" href="#">???</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <c:if test="${sessionScope.user != null}">
+                        <div class="small">Logged in as: ${sessionScope.user.getFullName()}</div>
+                    </c:if>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">User List</h1>
+                        <div class="card mb-4">
+                            <div class="card-body">
 
-  <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/">
-
-
-
-  <!-- Bootstrap core CSS -->
-  <link href="../css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../css/dashboard.css">
-  <link rel="stylesheet" href="../css/style3.css">
-
-
-
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
-
-
-  <!-- Custom styles for this template -->
-  <link href="../css/dashboard.css" rel="stylesheet">
-</head>
-<body>
-
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#"></a>
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <ul class="navbar-nav px-3" >
-    <li class="nav-item text-nowrap">
-      <a class="nav-link" href="#">Admin</a>
-    </li>
-  </ul>
-</nav>
-
-<div class="container-fluid">
-  <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-      <div class="sidebar-sticky pt-3">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">
-              <div>
-                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" width="100px" id="profile-pic"alt="User">
-                <h1>Admin</h1>
-              </div>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="home"></span>
-              Dashboard <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="AdminUserList.jsp">
-              <span data-feather="file"></span>
-              User List
-            </a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="AdminSettingList.jsp">
-              <span data-feather="settings"></span>
-              Setting List
-            </a>
-          </li>
-
-
-        </ul>
-
-      </div>
-    </nav>
-
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-      <h2>User List</h2>
-      <div class="search_bar">
-        <input type="email" id="email" name="email" type="text" id="text" name="text" type="tel" id="phone" name="phone" placeholder="Enter email, name, phone">
-        <select name="roles" id="roles">
-          <option value="All Roles">All Roles</option>
-          <option value="Admin">Admin</option>
-          <option value="Sales">Sales</option>
-          <option value="Customer">Customer</option>
-          <option value="Support">Support</option>
-        </select>
-        <select name="status" id="status">
-          <option value="All Status">All Status</option>
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select>
-        <button type="button" id="search" name="search">Search</button>
-        <button type="button" id="add" name="add"><a href="AdminAddUser.html" style="color: white">Add new user</a></button>
-      </div>
-
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-          <tr>
-            <th>ID</th>
-            <th>Customer Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>1,001</td>
-            <td>random</td>
-            <td>data</td>
-            <td>placeholder</td>
-            <td>text</td>
-            <td>1000</td>
-            <td><a href="AdminUserDetail.html">Edit</a></td>
-
-          </tr>
-          <tr>
-            <td>1,002</td>
-            <td>placeholder</td>
-            <td>irrelevant</td>
-            <td>visual</td>
-            <td>layout</td>
-            <td>1000</td>
-            <td><a href="AdminUserDetail.html">Edit</a></td>
-
-          </tr>
-          <tr>
-            <td>1,003</td>
-            <td>data</td>
-            <td>rich</td>
-            <td>dashboard</td>
-            <td>tabular</td>
-            <td>1000</td>
-            <td><a href="AdminUserDetail.html">Edit</a></td>
-          </tr>
-          <tr>
-            <td>1,003</td>
-            <td>information</td>
-            <td>placeholder</td>
-            <td>illustrative</td>
-            <td>data</td>
-            <td>1000</td>
-            <td><a href="AdminUserDetail.html">Edit</a></td>
-          </tr>
-          <tr>
-            <td>1,004</td>
-            <td>text</td>
-            <td>random</td>
-            <td>layout</td>
-            <td>dashboard</td>
-            <td>1000</td>
-            <td><a href="AdminUserDetail.html">Edit</a></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </main>
-  </div>
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-<script src="../js/dashboard.js"></script>
-</body>
+                                <c:choose>
+                                    <c:when test="${not empty userList}">
+                                        <table id="datatablesSimple">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Phone Number</th>
+                                                    <th>Role</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <c:set var="listRoleName" value="${requestScope.listRoleName}" />
+                                                <c:forEach var="user" items="${userList}">
+                                                    <c:set var="roleID" value="${user.getRole_ID()}" />
+                                                    <tr>
+                                                        <td><c:out value="${user.getUser_ID()}"/></td>
+                                                        <td><c:out value="${user.getFullName()}"/></td>
+                                                        <td><c:out value="${user.getEmail()}"/></td>
+                                                        <td><c:out value="${user.getPhone_Number()}"/></td>
+                                                        <td><c:out value="${listRoleName[roleID]}"/></td>
+                                                        <td>
+                                                            <c:choose>
+                                                                <c:when test="${user.isStatus() == true}">
+                                                                    <c:out value="Active"/>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <c:out value="Deactive"/>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </td>
+                                                        <td>
+                                                            <a href="userDetail?id=${user.getUser_ID()}">View |</a>
+                                                            <a href="editUserController?id=${user.getUser_ID()}">Deactive</a>
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </tbody>
+                                        </table>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <h1 class="mt-4">Empty User List</h1>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Gaming Hub 2023</div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="<%= request.getContextPath()%>/js/scripts1.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="<%= request.getContextPath()%>/js/datatables-simple-demo1.js"></script>
+    </body>
 </html>
-
 
