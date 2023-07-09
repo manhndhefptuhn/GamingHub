@@ -18,14 +18,15 @@ import java.util.List;
  * @author Zarius
  */
 public class SliderDAO {
-    public static ArrayList<Slider> getSlider() { // all sliders 
+
+    public ArrayList<Slider> getAllSlider() {
         ArrayList<Slider> listSlider = new ArrayList<>();
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT * FROM slider";
+                String sql = "SELECT * FROM `slider`";
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
                     Slider sl = new Slider();
@@ -41,14 +42,13 @@ public class SliderDAO {
                 st.close();
                 con.close();
             }
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return listSlider;
     }
-    
-    public ArrayList<Slider> getAllSlider() {
+
+    public ArrayList<Slider> getSliderInHome() {
         ArrayList<Slider> listSlider = new ArrayList<>();
         try {
             DBContext db = new DBContext();
@@ -77,22 +77,24 @@ public class SliderDAO {
         }
         return listSlider;
     }
-    
 
-    public static void deleteSlider(int id) {
+    public int deleteSlider(int id) {
+        int row = 0;
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "DELETE FROM slider WHERE slider_id = " + id;
-                st.executeUpdate(sql);
+                String sql = "DELETE FROM `slider` WHERE `slider_id` = " + id + ";";
+                row = st.executeUpdate(sql);
                 st.close();
                 con.close();
             }
         } catch (Exception e) {
+            row = -1;
             System.out.println(e.getMessage());
         }
+        return row;
     }
 
     public Slider getSliderById(int sliderID) {
@@ -125,14 +127,14 @@ public class SliderDAO {
         return slider;
     }
 
-    public static List<Slider> getSliderByID(int id) {
-        List<Slider> listSlider = new ArrayList<>();
+    public ArrayList<Slider> getSliderByID(int id) {
+        ArrayList<Slider> listSlider = new ArrayList<>();
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "select * from slider where slider_id = " + id;
+                String sql = "select * from `slider` where `slider_id` = " + id + ";";
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
                     Slider sl = new Slider();
@@ -158,14 +160,13 @@ public class SliderDAO {
     public int editSliderInfo(Slider slider) {
         int row = 0;
         try {
-            String sql = "UPDATE slider SET "
-                    + "Slider_Title = ?, "
-                    + "Slider_Image = ?, "
-                    + "Backlink = ?, "
-                    + "Note = ?, "
-                    + "Status = ?, "
-                    + "Updated_by = ? "
-                    + "WHERE Slider_ID = ?";
+            String sql = "UPDATE `slider` SET "
+                    + "`Slider_Title` = ?, "
+                    + "`Slider_Image` = ?, "
+                    + "`Backlink` = ?, "
+                    + "`Note` = ?, "
+                    + "`Status` = ?\n"
+                    + "WHERE `slider_id` = ?";
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -174,7 +175,7 @@ public class SliderDAO {
             ps.setString(3, slider.getBacklink());
             ps.setString(4, slider.getNote());
             ps.setBoolean(5, slider.isStatus());
-            ps.setInt(7, slider.getSliderID());
+            ps.setInt(6, slider.getSliderID());
             row = ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());

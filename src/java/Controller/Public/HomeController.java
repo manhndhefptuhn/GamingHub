@@ -56,7 +56,7 @@ public class HomeController extends HttpServlet {
             User u = (User) session.getAttribute("user");
 
             //Slider
-            ArrayList<Slider> listSlider = slDAO.getAllSlider();
+            ArrayList<Slider> listSlider = slDAO.getSliderInHome();
             request.setAttribute("listSlider", listSlider);
 
             //Gaming PC

@@ -3,7 +3,7 @@
     Created on : Jun 9, 2023, 10:59:06 AM
     Author     : User
 --%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="Model.User" %>
 <%@ page import="java.util.List" %>
