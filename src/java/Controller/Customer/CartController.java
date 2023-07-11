@@ -8,11 +8,9 @@ import DAL.CartDAO;
 import DAL.CaseDAO;
 import DAL.PCDAO;
 import DAL.ProductDAO;
-import DAL.WishlistDAO;
 import Model.Cart;
 import Model.Case;
 import Model.User;
-import Model.Wishlist;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,35 +39,40 @@ public class CartController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        CaseDAO caseDAO = new CaseDAO();
-        PCDAO pcDAO = new PCDAO();
-        ProductDAO pDAO = new ProductDAO();
-        CartDAO cartDAO = new CartDAO();
+        try {
+            CaseDAO caseDAO = new CaseDAO();
+            PCDAO pcDAO = new PCDAO();
+            ProductDAO pDAO = new ProductDAO();
+            CartDAO cartDAO = new CartDAO();
 
-        User u = (User) session.getAttribute("user");
+            User u = (User) session.getAttribute("user");
 
-        ArrayList<Cart> listCart = cartDAO.getAllCartItemByUserID(u.getUser_ID());
-        request.setAttribute("listCart", listCart);
+            ArrayList<Cart> listCart = cartDAO.getAllCartItemByUserID(u.getUser_ID());
+            request.setAttribute("listCart", listCart);
 
-        int totalCost = 0;
-        for (Cart cart : listCart) {
-            totalCost += cart.getTotalCost();
+            int totalCost = 0;
+            for (Cart cart : listCart) {
+                totalCost += cart.getTotalCost();
+            }
+            request.setAttribute("totalCost", totalCost);
+
+            Map<Integer, Case> listImage = caseDAO.getCaseByCaseID();
+            request.setAttribute("listImage", listImage);
+            Map<Integer, Integer> listCaseID = pcDAO.getCaseIDByProductID();
+            request.setAttribute("listCaseID", listCaseID);
+
+            Map<Integer, Integer> listProductQuantity = pDAO.getProductQuantityByID(listCart);
+            request.setAttribute("listProductQuantity", listProductQuantity);
+
+            Map<Integer, String> listCartProductName = pDAO.getCartProductNameByProductID(listCart);
+            request.setAttribute("listCartProductName", listCartProductName);
+
+            request.getRequestDispatcher("cart.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.getRequestDispatcher("404.jsp").forward(request, response);
         }
-        request.setAttribute("totalCost", totalCost);
-        
-        Map<Integer, Case> listImage = caseDAO.getCaseByCaseID();
-        request.setAttribute("listImage", listImage);
-        Map<Integer, Integer> listCaseID = pcDAO.getCaseIDByProductID();
-        request.setAttribute("listCaseID", listCaseID);
-        
-        Map<Integer, Integer> listProductQuantity = pDAO.getProductQuantityByID(listCart);
-        request.setAttribute("listProductQuantity", listProductQuantity);
-
-        Map<Integer, String> listCartProductName = pDAO.getCartProductNameByProductID(listCart);
-        request.setAttribute("listCartProductName", listCartProductName);
-
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -40,6 +40,7 @@ public class UpdateTrueFeedback extends HttpServlet {
                 request.getRequestDispatcher("feedbackList").forward(request, response);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             request.setAttribute("notification", "There's something wrong, please try again");
             request.getRequestDispatcher("feedbackList").forward(request, response);
         }

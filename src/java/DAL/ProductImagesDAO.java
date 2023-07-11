@@ -5,7 +5,6 @@
 package DAL;
 
 import Context.DBContext;
-import Model.Product;
 import Model.Product_Images;
 import java.sql.Connection;
 import java.sql.ResultSet;

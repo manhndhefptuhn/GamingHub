@@ -197,9 +197,6 @@
                                         </c:when>
                                         <c:otherwise>
                                             <div class="blog__details__comment">
-                                                <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                                    <a href="#" class="leave-btn">Leave a comment</a>
-                                                </c:if>
                                                 <c:set var="listUser" value="${requestScope.listUser}" />
                                                 <c:set var="listResponse" value="${requestScope.listResponse}" />
                                                 <c:set var="listUserResponse" value="${requestScope.listUserResponse}" />

@@ -7,7 +7,6 @@ package Controller.Support;
 import DAL.FeedbackDAO;
 import Model.Feedback;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,6 +32,7 @@ public class FeedbackListController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        try{
         FeedbackDAO fbDAO = new FeedbackDAO();
         ArrayList<Feedback> listFeedback = fbDAO.getFeedback();
         Map<Integer, String> listUserName = fbDAO.getUserNameByID(listFeedback);
@@ -43,6 +43,10 @@ public class FeedbackListController extends HttpServlet {
         request.setAttribute("listUserName", listUserName);        
         request.setAttribute("feedbackList", listFeedback);        
         request.getRequestDispatcher("SupportFeedbackList.jsp").forward(request, response);
+        }catch(Exception e){
+            e.printStackTrace();
+            request.getRequestDispatcher("404.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

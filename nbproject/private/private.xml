@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/08-07-2023/SWP391_SE1726_G4/web/AdminAddSlider.jsp</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/08-07-2023/SWP391_SE1726_G4/src/java/DAL/SliderDAO.java</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/08-07-2023/SWP391_SE1726_G4/web/WEB-INF/web.xml</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/08-07-2023/SWP391_SE1726_G4/src/java/Controller/Admin/CreateSliderController.java</file>
-            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/08-07-2023/SWP391_SE1726_G4/web/AdminSliderList.jsp</file>
+            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/08-07-2023/SWP391_SE1726_G4/web/orderDetail.jsp</file>
+            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/08-07-2023/SWP391_SE1726_G4/src/java/Controller/Customer/OrderDetailController.java</file>
+            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/08-07-2023/SWP391_SE1726_G4/src/java/Model/OrderDetail.java</file>
+            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/08-07-2023/SWP391_SE1726_G4/web/MyOrder.jsp</file>
+            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/08-07-2023/SWP391_SE1726_G4/src/java/DAL/OrderDAO.java</file>
+            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/08-07-2023/SWP391_SE1726_G4/src/java/DAL/OrderStatusDAO.java</file>
+            <file>file:/D:/FPT_University/Semester5_SU2023/SWP391/GitHub_SWP/Test/08-07-2023/SWP391_SE1726_G4/src/java/Controller/Customer/MyOrderController.java</file>
         </group>
     </open-files>
 </project-private>

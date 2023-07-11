@@ -57,6 +57,7 @@
                                         </div>
                                     </c:when>
                                     <c:otherwise>
+                                        <input type="hidden" name="userChangeID" value="${userChangeID}">
                                         <div class="form-group">
                                             <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
                                             <input type="password" name="newPass" id="your-pass" placeholder="New password"/>
@@ -78,15 +79,15 @@
                                 <div class="form-group form-button">
                                     <input style="width:100%;" type="submit" name="changePass" id="changePass" class="form-submit" value="Change your password"/>
                                 </div>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- JS -->
-    <script src="<%= request.getContextPath()%>/jquery/jquery.min.js"></script>
-    <script src="<%= request.getContextPath()%>/js/main1.js"></script>
+        </section>
+        <!-- JS -->
+        <script src="<%= request.getContextPath()%>/jquery/jquery.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/main1.js"></script>
 
-</body>
+    </body>
 </html>

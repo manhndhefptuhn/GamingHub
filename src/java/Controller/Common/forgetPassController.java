@@ -35,18 +35,6 @@ public class forgetPassController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet forgetPassController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet forgetPassController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,59 +64,61 @@ public class forgetPassController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        String email = request.getParameter("email");
+        try {
+            String email = request.getParameter("email");
 
-        PasswordResetDAO pwrsDAO = new PasswordResetDAO();
-        UserDAO uDAO = new UserDAO();
-        User user = uDAO.checkUserExist(email);
+            PasswordResetDAO pwrsDAO = new PasswordResetDAO();
+            UserDAO uDAO = new UserDAO();
+            User user = uDAO.checkUserExist(email);
 
-        SendEmail se = new SendEmail();
-        RandomPassword rdpw = new RandomPassword();
+            SendEmail se = new SendEmail();
+            RandomPassword rdpw = new RandomPassword();
 
-        boolean emailSent;
+            boolean emailSent;
 
-        String resetPassword = rdpw.generatePassword();
-        String defaultPassword = "1234@1234a";
+            String resetPassword = rdpw.generatePassword();
+            String defaultPassword = "1234@1234a";
 
-        if (user == null) {
-            request.setAttribute("notification", "Email is not exist");
-            request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
-        } else {
-            if (user.getRole_ID() == 1) {
-                emailSent = se.sendPassword(email, resetPassword, user.getFullName(), "request new password");
-                PasswordReset pwrs = pwrsDAO.checkExistRecord(user.getUser_ID());
-                if (emailSent) {
-                    if (pwrs != null) {
-                        pwrsDAO.updateResetPassword(pwrs.getResetID(), resetPassword);
-                        uDAO.changePassword(user.getUser_ID(), resetPassword);
-                        request.setAttribute("notification", "New password is sent, please login again");
-                        request.setAttribute("email", email);
-                        request.getRequestDispatcher("Login.jsp").forward(request, response);
+            if (user == null) {
+                request.setAttribute("notification", "Email is not exist");
+                request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
+            } else {
+                if (user.getRole_ID() == 1) {
+                    emailSent = se.sendPassword(email, resetPassword, user.getFullName(), "Request new password");
+                    PasswordReset pwrs = pwrsDAO.checkExistRecord(user.getUser_ID());
+                    if (emailSent) {
+                        if (pwrs != null) {
+                            pwrsDAO.updateResetPassword(pwrs.getResetID(), resetPassword);
+                            uDAO.changePassword(user.getUser_ID(), resetPassword);
+                            request.setAttribute("notification", "New password is sent, please login again");
+                            request.setAttribute("email", email);
+                            request.getRequestDispatcher("Login.jsp").forward(request, response);
+                        } else {
+                            pwrsDAO.resetPassword(user.getUser_ID(), resetPassword);
+                            uDAO.changePassword(user.getUser_ID(), resetPassword);
+                            request.setAttribute("notification", "New password is sent, please login again");
+                            request.setAttribute("email", email);
+                            request.getRequestDispatcher("Login.jsp").forward(request, response);
+                        }
                     } else {
-                        pwrsDAO.resetPassword(user.getUser_ID(), resetPassword);
-                        uDAO.changePassword(user.getUser_ID(), resetPassword);
-                        request.setAttribute("notification", "New password is sent, please login again");
-                        request.setAttribute("email", email);
-                        request.getRequestDispatcher("Login.jsp").forward(request, response);
+                        throw new Exception();
                     }
                 } else {
-                    request.setAttribute("notification", "There something wrong at out server, please try again");
-                    request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
-                }
-            } else {
-                emailSent = se.sendDefaultPass(email, defaultPassword, user.getFullName());
-                if (emailSent) {
-                    uDAO.changePassword(user.getUser_ID(), defaultPassword);
-                    request.setAttribute("email", email);
-                    request.setAttribute("notification", "Password is set to default, please check email and login again");
-                    request.getRequestDispatcher("Login.jsp").forward(request, response);
-                } else {
-                    request.setAttribute("notification", "There something wrong at out server, please try again");
-                    request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
+                    emailSent = se.sendDefaultPass(email, defaultPassword, user.getFullName());
+                    if (emailSent) {
+                        uDAO.changePassword(user.getUser_ID(), defaultPassword);
+                        request.setAttribute("email", email);
+                        request.setAttribute("notification", "Password is set to default, please check email and login again");
+                        request.getRequestDispatcher("Login.jsp").forward(request, response);
+                    } else {
+                        throw new Exception();
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("notification", "There something wrong at out server, please try again");
+            request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
         }
     }
 

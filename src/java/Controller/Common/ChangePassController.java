@@ -66,13 +66,14 @@ public class ChangePassController extends HttpServlet {
             String oldPassLogin = request.getParameter("oldPassLogin");
             String newPass = request.getParameter("newPass");
             String reNewPass = request.getParameter("reNewPass");
-            User userChange = (User) session.getAttribute("userChange");
-            User u = (User) session.getAttribute("user");
-            PasswordResetDAO pwrsDAO = new PasswordResetDAO();
-            String defaultPassword = "1234@1234a";
-
+            int userChangeID = Integer.parseInt(request.getParameter("userChangeID"));
             UserDAO uDAO = new UserDAO();
 
+            User u = (User) session.getAttribute("user");
+
+            User userChange = uDAO.getUserByID(userChangeID);
+            PasswordResetDAO pwrsDAO = new PasswordResetDAO();
+            String defaultPassword = "1234@1234a";
             //if user request new password in login page then login
             if (userChange != null) {
                 PasswordReset pwrs = pwrsDAO.checkExistRecord(userChange.getUser_ID());

@@ -5,7 +5,6 @@
 package Controller.Customer;
 
 import DAL.CartDAO;
-import DAL.WishlistDAO;
 import Model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -34,6 +33,7 @@ public class RemoveCartController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        try{
         CartDAO cartDAO = new CartDAO();
         
         User u = (User)session.getAttribute("user");
@@ -48,8 +48,12 @@ public class RemoveCartController extends HttpServlet {
             session.setAttribute("totalCartProduct", totalCartProduct);
             request.getRequestDispatcher("cart").forward(request, response);
         } else {
+            throw new Exception();
+        }
+        }catch (Exception e){
+            e.printStackTrace();
             session.setAttribute("wrongNotification", "There's something wrong, please try again");
-            request.getRequestDispatcher("cart").forward(request, response);
+            request.getRequestDispatcher("home").forward(request, response);
         }
     }
 

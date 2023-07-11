@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -445,6 +446,31 @@ public class FeedbackDAO {
             st.setInt(1, i);
             st.setInt(2, id);
             row = st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            row = -1;
+        }
+        return row;
+    }
+    
+    public int createFeedback(int userID, int productID, String content, String image, double rating) {
+        int row = 0;
+        String sql = "INSERT INTO `feedback` \n"
+                + "values (?,?,?,?,?,?,?,'1')";
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setNull(1, Types.INTEGER);
+            st.setInt(2, userID);
+            st.setInt(3, productID);
+            st.setDate(4, new java.sql.Date(System.currentTimeMillis()));
+            st.setString(5, content);
+            st.setString(6, image);
+            st.setDouble(7, rating);
+            row = st.executeUpdate();
+            st.close();
+            con.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             row = -1;

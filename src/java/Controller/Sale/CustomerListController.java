@@ -58,9 +58,14 @@ public class CustomerListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<User> customers = new UserDAO().getAllCustomers();
-        request.setAttribute("customers", customers);
-        request.getRequestDispatcher("SaleCustomerList.jsp").forward(request, response);
+        try {
+            List<User> customers = new UserDAO().getAllCustomers();
+            request.setAttribute("customers", customers);
+            request.getRequestDispatcher("SaleCustomerList.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.getRequestDispatcher("404.jsp").forward(request, response);
+        }
     }
 
     /**

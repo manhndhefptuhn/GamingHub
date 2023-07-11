@@ -38,6 +38,7 @@ public class AddToCartController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        try{
         CartDAO cartDAO = new CartDAO();
         ProductDAO pDAO = new ProductDAO();
 
@@ -57,10 +58,8 @@ public class AddToCartController extends HttpServlet {
                         totalCartProduct = cartDAO.getTotalCartProduct(u.getUser_ID());
                         session.setAttribute("totalCartProduct", totalCartProduct);
                         response.sendRedirect(extractPath(request.getHeader("Referer")));
-
                     } else {
-                        session.setAttribute("wrongNotification", "There's something wrong, please try again");
-                        response.sendRedirect(extractPath(request.getHeader("Referer")));
+                        throw new Exception();
                     }
                 } else if (p.getProductStatusID() == 2) {
                     salePrice = pDAO.getSalePriceByID(productID);
@@ -72,8 +71,7 @@ public class AddToCartController extends HttpServlet {
                         session.setAttribute("totalCartProduct", totalCartProduct);
                         response.sendRedirect(extractPath(request.getHeader("Referer")));
                     } else {
-                        session.setAttribute("wrongNotification", "There's something wrong, please try again");
-                        response.sendRedirect(extractPath(request.getHeader("Referer")));
+                        throw new Exception();
                     }
                 }
             } else {
@@ -91,13 +89,17 @@ public class AddToCartController extends HttpServlet {
                         session.setAttribute("totalCartProduct", totalCartProduct);
                         response.sendRedirect(extractPath(request.getHeader("Referer")));
                     } else {
-                        session.setAttribute("wrongNotification", "There's something wrong, please try again");
-                        response.sendRedirect(extractPath(request.getHeader("Referer")));
+                        throw new Exception();
                     }
                 }
             }
         } else {
             session.setAttribute("wrongNotification", "You must login as customer or register to buy this product");
+            response.sendRedirect(extractPath(request.getHeader("Referer")));
+        }
+        }catch(Exception e){
+            e.printStackTrace();
+            session.setAttribute("wrongNotification", "An error occurred. Please try again.");
             response.sendRedirect(extractPath(request.getHeader("Referer")));
         }
     }

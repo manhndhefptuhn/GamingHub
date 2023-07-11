@@ -6,227 +6,137 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-  <meta name="description" content="Ashion Template">
-  <meta name="keywords" content="Ashion, unica, creative, html">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>UserOrder</title>
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+<html lang="zxx">
 
-  <!-- Css Styles -->
-  <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
-  <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">
-  <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css">
-  <link rel="stylesheet" href="../css/magnific-popup.css" type="text/css">
-  <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
-  <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
-  <link rel="stylesheet" href="../css/style.css" type="text/css">
-</head>
-<body>
-<!-- Page Preloder -->
-<!--<div id="preloder">-->
-<!--  <div class="loader"></div>-->
-<!--</div>-->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>My Order</title>
 
-<!-- Offcanvas Menu Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-  <div class="offcanvas__close">+</div>
-  <ul class="offcanvas__widget">
-    <li><span class="icon_search search-switch"></span></li>
-    <li><a href="#"><span class="icon_heart_alt"></span>
-      <div class="tip">2</div>
-    </a></li>
-    <li><a href="#"><span class="icon_bag_alt"></span>
-      <div class="tip">2</div>
-    </a></li>
-  </ul>
-  <div class="offcanvas__logo">
-    <a href="home.html"><img src="../img/shop/logo.png" alt=""></a>
-  </div>
-  <div id="mobile-menu-wrap"></div>
-  <div class="offcanvas__auth">
-    <!--            <a href="#">Login</a>-->
-    <!--            <a href="#">Register</a>-->
-    <div class="btn-group">
-      <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Large button
-      </button>
-      <div class="dropdown-menu">
-        <a href="UserProfile.html"></a>
-        <a href="changePassword.html"></a>
-        <a href=""></a>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Offcanvas Menu End -->
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+              rel="stylesheet">
 
-<!-- Header Section Begin -->
-<header class="header">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-xl-3 col-lg-2">
-        <div class="header__logo">
-          <a href="./home.html"><img src="../img/shop/logo.png" alt=""></a>
+        <!-- Css Styles -->
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/elegant-icons.css" type="text/css">
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/jquery-ui.min.css" type="text/css">
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/magnific-popup.css" type="text/css">
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/owl.carousel.min.css" type="text/css">
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/slicknav.min.css" type="text/css">
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/style.css" type="text/css">
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <style>
+            .table-responsive, .datatable-wrapper .datatable-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        </style>
+    </head>
+
+    <body>
+        <%@include file="header.jsp" %>
+
+        <!-- Breadcrumb Begin -->
+        <div class="breadcrumb-option">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb__links">
+                            <a href="home"><i class="fa fa-home"></i> Home</a>
+                            <span><i class="fa fa-history"></i> My Order</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-xl-6 col-lg-7">
-        <nav class="header__menu">
-          <ul>
-            <li class="active"><a href="./home.html">Home</a></li>
-            <!--                            <li><a href="#">Intel Core Gaming PC</a></li>-->
-            <!--                            <li><a href="#">AMD Ryzen Gaming PC</a></li>-->
-            <li><a href="./shop.html">Shop</a></li>
-            <li><a href="#">Pages</a>
-              <ul class="dropdown">
-                <li><a href="./product-details.html">Product Details</a></li>
-                <li><a href="./shop-cart.html">Shop Cart</a></li>
-                <li><a href="./checkout.html">Checkout</a></li>
+        <!-- Breadcrumb End -->
 
-              </ul>
-            </li>
+        <section>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container">
+                        <div class="container-fluid px-4">
+                            <c:choose>
+                                <c:when test="${empty listOrder}">
+                                    <div class="col-lg-12 card mb-4" style="border: none;">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center; padding-top: 2em; border: none;">Your Order is empty</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="cart__btn" style="display: flex; justify-content: center; margin-top:2em;">
+                                                    <a href="shop">Continue Shopping</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <table id="datatablesSimple" >
+                                                <thead>
+                                                    <tr>
+                                                        <th>OrderID</th>
+                                                        <th>Order Date</th>
+                                                        <th>Total Cost</th>
+                                                        <th>Payment</th>
+                                                        <th>Order Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:set var="listOrderStatus" value="${requestScope.listOrderStatus}" />
+                                                    <c:forEach var="listOrder" items="${listOrder}">
+                                                        <c:set var="orderStatusID" value="${listOrder.getOrderStatus()}" />
+                                                        <tr>
+                                                            <td>${listOrder.getOrderID()}</td>
+                                                            <td>${listOrder.getOrderDate()}</td>
+                                                            <td>${listOrder.getTotalCost()} VND</td>
+                                                            <td>${listOrder.getPayment()}</td>
+                                                            <td>${listOrderStatus[orderStatusID]}</td>
+                                                            <td>
+                                                                <a href="orderDetail?id=${listOrder.getOrderID()}">View</a>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </section>
 
-            <li><a href="./contact.html">Contact</a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="col-lg-3">
-        <div class="header__right">
-          <div class="header__right__auth">
-            <a href="#">Login</a>
-            <a href="#">Register</a>
-          </div>
-          <ul class="header__right__widget">
-            <li><span class="icon_search search-switch"></span></li>
-            <li><a href="#"><span class="icon_heart_alt"></span>
-              <div class="tip">2</div>
-            </a></li>
-            <li><a href="#"><span class="icon_bag_alt"></span>
-              <div class="tip">2</div>
-            </a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="canvas__open">
-      <i class="fa fa-bars"></i>
-    </div>
-  </div>
-</header>
-<!-- Header Section End -->
+        <%@include file="footer.jsp" %>
 
-<!-- Breadcrumb Begin -->
-<div class="breadcrumb-option">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="breadcrumb__links">
-          <a href="home.html"><i class="fa fa-home"></i> Home</a>
-          <span>Shop</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Breadcrumb End -->
-<div id="content" class="container">
-  <div class="texto">
-  <h1>Order History</h1>
-  </div>
-  <div id="table">
+        <!-- Js Plugins -->
+        <script src="<%= request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/bootstrap.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery.magnific-popup.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery-ui.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/mixitup.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery.countdown.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery.slicknav.js"></script>
+        <script src="<%= request.getContextPath()%>/js/owl.carousel.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery.nicescroll.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="<%= request.getContextPath()%>/js/scripts1.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="<%= request.getContextPath()%>/js/datatables-simple-demo1.js"></script>
+    </body>
 
-
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-        <thead>
-        <tr>
-          <th>#</th>
-          <th>Order Time</th>
-          <th>Last Updated</th>
-          <th>Total Price</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-      <tbody>
-      <tr>
-        <td>1,001</td>
-        <td>random</td>
-        <td>data</td>
-        <td>placeholder</td>
-        <td>text</td>
-        <td><button type="button" id="view" name="view">View</button></td>
-      </tr>
-      <tr>
-        <td>1,002</td>
-        <td>placeholder</td>
-        <td>irrelevant</td>
-        <td>visual</td>
-        <td>layout</td>
-        <td>
-          <button type="button" id="view_2" name="view">View</button>
-          <button type="button" id="cancel" name="cancel">Cancel</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-    <div class="text2">
-      <h1>Featured PC</h1>
-    </div>
-    <div class="responsive">
-
-      <div class="gallery">
-        <a target="_blank" href="../img/shop/10007.png">
-          <img src="../img/shop/10007.png" alt="Cinque Terre">
-        </a>
-        <div class="desc">Add a description of the image here</div>
-      </div>
-    </div>
-
-    <div class="responsive">
-      <div class="gallery">
-        <a target="_blank" href="../img/shop/10006.png">
-          <img src="../img/shop/10006.png" alt="Forest">
-        </a>
-        <div class="desc">Add a description of the image here</div>
-      </div>
-    </div>
-
-    <div class="responsive">
-      <div class="gallery">
-        <a target="_blank" href="../img/shop/10006.png">
-          <img src="../img/shop/10006.png" alt="Northern Lights">
-        </a>
-        <div class="desc">Add a description of the image here</div>
-      </div>
-    </div>
-
-    <div class="responsive">
-      <div class="gallery">
-        <a target="_blank" href="../img/shop/10006.png">
-          <img src="../img/shop/10006.png" alt="Mountains">
-        </a>
-        <div class="desc">Add a description of the image here</div>
-      </div>
-    </div>
-
-    <div class="clearfix"></div>
-
-
-
-
-</div>
-</div>
-
-</body>
 </html>

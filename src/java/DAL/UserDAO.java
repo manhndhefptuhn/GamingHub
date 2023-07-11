@@ -87,13 +87,12 @@ public class UserDAO {
     }
 
     public int register(String fullName, String email, String password, String phoneNum, String address) {
-        int row = 0;
         String sql = "INSERT INTO `user` \n"
-                + "values (?,?,?,?,?,?,?,'0','1')";
+                + "values (?,?,?,?,?,?,?,'1','1')";
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
-            PreparedStatement st = con.prepareStatement(sql);
+            PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             st.setNull(1, Types.INTEGER);
             st.setString(2, fullName);
             st.setString(3, email);
@@ -101,14 +100,17 @@ public class UserDAO {
             st.setNull(5, Types.NVARCHAR);
             st.setString(6, phoneNum);
             st.setString(7, address);
-            row = st.executeUpdate();
+            st.executeUpdate();
+            ResultSet rs = st.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
             st.close();
             con.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            row = -1;
         }
-        return row;
+        return 0;
     }
     
     public int changePassword(int user_ID, String newPass) {

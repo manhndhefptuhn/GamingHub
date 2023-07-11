@@ -5,11 +5,15 @@
 package DAL;
 
 import Context.DBContext;
+import Model.Order;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -48,5 +52,112 @@ public class OrderDAO {
             System.out.println(e.getMessage());
         }
         return 0;
+    }
+    
+    public ArrayList<Order> getAllOrderByUserID(int userID) {
+        ArrayList<Order> listOrder = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "SELECT * from `order` WHERE `User_ID` = " + userID + ";";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    Order o = new Order();
+                    o.setOrderID(rs.getInt(1));
+                    o.setUserID(rs.getInt(2));
+                    o.setFullName(rs.getString(3));
+                    o.setAddress(rs.getString(4));
+                    o.setPhoneNumber(rs.getString(5));
+                    o.setOrderDate(rs.getDate(6));
+                    o.setTotalCost(rs.getInt(7));
+                    o.setPayment(rs.getString(8));
+                    o.setSaleID(rs.getInt(9));
+                    o.setOrderStatus(rs.getInt(10));
+                    o.setNote(rs.getString(11));
+                    listOrder.add(o);
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return listOrder;
+    }
+    
+    public Order getOrderInformationByID(int orderID) {
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "SELECT * from `order` WHERE `Order_ID` = " + orderID + ";";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    Order o = new Order();
+                    o.setOrderID(rs.getInt(1));
+                    o.setUserID(rs.getInt(2));
+                    o.setFullName(rs.getString(3));
+                    o.setAddress(rs.getString(4));
+                    o.setPhoneNumber(rs.getString(5));
+                    o.setOrderDate(rs.getDate(6));
+                    o.setTotalCost(rs.getInt(7));
+                    o.setPayment(rs.getString(8));
+                    o.setSaleID(rs.getInt(9));
+                    o.setOrderStatus(rs.getInt(10));
+                    o.setNote(rs.getString(11));
+                    return o;
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    public int updateNote(int orderID, String note) {
+        int row = 0;
+        try {
+            String sql = "UPDATE `order`\n"
+                    + "   SET `note` = ?\n"
+                    + " WHERE `Order_ID` = ?";
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, note);
+            st.setInt(2, orderID);
+            row = st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            row = -1;
+        }
+        return row;
+    }
+    
+    public int updateOrderStatus(int orderID, int i) {
+        int row = 0;
+        try {
+            String sql = "UPDATE `order`\n"
+                    + "   SET `Order_Status` = ?\n"
+                    + " WHERE `Order_ID` = ?";
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, i);
+            st.setInt(2, orderID);
+            row = st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            row = -1;
+        }
+        return row;
     }
 }

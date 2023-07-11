@@ -23,8 +23,8 @@ import java.util.Map;
  */
 public class ProductDAO {
 
-    public ArrayList<Product> getFourGamingPC() {
-        ArrayList<Product> listGaming = new ArrayList<>();
+    public ArrayList<Product> getFourPCByCategoryID(int CategoryID) {
+        ArrayList<Product> listFourPC = new ArrayList<>();
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
@@ -33,7 +33,7 @@ public class ProductDAO {
                 String sql = "SELECT p.*, AVG(f.Rating) AS highest_rating\n"
                         + "                   FROM `product` AS p\n"
                         + "                   LEFT JOIN `feedback` AS f ON p.Product_ID = f.Product_ID\n"
-                        + "                   WHERE p.Category_ID = 1 AND p.Status = 1\n"
+                        + "                   WHERE p.Category_ID = " + CategoryID + " AND p.Status = 1\n"
                         + "                   GROUP BY p.Product_ID\n"
                         + "                   ORDER BY highest_rating DESC, p.Product_ID ASC\n"
                         + "                   LIMIT 4;";
@@ -48,7 +48,7 @@ public class ProductDAO {
                     p.setProductStatusID(rs.getInt(6));
                     p.setSalePercentage(rs.getDouble(7));
                     p.setCategoryID(rs.getInt(8));
-                    listGaming.add(p);
+                    listFourPC.add(p);
                 }
                 rs.close();
                 st.close();
@@ -58,83 +58,7 @@ public class ProductDAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return listGaming;
-    }
-
-    public ArrayList<Product> getFourWorkStationPC() {
-        ArrayList<Product> listWorkPC = new ArrayList<>();
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                Statement st = con.createStatement();
-                String sql = "SELECT p.*, AVG(f.Rating) AS highest_rating\n"
-                        + "                   FROM `product` AS p\n"
-                        + "                   LEFT JOIN `feedback` AS f ON p.Product_ID = f.Product_ID\n"
-                        + "                   WHERE p.Category_ID = 3 AND p.Status = 1\n"
-                        + "                   GROUP BY p.Product_ID\n"
-                        + "                   ORDER BY highest_rating DESC, p.Product_ID ASC\n"
-                        + "                   LIMIT 4;";
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    Product p = new Product();
-                    p.setProductID(rs.getInt(1));
-                    p.setProductName(rs.getString(2));
-                    p.setDescription(rs.getString(3));
-                    p.setStatus(rs.getBoolean(4));
-                    p.setQuantity(rs.getInt(5));
-                    p.setProductStatusID(rs.getInt(6));
-                    p.setSalePercentage(rs.getDouble(7));
-                    p.setCategoryID(rs.getInt(8));
-                    listWorkPC.add(p);
-                }
-                rs.close();
-                st.close();
-                con.close();
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return listWorkPC;
-    }
-
-    public ArrayList<Product> getFourMiniPC() {
-        ArrayList<Product> listMini = new ArrayList<>();
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                Statement st = con.createStatement();
-                String sql = "SELECT p.*, AVG(f.Rating) AS highest_rating\n"
-                        + "                   FROM `product` AS p\n"
-                        + "                   LEFT JOIN `feedback` AS f ON p.Product_ID = f.Product_ID\n"
-                        + "                   WHERE p.Category_ID = 2 AND p.Status = 1\n"
-                        + "                   GROUP BY p.Product_ID\n"
-                        + "                   ORDER BY highest_rating DESC, p.Product_ID ASC\n"
-                        + "                   LIMIT 4;";
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    Product p = new Product();
-                    p.setProductID(rs.getInt(1));
-                    p.setProductName(rs.getString(2));
-                    p.setDescription(rs.getString(3));
-                    p.setStatus(rs.getBoolean(4));
-                    p.setQuantity(rs.getInt(5));
-                    p.setProductStatusID(rs.getInt(6));
-                    p.setSalePercentage(rs.getDouble(7));
-                    p.setCategoryID(rs.getInt(8));
-                    listMini.add(p);
-                }
-                rs.close();
-                st.close();
-                con.close();
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return listMini;
+        return listFourPC;
     }
 
     public Map<Integer, Integer> getOriginalPriceByID(ArrayList<Product> productList) {

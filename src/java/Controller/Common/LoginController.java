@@ -106,19 +106,19 @@ public class LoginController extends HttpServlet {
                     return;
                     //if not expired required user to change password 
                 } else if (currentTime.before(expiryTime) && u.getRole_ID() == 1) {
-                    session.setAttribute("userChange", u);
+                    request.setAttribute("userChangeID", pwrs.getUserID());
                     request.getRequestDispatcher("changePass.jsp").forward(request, response);
 
                 }
                 //if user is not customer, have default password and when login require to change
             } else if (password.equals(defaultPassword) && (u.getRole_ID() == 2 || u.getRole_ID() == 3 || u.getRole_ID() == 4)) {
-                session.setAttribute("userChange", u);
+                request.setAttribute("userChangeID", u.getUser_ID());
                 request.getRequestDispatcher("changePass.jsp").forward(request, response);
                 //else user can login and set attribute
+            } else {
+                session.setAttribute("user", u);
+                request.getRequestDispatcher("home").forward(request, response);
             }
-            session.removeAttribute("userChange");
-            session.setAttribute("user", u);
-            request.getRequestDispatcher("home").forward(request, response);
         } catch (Exception e) {
             // Handle any exception that occurs during processing
             e.printStackTrace(); // Print the exception details (for debugging purposes)

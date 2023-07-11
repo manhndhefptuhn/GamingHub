@@ -65,55 +65,65 @@ public class UpdateUserProfileController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
-        if (request.getParameter("update") != null) {
-            String fullName = request.getParameter("fullName");
-            String phone = request.getParameter("phone");
-            String address = request.getParameter("address");
-            int userID = Integer.parseInt(request.getParameter("userID"));
-            // Process the image file
-            Part imagePart = request.getPart("image");
-            long maxSizeBytes = 5 * 1024 * 1024; // 5 MB
-            UserDAO uDAO = new UserDAO();
-            // Check if an image was uploaded
-            if (imagePart != null && imagePart.getSize() < maxSizeBytes) {
-                // Generate a unique image name
-                String originalFilename = imagePart.getSubmittedFileName();
-                String extension = originalFilename.substring(originalFilename.lastIndexOf('.'));
-                String uniqueImageName = System.currentTimeMillis() + extension;
-                ServletContext context = getServletContext();
+        String imagePath = "", extension = "";
+        try {
+            if (request.getParameter("update") != null) {
+                String fullName = request.getParameter("fullName");
+                String phone = request.getParameter("phone");
+                String address = request.getParameter("address");
+                int userID = Integer.parseInt(request.getParameter("userID"));
+                // Process the image file
+                Part imagePart = request.getPart("image");
+                long maxSizeBytes = 5 * 1024 * 1024; // 5 MB
+                UserDAO uDAO = new UserDAO();
+                // Check if an image was uploaded
+                if (imagePart != null && imagePart.getSize() < maxSizeBytes) {
+                    // Generate a unique image name
+                    String originalFilename = imagePart.getSubmittedFileName();
+                    int extensionIndex = originalFilename.lastIndexOf('.');
+                    if (extensionIndex >= 0) {
+                        extension = originalFilename.substring(extensionIndex);
+                    }
+                    String uniqueImageName = System.currentTimeMillis() + extension;
+                    ServletContext context = getServletContext();
 
-                // Get the real path to the project folder
-                String projectFolderPath = context.getRealPath("/img");
-                System.out.println(projectFolderPath);
-                // Specify the directory to save the image
-                String uploadDirectory = projectFolderPath + "/avatar/";
-                File directory = new File(uploadDirectory);
-                if (!directory.exists()) {
-                    directory.mkdirs();
+                    // Get the real path to the project folder
+                    String projectFolderPath = context.getRealPath("/img");
+                    System.out.println(projectFolderPath);
+                    // Specify the directory to save the image
+                    String uploadDirectory = projectFolderPath + "/avatar/";
+                    File directory = new File(uploadDirectory);
+                    if (!directory.exists()) {
+                        directory.mkdirs();
+                    }
+
+                    // Create the destination file path
+                    String destinationFilePath = uploadDirectory + uniqueImageName;
+                    // Save the uploaded image to the destination path
+                    imagePart.write(destinationFilePath);
+
+                    imagePath = "img/avatar/" + uniqueImageName;
                 }
-
-                // Create the destination file path
-                String destinationFilePath = uploadDirectory + uniqueImageName;
-                // Save the uploaded image to the destination path
-                imagePart.write(destinationFilePath);
-
-                String imagePath = "img/avatar/" + uniqueImageName;
-                uDAO.updateUserProfile(fullName, phone, address, imagePath, userID);
-                User u = uDAO.getUserByID(userID);
-                session.setAttribute("user", u);
-                request.setAttribute("notification", "Update Information Successfully!");
-                request.getRequestDispatcher("userProfile").forward(request, response);
-            }else{
-                request.setAttribute("notification", "The images size is too large. Please insert smaller size!");
-                request.getRequestDispatcher("userProfile").forward(request, response);
+                int row = uDAO.updateUserProfile(fullName, phone, address, imagePath, userID);
+                if (row >= 1) {
+                    User u = uDAO.getUserByID(userID);
+                    session.setAttribute("user", u);
+                    request.setAttribute("notification", "Update Information Successfully!");
+                    request.getRequestDispatcher("userProfile").forward(request, response);
+                } else {
+                    request.setAttribute("notification", "An error occurred. Please try again.");
+                    request.getRequestDispatcher("userProfile").forward(request, response);
+                }
+            } else if (request.getParameter("changePass") != null) {
+                response.sendRedirect("changePass.jsp");
+            } else if (request.getParameter("backToHome") != null) {
+                response.sendRedirect("home");
             }
-        } else if (request.getParameter("changePass") != null) {
-            response.sendRedirect("changePass.jsp");
-        } else if (request.getParameter("backToHome") != null) {
-            response.sendRedirect("home");
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("notification", "An error occurred. Please try again.");
+            request.getRequestDispatcher("userProfile").forward(request, response);
         }
     }
 

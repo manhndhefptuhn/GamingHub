@@ -34,6 +34,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -56,7 +57,7 @@ public class ProductDetailController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        try{
         int productID = Integer.parseInt(request.getParameter("productID"));
         ProductDAO pDAO = new ProductDAO();
         CaseDAO caseDAO = new CaseDAO();
@@ -140,7 +141,10 @@ public class ProductDetailController extends HttpServlet {
         request.setAttribute("listUserResponse", listUserResponse);
         
         request.getRequestDispatcher("productDetail.jsp").forward(request, response);
-
+        }catch (Exception e){
+            e.printStackTrace();
+            request.getRequestDispatcher("404.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

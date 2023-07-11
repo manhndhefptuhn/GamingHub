@@ -38,80 +38,105 @@ public class ShopController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        CategoryDAO catDAO = new CategoryDAO();
-        ProductDAO pDAO = new ProductDAO();
-        CaseDAO caseDAO = new CaseDAO();
-        PCDAO pcDAO = new PCDAO();
-        FeedbackDAO fDAO = new FeedbackDAO();
+        try {
+            CategoryDAO catDAO = new CategoryDAO();
+            ProductDAO pDAO = new ProductDAO();
+            CaseDAO caseDAO = new CaseDAO();
+            PCDAO pcDAO = new PCDAO();
+            FeedbackDAO fDAO = new FeedbackDAO();
 
-        int totalProduct, productsPerPage, categoryID, totalPages, startIndex, endIndex, productStatus;
+            int totalProduct, productsPerPage, categoryID, totalPages, startIndex, endIndex, productStatus;
 
-        ArrayList<Category> listCategory = catDAO.getAllCategory();
-        request.setAttribute("listCategory", listCategory);
+            ArrayList<Category> listCategory = catDAO.getAllCategory();
+            request.setAttribute("listCategory", listCategory);
 
-        // Set the number of products to display per page
-        productsPerPage = 9;
-        // Get the current page number from the request parameter (assuming it is passed as 'page')
-        int currentPage = 1;
-        String pageParam = request.getParameter("page");
-        if (pageParam != null && !pageParam.isEmpty()) {
-            currentPage = Integer.parseInt(pageParam);
-        }
-        request.setAttribute("currentPage", currentPage);
+            // Set the number of products to display per page
+            productsPerPage = 9;
+            // Get the current page number from the request parameter (assuming it is passed as 'page')
+            int currentPage = 1;
+            String pageParam = request.getParameter("page");
+            if (pageParam != null && !pageParam.isEmpty()) {
+                currentPage = Integer.parseInt(pageParam);
+            }
+            request.setAttribute("currentPage", currentPage);
 
-        // Get the categoryID parameter from the request
-        String categoryIDParam = request.getParameter("categoryID");
-        String cpuName = request.getParameter("cpuName");
-        String productStatusParam = request.getParameter("productStatus");
-        // Check if the categoryID parameter is provided
-        if (categoryIDParam != null && !categoryIDParam.isEmpty()) {
-            categoryID = Integer.parseInt(categoryIDParam);
-            if (cpuName != null && !cpuName.isEmpty()) {
-                ArrayList<Product> listAllByCategoryAndByName = pDAO.getAllProductByCategoryAndCpuName(categoryID, cpuName);
-                totalProduct = listAllByCategoryAndByName.size();
+            // Get the categoryID parameter from the request
+            String categoryIDParam = request.getParameter("categoryID");
+            String cpuName = request.getParameter("cpuName");
+            String productStatusParam = request.getParameter("productStatus");
+            // Check if the categoryID parameter is provided
+            if (categoryIDParam != null && !categoryIDParam.isEmpty()) {
+                categoryID = Integer.parseInt(categoryIDParam);
+                if (cpuName != null && !cpuName.isEmpty()) {
+                    ArrayList<Product> listAllByCategoryAndByName = pDAO.getAllProductByCategoryAndCpuName(categoryID, cpuName);
+                    totalProduct = listAllByCategoryAndByName.size();
 
-                totalPages = (int) Math.ceil((double) totalProduct / productsPerPage);
-                request.setAttribute("totalPages", totalPages);
+                    totalPages = (int) Math.ceil((double) totalProduct / productsPerPage);
+                    request.setAttribute("totalPages", totalPages);
 
-                startIndex = (currentPage - 1) * productsPerPage;
-                endIndex = Math.min(startIndex + productsPerPage, totalProduct);
+                    startIndex = (currentPage - 1) * productsPerPage;
+                    endIndex = Math.min(startIndex + productsPerPage, totalProduct);
 
-                ArrayList<Product> listProduct = new ArrayList<>(listAllByCategoryAndByName.subList(startIndex, endIndex));
-                request.setAttribute("listProduct", listProduct);
+                    ArrayList<Product> listProduct = new ArrayList<>(listAllByCategoryAndByName.subList(startIndex, endIndex));
+                    request.setAttribute("listProduct", listProduct);
 
-                Map<Integer, Integer> listFeedback = fDAO.getStarByProductID(listProduct);
-                request.setAttribute("listFeedback", listFeedback);
+                    Map<Integer, Integer> listFeedback = fDAO.getStarByProductID(listProduct);
+                    request.setAttribute("listFeedback", listFeedback);
 
-                Map<Integer, Integer> listOriginalPrice = pDAO.getOriginalPriceByID(listProduct);
-                request.setAttribute("listOriginalPrice", listOriginalPrice);
+                    Map<Integer, Integer> listOriginalPrice = pDAO.getOriginalPriceByID(listProduct);
+                    request.setAttribute("listOriginalPrice", listOriginalPrice);
 
-                Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listProduct);
-                request.setAttribute("listSalePrice", listSalePrice);
-            } else if (productStatusParam != null && !productStatusParam.isEmpty()) {
-                productStatus = Integer.parseInt(productStatusParam);
-                ArrayList<Product> listAllProductByCategoryAndProductStatus = pDAO.getAllProductByCategoryAndProductStatus(categoryID, productStatus);
-                totalProduct = listAllProductByCategoryAndProductStatus.size();
-                totalPages = (int) Math.ceil((double) totalProduct / productsPerPage);
-                request.setAttribute("totalPages", totalPages);
+                    Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listProduct);
+                    request.setAttribute("listSalePrice", listSalePrice);
+                } else if (productStatusParam != null && !productStatusParam.isEmpty()) {
+                    productStatus = Integer.parseInt(productStatusParam);
+                    ArrayList<Product> listAllProductByCategoryAndProductStatus = pDAO.getAllProductByCategoryAndProductStatus(categoryID, productStatus);
+                    totalProduct = listAllProductByCategoryAndProductStatus.size();
+                    totalPages = (int) Math.ceil((double) totalProduct / productsPerPage);
+                    request.setAttribute("totalPages", totalPages);
 
-                startIndex = (currentPage - 1) * productsPerPage;
-                endIndex = Math.min(startIndex + productsPerPage, totalProduct);
+                    startIndex = (currentPage - 1) * productsPerPage;
+                    endIndex = Math.min(startIndex + productsPerPage, totalProduct);
 
-                ArrayList<Product> listProduct = new ArrayList<>(listAllProductByCategoryAndProductStatus.subList(startIndex, endIndex));
-                request.setAttribute("listProduct", listProduct);
+                    ArrayList<Product> listProduct = new ArrayList<>(listAllProductByCategoryAndProductStatus.subList(startIndex, endIndex));
+                    request.setAttribute("listProduct", listProduct);
 
-                Map<Integer, Integer> listFeedback = fDAO.getStarByProductID(listProduct);
-                request.setAttribute("listFeedback", listFeedback);
+                    Map<Integer, Integer> listFeedback = fDAO.getStarByProductID(listProduct);
+                    request.setAttribute("listFeedback", listFeedback);
 
-                Map<Integer, Integer> listOriginalPrice = pDAO.getOriginalPriceByID(listProduct);
-                request.setAttribute("listOriginalPrice", listOriginalPrice);
+                    Map<Integer, Integer> listOriginalPrice = pDAO.getOriginalPriceByID(listProduct);
+                    request.setAttribute("listOriginalPrice", listOriginalPrice);
 
-                Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listProduct);
-                request.setAttribute("listSalePrice", listSalePrice);
+                    Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listProduct);
+                    request.setAttribute("listSalePrice", listSalePrice);
+                } else {
+                    ArrayList<Product> listAllCategoryProduct = pDAO.getAllProductByCategory(categoryID);
+
+                    totalProduct = listAllCategoryProduct.size();
+
+                    totalPages = (int) Math.ceil((double) totalProduct / productsPerPage);
+                    request.setAttribute("totalPages", totalPages);
+
+                    startIndex = (currentPage - 1) * productsPerPage;
+                    endIndex = Math.min(startIndex + productsPerPage, totalProduct);
+
+                    ArrayList<Product> listProduct = new ArrayList<>(listAllCategoryProduct.subList(startIndex, endIndex));
+                    request.setAttribute("listProduct", listProduct);
+
+                    Map<Integer, Integer> listFeedback = fDAO.getStarByProductID(listProduct);
+                    request.setAttribute("listFeedback", listFeedback);
+
+                    Map<Integer, Integer> listOriginalPrice = pDAO.getOriginalPriceByID(listProduct);
+                    request.setAttribute("listOriginalPrice", listOriginalPrice);
+
+                    Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listProduct);
+                    request.setAttribute("listSalePrice", listSalePrice);
+                }
             } else {
-                ArrayList<Product> listAllCategoryProduct = pDAO.getAllProductByCategory(categoryID);
-
-                totalProduct = listAllCategoryProduct.size();
+                ArrayList<Product> listAllProduct = pDAO.getAllProduct();
+                // Get the total number of products
+                totalProduct = listAllProduct.size();
+                // Calculate the total number of pages needed
 
                 totalPages = (int) Math.ceil((double) totalProduct / productsPerPage);
                 request.setAttribute("totalPages", totalPages);
@@ -119,7 +144,7 @@ public class ShopController extends HttpServlet {
                 startIndex = (currentPage - 1) * productsPerPage;
                 endIndex = Math.min(startIndex + productsPerPage, totalProduct);
 
-                ArrayList<Product> listProduct = new ArrayList<>(listAllCategoryProduct.subList(startIndex, endIndex));
+                ArrayList<Product> listProduct = new ArrayList<>(listAllProduct.subList(startIndex, endIndex));
                 request.setAttribute("listProduct", listProduct);
 
                 Map<Integer, Integer> listFeedback = fDAO.getStarByProductID(listProduct);
@@ -131,37 +156,17 @@ public class ShopController extends HttpServlet {
                 Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listProduct);
                 request.setAttribute("listSalePrice", listSalePrice);
             }
-        } else {
-            ArrayList<Product> listAllProduct = pDAO.getAllProduct();
-            // Get the total number of products
-            totalProduct = listAllProduct.size();
-            // Calculate the total number of pages needed
 
-            totalPages = (int) Math.ceil((double) totalProduct / productsPerPage);
-            request.setAttribute("totalPages", totalPages);
+            Map<Integer, Case> listImage = caseDAO.getCaseByCaseID();
+            request.setAttribute("listImage", listImage);
+            Map<Integer, Integer> listCaseID = pcDAO.getCaseIDByProductID();
+            request.setAttribute("listCaseID", listCaseID);
 
-            startIndex = (currentPage - 1) * productsPerPage;
-            endIndex = Math.min(startIndex + productsPerPage, totalProduct);
-
-            ArrayList<Product> listProduct = new ArrayList<>(listAllProduct.subList(startIndex, endIndex));
-            request.setAttribute("listProduct", listProduct);
-
-            Map<Integer, Integer> listFeedback = fDAO.getStarByProductID(listProduct);
-            request.setAttribute("listFeedback", listFeedback);
-
-            Map<Integer, Integer> listOriginalPrice = pDAO.getOriginalPriceByID(listProduct);
-            request.setAttribute("listOriginalPrice", listOriginalPrice);
-
-            Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listProduct);
-            request.setAttribute("listSalePrice", listSalePrice);
+            request.getRequestDispatcher("shop.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.getRequestDispatcher("404.jsp").forward(request, response);
         }
-
-        Map<Integer, Case> listImage = caseDAO.getCaseByCaseID();
-        request.setAttribute("listImage", listImage);
-        Map<Integer, Integer> listCaseID = pcDAO.getCaseIDByProductID();
-        request.setAttribute("listCaseID", listCaseID);
-
-        request.getRequestDispatcher("shop.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
