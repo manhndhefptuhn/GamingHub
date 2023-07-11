@@ -32,12 +32,10 @@ public class RemoveWishlistController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        try{
         WishlistDAO wlDAO = new WishlistDAO();
-        
         User u = (User)session.getAttribute("user");
-        
         int row, productID, totalWishlistProduct;
-
         productID = Integer.parseInt(request.getParameter("productID"));
         row = wlDAO.removeWishlist(u.getUser_ID(), productID);
         if (row >= 1) {
@@ -46,6 +44,10 @@ public class RemoveWishlistController extends HttpServlet {
             session.setAttribute("totalWishlistProduct", totalWishlistProduct);
             request.getRequestDispatcher("wishlist").forward(request, response);
         } else {
+            throw new Exception();
+        }
+        }catch(Exception e){
+            e.printStackTrace();
             session.setAttribute("wrongNotification", "There's something wrong, please try again");
             request.getRequestDispatcher("wishlist").forward(request, response);
         }

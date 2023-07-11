@@ -32,13 +32,18 @@ public class GetUserProfile extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        User u = (User)session.getAttribute("user");
-        String notification = (String)request.getAttribute("notification");
-        RoleDAO rDAO = new RoleDAO();
-        String roleName = rDAO.getRoleNameByID(u.getRole_ID());
-        request.setAttribute("userRole", roleName);
-        request.setAttribute("notification", notification);
-        request.getRequestDispatcher("userProfile.jsp").forward(request, response);
+        try {
+            User u = (User) session.getAttribute("user");
+            String notification = (String) request.getAttribute("notification");
+            RoleDAO rDAO = new RoleDAO();
+            String roleName = rDAO.getRoleNameByID(u.getRole_ID());
+            request.setAttribute("userRole", roleName);
+            request.setAttribute("notification", notification);
+            request.getRequestDispatcher("userProfile.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.getRequestDispatcher("404.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

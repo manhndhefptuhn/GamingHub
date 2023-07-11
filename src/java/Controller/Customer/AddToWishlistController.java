@@ -35,27 +35,32 @@ public class AddToWishlistController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        WishlistDAO wlDAO = new WishlistDAO();
+        try {
+            WishlistDAO wlDAO = new WishlistDAO();
 
-        int productID = Integer.parseInt(request.getParameter("productID"));
-        User u = (User) session.getAttribute("user");
+            int productID = Integer.parseInt(request.getParameter("productID"));
+            User u = (User) session.getAttribute("user");
 
-        Wishlist wl = wlDAO.getWishlist(u.getUser_ID(), productID);
+            Wishlist wl = wlDAO.getWishlist(u.getUser_ID(), productID);
 
-        int row, totalWishlistProduct;
-        if (wl == null) {
-            row = wlDAO.addToWishlist(u.getUser_ID(), productID);
-            if (row >= 1) {
-                session.setAttribute("notification", "Add to wishlist successfully");
-                totalWishlistProduct = wlDAO.getTotalWishlistProduct(u.getUser_ID());
-                session.setAttribute("totalWishlistProduct", totalWishlistProduct);
-                response.sendRedirect(extractPath(request.getHeader("Referer")));
+            int row, totalWishlistProduct;
+            if (wl == null) {
+                row = wlDAO.addToWishlist(u.getUser_ID(), productID);
+                if (row >= 1) {
+                    session.setAttribute("notification", "Add to wishlist successfully");
+                    totalWishlistProduct = wlDAO.getTotalWishlistProduct(u.getUser_ID());
+                    session.setAttribute("totalWishlistProduct", totalWishlistProduct);
+                    response.sendRedirect(extractPath(request.getHeader("Referer")));
+                } else {
+                    throw new Exception();
+                }
             } else {
-                session.setAttribute("wrongNotification", "There's something wrong, please try again");
+                session.setAttribute("wrongNotification", "This product is already in wishlist!");
                 response.sendRedirect(extractPath(request.getHeader("Referer")));
             }
-        } else {
-            session.setAttribute("wrongNotification", "This product is already in wishlist!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.setAttribute("wrongNotification", "An error occurred. Please try again.");
             response.sendRedirect(extractPath(request.getHeader("Referer")));
         }
 

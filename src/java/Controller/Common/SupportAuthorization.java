@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author Zarius
  */
-@WebFilter(filterName = "SupportAuthorization", urlPatterns = {"/"})
+@WebFilter(filterName = "SupportAuthorization", urlPatterns = {"/feedbackList", "/falseFeedback", "/trueFeedback"})
 public class SupportAuthorization implements Filter {
 
     /**

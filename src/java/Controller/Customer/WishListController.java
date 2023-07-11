@@ -40,43 +40,47 @@ public class WishListController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        WishlistDAO wlDAO = new WishlistDAO();
-        CaseDAO caseDAO = new CaseDAO();
-        PCDAO pcDAO = new PCDAO();
-        ProductDAO pDAO = new ProductDAO();
-        int productPrice, productSalePrice;
-        
-        User u = (User) session.getAttribute("user");
+        try {
+            WishlistDAO wlDAO = new WishlistDAO();
+            CaseDAO caseDAO = new CaseDAO();
+            PCDAO pcDAO = new PCDAO();
+            ProductDAO pDAO = new ProductDAO();
+            int productPrice, productSalePrice;
 
-        ArrayList<Wishlist> listWishList = wlDAO.getAllWishItemByUserID(u.getUser_ID());
-        request.setAttribute("listWishList", listWishList);
+            User u = (User) session.getAttribute("user");
 
-        Map<Integer, Case> listImage = caseDAO.getCaseByCaseID();
-        request.setAttribute("listImage", listImage);
-        Map<Integer, Integer> listCaseID = pcDAO.getCaseIDByProductID();
-        request.setAttribute("listCaseID", listCaseID);
-        Map<Integer, String> listWishlistProductName = pDAO.getWishlistProductNameByProductID(listWishList);
-        request.setAttribute("listWishlistProductName", listWishlistProductName);
-        Map<Integer, Integer> listWishlistProductStatus = pDAO.getProductStatusByProductID(listWishList);
-        request.setAttribute("listWishlistProductStatus", listWishlistProductStatus);
+            ArrayList<Wishlist> listWishList = wlDAO.getAllWishItemByUserID(u.getUser_ID());
+            request.setAttribute("listWishList", listWishList);
 
-        //Map to get original Price and sale price of product
-        Map<Integer, Integer> listWishlistProductPrice = new HashMap<>();
-        for (Wishlist wishlist : listWishList) {
-            productPrice = pDAO.getOriginalPriceByID(wishlist.getProductID());
-            listWishlistProductPrice.put(wishlist.getProductID(), productPrice);
+            Map<Integer, Case> listImage = caseDAO.getCaseByCaseID();
+            request.setAttribute("listImage", listImage);
+            Map<Integer, Integer> listCaseID = pcDAO.getCaseIDByProductID();
+            request.setAttribute("listCaseID", listCaseID);
+            Map<Integer, String> listWishlistProductName = pDAO.getWishlistProductNameByProductID(listWishList);
+            request.setAttribute("listWishlistProductName", listWishlistProductName);
+            Map<Integer, Integer> listWishlistProductStatus = pDAO.getProductStatusByProductID(listWishList);
+            request.setAttribute("listWishlistProductStatus", listWishlistProductStatus);
+
+            //Map to get original Price and sale price of product
+            Map<Integer, Integer> listWishlistProductPrice = new HashMap<>();
+            for (Wishlist wishlist : listWishList) {
+                productPrice = pDAO.getOriginalPriceByID(wishlist.getProductID());
+                listWishlistProductPrice.put(wishlist.getProductID(), productPrice);
+            }
+
+            Map<Integer, Integer> listWishlistSalePrice = new HashMap<>();
+            for (Wishlist wishlist : listWishList) {
+                productSalePrice = pDAO.getSalePriceByID(wishlist.getProductID());
+                listWishlistSalePrice.put(wishlist.getProductID(), productSalePrice);
+            }
+            request.setAttribute("listWishlistProductPrice", listWishlistProductPrice);
+            request.setAttribute("listWishlistSalePrice", listWishlistSalePrice);
+
+            request.getRequestDispatcher("wishlist.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.getRequestDispatcher("404.jsp").forward(request, response);
         }
-        
-        Map<Integer, Integer> listWishlistSalePrice = new HashMap<>();
-        for (Wishlist wishlist : listWishList) {
-            productSalePrice = pDAO.getSalePriceByID(wishlist.getProductID());
-            listWishlistSalePrice.put(wishlist.getProductID(), productSalePrice);
-        }
-        request.setAttribute("listWishlistProductPrice", listWishlistProductPrice);
-        request.setAttribute("listWishlistSalePrice", listWishlistSalePrice);
-
-        request.getRequestDispatcher("wishlist.jsp").forward(request, response);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

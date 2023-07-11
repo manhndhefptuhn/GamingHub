@@ -23,8 +23,6 @@
     </head>
     <body>
         <div class="main">
-            <%String phoneNoti = (String)request.getAttribute("phoneNoti");%>
-            <%String emailNoti = (String)request.getAttribute("emailNoti");%>
             <%String notification = (String)request.getAttribute("notification");%>
             <!-- Sign up form -->
             <section class="signup" style="margin-bottom: 0">
@@ -47,11 +45,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="phone"><i class="zmdi zmdi-phone"></i></label>
-                                    <input type="text" name="phoneNum" id="phone-num" placeholder="Your Phone Number" pattern="[0-9]{10}" required>
+                                    <input type="text" name="phoneNum" id="phone-num" placeholder="Your Phone Number" required>
                                 </div>
-
+                                <strong id="phone-notification" style="display: none; color: red;"></strong>
                                 <div class="form-group" style="margin-bottom: 0;">
-                                    <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" required/>
+                                    <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>
                                     <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree to <a class="term-service" onclick="openPopup()" style="text-decoration: underline;">Terms and Conditions</a></label>
                                 </div>
                                 <div id="popup" class="popup">
@@ -180,6 +178,7 @@
                                 <c:if test="${notification!=null}">
                                     <strong style="color: red;">${notification}</strong>
                                 </c:if>
+                                <strong id="notification" style="display: none; color: red;"></strong>
                                 <div class="form-group form-button">
                                     <input style="width: 100%;" type="submit" name="signup" id="signup" class="form-submit" value="Sign Up"/>
                                 </div>
@@ -193,6 +192,26 @@
                 </div>
             </section>
             <!-- JS -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script>
+                                            $(document).ready(function () {
+                                                $('form').submit(function (event) {
+                                                    if (!$('#agree-term').is(':checked')) {
+                                                        event.preventDefault();
+                                                        $('#notification').text('Please accept the terms and conditions').show();
+                                                    } else {
+                                                        $('#notification').hide();
+                                                    }
+                                                    const phoneNumber = $('#phone-num').val();
+                                                    if (phoneNumber.length !== 10) {
+                                                        event.preventDefault();
+                                                        $('#phone-notification').text('Please enter a 10-digit phone number').show();
+                                                    } else {
+                                                        $('#phone-notification').hide();
+                                                    }
+                                                });
+                                            });
+            </script>
             <script src="<%= request.getContextPath()%>/jquery/jquery.min.js"></script>
             <script src="<%= request.getContextPath()%>/js/main1.js"></script>
         </div>

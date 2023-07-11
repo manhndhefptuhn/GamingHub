@@ -60,7 +60,7 @@ public class HomeController extends HttpServlet {
             request.setAttribute("listSlider", listSlider);
 
             //Gaming PC
-            ArrayList<Product> listFourGamingPC = pDAO.getFourGamingPC();
+            ArrayList<Product> listFourGamingPC = pDAO.getFourPCByCategoryID(1);
             request.setAttribute("listFourGamingPC", listFourGamingPC);
 
             //Map to get original Price and sale price of gaming product
@@ -72,7 +72,7 @@ public class HomeController extends HttpServlet {
             request.setAttribute("listGamingFeedback", listGamingFeedback);
 
             //workPC
-            ArrayList<Product> listFourWorkPC = pDAO.getFourWorkStationPC();
+            ArrayList<Product> listFourWorkPC = pDAO.getFourPCByCategoryID(3);
             request.setAttribute("listFourWorkPC", listFourWorkPC);
 
             //Map to get original Price and sale price of work product
@@ -84,7 +84,7 @@ public class HomeController extends HttpServlet {
             request.setAttribute("listWorkFeedback", listWorkFeedback);
 
             //Mini PC
-            ArrayList<Product> listFourMiniPC = pDAO.getFourMiniPC();
+            ArrayList<Product> listFourMiniPC = pDAO.getFourPCByCategoryID(2);
             request.setAttribute("listFourMiniPC", listFourMiniPC);
 
             //Map to get original Price and sale price of mini product
@@ -112,8 +112,7 @@ public class HomeController extends HttpServlet {
         } catch (Exception e) {
             // Handle any exception that occurs during processing
             e.printStackTrace(); // Print the exception details (for debugging purposes)
-            session.setAttribute("wrongNotification", "An error occurred while processing your request");
-            request.getRequestDispatcher("Home.jsp").forward(request, response);
+            request.getRequestDispatcher("404.jsp").forward(request, response);
         }
     }
 

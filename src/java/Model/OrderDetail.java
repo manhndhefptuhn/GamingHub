@@ -14,16 +14,18 @@ public class OrderDetail {
     private int productID;
     private int productPrice;
     private int quantity;
+    private int totalCost;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(int orderDetailID, int orderID, int productID, int productPrice, int quantity) {
+    public OrderDetail(int orderDetailID, int orderID, int productID, int productPrice, int quantity, int totalCost) {
         this.orderDetailID = orderDetailID;
         this.orderID = orderID;
         this.productID = productID;
         this.productPrice = productPrice;
         this.quantity = quantity;
+        this.totalCost = totalCost;
     }
 
     public int getOrderDetailID() {
@@ -65,6 +67,12 @@ public class OrderDetail {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    
-    
+
+    public int getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(int totalCost) {
+        this.totalCost = totalCost;
+    }
 }

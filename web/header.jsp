@@ -130,16 +130,16 @@
                                                 <ul class="dropdown">
                                                     <li><a href="userProfile">My Profile</a></li>
                                                         <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                                        <li><a href="#">Order History</a></li>
+                                                        <li><a href="myOrder">Order History</a></li>
                                                         </c:if>
                                                         <c:if test="${sessionScope.user.getRole_ID() == 2}">
-                                                        <li><a href="#">Sale Dashboard</a></li>
+                                                        <li><a href="SaleDashboard.jsp">Sale Dashboard</a></li>
                                                         </c:if>
                                                         <c:if test="${sessionScope.user.getRole_ID() == 3}">
-                                                        <li><a href="#">Support Dashboard</a></li>
+                                                        <li><a href="SupportDashboard.jsp">Support Dashboard</a></li>
                                                         </c:if>
                                                         <c:if test="${sessionScope.user.getRole_ID() == 4}">
-                                                        <li><a href="#">Admin Dashboard</a></li>
+                                                        <li><a href="AdminDashboard.jsp">Admin Dashboard</a></li>
                                                         </c:if>
                                                     <li><a href="logout">Log out</a></li>
                                                 </ul>

@@ -4,6 +4,7 @@
  */
 package Controller.Common;
 
+import DAL.PasswordResetDAO;
 import DAL.UserDAO;
 import Model.User;
 import Service.RandomPassword;
@@ -73,27 +74,28 @@ public class RegisterController extends HttpServlet {
 
             RandomPassword rdpw = new RandomPassword();
             String password = rdpw.generatePassword();
-
+            PasswordResetDAO pwrsDAO = new PasswordResetDAO();
             UserDAO uDAO = new UserDAO();
             SendEmail se = new SendEmail();
 
             User u = uDAO.checkUserExist(email);
             boolean emailSent;
-
+            int row, registerUserID;
+            
             if (!phoneNum.matches("[0-9]*")) {
                 request.setAttribute("notification", "Your Phone Number is Invalid");
                 request.getRequestDispatcher("register.jsp").forward(request, response);
                 return;
             } else if (u == null) {
-                emailSent = se.sendPassword(email, password, fullName, "request to register");
+                emailSent = se.sendPassword(email, password, fullName, "Request to Register");
                 if (emailSent) {
-                    uDAO.register(fullName, email, password, phoneNum, address);
+                    registerUserID = uDAO.register(fullName, email, password, phoneNum, address);
+                    row = pwrsDAO.resetPassword(registerUserID, password);
                     request.setAttribute("email", email);
                     request.setAttribute("notification", "Sign Up successfully, please check your email for password");
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("notification", "There something wrong at out server, please try again");
-                    request.getRequestDispatcher("register.jsp").forward(request, response);
+                    throw new Exception();
                 }
             } else {
                 request.setAttribute("notification", "Email is used, please enter again");

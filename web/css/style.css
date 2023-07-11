@@ -3617,7 +3617,7 @@ ol {
 		margin-right: 30px;
 	}
 	.blog__comment__item.blog__comment__item--reply {
-		padding-left: 0;
+		padding-left: 4em;
 	}
 	.blog__comment__item__text ul li {
 		margin-right: 5px;

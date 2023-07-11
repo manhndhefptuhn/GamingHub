@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author Zarius
  */
-@WebFilter(filterName = "SaleAuthorization", urlPatterns = {"/"})
+@WebFilter(filterName = "SaleAuthorization", urlPatterns = {"/customerList", "/viewCustomer", "/ProductListController"})
 public class SaleAuthorization implements Filter {
 
     /**
