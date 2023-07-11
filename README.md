@@ -1,5 +1,4 @@
-# Project Title
-Gaming Hub
+# Gaming Hub
 ## Description
 Gaming Hub is a web-application built JSP/Servlet. It provides users with viewing, purchasing product, managing products, etc ...
 
