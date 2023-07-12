@@ -107,19 +107,20 @@
                                     </ul>
                                 </div>
                                 <div class="checkout__order__widget">
-                                    <label for="COD">
+                                    <label for="check-payment">
                                         COD (Cash on Delivery)
-                                        <input type="checkbox" id="COD" name="paymentMethod" value="COD" onclick="selectOnlyOne(this)">
+                                        <input type="checkbox" id="check-payment" name="paymentMethod" onclick="selectOnlyOne(this)" value="COD">
                                         <span class="checkmark"></span>
                                     </label>
-                                    <label for="VNPay">
+                                    <label for="paypal">
                                         VNPay
-                                        <input type="checkbox" id="VNPay" name="paymentMethod" value="VNPay" onclick="selectOnlyOne(this)">
+                                        <input type="checkbox" id="paypal" name="paymentMethod" onclick="selectOnlyOne(this)" value="VNPay">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
-                                <button type="submit" class="site-btn">Place order</button>
-                                <button class="site-btn" style="margin-top: 1em; background-color: #111111;"><a href="cart" style="color:#ffffff;">Back to Cart</a></button>
+                                <strong id="notification" style="display: none; color: red;"></strong>
+                                <button type="submit" class="site-btn" value="order">Place order</button>
+                                <a href="cart" style="color:#ffffff;"><button type="button" class="site-btn" style="margin-top: 1em; background-color: #111111;">Back to Cart</button></a>
                             </div>
                         </div>
                     </div>
@@ -129,19 +130,31 @@
         <!-- Checkout Section End -->
 
         <%@include file="footer.jsp" %>
-
-        <!-- Js Plugins -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
-            function selectOnlyOne(checkbox) {
-                var checkboxes = document.getElementsByName('paymentMethod');
-    
-                for (var i = 0; i < checkboxes.length; i++) {
-                    if (checkboxes[i] !== checkbox) {
-                        checkboxes[i].checked = false;
-                    }
-                }
-            }
+                                            $(document).ready(function () {
+                                                $('form').submit(function (event) {
+                                                    var checkedPaymentMethods = $('input[name="paymentMethod"]:checked');
+
+                                                    if (checkedPaymentMethods.length !== 1) {
+                                                        event.preventDefault();
+                                                        $('#notification').text('Please choose one payment method').show();
+                                                    } else {
+                                                        $('#notification').hide();
+                                                    }
+                                                });
+                                            });
+                                            function selectOnlyOne(checkbox) {
+                                                var checkboxes = document.getElementsByName('paymentMethod');
+
+                                                for (var i = 0; i < checkboxes.length; i++) {
+                                                    if (checkboxes[i] !== checkbox) {
+                                                        checkboxes[i].checked = false;
+                                                    }
+                                                }
+                                            }
         </script>
+        <!-- Js Plugins -->
         <script src="<%= request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/bootstrap.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/jquery.magnific-popup.min.js"></script>
@@ -152,6 +165,7 @@
         <script src="<%= request.getContextPath()%>/js/owl.carousel.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/jquery.nicescroll.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/main.js"></script>
+
     </body>
 
 </html>

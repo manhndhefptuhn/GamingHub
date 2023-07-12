@@ -289,20 +289,26 @@
                                         <div class="product__item sale">
                                         </c:if>
                                         <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath()%>/${caseObject.getImage()}">
-                                            <c:if test="${listRelated.getQuantity() == 0}">
-                                                <div class="label stockout">out of stock</div>
-                                            </c:if>
-                                            <c:if test="${listRelated.getProductStatusID() == 1}">
-                                                <div class="label new">New</div>
-                                            </c:if>
-                                            <c:if test="${listRelated.getProductStatusID() == 2}">
-                                                <div class="label sale">Sale</div>
-                                            </c:if>
+                                            <c:choose>
+                                                <c:when test="${listRelated.getQuantity() == 0}">
+                                                    <div class="label stockout">out of stock</div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:if test="${listRelated.getProductStatusID() == 1}">
+                                                        <div class="label new">New</div>
+                                                    </c:if>
+                                                    <c:if test="${listRelated.getProductStatusID() == 2}">
+                                                        <div class="label sale">Sale</div>
+                                                    </c:if>
+                                                </c:otherwise>
+                                            </c:choose>
                                             <ul class="product__hover">
                                                 <li><a href="productDetail?productID=${listRelated.getProductID()}"><span class="arrow_expand"></span></a></li>
                                                         <c:if test="${sessionScope.user.getRole_ID() == 1}">
                                                     <li><a href="addToWishlist?productID=${listRelated.getProductID()}"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="addToCart?productID=${listRelated.getProductID()}"><span class="icon_bag_alt"></span></a></li>
+                                                            <c:if test="${listRelated.getQuantity() == 0}">
+                                                        <li><a href="addToCart?productID=${listRelated.getProductID()}"><span class="icon_bag_alt"></span></a></li>
+                                                            </c:if>
                                                         </c:if>
                                             </ul>
                                         </div>

@@ -4,6 +4,12 @@
  */
 package Controller.Customer;
 
+import DAL.CartDAO;
+import DAL.OrderDAO;
+import DAL.OrderDetailDAO;
+import DAL.UserDAO;
+import Model.Cart;
+import Model.User;
 import Service.ConfigVNPay;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +17,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -44,14 +51,13 @@ public class CheckoutController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
 
         String orderID = request.getParameter("orderID");
-        int dollarAmount = Integer.parseInt(request.getParameter("totalCost"));
-        long convert = (long)dollarAmount * 23000;
-        long amount = convert * 100;
-        
+        int amount = Integer.parseInt(request.getParameter("totalCost")) * 100;
+
         String vnp_TxnRef = ConfigVNPay.getRandomNumber(8);
         String vnp_IpAddr = ConfigVNPay.getIpAddress(request);
         String vnp_TmnCode = ConfigVNPay.vnp_TmnCode;
@@ -69,7 +75,7 @@ public class CheckoutController extends HttpServlet {
         }
         String orderType = "billpayment";
         vnp_Params.put("vnp_TxnRef", orderID);
-        vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
+        vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + orderID);
         vnp_Params.put("vnp_OrderType", orderType);
 
         String locate = "vi";
@@ -78,8 +84,9 @@ public class CheckoutController extends HttpServlet {
         } else {
             vnp_Params.put("vnp_Locale", "vn");
         }
-
-        vnp_Params.put("vnp_ReturnUrl", ConfigVNPay.vnp_Returnurl);
+        String requestURL = request.getRequestURL().toString();
+        String returnUrl = requestURL.substring(0, requestURL.indexOf(request.getContextPath())) + request.getContextPath() + "/verifyPayment";
+        vnp_Params.put("vnp_ReturnUrl", returnUrl);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
@@ -119,6 +126,7 @@ public class CheckoutController extends HttpServlet {
         queryUrl += "&vnp_SecureHashType=SHA256&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = ConfigVNPay.vnp_PayUrl + "?" + queryUrl;
         response.sendRedirect(paymentUrl);
+
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -65,13 +65,13 @@ public class AddToOrderController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        System.out.println("Testing why merge fail");
         String fullName = request.getParameter("fullName");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         String note = request.getParameter("note");
         int totalCost = Integer.parseInt(request.getParameter("totalCost"));
         String selectedMethod = request.getParameter("paymentMethod");
+        int orderID;
 
         CartDAO cartDAO = new CartDAO();
         OrderDAO oDAO = new OrderDAO();
@@ -81,13 +81,18 @@ public class AddToOrderController extends HttpServlet {
         int saleID = uDAO.getRandomSaler();
         User u = (User) session.getAttribute("user");
         ArrayList<Cart> listCart = cartDAO.getAllCartItemByUserID(u.getUser_ID());
-        int orderID = oDAO.addNewORder(u.getUser_ID(), fullName, address, phone, totalCost, selectedMethod, saleID, note);
-        ordtDAO.addCartToOrder(listCart, orderID);
-        
+
         if (selectedMethod.equalsIgnoreCase("VNPay")) {
-            request.getRequestDispatcher("checkout?orderID=" + orderID + "&totalCost="+totalCost+"").forward(request, response);
-        }else if(selectedMethod.equalsIgnoreCase("COD")){
-            request.getRequestDispatcher("successful?payment=COD").forward(request, response);
+            orderID = oDAO.addNewORder(u.getUser_ID(), fullName, address, phone, totalCost, selectedMethod, saleID, note);
+            request.getRequestDispatcher("checkout?orderID=" + orderID + "&totalCost=" + totalCost + "").forward(request, response);
+        } else if (selectedMethod.equalsIgnoreCase("COD")) {
+            orderID = oDAO.addNewORder(u.getUser_ID(), fullName, address, phone, totalCost, selectedMethod, saleID, note);
+            ordtDAO.addCartToOrder(listCart, orderID);
+            ordtDAO.updateQuantityProduct(listCart);
+            cartDAO.removeAllCartByUserID(u.getUser_ID());
+            int totalCartProduct = cartDAO.getTotalCartProduct(u.getUser_ID());
+            session.setAttribute("totalCartProduct", totalCartProduct);
+            response.sendRedirect("successful?payment=COD&orderID=" + orderID + "");
         }
     }
 

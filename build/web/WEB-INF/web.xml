@@ -196,6 +196,14 @@
         <servlet-name>CreateFeedbackController</servlet-name>
         <servlet-class>Controller.Customer.CreateFeedbackController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ErrorCheckoutController</servlet-name>
+        <servlet-class>Controller.Customer.ErrorCheckoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerifyPaymentController</servlet-name>
+        <servlet-class>Controller.Customer.VerifyPaymentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -391,6 +399,14 @@
     <servlet-mapping>
         <servlet-name>CreateFeedbackController</servlet-name>
         <url-pattern>/createFeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ErrorCheckoutController</servlet-name>
+        <url-pattern>/errorCheckout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyPaymentController</servlet-name>
+        <url-pattern>/verifyPayment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
