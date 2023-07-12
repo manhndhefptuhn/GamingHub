@@ -2,25 +2,24 @@ package Controller.Support;
 
 import DAL.FeedbackDAO;
 import DAL.UserDAO;
-import DAL.FeedbackReplyDAO;
+import DAL.FeedbackResponseDAO;
 import Model.Feedback;
 import Model.User;
-import Model.FeedbackReply;
+import Model.FeedbackResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="GetFeedbackDetails", urlPatterns={"/GetFeedbackDetails"})
+@WebServlet(name="feedbackDetail", urlPatterns={"/feedbackDetail"})
 public class GetFeedbackDetails extends HttpServlet {
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -28,7 +27,7 @@ public class GetFeedbackDetails extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         FeedbackDAO fbDAO = new FeedbackDAO();
         UserDAO uDAO = new UserDAO();
-        FeedbackReplyDAO fbrDAO = new FeedbackReplyDAO();
+        FeedbackResponseDAO fbrDAO = new FeedbackResponseDAO();
         
         //get feedack ID from feedback list
         String id = request.getParameter("id");
@@ -39,13 +38,13 @@ public class GetFeedbackDetails extends HttpServlet {
         User u = uDAO.getUserByID(x.getUserId());
         
         
-        List<FeedbackReply> fbrlst = fbrDAO.getFeedbackReplyWithId(id);
-        List<Feedback> lst = fbDAO.getFeedbackWithId(id);
+        ArrayList<FeedbackResponse> fbrlst = fbrDAO.getFeedbackReplyWithId(id);
+        ArrayList<Feedback> lst = fbDAO.getFeedbackWithId(id);
         
         request.setAttribute("userDetails", u);
         request.setAttribute("details", lst);
         request.setAttribute("fbrlst", fbrlst);
-        request.getRequestDispatcher("supportFeedbackDetails.jsp").forward(request, response);
+        request.getRequestDispatcher("SupportFeedbackDetail.jsp").forward(request, response);
 
     
    
