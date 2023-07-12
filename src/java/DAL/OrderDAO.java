@@ -12,8 +12,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
@@ -157,6 +155,25 @@ public class OrderDAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             row = -1;
+        }
+        return row;
+    }
+    
+    public int deleteOrder(int orderID) {
+        int row = 0;
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "DELETE FROM `order` WHERE `Order_ID` = " + orderID + ";";
+                row = st.executeUpdate(sql);
+                st.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            row = -1;
+            System.out.println(e.getMessage());
         }
         return row;
     }

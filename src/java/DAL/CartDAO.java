@@ -191,4 +191,23 @@ public class CartDAO {
         }
         return listCart;
     }
+    
+    public int removeAllCartByUserID(int userID) {
+        int row = 0;
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "DELETE FROM `cart` WHERE `User_ID` = " + userID + ";";
+                row = st.executeUpdate(sql);
+                st.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            row = -1;
+            System.out.println(e.getMessage());
+        }
+        return row;
+    }
 }

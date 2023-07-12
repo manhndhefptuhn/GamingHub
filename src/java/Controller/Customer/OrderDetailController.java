@@ -56,7 +56,7 @@ public class OrderDetailController extends HttpServlet {
             String orderStatus = odstDAO.getOrderStatusByID(listOrderInfor.getOrderStatus());
             request.setAttribute("orderStatus", orderStatus);
 
-            Map<Integer, String> listProductName = ordtDAO.getCartProductNameByProductID(listOrderDetail);
+            Map<Integer, String> listProductName = ordtDAO.getOrderProductNameByProductID(listOrderDetail);
             request.setAttribute("listProductName", listProductName);
 
             Map<Integer, Case> listImage = caseDAO.getCaseByCaseID();

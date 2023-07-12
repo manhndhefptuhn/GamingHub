@@ -10,10 +10,12 @@ import Model.OrderDetail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -75,7 +77,7 @@ public class OrderDetailDAO {
         return listOrderDetail;
     }
 
-    public Map<Integer, String> getCartProductNameByProductID(ArrayList<OrderDetail> listOrderDetail) {
+    public Map<Integer, String> getOrderProductNameByProductID(ArrayList<OrderDetail> listOrderDetail) {
         Map<Integer, String> listName = new HashMap<>();
         DBContext db = new DBContext();
         String productName;
@@ -102,5 +104,55 @@ public class OrderDetailDAO {
             System.out.println(e.getMessage());
         }
         return listName;
+    }
+
+    public int updateQuantityProduct(List<Cart> listcart) {
+        int row = 0;
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                for (Cart cart : listcart) {
+                    String sql = "UPDATE `product`\n"
+                            + "   SET `quantity` = (quantity - ? )\n"
+                            + " WHERE `product_id` = ?";
+                    PreparedStatement st = con.prepareStatement(sql);
+                    st.setInt(1, cart.getQuantity());
+                    st.setInt(2, cart.getProductID());
+                    row = st.executeUpdate();
+                    st.close();
+                }
+            }
+            con.close();
+        } catch (Exception e) {
+            row = -1;
+            System.out.println(e.getMessage());
+        }
+        return row;
+    }
+
+    public int returnQuantityProduct(List<OrderDetail> listOrderDetail) {
+        int row = 0;
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                for (OrderDetail orderDetail : listOrderDetail) {
+                    String sql = "UPDATE `product`\n"
+                            + "   SET `quantity` = (quantity + ? )\n"
+                            + " WHERE `product_id` = ?";
+                    PreparedStatement st = con.prepareStatement(sql);
+                    st.setInt(1, orderDetail.getQuantity());
+                    st.setInt(2, orderDetail.getProductID());
+                    row = st.executeUpdate();
+                    st.close();
+                }
+            }
+            con.close();
+        } catch (Exception e) {
+            row = -1;
+            System.out.println(e.getMessage());
+        }
+        return row;
     }
 }

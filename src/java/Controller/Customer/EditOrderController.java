@@ -5,12 +5,15 @@
 package Controller.Customer;
 
 import DAL.OrderDAO;
+import DAL.OrderDetailDAO;
+import Model.OrderDetail;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 /**
  *
@@ -60,20 +63,24 @@ public class EditOrderController extends HttpServlet {
             throws ServletException, IOException {
         int orderID = Integer.parseInt(request.getParameter("orderID"));
         HttpSession session = request.getSession();
+        int row, row1;
         try {
             if (request.getParameter("cancel") != null) {
                 OrderDAO odDAO = new OrderDAO();
-                int row;
-                row = odDAO.updateOrderStatus(orderID, 4);
+                OrderDetailDAO ordtDAO = new OrderDetailDAO();
+                ArrayList<OrderDetail> listOrderDetail = ordtDAO.getDetailAllOrder(orderID);
+                row = ordtDAO.returnQuantityProduct(listOrderDetail);
                 if (row >= 1) {
-                    session.setAttribute("notification", "Cancel order succesfully");
-                    request.getRequestDispatcher("orderDetail?id=" + orderID + "").forward(request, response);
-                } else {
-                    throw new Exception();
+                    row1 = odDAO.updateOrderStatus(orderID, 4);
+                    if (row1 >= 1) {
+                        session.setAttribute("notification", "Cancel order succesfully");
+                        request.getRequestDispatcher("orderDetail?id=" + orderID + "").forward(request, response);
+                    } else {
+                        throw new Exception();
+                    }
                 }
             } else if (request.getParameter("save") != null) {
                 OrderDAO odDAO = new OrderDAO();
-                int row;
                 String note = request.getParameter("note");
                 row = odDAO.updateNote(orderID, note);
                 if (row >= 1) {

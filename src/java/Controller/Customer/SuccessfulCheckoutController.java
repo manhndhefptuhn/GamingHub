@@ -4,12 +4,16 @@
  */
 package Controller.Customer;
 
+import DAL.OrderDetailDAO;
+import Model.OrderDetail;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  *
@@ -29,15 +33,31 @@ public class SuccessfulCheckoutController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
         String paymentMethod = request.getParameter("payment");
+        int orderID = Integer.parseInt(request.getParameter("orderID"));
+        int orderTotalCost = 0;
+        OrderDetailDAO ordtDAO = new OrderDetailDAO();
+        ArrayList<OrderDetail> listOrderDetail = ordtDAO.getDetailAllOrder(orderID);
+        Map<Integer, String> listProductName = ordtDAO.getOrderProductNameByProductID(listOrderDetail);
         if (paymentMethod.equalsIgnoreCase("COD")) {
-            session.setAttribute("successNoti", "Order succesfully. Please check your order history");
-            request.getRequestDispatcher("home").forward(request, response);
+            request.setAttribute("orderID", orderID);
+            request.setAttribute("listOrderDetail", listOrderDetail);
+            request.setAttribute("listProductName", listProductName);
+            for (OrderDetail orderDetail : listOrderDetail) {
+                orderTotalCost += orderDetail.getTotalCost();
+            }
+            request.setAttribute("orderTotalCost", orderTotalCost);
+            request.getRequestDispatcher("cartCompletion.jsp").forward(request, response);
         }
         if (paymentMethod.equalsIgnoreCase("VNPay")) {
-            session.setAttribute("successNoti", "Successfully order by VNPAY. Please check your order history.");
-            request.getRequestDispatcher("home").forward(request, response);
+            request.setAttribute("orderID", orderID);
+            request.setAttribute("listOrderDetail", listOrderDetail);
+            request.setAttribute("listProductName", listProductName);
+            for (OrderDetail orderDetail : listOrderDetail) {
+                orderTotalCost += orderDetail.getTotalCost();
+            }
+            request.setAttribute("orderTotalCost", orderTotalCost);
+            request.getRequestDispatcher("cartCompletion.jsp").forward(request, response);
         }
     }
 

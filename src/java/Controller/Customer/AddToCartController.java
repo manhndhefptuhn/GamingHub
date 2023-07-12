@@ -38,66 +38,71 @@ public class AddToCartController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        try{
-        CartDAO cartDAO = new CartDAO();
-        ProductDAO pDAO = new ProductDAO();
+        try {
+            CartDAO cartDAO = new CartDAO();
+            ProductDAO pDAO = new ProductDAO();
 
-        int productID = Integer.parseInt(request.getParameter("productID"));
-        User u = (User) session.getAttribute("user");
-        Product p = pDAO.getProductByID(productID);
-        if (u != null && u.getRole_ID() == 1) {
-            Cart cart = cartDAO.getCart(u.getUser_ID(), productID);
-            int row, totalCartProduct, originalPrice, salePrice, totalCost, quantity, price;
-            if (cart == null) {
-                if (p.getProductStatusID() == 0 || p.getProductStatusID() == 1) {
-                    originalPrice = pDAO.getOriginalPriceByID(productID);
-                    totalCost = originalPrice * 1;
-                    row = cartDAO.addToCart(u.getUser_ID(), productID, originalPrice, 1, totalCost);
-                    if (row >= 1) {
-                        session.setAttribute("notification", "Add to cart successfully");
-                        totalCartProduct = cartDAO.getTotalCartProduct(u.getUser_ID());
-                        session.setAttribute("totalCartProduct", totalCartProduct);
-                        response.sendRedirect(extractPath(request.getHeader("Referer")));
+            int productID = Integer.parseInt(request.getParameter("productID"));
+            User u = (User) session.getAttribute("user");
+            Product p = pDAO.getProductByID(productID);
+            if (p.getQuantity() != 0) {
+                if (u != null && u.getRole_ID() == 1) {
+                    Cart cart = cartDAO.getCart(u.getUser_ID(), productID);
+                    int row, totalCartProduct, originalPrice, salePrice, totalCost, quantity, price;
+                    if (cart == null) {
+                        if (p.getProductStatusID() == 0 || p.getProductStatusID() == 1) {
+                            originalPrice = pDAO.getOriginalPriceByID(productID);
+                            totalCost = originalPrice * 1;
+                            row = cartDAO.addToCart(u.getUser_ID(), productID, originalPrice, 1, totalCost);
+                            if (row >= 1) {
+                                session.setAttribute("notification", "Add to cart successfully");
+                                totalCartProduct = cartDAO.getTotalCartProduct(u.getUser_ID());
+                                session.setAttribute("totalCartProduct", totalCartProduct);
+                                response.sendRedirect(extractPath(request.getHeader("Referer")));
+                            } else {
+                                throw new Exception();
+                            }
+                        } else if (p.getProductStatusID() == 2) {
+                            salePrice = pDAO.getSalePriceByID(productID);
+                            totalCost = salePrice * 1;
+                            row = cartDAO.addToCart(u.getUser_ID(), productID, salePrice, 1, totalCost);
+                            if (row >= 1) {
+                                session.setAttribute("notification", "Add to cart successfully");
+                                totalCartProduct = cartDAO.getTotalCartProduct(u.getUser_ID());
+                                session.setAttribute("totalCartProduct", totalCartProduct);
+                                response.sendRedirect(extractPath(request.getHeader("Referer")));
+                            } else {
+                                throw new Exception();
+                            }
+                        }
                     } else {
-                        throw new Exception();
+                        price = cart.getProductPrice();
+                        quantity = cartDAO.getQuantityOfProduct(u.getUser_ID(), productID);
+                        totalCost = (price * (quantity + 1));
+                        if (quantity >= p.getQuantity()) {
+                            session.setAttribute("wrongNotification", "Cannot add more. Product's quantity reached maximum");
+                            response.sendRedirect(extractPath(request.getHeader("Referer")));
+                        } else {
+                            row = cartDAO.updateCartIfExist(price, quantity + 1, totalCost, u.getUser_ID(), productID);
+                            if (row >= 1) {
+                                session.setAttribute("notification", "There is a product in cart, updating the quantity in cart");
+                                totalCartProduct = cartDAO.getTotalCartProduct(u.getUser_ID());
+                                session.setAttribute("totalCartProduct", totalCartProduct);
+                                response.sendRedirect(extractPath(request.getHeader("Referer")));
+                            } else {
+                                throw new Exception();
+                            }
+                        }
                     }
-                } else if (p.getProductStatusID() == 2) {
-                    salePrice = pDAO.getSalePriceByID(productID);
-                    totalCost = salePrice * 1;
-                    row = cartDAO.addToCart(u.getUser_ID(), productID, salePrice, 1, totalCost);
-                    if (row >= 1) {
-                        session.setAttribute("notification", "Add to cart successfully");
-                        totalCartProduct = cartDAO.getTotalCartProduct(u.getUser_ID());
-                        session.setAttribute("totalCartProduct", totalCartProduct);
-                        response.sendRedirect(extractPath(request.getHeader("Referer")));
-                    } else {
-                        throw new Exception();
-                    }
+                } else {
+                    session.setAttribute("wrongNotification", "You must login as customer or register to buy this product");
+                    response.sendRedirect(extractPath(request.getHeader("Referer")));
                 }
             } else {
-                price = cart.getProductPrice();
-                quantity = cartDAO.getQuantityOfProduct(u.getUser_ID(), productID);
-                totalCost = (price * (quantity + 1));
-                if (quantity >= p.getQuantity()) {
-                    session.setAttribute("wrongNotification", "Cannot add more. Product's quantity reached maximum");
-                    response.sendRedirect(extractPath(request.getHeader("Referer")));
-                } else {
-                    row = cartDAO.updateCartIfExist(price, quantity + 1, totalCost, u.getUser_ID(), productID);
-                    if (row >= 1) {
-                        session.setAttribute("notification", "There is a product in cart, updating the quantity in cart");
-                        totalCartProduct = cartDAO.getTotalCartProduct(u.getUser_ID());
-                        session.setAttribute("totalCartProduct", totalCartProduct);
-                        response.sendRedirect(extractPath(request.getHeader("Referer")));
-                    } else {
-                        throw new Exception();
-                    }
-                }
+                session.setAttribute("wrongNotification", "Product is out of stock");
+                response.sendRedirect(extractPath(request.getHeader("Referer")));
             }
-        } else {
-            session.setAttribute("wrongNotification", "You must login as customer or register to buy this product");
-            response.sendRedirect(extractPath(request.getHeader("Referer")));
-        }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             session.setAttribute("wrongNotification", "An error occurred. Please try again.");
             response.sendRedirect(extractPath(request.getHeader("Referer")));
