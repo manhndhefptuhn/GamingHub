@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%-- 
     Document   : home
     Created on : 26-05-2023, 12:00:19
@@ -119,10 +120,11 @@
                                             </c:forEach>
                                         </div>
                                         <c:if test="${listFourGamingPC.getProductStatusID() == 0 || listFourGamingPC.getProductStatusID() == 1}">
-                                            <div class="product__price">$ ${listGamingProductPrice[productID]}</div>
-                                        </c:if>
-                                        <c:if test="${listFourGamingPC.getProductStatusID() == 2}">
-                                            <div class="product__price">$ ${listGamingProductSalePrice[productID]} <span>$ ${listGamingProductPrice[productID]}</span></div>
+                                            <div class="product__price">
+                                                <fmt:formatNumber pattern="#,##0" value="${listGamingProductPrice[productID]}"/> VNÐ</div>
+                                            </c:if>
+                                            <c:if test="${listFourGamingPC.getProductStatusID() == 2}">
+                                            <div class="product__price"><fmt:formatNumber pattern="#,##0" value="${listGamingProductSalePrice[productID]}"/> VNÐ  <span><fmt:formatNumber pattern="#,##0" value="${listGamingProductPrice[productID]}"/> VNÐ</span></div>
                                         </c:if>
                                     </div>
                                 </div>
@@ -190,14 +192,11 @@
                                                     </c:choose>
                                                 </c:forEach>
                                             </div>
-                                            <c:if test="${listFourWorkPC.getProductStatusID() == 0}">
-                                                <div class="product__price">$ ${listWorkProductPrice[productID]}</div>
-                                            </c:if>
-                                            <c:if test="${listFourWorkPC.getProductStatusID() == 1}">
-                                                <div class="product__price">$ ${listWorkProductPrice[productID]}</div>
+                                            <c:if test="${listFourWorkPC.getProductStatusID() == 0 || listFourWorkPC.getProductStatusID() == 1}">
+                                                <div class="product__price"><fmt:formatNumber pattern="#,##0" value="${listWorkProductPrice[productID]}"/> VNÐ</div>
                                             </c:if>
                                             <c:if test="${listFourWorkPC.getProductStatusID() == 2}">
-                                                <div class="product__price">$ ${listWorkProductSalePrice[productID]} <span>$ ${listWorkProductPrice[productID]}</span></div>
+                                                <div class="product__price"><fmt:formatNumber pattern="#,##0" value="${listWorkProductSalePrice[productID]}"/> VNÐ <span><fmt:formatNumber pattern="#,##0" value="${listWorkProductPrice[productID]}"/> VNÐ</span></div>
                                             </c:if>
                                         </div>
                                     </div>
@@ -267,10 +266,10 @@
                                                         </c:forEach>
                                                     </div>
                                                     <c:if test="${listFourMiniPC.getProductStatusID() == 0 || listFourMiniPC.getProductStatusID() == 1}">
-                                                        <div class="product__price">$ ${listMiniProductPrice[productID]}</div>
+                                                        <div class="product__price"><fmt:formatNumber pattern="#,##0" value="${listMiniProductPrice[productID]}"/> VNÐ</div>
                                                     </c:if>
                                                     <c:if test="${listFourMiniPC.getProductStatusID() == 2}">
-                                                        <div class="product__price">$ ${listMiniProductSalePrice[productID]} <span>$ ${listMiniProductPrice[productID]}</span></div>
+                                                        <div class="product__price"><fmt:formatNumber pattern="#,##0" value="${listMiniProductSalePrice[productID]}"/> VNÐ <span><fmt:formatNumber pattern="#,##0" value="${listMiniProductPrice[productID]}"/> VNÐ</span></div>
                                                     </c:if>
                                                 </div>
                                             </div>

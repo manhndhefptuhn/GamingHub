@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%-- 
     Document   : wishlist
     Created on : 22-06-2023, 16:19:17
@@ -97,10 +99,10 @@
                                                     </td>
                                                     <td></td>
                                                     <c:if test="${listWishlistProductStatus[productID] == 0 || listWishlistProductStatus[productID] == 1}">
-                                                        <td class="cart__total">$ ${listWishlistProductPrice[productID]}</td>
+                                                        <td class="cart__total"><fmt:formatNumber pattern="#,##0" value="${listWishlistProductPrice[productID]}"/> VNÐ</td>
                                                     </c:if>
                                                     <c:if test="${listWishlistProductStatus[productID] == 2 }">
-                                                        <td class="cart__total">$ ${listWishlistSalePrice[productID]}</td>
+                                                        <td class="cart__total"><fmt:formatNumber pattern="#,##0" value="${listWishlistSalePrice[productID]}"/> VNÐ</td>
                                                     </c:if>
                                                     <td class="cart__close"><a href="removeWishlist?productID=${productID}"><span class="icon_close"></span></a></td>
                                                     <td class="cart__close"><a href="addToCart?productID=${productID}"><span class="icon_bag_alt"></span></a></td>

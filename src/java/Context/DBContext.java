@@ -21,4 +21,3 @@ public class DBContext {
     private final String userID = "sa";
     private final String password = "123456";
 }
-    

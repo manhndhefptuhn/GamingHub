@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%-- 
     Document   : cart
     Created on : 26-06-2023, 17:52:00
@@ -6,8 +8,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="zxx">
-
+<html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -101,7 +102,7 @@
                                                                 </div>
                                                             </a>
                                                         </td>
-                                                        <td class="cart__price">$ ${listCart.getProductPrice()}</td>
+                                                        <td class="cart__price"><fmt:formatNumber pattern="#,##0" value="${listCart.getProductPrice()}"/> VNÐ</td>
                                                         <td class="cart__quantity">
                                                             <input type="hidden" id="max-quantity-${productID}" value="${listProductQuantity[productID]}">
                                                             <input type="hidden" name="productPrice" value="${listCart.getProductPrice()}">
@@ -110,7 +111,7 @@
                                                                 <input type="number" name="quantity" value="${listCart.getQuantity()}" min="1" max="${listProductQuantity[productID]}" data-product-id="${productID}">
                                                             </div>
                                                         </td>
-                                                        <td class="cart__total">$ ${listCart.getTotalCost()}</td>
+                                                        <td class="cart__total"><fmt:formatNumber pattern="#,##0" value="${listCart.getTotalCost()}"/> VNÐ</td>
                                                         <td class="cart__close"><a href="removeCart?productID=${productID}"><span class="icon_close"></span></a></td>
                                                     </tr>
                                                 </c:forEach>  
@@ -144,7 +145,7 @@
                                             <div class="cart__total__procced">
                                                 <h6>Cart total</h6>
                                                 <ul>
-                                                    <li>Total <span>$ ${totalCost}</span></li>
+                                                    <li>Total <span><fmt:formatNumber pattern="#,##0" value="${totalCost}"/> VNÐ</span></li>
                                                 </ul>
                                                 <a href="cartContact" class="primary-btn">Proceed to checkout</a>
                                             </div>

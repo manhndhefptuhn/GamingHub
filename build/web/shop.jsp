@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%-- 
     Document   : shop
     Created on : 06-06-2023, 05:08:42
@@ -101,114 +103,108 @@
                                 <c:set var="caseID" value="${listCaseID[productID]}" />
                                 <c:set var="caseObject" value="${listImage[caseID]}" />
                                 <div class="col-lg-4 col-md-6">
-                                    <c:if test="${listProduct.getProductStatusID() == 0}">
+                                    <c:if test="${listProduct.getProductStatusID() == 0 || listProduct.getProductStatusID() == 1}">
                                         <div class="product__item">
                                         </c:if>
-                                        <c:if test="${listProduct.getProductStatusID() == 1}">
-                                            <div class="product__item">
+                                        <c:if test="${listProduct.getProductStatusID() == 2}">
+                                            <div class="product__item sale">
                                             </c:if>
-                                            <c:if test="${listProduct.getProductStatusID() == 2}">
-                                                <div class="product__item sale">
-                                                </c:if>
-                                                <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath()%>/${caseObject.getImage()}">
-                                                    <c:choose>
-                                                        <c:when test="${listProduct.getQuantity() == 0}">
-                                                            <div class="label stockout stockblue">Out Of Stock</div>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <c:if test="${listProduct.getProductStatusID() == 1}">
-                                                                <div class="label new">New</div>
-                                                            </c:if>
-                                                            <c:if test="${listProduct.getProductStatusID() == 2}">
-                                                                <div class="label sale">Sale</div>
-                                                            </c:if>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <ul class="product__hover">
-                                                        <li><a href="productDetail?productID=${listProduct.getProductID()}"><span class="arrow_expand"></span></a></li>
-                                                                <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                                            <li><a href="addToWishlist?productID=${listProduct.getProductID()}"><span class="icon_heart_alt"></span></a></li>
-                                                                    <c:if test="${listProduct.getQuantity() != 0}">
-                                                                <li><a href="addToCart?productID=${listProduct.getProductID()}"><span class="icon_bag_alt"></span></a></li>
-                                                                    </c:if>
-                                                                </c:if>
-                                                    </ul>
-                                                </div>
-                                                <div class="product__item__text">
-                                                    <h6>${listProduct.getProductName()}</h6>
-                                                    <div class="rating">
-                                                        <c:set var="rating" value="${listFeedback[productID]}" />
-                                                        <c:forEach var="counter" begin="1" end="5">
-                                                            <c:choose>
-                                                                <c:when test="${counter <= rating}">
-                                                                    <i class="fa fa-star"></i>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </c:forEach>
-                                                    </div>
-                                                    <c:if test="${listProduct.getProductStatusID() == 0}">
-                                                        <div class="product__price">$ ${listOriginalPrice[productID]}</div>
-                                                    </c:if>
-                                                    <c:if test="${listProduct.getProductStatusID() == 1}">
-                                                        <div class="product__price">$ ${listOriginalPrice[productID]}</div>
-                                                    </c:if>
-                                                    <c:if test="${listProduct.getProductStatusID() == 2}">
-                                                        <div class="product__price">$ ${listSalePrice[productID]} <span>$ ${listOriginalPrice[productID]}</span></div>
-                                                    </c:if>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
-                                    <div class="col-lg-12 text-center">
-                                        <div class="pagination__option">
-                                            <c:set var="startPage" value="${currentPage - 1 > 0 ? currentPage - 1 : 1}" />
-                                            <c:set var="endPage" value="${currentPage + 2 <= totalPages ? currentPage + 2 : totalPages}" />
-
-                                            <c:if test="${totalPages > 3}">
-                                                <c:if test="${currentPage > 1}">
-                                                    <a href="?page=${currentPage - 1}&categoryID=${param.categoryID}&cpuName=${param.cpuName}&productStatus=${param.productStatus}"><i class="fa fa-angle-left"></i></a>
-                                                    </c:if>
-                                                </c:if>
-                                                <c:forEach var="page" begin="${startPage}" end="${endPage}">
-                                                    <c:choose>
-                                                        <c:when test="${page == currentPage}">
-                                                        <a class="active" href="?page=${page}&categoryID=${param.categoryID}&cpuName=${param.cpuName}&productStatus=${param.productStatus}">${page}</a>
+                                            <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath()%>/${caseObject.getImage()}">
+                                                <c:choose>
+                                                    <c:when test="${listProduct.getQuantity() == 0}">
+                                                        <div class="label stockout stockblue">Out Of Stock</div>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <a href="?page=${page}&categoryID=${param.categoryID}&cpuName=${param.cpuName}&productStatus=${param.productStatus}">${page}</a>
+                                                        <c:if test="${listProduct.getProductStatusID() == 1}">
+                                                            <div class="label new">New</div>
+                                                        </c:if>
+                                                        <c:if test="${listProduct.getProductStatusID() == 2}">
+                                                            <div class="label sale">Sale</div>
+                                                        </c:if>
                                                     </c:otherwise>
                                                 </c:choose>
-                                            </c:forEach>
-                                            <c:if test="${totalPages > 3}">
-                                                <c:if test="${currentPage < totalPages}">
-                                                    <a href="?page=${currentPage + 1}&categoryID=${param.categoryID}&cpuName=${param.cpuName}&productStatus=${param.productStatus}"><i class="fa fa-angle-right"></i></a>
-                                                    </c:if>
+                                                <ul class="product__hover">
+                                                    <li><a href="productDetail?productID=${listProduct.getProductID()}"><span class="arrow_expand"></span></a></li>
+                                                            <c:if test="${sessionScope.user.getRole_ID() == 1}">
+                                                        <li><a href="addToWishlist?productID=${listProduct.getProductID()}"><span class="icon_heart_alt"></span></a></li>
+                                                                <c:if test="${listProduct.getQuantity() != 0}">
+                                                            <li><a href="addToCart?productID=${listProduct.getProductID()}"><span class="icon_bag_alt"></span></a></li>
+                                                                </c:if>
+                                                            </c:if>
+                                                </ul>
+                                            </div>
+                                            <div class="product__item__text">
+                                                <h6>${listProduct.getProductName()}</h6>
+                                                <div class="rating">
+                                                    <c:set var="rating" value="${listFeedback[productID]}" />
+                                                    <c:forEach var="counter" begin="1" end="5">
+                                                        <c:choose>
+                                                            <c:when test="${counter <= rating}">
+                                                                <i class="fa fa-star"></i>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <i class="fa fa-star-o"></i>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:forEach>
+                                                </div>
+                                                <c:if test="${listProduct.getProductStatusID() == 0 || listProduct.getProductStatusID() == 1}">
+                                                    <div class="product__price"><fmt:formatNumber pattern="#,##0" value="${listOriginalPrice[productID]}"/> VNÐ</div>
                                                 </c:if>
+                                                <c:if test="${listProduct.getProductStatusID() == 2}">
+                                                    <div class="product__price"><fmt:formatNumber pattern="#,##0" value="${listSalePrice[productID]}"/> VNÐ <span><fmt:formatNumber pattern="#,##0" value="${listOriginalPrice[productID]}"/> VNÐ</span></div>
+                                                </c:if>
+                                            </div>
                                         </div>
+                                    </div>
+                                </c:forEach>
+                                <div class="col-lg-12 text-center">
+                                    <div class="pagination__option">
+                                        <c:set var="startPage" value="${currentPage - 1 > 0 ? currentPage - 1 : 1}" />
+                                        <c:set var="endPage" value="${currentPage + 2 <= totalPages ? currentPage + 2 : totalPages}" />
+
+                                        <c:if test="${totalPages > 3}">
+                                            <c:if test="${currentPage > 1}">
+                                                <a href="?page=${currentPage - 1}&categoryID=${param.categoryID}&cpuName=${param.cpuName}&productStatus=${param.productStatus}"><i class="fa fa-angle-left"></i></a>
+                                                </c:if>
+                                            </c:if>
+                                            <c:forEach var="page" begin="${startPage}" end="${endPage}">
+                                                <c:choose>
+                                                    <c:when test="${page == currentPage}">
+                                                    <a class="active" href="?page=${page}&categoryID=${param.categoryID}&cpuName=${param.cpuName}&productStatus=${param.productStatus}">${page}</a>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="?page=${page}&categoryID=${param.categoryID}&cpuName=${param.cpuName}&productStatus=${param.productStatus}">${page}</a>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                        <c:if test="${totalPages > 3}">
+                                            <c:if test="${currentPage < totalPages}">
+                                                <a href="?page=${currentPage + 1}&categoryID=${param.categoryID}&cpuName=${param.cpuName}&productStatus=${param.productStatus}"><i class="fa fa-angle-right"></i></a>
+                                                </c:if>
+                                            </c:if>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </section>
-                    <!-- Shop Section End -->
+                </div>
+        </section>
+        <!-- Shop Section End -->
 
-                    <%@include file="footer.jsp" %>
+        <%@include file="footer.jsp" %>
 
-                    <!-- Js Plugins -->
-                    <script src="<%= request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/bootstrap.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/jquery.magnific-popup.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/jquery-ui.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/mixitup.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/jquery.countdown.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/jquery.slicknav.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/owl.carousel.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/jquery.nicescroll.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/main.js"></script>
-                    </body>
+        <!-- Js Plugins -->
+        <script src="<%= request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/bootstrap.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery.magnific-popup.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery-ui.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/mixitup.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery.countdown.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery.slicknav.js"></script>
+        <script src="<%= request.getContextPath()%>/js/owl.carousel.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery.nicescroll.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/main.js"></script>
+    </body>
 
-                    </html>
+</html>
