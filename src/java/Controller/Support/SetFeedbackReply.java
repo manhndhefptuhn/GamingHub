@@ -5,7 +5,7 @@
 
 package Controller.Support;
 
-import DAL.FeedbackReplyDAO;
+import DAL.FeedbackResponseDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -49,7 +49,7 @@ public class SetFeedbackReply extends HttpServlet {
         int userId = Integer.parseInt(request.getParameter("userId"));
         
         PrintWriter out = response.getWriter();
-        FeedbackReplyDAO fbrDAO = new FeedbackReplyDAO();
+        FeedbackResponseDAO fbrDAO = new FeedbackResponseDAO();
         
         fbrDAO.SetResponse(feedbackId, userId, reply);
 
@@ -63,7 +63,7 @@ public class SetFeedbackReply extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h3>Response successfully</h3>");
-            out.println("<a href =\"GetFeedbackList\">Back to list</a>");
+            out.println("<a href =\"feedbackList\">Back to list</a>");
             out.println("</body>");
             out.println("</html>");
         

@@ -136,7 +136,7 @@
                                                         <li><a href="SaleDashboard.jsp">Sale Dashboard</a></li>
                                                         </c:if>
                                                         <c:if test="${sessionScope.user.getRole_ID() == 3}">
-                                                        <li><a href="SupportDashboard.jsp">Support Dashboard</a></li>
+                                                        <li><a href="SupportDashboard">Support Dashboard</a></li>
                                                         </c:if>
                                                         <c:if test="${sessionScope.user.getRole_ID() == 4}">
                                                         <li><a href="AdminDashboard.jsp">Admin Dashboard</a></li>

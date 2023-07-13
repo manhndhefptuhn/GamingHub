@@ -11,7 +11,7 @@ package DAL;
 
 import Context.DBContext;
 import Model.Feedback;
-import Model.FeedbackDashboard;
+//import Model.FeedbackDashboard;
 import Model.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -166,37 +166,37 @@ public class FeedbackDAO {
     }
     
     
-//    public ArrayList<Feedback> getFeedbackByStatus0() {
-//        ArrayList<Feedback> listFeedback = new ArrayList<>();
-//        try {
-//            DBContext db = new DBContext();
-//            Connection con = db.getConnection();
-//            if (con != null) {
-//                Statement st = con.createStatement();
-//                String sql = "select * from `feedback` where status = 0;";
-//                ResultSet rs = st.executeQuery(sql);
-//                while (rs.next()) {
-//                    Feedback f = new Feedback();
-//                    f.setFeedbackId(rs.getInt(1));
-//                    f.setUserId(rs.getInt(2));
-//                    f.setProductId(rs.getInt(3));
-//                    f.setCreateDate(rs.getDate(4));
-//                    f.setContent(rs.getString(5));
-//                    f.setImage(rs.getString(6));
-//                    f.setRating(rs.getDouble(7));
-//                    f.setStatus(rs.getBoolean(8));
-//                    listFeedback.add(f);
-//                }
-//                rs.close();
-//                st.close();
-//                con.close();
-//            }
-//
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return listFeedback;
-//    }
+    public ArrayList<Feedback> getFeedbackByStatus0() {
+        ArrayList<Feedback> listFeedback = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "select * from `feedback` where status = 0;";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    Feedback f = new Feedback();
+                    f.setFeedbackId(rs.getInt(1));
+                    f.setUserId(rs.getInt(2));
+                    f.setProductId(rs.getInt(3));
+                    f.setCreateDate(rs.getDate(4));
+                    f.setContent(rs.getString(5));
+                    f.setImage(rs.getString(6));
+                    f.setRating(rs.getDouble(7));
+                    f.setStatus(rs.getBoolean(8));
+                    listFeedback.add(f);
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return listFeedback;
+    }
 //    
 //    
 //    
@@ -299,54 +299,55 @@ public class FeedbackDAO {
     }
     
     //for dashboard info
-    public ArrayList<FeedbackDashboard> getFeedbackDashboardInfo() {
-        ArrayList<FeedbackDashboard> listFeedback = new ArrayList<>();
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                Statement st = con.createStatement();
-                FeedbackDashboard f = new FeedbackDashboard();
-                String sql = "select count(Feedback_ID) from `feedback`;";               
-                String sql2 = "select count(status) from `feedback` where status =0;";               
-                String sql3 = "select count(User_ID) from `user` where Role_ID =1;";              
-                String sql4 = "select avg(Rating) from `feedback`;";
-                
-                
-                ResultSet rs = st.executeQuery(sql);
-                rs.next();
-                f.setTotalFeedback(rs.getInt(1));
-                
-                rs = st.executeQuery(sql2);
-                rs.next();
-                f.setNotResolve(rs.getInt(1));
-                
-                rs = st.executeQuery(sql3);
-                rs.next();
-                f.setTotalCustomer(rs.getInt(1));
-                
-                rs = st.executeQuery(sql4);
-                rs.next();
-                f.setAverageRating(Math.round(rs.getDouble(1)*100.0)/100.0);
-                
-                
-                        
-                
-                listFeedback.add(f);
-                   
-                    
-                rs.close();
-                st.close();
-                con.close();
-
-
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return listFeedback;
-    }
+//    public ArrayList<FeedbackDashboard> getFeedbackDashboardInfo() {
+//        ArrayList<FeedbackDashboard> listFeedback = new ArrayList<>();
+//        try {
+//            DBContext db = new DBContext();
+//            Connection con = db.getConnection();
+//            if (con != null) {
+//                Statement st = con.createStatement();
+//                FeedbackDashboard f = new FeedbackDashboard();
+//                String sql = "select count(Feedback_ID) from `feedback`;";               
+//                String sql2 = "select count(status) from `feedback` where status =0;";               
+//                String sql3 = "select count(User_ID) from `user` where Role_ID =1;";              
+//                String sql4 = "select avg(Rating) from `feedback`;";
+//                
+//                
+//                ResultSet rs = st.executeQuery(sql);
+//                rs.next();
+//                f.setTotalFeedback(rs.getInt(1));
+//                
+//                rs = st.executeQuery(sql2);
+//                rs.next();
+//                f.setNotResolve(rs.getInt(1));
+//                
+//                rs = st.executeQuery(sql3);
+//                rs.next();
+//                f.setTotalCustomer(rs.getInt(1));
+//                
+//                rs = st.executeQuery(sql4);
+//                rs.next();
+//                f.setAverageRating(Math.round(rs.getDouble(1)*100.0)/100.0);
+//                
+//                
+//                        
+//                
+//                listFeedback.add(f);
+//                   
+//                    
+//                rs.close();
+//                st.close();
+//                con.close();
+//
+//
+//            }
+//
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return listFeedback;
+//    }
+    
     public Map<Integer, String> getUserNameByID(ArrayList<Feedback> listFeedback) {
         Map<Integer, String> listUserName = new HashMap<>();
         DBContext db = new DBContext();
@@ -374,6 +375,31 @@ public class FeedbackDAO {
             System.out.println(e.getMessage());
         }
         return listUserName;
+    }
+    
+    public int createFeedback(int userID, int productID, String content, String image, double rating) {
+        int row = 0;
+        String sql = "INSERT INTO feedback \n"
+                + "values (?,?,?,?,?,?,?,'1')";
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setNull(1, Types.INTEGER);
+            st.setInt(2, userID);
+            st.setInt(3, productID);
+            st.setDate(4, new java.sql.Date(System.currentTimeMillis()));
+            st.setString(5, content);
+            st.setString(6, image);
+            st.setDouble(7, rating);
+            row = st.executeUpdate();
+            st.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            row = -1;
+        }
+        return row;
     }
     
     public Map<Integer, String> getProductNameByID(ArrayList<Feedback> listFeedback) {
@@ -453,28 +479,133 @@ public class FeedbackDAO {
         return row;
     }
     
-    public int createFeedback(int userID, int productID, String content, String image, double rating) {
-        int row = 0;
-        String sql = "INSERT INTO `feedback` \n"
-                + "values (?,?,?,?,?,?,?,'1')";
+    public Double AvgRating(){
+        Double avg;
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
-            PreparedStatement st = con.prepareStatement(sql);
-            st.setNull(1, Types.INTEGER);
-            st.setInt(2, userID);
-            st.setInt(3, productID);
-            st.setDate(4, new java.sql.Date(System.currentTimeMillis()));
-            st.setString(5, content);
-            st.setString(6, image);
-            st.setDouble(7, rating);
-            row = st.executeUpdate();
-            st.close();
-            con.close();
-        } catch (Exception e) {
+            if (con != null) {
+                Statement st = con.createStatement();
+                
+                String sql = "select avg(Rating) from `feedback`;";
+                ResultSet rs = st.executeQuery(sql);
+                rs.next();
+                avg = Math.round(rs.getDouble(1)*100.0)/100.0;
+                
+                rs.close();
+                st.close();
+                con.close();  
+                return avg;  
+            }
+        }    
+        catch (Exception e) {
             System.out.println(e.getMessage());
-            row = -1;
-        }
-        return row;
+        }   
+        return null;       
     }
+    
+    
+    public int[] getDashboardFb(){
+        int[] fb = new int[3];
+        int count= 0;
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                
+                String sql = "select count(Feedback_ID) from feedback where Create_Date > now() - interval 3 month group by date_format(Create_Date, '%b');";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()){
+                
+                    fb[count] = rs.getInt(1);
+                    count++;
+                }
+                
+                
+                rs.close();
+                st.close();
+                con.close();  
+                return fb;  
+            }
+        }    
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }   
+        return null;
+    }
+    
+    
+    public int[] getDashboardRes(){
+        int[] res = new int[3];
+        int count= 0;
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                
+                String sql = "select count(Response_ID) from feedback_response where Response_date > now() - interval 3 month group by date_format(Response_date, '%b');";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()){
+                
+                    res[count] = rs.getInt(1);
+                    count++;
+                }
+                
+                
+                rs.close();
+                st.close();
+                con.close();  
+                return res;  
+            }
+        }    
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }   
+        return null;
+    }
+    
+    
+    
+    public String[] getDashboardMonth(){
+        String[] month = new String[3];
+        int count= 0;
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                
+                String sql = "select date_format(Create_Date, '%b') from feedback where Create_Date > now() - interval 3 month group by date_format(Create_Date, '%b');";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()){
+                
+                    month[count] = rs.getString(1);
+                    count++;
+                }
+                
+                
+                rs.close();
+                st.close();
+                con.close();  
+                return month;  
+            }
+        }    
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

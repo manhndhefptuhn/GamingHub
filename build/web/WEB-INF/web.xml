@@ -101,8 +101,12 @@
         <servlet-class>Controller.Support.GetFeedbackList</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetSupportDashBoardInfo</servlet-name>
-        <servlet-class>Controller.GetSupportDashBoardInfo</servlet-class>
+        <servlet-name>ResponseListController</servlet-name>
+        <servlet-class>Controller.Support.ResponseListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetSupportDashboardInfo</servlet-name>
+        <servlet-class>Controller.GetSupportDashboardInfo</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SetFeedbackReply</servlet-name>
@@ -246,7 +250,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetSupportDashBoardInfo</servlet-name>
-        <url-pattern>/GetSupportDashBoardInfo</url-pattern>
+        <url-pattern>/SupportDashboard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerListController</servlet-name>
@@ -407,6 +411,10 @@
     <servlet-mapping>
         <servlet-name>VerifyPaymentController</servlet-name>
         <url-pattern>/verifyPayment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResponseListController</servlet-name>
+        <url-pattern>/responseList</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

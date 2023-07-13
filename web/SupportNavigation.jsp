@@ -4,11 +4,13 @@
     Author     : Zarius
 --%>
 
+
+<!--side navigation for support screen-->
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="#">Gaming Hub</a>
+            <a class="navbar-brand ps-3" href="home">Gaming Hub</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -33,10 +35,11 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Head</div>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="SupportDashboard">
                                 <div class="sb-nav-link-icon"><i class="fa fa-pie-chart"></i></div>
                                 Support Dashboard
                             </a>
+                            
                             <div class="sb-sidenav-menu-heading">Management</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fa fa-user"></i></div>
@@ -46,10 +49,20 @@
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="feedbackList">Feedback List</a>
+                                    <a class="nav-link" href="responseList">Response List</a>
                                 </nav>
                             </div>
+                            
+                            <div class="sb-sidenav-menu-heading">FAQs</div>       
+                            <div aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="faqsList">FAQs List</a>
+                                </nav>
+                            </div>
+                            
                         </div>
                     </div>  
+                    
                     <div class="sb-sidenav-footer">
                         <c:if test="${sessionScope.user != null}">
                             <div class="small">Logged in as: ${sessionScope.user.getFullName()}</div>

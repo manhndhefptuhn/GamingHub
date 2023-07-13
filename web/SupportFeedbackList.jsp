@@ -70,7 +70,7 @@
                                                         </c:forEach>
                                                     </td>
                                                     <td>${feedbackList.getStatus() ? 'Active' : 'Deactive'}</td>
-                                                    <td><a href="feedbackDetail?id=<c:out value="${slider.getSliderID()}" />">View</a> |
+                                                    <td><a href="feedbackDetail?id=<c:out value="${feedbackList.getFeedbackId()}" />">View</a> |
                                                         <c:choose>
                                                             <c:when test="${feedbackList.getStatus() == true}">
                                                                 <a href="falseFeedback?id=<c:out value="${feedbackList.getFeedbackId()}" />">Deactive</a>

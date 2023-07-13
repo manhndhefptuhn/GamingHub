@@ -7,8 +7,11 @@ package DAL;
 import Context.DBContext;
 import Model.FeedbackResponse;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,4 +47,128 @@ public class FeedbackResponseDAO {
         }
         return listResponse;
     }
+    
+    public ArrayList<FeedbackResponse> getFeedbackRespones() {
+        ArrayList<FeedbackResponse> list = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "select * from `feedback_response`;";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    FeedbackResponse f = new FeedbackResponse();
+                    f.setResponseID(rs.getInt(1));
+                    f.setFeedbackID(rs.getInt(2));
+                    f.setUserID(rs.getInt(3));
+                    f.setResponseDate(rs.getString(4));
+                    f.setResponseContent(rs.getString(5));
+
+                    list.add(f);
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+    
+     public void SetResponse(int feedbackId, int userId, String content) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String sql = "INSERT INTO `feedback_response` (`Feedback_ID`, `User_ID`, `Response_date`,`Response_content`) VALUES (?,?,?,?)";
+        String sql2 = "update `feedback` set Status = 1 where Feedback_ID = " +feedbackId+ ";";
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            
+ 
+            //feedback
+            st.setInt(1, feedbackId);
+            //user
+            st.setInt(2, userId);
+            //date
+            st.setTimestamp(3, timestamp);
+            //content
+            st.setString(4, content);
+            st.executeUpdate();
+            
+            st = con.prepareStatement(sql2);
+            st.executeUpdate();
+            
+                    
+                       
+            
+            st.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+
+        
+    }
+     
+             //detele response (run successfully)
+        public void deleteFeedbackReply(int feedbackResId){
+            try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                int rowsAffected = st.executeUpdate("delete from `feedback_response` where `Response_ID` = "+feedbackResId+";");
+            
+                if (rowsAffected > 0) {
+                    System.out.println("Row deleted successfully.");
+                } else {
+                    System.out.println("No rows were deleted.");
+                }
+                
+                st.close();
+                con.close();
+            }
+
+            } catch (Exception e) {
+            System.out.println(e.getMessage());
+            }
+
+        }
+        
+        
+            //return response with response id
+    public ArrayList<FeedbackResponse> getFeedbackReplyWithId(String feedbackId) {
+        ArrayList<FeedbackResponse> list = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "SELECT * FROM `feedback_response` WHERE Feedback_ID = "+feedbackId+";";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    FeedbackResponse f = new FeedbackResponse();
+                    f.setResponseID(rs.getInt(1));
+                    f.setFeedbackID(rs.getInt(2));
+                    f.setUserID(rs.getInt(3));
+                    f.setResponseDate(rs.getString(4));
+                    f.setResponseContent(rs.getString(5));
+
+                    list.add(f);
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+    
 }
