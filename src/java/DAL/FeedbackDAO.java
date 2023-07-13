@@ -8,7 +8,6 @@ package DAL;
  *
  * @author admin
  */
-
 import Context.DBContext;
 import Model.Feedback;
 //import Model.FeedbackDashboard;
@@ -22,8 +21,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class FeedbackDAO {
+
     public ArrayList<Feedback> getProductFeedback(int productID) {
         ArrayList<Feedback> listFeedback = new ArrayList<>();
         try {
@@ -97,7 +96,7 @@ public class FeedbackDAO {
                 ResultSet rs = st.executeQuery();
                 if (rs.next()) {
                     rating = rs.getDouble("average_rating");
-                    return (int)rating;
+                    return (int) rating;
                 }
                 rs.close();
                 st.close();
@@ -108,7 +107,7 @@ public class FeedbackDAO {
         }
         return null;
     }
-    
+
     public Integer getTotalFeedback(int productID) {
         DBContext db = new DBContext();
         int totalFeedback;
@@ -132,7 +131,7 @@ public class FeedbackDAO {
         }
         return null;
     }
-    
+
     public ArrayList<Feedback> getFeedback() {
         ArrayList<Feedback> listFeedback = new ArrayList<>();
         try {
@@ -164,28 +163,22 @@ public class FeedbackDAO {
         }
         return listFeedback;
     }
-    
-    
-    public ArrayList<Feedback> getFeedbackByStatus0() {
-        ArrayList<Feedback> listFeedback = new ArrayList<>();
+
+    public Integer getNotResponseFeedback() {
+        int notAnsweredFeedback;
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "select * from `feedback` where status = 0;";
+                String sql = "SELECT COUNT(*) AS notAnsweredFeedback\n"
+                        + "FROM `feedback`\n"
+                        + "LEFT JOIN `feedback_response` ON feedback.feedback_ID = feedback_response.feedback_ID\n"
+                        + "WHERE feedback_response.feedback_ID IS NULL OR feedback_response.feedback_ID = '';";
                 ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    Feedback f = new Feedback();
-                    f.setFeedbackId(rs.getInt(1));
-                    f.setUserId(rs.getInt(2));
-                    f.setProductId(rs.getInt(3));
-                    f.setCreateDate(rs.getDate(4));
-                    f.setContent(rs.getString(5));
-                    f.setImage(rs.getString(6));
-                    f.setRating(rs.getDouble(7));
-                    f.setStatus(rs.getBoolean(8));
-                    listFeedback.add(f);
+                if (rs.next()) {
+                    notAnsweredFeedback = rs.getInt("notAnsweredFeedback");
+                    return notAnsweredFeedback;
                 }
                 rs.close();
                 st.close();
@@ -195,7 +188,7 @@ public class FeedbackDAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return listFeedback;
+        return null;
     }
 //    
 //    
@@ -231,7 +224,7 @@ public class FeedbackDAO {
 //        }
 //        return listFeedback;
 //    }
-    
+
     //get details for feedback onclick with id
     public Feedback getFeedbackDetails(String feedbackId) {
         try {
@@ -239,7 +232,7 @@ public class FeedbackDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "select * from `feedback` where `Feedback_ID` =" +feedbackId+";";
+                String sql = "select * from `feedback` where `Feedback_ID` =" + feedbackId + ";";
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
                     Feedback f = new Feedback();
@@ -251,7 +244,7 @@ public class FeedbackDAO {
                     f.setImage(rs.getString(6));
                     f.setRating(rs.getDouble(7));
                     f.setStatus(rs.getBoolean(8));
-                    
+
                     return f;
                 }
                 rs.close();
@@ -273,7 +266,7 @@ public class FeedbackDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "select * from `feedback` where `Feedback_ID` = " +feedbackId+ ";";
+                String sql = "select * from `feedback` where `Feedback_ID` = " + feedbackId + ";";
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
                     Feedback f = new Feedback();
@@ -297,7 +290,7 @@ public class FeedbackDAO {
         }
         return listFeedback;
     }
-    
+
     //for dashboard info
 //    public ArrayList<FeedbackDashboard> getFeedbackDashboardInfo() {
 //        ArrayList<FeedbackDashboard> listFeedback = new ArrayList<>();
@@ -347,7 +340,6 @@ public class FeedbackDAO {
 //        }
 //        return listFeedback;
 //    }
-    
     public Map<Integer, String> getUserNameByID(ArrayList<Feedback> listFeedback) {
         Map<Integer, String> listUserName = new HashMap<>();
         DBContext db = new DBContext();
@@ -376,7 +368,7 @@ public class FeedbackDAO {
         }
         return listUserName;
     }
-    
+
     public int createFeedback(int userID, int productID, String content, String image, double rating) {
         int row = 0;
         String sql = "INSERT INTO feedback \n"
@@ -401,7 +393,7 @@ public class FeedbackDAO {
         }
         return row;
     }
-    
+
     public Map<Integer, String> getProductNameByID(ArrayList<Feedback> listFeedback) {
         Map<Integer, String> listProductName = new HashMap<>();
         DBContext db = new DBContext();
@@ -430,7 +422,7 @@ public class FeedbackDAO {
         }
         return listProductName;
     }
-    
+
     public Map<Integer, Integer> getStarByFeedbackID(ArrayList<Feedback> listFeedback) {
         Map<Integer, Integer> listStar = new HashMap<>();
         DBContext db = new DBContext();
@@ -459,7 +451,7 @@ public class FeedbackDAO {
         }
         return listStar;
     }
-    
+
     public int updateStatusFeedback(int id, int i) {
         int row = 0;
         try {
@@ -478,134 +470,113 @@ public class FeedbackDAO {
         }
         return row;
     }
-    
-    public Double AvgRating(){
+
+    public Double AvgRating() {
         Double avg;
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                
+
                 String sql = "select avg(Rating) from `feedback`;";
                 ResultSet rs = st.executeQuery(sql);
                 rs.next();
-                avg = Math.round(rs.getDouble(1)*100.0)/100.0;
-                
+                avg = Math.round(rs.getDouble(1) * 100.0) / 100.0;
+
                 rs.close();
                 st.close();
-                con.close();  
-                return avg;  
+                con.close();
+                return avg;
             }
-        }    
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }   
-        return null;       
-    }
-    
-    
-    public int[] getDashboardFb(){
-        int[] fb = new int[3];
-        int count= 0;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                Statement st = con.createStatement();
-                
-                String sql = "select count(Feedback_ID) from feedback where Create_Date > now() - interval 3 month group by date_format(Create_Date, '%b');";
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()){
-                
-                    fb[count] = rs.getInt(1);
-                    count++;
-                }
-                
-                
-                rs.close();
-                st.close();
-                con.close();  
-                return fb;  
-            }
-        }    
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }   
-        return null;
-    }
-    
-    
-    public int[] getDashboardRes(){
-        int[] res = new int[3];
-        int count= 0;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                Statement st = con.createStatement();
-                
-                String sql = "select count(Response_ID) from feedback_response where Response_date > now() - interval 3 month group by date_format(Response_date, '%b');";
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()){
-                
-                    res[count] = rs.getInt(1);
-                    count++;
-                }
-                
-                
-                rs.close();
-                st.close();
-                con.close();  
-                return res;  
-            }
-        }    
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }   
-        return null;
-    }
-    
-    
-    
-    public String[] getDashboardMonth(){
-        String[] month = new String[3];
-        int count= 0;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                Statement st = con.createStatement();
-                
-                String sql = "select date_format(Create_Date, '%b') from feedback where Create_Date > now() - interval 3 month group by date_format(Create_Date, '%b');";
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()){
-                
-                    month[count] = rs.getString(1);
-                    count++;
-                }
-                
-                
-                rs.close();
-                st.close();
-                con.close();  
-                return month;  
-            }
-        }    
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+    public int[] getDashboardFb() {
+        int[] fb = new int[3];
+        int count = 0;
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+
+                String sql = "select count(Feedback_ID) from feedback where Create_Date > now() - interval 3 month group by date_format(Create_Date, '%b');";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+
+                    fb[count] = rs.getInt(1);
+                    count++;
+                }
+
+                rs.close();
+                st.close();
+                con.close();
+                return fb;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public int[] getDashboardRes() {
+        int[] res = new int[3];
+        int count = 0;
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+
+                String sql = "select count(Response_ID) from feedback_response where Response_date > now() - interval 3 month group by date_format(Response_date, '%b');";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+
+                    res[count] = rs.getInt(1);
+                    count++;
+                }
+
+                rs.close();
+                st.close();
+                con.close();
+                return res;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public String[] getDashboardMonth() {
+        String[] month = new String[3];
+        int count = 0;
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+
+                String sql = "select date_format(Create_Date, '%b') from feedback where Create_Date > now() - interval 3 month group by date_format(Create_Date, '%b');";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+
+                    month[count] = rs.getString(1);
+                    count++;
+                }
+
+                rs.close();
+                st.close();
+                con.close();
+                return month;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
 }
