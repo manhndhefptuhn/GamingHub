@@ -28,7 +28,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -85,7 +84,6 @@ public class CheckoutController extends HttpServlet {
         } else {
             vnp_Params.put("vnp_Locale", "vn");
         }
-
         String requestURL = request.getRequestURL().toString();
         String returnUrl = requestURL.substring(0, requestURL.indexOf(request.getContextPath())) + request.getContextPath() + "/verifyPayment";
         vnp_Params.put("vnp_ReturnUrl", returnUrl);
