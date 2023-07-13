@@ -87,10 +87,7 @@ public class CheckoutController extends HttpServlet {
         }
 
         String requestURL = request.getRequestURL().toString();
-        String contextPath = request.getContextPath();
-        String hostURL = requestURL.substring(0, requestURL.indexOf(contextPath));
-        String returnUrl = hostURL + contextPath + "/verifyPayment";
-//        String returnUrl = "https://www.gamingcenterclub.site/verifyPayment";
+        String returnUrl = requestURL.substring(0, requestURL.indexOf(request.getContextPath())) + request.getContextPath() + "/verifyPayment";
         vnp_Params.put("vnp_ReturnUrl", returnUrl);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 

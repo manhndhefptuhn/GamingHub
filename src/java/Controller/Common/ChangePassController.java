@@ -114,6 +114,7 @@ public class ChangePassController extends HttpServlet {
                 //if already login and change password in profile
             } else if (u != null) {
                 User currentUser = uDAO.getUser(u.getUser_ID(), oldPassLogin);
+                System.out.println(currentUser);
                 //check if the old password is correct
                 if (currentUser == null) {
                     request.setAttribute("notification", "The old password is wrong");
