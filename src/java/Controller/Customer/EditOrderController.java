@@ -61,6 +61,8 @@ public class EditOrderController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
         int orderID = Integer.parseInt(request.getParameter("orderID"));
         HttpSession session = request.getSession();
         int row, row1;

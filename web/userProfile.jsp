@@ -114,8 +114,9 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="phone">Phone</label>
-                                            <input type="text" class="form-control" name="phone" id="phone" pattern="[0-9]{10}" placeholder="Enter phone number" value="${sessionScope.user.getPhone_Number()}" required>
+                                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter phone number" value="${sessionScope.user.getPhone_Number()}" required>
                                         </div>
+                                        <strong id="phone-notification" style="display: none; color: red;"></strong>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
@@ -133,9 +134,9 @@
                                 <div class="row gutters">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="text-center"">
-                                                <input type="submit" id="update" name="update" value="Update" class="btn btn-primary">
-                                                <input type="submit" id="changepass" name="changePass" value="Change Password" class="btn btn-primary">
-                                                <input type="submit" id="backtohome" name="backToHome" value="Back to Homepage" class="btn btn-dark">
+                                            <input type="submit" id="update" name="update" value="Update" class="btn btn-primary">
+                                            <input type="submit" id="changepass" name="changePass" value="Change Password" class="btn btn-primary">
+                                            <input type="submit" id="backtohome" name="backToHome" value="Back to Homepage" class="btn btn-dark">
                                         </div>
                                     </div>
                                 </div>
@@ -165,6 +166,20 @@
 
             const fileInput = document.getElementById("input-img");
             fileInput.addEventListener("change", handleFileSelect);
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('form').submit(function (event) {
+                    const phoneNumber = $('#phone').val();
+                    if (phoneNumber.length !== 10) {
+                        event.preventDefault();
+                        $('#phone-notification').text('Please enter a 10-digit phone number').show();
+                    } else {
+                        $('#phone-notification').hide();
+                    }
+                });
+            });
         </script>
     </body>
 

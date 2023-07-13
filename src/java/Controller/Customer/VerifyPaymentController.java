@@ -35,6 +35,7 @@ public class VerifyPaymentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String vnpTxnRef = request.getParameter("vnp_TxnRef");
         String vnpBankTranNo = request.getParameter("vnp_BankTranNo");
         String vnpTransactionNo = request.getParameter("vnp_TransactionNo");

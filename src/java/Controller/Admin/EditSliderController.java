@@ -35,6 +35,7 @@ public class EditSliderController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
         if (request.getParameter("back") != null) {
             request.getRequestDispatcher("sliderList").forward(request, response);
         } else if (request.getParameter("update") != null) {
@@ -88,10 +89,10 @@ public class EditSliderController extends HttpServlet {
                 int rowsAffected = sDAO.editSliderInfo(updatedSlider);
                 if (rowsAffected > 0) {
                     request.setAttribute("notification", "Update Slider Successsfully");
-                    request.getRequestDispatcher("sliderList").forward(request, response);
+                    request.getRequestDispatcher("sliderDetail?id="+sliderID+"").forward(request, response);
                 } else {
                     request.setAttribute("notification", "Something wrong, please try again");
-                    request.getRequestDispatcher("sliderList").forward(request, response);
+                    request.getRequestDispatcher("sliderDetail?id="+sliderID+"").forward(request, response);
                 }
             }
         }

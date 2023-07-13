@@ -61,6 +61,8 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
         try {
             if (request.getParameter("agree-term") == null) {
                 request.setAttribute("notification", "You must accept to terms and conditions");

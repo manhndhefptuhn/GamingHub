@@ -25,7 +25,11 @@
                     <h1 class="mt-4">User List</h1>
                     <div class="card mb-4">
                         <div class="card-body">
-
+                            <c:if test="${notification != null}">
+                                <div>
+                                    <strong style="color: red;">${notification}</strong>
+                                </div>
+                            </c:if>
                             <c:choose>
                                 <c:when test="${not empty userList}">
                                     <table id="datatablesSimple">
@@ -61,8 +65,17 @@
                                                         </c:choose>
                                                     </td>
                                                     <td>
-                                                        <a href="userDetail?id=${user.getUser_ID()}">View |</a>
-                                                        <a href="editUserController?id=${user.getUser_ID()}">Deactive</a>
+                                                        <a href="userDetail?id=${user.getUser_ID()}">View</a>
+                                                        <c:if test="${roleID != 4}">
+                                                            <c:choose>
+                                                                <c:when test="${(user.isStatus() == true)}">
+                                                                    <a href="falseUser?id=<c:out value="${user.getUser_ID()}" />">| Deactive</a>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <a href="trueUser?id=<c:out value="${user.getUser_ID()}" />">| Active</a>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:if>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

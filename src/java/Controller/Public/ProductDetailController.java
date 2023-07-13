@@ -57,6 +57,7 @@ public class ProductDetailController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
         try{
         int productID = Integer.parseInt(request.getParameter("productID"));
         ProductDAO pDAO = new ProductDAO();

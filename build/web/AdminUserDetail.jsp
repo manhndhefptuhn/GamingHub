@@ -23,6 +23,18 @@
             input{
                 width: 50%;
             }
+            .button-group {
+                display: flex;
+                align-items: center;
+            }
+
+            .button-group input[type="radio"],
+            .button-group label {
+                display: inline-block;
+                vertical-align: middle;
+                width: auto;
+                margin-left: 1em;
+            }
         </style>
     </head>
     <body class="sb-nav-fixed">
@@ -32,9 +44,14 @@
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">User Detail</h1>
                     <div class="card mb-4">
-                        <form method="POST" action="" enctype="multipart/form-data">
+                        <form method="POST" action="editUserController" enctype="multipart/form-data">
                             <c:set var="userDetail" value="${requestScope.userDetail}" />
                             <div class="card-body">
+                                <c:if test="${notification != null}">
+                                    <div>
+                                        <strong style="color: red;">${notification}</strong>
+                                    </div>
+                                </c:if>
                                 <input type="hidden" name="userID" value="${userDetail.getUser_ID()}" />
                                 <table id="datatablesSimple">
                                     <tbody>
@@ -57,7 +74,9 @@
                                         </tr>
                                         <tr>
                                             <th>Phone Number</th>
-                                            <td><input type="text" id="phone" name="phone" placeholder="Enter phone number" value="${userDetail.getPhone_Number()}"/><br></td>
+                                            <td><input type="text" id="phone" name="phone" placeholder="Enter phone number" value="${userDetail.getPhone_Number()}"/><br>
+                                                <strong id="notification" style="display: none; color: red;"></strong>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Address</th>
@@ -65,7 +84,22 @@
                                         </tr>
                                         <tr>
                                             <th>Status</th>
-                                            <td><input type="text" id="status" name="status" value="${userDetail.isStatus()}"/><br></td>
+                                            <td><div class="button-group">
+                                                    <c:choose>
+                                                        <c:when test="${userDetail.getRole_ID() == 4}">
+                                                            <input type="radio" id="active" name="status" value="true" ${userDetail.isStatus() == true ? 'checked' : ''} required>
+                                                            <label for="active">Active</label>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <input type="radio" id="active" name="status" value="true" ${userDetail.isStatus() == true ? 'checked' : ''} required>
+                                                            <label for="active">Active</label>
+                                                            <input type="radio" id="deactive" name="status" value="false" ${userDetail.isStatus() == false ? 'checked' : ''} required>
+                                                            <label for="deactive">Not Active</label>
+                                                        </c:otherwise>
+                                                    </c:choose>
+
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Role Name</th>
@@ -96,26 +130,39 @@
                 </div>
             </footer>
         </div>
-    </div>
-    <script>
-        function previewProfilePicture(event) {
-            var input = event.target;
-            var preview = document.getElementById('previewImage');
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+                                                    $(document).ready(function () {
+                                                        $('form').submit(function (event) {
+                                                            const phoneNumber = $('#phone').val();
+                                                            if (phoneNumber.length !== 10) {
+                                                                event.preventDefault();
+                                                                $('#notification').text('Please enter a 10-digit phone number').show();
+                                                            } else if(phoneNumber.length === 10){
+                                                                $('#notification').hide();
+                                                            }
+                                                        });
+                                                    });
+        </script>
+        <script>
+            function previewProfilePicture(event) {
+                var input = event.target;
+                var preview = document.getElementById('previewImage');
 
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-                reader.onload = function (e) {
-                    preview.src = e.target.result;
-                };
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                    };
 
-                reader.readAsDataURL(input.files[0]);
+                    reader.readAsDataURL(input.files[0]);
+                }
             }
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="<%= request.getContextPath()%>/js/scripts1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-    <script src="<%= request.getContextPath()%>/js/datatables-simple-demo1.js"></script>
-</body>
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="<%= request.getContextPath()%>/js/scripts1.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="<%= request.getContextPath()%>/js/datatables-simple-demo1.js"></script>
+    </body>
 </html>
