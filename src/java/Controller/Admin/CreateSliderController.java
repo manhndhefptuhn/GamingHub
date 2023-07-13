@@ -63,6 +63,9 @@ public class CreateSliderController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        String imagePath = "", extension = "";
         if (request.getParameter("back") != null) {
             request.getRequestDispatcher("sliderList").forward(request, response);
         } else if (request.getParameter("create") != null) {
@@ -76,7 +79,10 @@ public class CreateSliderController extends HttpServlet {
             if (sliderPicturePart != null) {
                 // Generate a unique image name
                 String originalFilename = sliderPicturePart.getSubmittedFileName();
-                String extension = originalFilename.substring(originalFilename.lastIndexOf('.'));
+                int extensionIndex = originalFilename.lastIndexOf('.');
+                if (extensionIndex >= 0) {
+                    extension = originalFilename.substring(extensionIndex);
+                }
                 String uniqueImageName = System.currentTimeMillis() + extension;
                 ServletContext context = getServletContext();
 
@@ -95,24 +101,24 @@ public class CreateSliderController extends HttpServlet {
                 // Save the uploaded image to the destination path
                 sliderPicturePart.write(destinationFilePath);
 
-                String imagePath = "img/slider/" + uniqueImageName;
-                Slider createSlider = new Slider();
-                createSlider.setSliderTitle(title);
-                createSlider.setSliderImage(imagePath);
-                createSlider.setBacklink(backlink);
-                createSlider.setNote(note);
-                createSlider.setStatus(status);
+                imagePath = "img/slider/" + uniqueImageName;
+            }
+            Slider createSlider = new Slider();
+            createSlider.setSliderTitle(title);
+            createSlider.setSliderImage(imagePath);
+            createSlider.setBacklink(backlink);
+            createSlider.setNote(note);
+            createSlider.setStatus(status);
 
-                SliderDAO sDAO = new SliderDAO();
+            SliderDAO sDAO = new SliderDAO();
 
-                int rowsAffected = sDAO.createSlider(createSlider);
-                if (rowsAffected > 0) {
-                    request.setAttribute("notification", "Create Slider Successsfully");
-                    request.getRequestDispatcher("sliderList").forward(request, response);
-                } else {
-                    request.setAttribute("notification", "Something wrong, please try again");
-                    request.getRequestDispatcher("sliderList").forward(request, response);
-                }
+            int rowsAffected = sDAO.createSlider(createSlider);
+            if (rowsAffected > 0) {
+                request.setAttribute("notification", "Create Slider Successsfully");
+                request.getRequestDispatcher("sliderList").forward(request, response);
+            } else {
+                request.setAttribute("notification", "Something wrong, please try again");
+                request.getRequestDispatcher("sliderList").forward(request, response);
             }
         }
     }

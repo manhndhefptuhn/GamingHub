@@ -7,7 +7,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -23,6 +23,18 @@
             input{
                 width: 50%;
             }
+            .button-group {
+                display: flex;
+                align-items: center;
+            }
+
+            .button-group input[type="radio"],
+            .button-group label {
+                display: inline-block;
+                vertical-align: middle;
+                width: auto;
+                margin-left: 1em;
+            }
         </style>
     </head>
     <body class="sb-nav-fixed">
@@ -34,6 +46,11 @@
                     <div class="card mb-4">
                         <form method="POST" action="editSliderController" enctype="multipart/form-data">
                             <div class="card-body">
+                                <c:if test="${notification != null}">
+                                    <div>
+                                        <strong style="color: red;">${notification}</strong>
+                                    </div>
+                                </c:if>
                                 <input type="hidden" name="sliderId" value="${slider.getSliderID()}" />
                                 <table id="datatablesSimple">
                                     <tbody>
@@ -56,7 +73,13 @@
                                         </tr>
                                         <tr>
                                             <th>Status</th>
-                                            <td><input type="text" id="status" name="status" value="${slider.isStatus()}" /><br></td>
+                                            <td><div class="button-group">
+                                                    <input type="radio" id="active" name="status" value="true" ${slider.isStatus() == true ? 'checked' : ''} required>
+                                                    <label for="active">Active</label>
+                                                    <input type="radio" id="deactive" name="status" value="false" ${slider.isStatus() == false ? 'checked' : ''} required>
+                                                    <label for="deactive">Not Active</label>
+                                                </div>
+                                            </td>
                                         </tr>
                                 </table>
                                 <input type="submit" name="back" value="Back" class="btn-update"/>

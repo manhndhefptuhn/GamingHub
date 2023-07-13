@@ -129,10 +129,6 @@
         <servlet-class>Controller.Admin.EditUserController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UpdateUserController</servlet-name>
-        <servlet-class>Controller.Admin.UpdateUserController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SliderListController</servlet-name>
         <servlet-class>Controller.Admin.SliderListController</servlet-class>
     </servlet>
@@ -207,6 +203,22 @@
     <servlet>
         <servlet-name>VerifyPaymentController</servlet-name>
         <servlet-class>Controller.Customer.VerifyPaymentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateTrueUser</servlet-name>
+        <servlet-class>Controller.Admin.UpdateTrueUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateFalseUser</servlet-name>
+        <servlet-class>Controller.Admin.UpdateFalseUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAddUserController</servlet-name>
+        <servlet-class>Controller.Admin.AdminAddUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateUserController</servlet-name>
+        <servlet-class>Controller.Admin.CreateUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -333,10 +345,6 @@
         <url-pattern>/editUserController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UpdateUserController</servlet-name>
-        <url-pattern>/updateUserController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>SliderListController</servlet-name>
         <url-pattern>/sliderList</url-pattern>
     </servlet-mapping>
@@ -415,6 +423,22 @@
     <servlet-mapping>
         <servlet-name>ResponseListController</servlet-name>
         <url-pattern>/responseList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateTrueUser</servlet-name>
+        <url-pattern>/trueUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateFalseUser</servlet-name>
+        <url-pattern>/falseUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddUserController</servlet-name>
+        <url-pattern>/addUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateUserController</servlet-name>
+        <url-pattern>/createUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

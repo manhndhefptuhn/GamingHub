@@ -112,7 +112,7 @@ public class UserDAO {
         }
         return 0;
     }
-    
+
     public int changePassword(int user_ID, String newPass) {
         int row = 0;
         try {
@@ -132,7 +132,7 @@ public class UserDAO {
         }
         return row;
     }
-    
+
     public User getUser(int userID, String password) {
         try {
             DBContext db = new DBContext();
@@ -164,8 +164,8 @@ public class UserDAO {
         }
         return null;
     }
-    
-    public int updateUserProfile(String fullName, String phone, String address, String avatarFile, int UserID){
+
+    public int updateUserProfile(String fullName, String phone, String address, String avatarFile, int UserID) {
         int row = 0;
         try {
             String sql = "UPDATE `user`\n"
@@ -190,7 +190,7 @@ public class UserDAO {
         }
         return row;
     }
-    
+
     public User getUserByID(int userID) {
         try {
             DBContext db = new DBContext();
@@ -222,7 +222,7 @@ public class UserDAO {
         }
         return null;
     }
-    
+
     public List<User> getAllCustomers() {
         List<User> customers = new ArrayList<>();
         try {
@@ -287,7 +287,7 @@ public class UserDAO {
         }
         return null;
     }
-    
+
     public Map<Integer, User> getUserByUserID() {
         Map<Integer, User> listUser = new HashMap<>();
         DBContext db = new DBContext();
@@ -319,7 +319,7 @@ public class UserDAO {
         }
         return listUser;
     }
-    
+
     public Integer getRandomSaler() {
         try {
             DBContext db = new DBContext();
@@ -341,8 +341,7 @@ public class UserDAO {
         }
         return null;
     }
-    
-    
+
     public ArrayList<User> getAllUser() { // Viet: 30/05/2023
         ArrayList<User> userList = new ArrayList<>();
         try {
@@ -414,7 +413,6 @@ public class UserDAO {
         try {
             String sql = "UPDATE `user` SET "
                     + "`FullName` = ?, "
-                    + "`Email` = ?, "
                     + "`Password` = ?, "
                     + "`Profile_picture` = ?, "
                     + "`Phone_Number` = ?, "
@@ -426,14 +424,13 @@ public class UserDAO {
             Connection con = db.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, user.getFullName());
-            ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPassword());
-            ps.setString(4, user.getProfile_picture());
-            ps.setString(5, user.getPhone_Number());
-            ps.setString(6, user.getAddress());
-            ps.setBoolean(7, user.isStatus());
-            ps.setInt(8, user.getRole_ID());
-            ps.setInt(9, user.getUser_ID());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getProfile_picture());
+            ps.setString(4, user.getPhone_Number());
+            ps.setString(5, user.getAddress());
+            ps.setBoolean(6, user.isStatus());
+            ps.setInt(7, user.getRole_ID());
+            ps.setInt(8, user.getUser_ID());
             row = ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -441,4 +438,50 @@ public class UserDAO {
         }
         return row;
     }
+
+    public int updateStatusUser(int userId, int i) {
+        int row = 0;
+        try {
+            String sql = "UPDATE `user`\n"
+                    + "   SET `status` = ?\n"
+                    + " WHERE `User_ID` = ?";
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, i);
+            st.setInt(2, userId);
+            row = st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            row = -1;
+        }
+        return row;
+    }
+
+    public int createUser(User u) {
+        int row = 0;
+        try {
+            String sql = "INSERT INTO `user` \n"
+                    + "values (?,?,?,?,?,?,?,?,?)";
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setNull(1, Types.INTEGER);
+            st.setString(2, u.getFullName());
+            st.setString(3, u.getEmail());
+            st.setString(4, u.getPassword());
+            st.setString(5, u.getProfile_picture());
+            st.setString(6, u.getPhone_Number());
+            st.setString(7, u.getAddress());
+            st.setBoolean(8, u.isStatus());
+            st.setInt(9, u.getRole_ID());
+            row = st.executeUpdate();
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            row = -1;
+        }
+        return row;
+    }
+
 }

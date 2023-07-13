@@ -6,31 +6,26 @@ package Controller.Admin;
 
 import DAL.UserDAO;
 import Model.User;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
 
 /**
  *
  * @author AN515-57
  */
+@MultipartConfig
 public class EditUserController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=UTF-8");
-        
-        UserDAO uDAO = new UserDAO(); 
-        int userID = Integer.parseInt(request.getParameter("id")); 
-        User user = uDAO.getUserByID(userID); 
-        if (user != null){
-            request.setAttribute("user", user);
-            request.getRequestDispatcher("/EditUser.jsp").forward(request, response);
-        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,7 +54,67 @@ public class EditUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        if (request.getParameter("back") != null) {
+            request.getRequestDispatcher("userList").forward(request, response);
+        } else if (request.getParameter("update") != null) {
+            //attribute
+            int userID = Integer.parseInt(request.getParameter("userID"));
+            String name = request.getParameter("fullName");
+            String password = request.getParameter("password");
+            Part image = request.getPart("profilePicture");
+            String phoneNumber = request.getParameter("phone");
+            String address = request.getParameter("address");
+            boolean status = Boolean.valueOf(request.getParameter("status"));
+            int roleID = Integer.parseInt(request.getParameter("role"));
+            String imagePath = "", extension = "";
+            if (image != null) {
+                // Generate a unique image name
+                String originalFilename = image.getSubmittedFileName();
+                int extensionIndex = originalFilename.lastIndexOf('.');
+                if (extensionIndex >= 0) {
+                    extension = originalFilename.substring(extensionIndex);
+                }
+                String uniqueImageName = System.currentTimeMillis() + extension;
+                ServletContext context = getServletContext();
+
+                // Get the real path to the project folder
+                String projectFolderPath = context.getRealPath("/img");
+                // Specify the directory to save the image
+                String uploadDirectory = projectFolderPath + "/avatar/";
+                File directory = new File(uploadDirectory);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                // Create the destination file path
+                String destinationFilePath = uploadDirectory + uniqueImageName;
+                // Save the uploaded image to the destination path
+                image.write(destinationFilePath);
+
+                imagePath = "img/avatar/" + uniqueImageName;
+            }
+            User u = new User();
+            u.setUser_ID(userID);
+            u.setFullName(name);
+            u.setPassword(password);
+            u.setPhone_Number(phoneNumber);
+            u.setProfile_picture(imagePath);
+            u.setAddress(address);
+            u.setStatus(status);
+            u.setRole_ID(roleID);
+
+            UserDAO uDAO = new UserDAO();
+            int rowsAffected = uDAO.editUserInfo(u);
+            if (rowsAffected > 0) {
+                request.setAttribute("notification", "Update user Successsfully");
+                request.getRequestDispatcher("userDetail?id=" + userID + "").forward(request, response);
+            } else {
+                request.setAttribute("notification", "Something wrong, please try again");
+                request.getRequestDispatcher("userDetail?id=" + userID + "").forward(request, response);
+            }
+        }
     }
 
     /**

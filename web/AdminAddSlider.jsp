@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -21,6 +21,18 @@
             }
             input{
                 width: 50%;
+            }
+            .button-group {
+                display: flex;
+                align-items: center;
+            }
+
+            .button-group input[type="radio"],
+            .button-group label {
+                display: inline-block;
+                vertical-align: middle;
+                width: auto;
+                margin-left: 1em;
             }
         </style>
     </head>
@@ -55,10 +67,12 @@
                                         <tr>
                                             <th>Status</th>
                                             <td>
-                                                <select name="status" id="status">
-                                                    <option value="1">Active</option>
-                                                    <option value="0">Deactive</option>
-                                                </select>
+                                                <div class="button-group">
+                                                    <input type="radio" id="active" name="status" value="true" required>
+                                                    <label for="active">Active</label>
+                                                    <input type="radio" id="dedactive" name="status" value="false" required>
+                                                    <label for="deactive">Not Active</label>
+                                                </div>
                                             </td>
                                         </tr>
                                 </table>

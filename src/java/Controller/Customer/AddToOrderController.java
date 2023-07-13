@@ -64,6 +64,8 @@ public class AddToOrderController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         String fullName = request.getParameter("fullName");
         String phone = request.getParameter("phone");
