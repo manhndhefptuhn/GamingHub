@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%-- 
     Document   : cartContact
     Created on : 01-07-2023, 08:23:33
@@ -6,8 +8,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="zxx">
-
+<html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -96,13 +97,13 @@
                                         <c:forEach var="listCart" items="${listCart}" varStatus="loop">
                                             <li>${loop.index + 1}. 
                                                 <a href="productDetail?productID=${listCart.getProductID()}" style="color: #444444;">${listCartProductName[listCart.getProductID()]} x ${listCart.getQuantity()} </a>
-                                                <span>$ ${listCart.getTotalCost()}</span></li>
+                                                <span><fmt:formatNumber pattern="#,##0" value="${listCart.getTotalCost()}"/> VNÐ</span></li>
                                             </c:forEach>
                                     </ul>
                                 </div>
                                 <div class="checkout__order__total">
                                     <ul>
-                                        <li>Total <span>$ ${totalCost}</span></li>
+                                        <li>Total <span><fmt:formatNumber pattern="#,##0" value="${totalCost}"/> VNÐ</span></li>
                                         <input type="hidden" name="totalCost" value="${totalCost}">
                                     </ul>
                                 </div>

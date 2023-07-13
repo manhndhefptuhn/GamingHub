@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%-- 
     Document   : orderDetail
     Created on : 11-07-2023, 08:37:01
@@ -6,7 +8,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="zxx">
+<html>
 
     <head>
         <meta charset="UTF-8">
@@ -84,9 +86,9 @@
                                                     </div>
                                                 </a>
                                             </td>
-                                            <td class="cart__price">$ ${listOrderDetail.getProductPrice()}</td>
+                                            <td class="cart__price"><fmt:formatNumber pattern="#,##0" value="${listOrderDetail.getProductPrice()}"/> VNÐ</td>
                                             <td class="cart__quantity" style="padding-left: 2em;">${listOrderDetail.getQuantity()}</td>
-                                            <td class="cart__total">$ ${listOrderDetail.getTotalCost()}</td>
+                                            <td class="cart__total"><fmt:formatNumber pattern="#,##0" value="${listOrderDetail.getTotalCost()}"/> VNÐ</td>
                                             <c:if test="${listOrderInfor.getOrderStatus() == 3}">
                                                 <td><a href="feedback?productID=${productID}&orderID=${listOrderInfor.getOrderID()}" style="padding-left: 2em;"><i class="fa fa-comment"></i></a></td>
                                                     </c:if>
@@ -114,7 +116,7 @@
                                         </div>
                                         <div class="checkout__order__total" style="border-bottom: none;">
                                             <ul>
-                                                <li>Total<span>$ ${listOrderInfor.getTotalCost()}</span></li>
+                                                <li>Total<span><fmt:formatNumber pattern="#,##0" value="${listOrderInfor.getTotalCost()}"/> VNÐ</span></li>
                                             </ul>
                                         </div>
                                     </div>

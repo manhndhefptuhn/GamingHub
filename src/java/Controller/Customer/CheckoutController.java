@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -51,7 +52,7 @@ public class CheckoutController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        response.setContentType("text/html;charset=UTF-8");
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
 
@@ -84,19 +85,17 @@ public class CheckoutController extends HttpServlet {
         } else {
             vnp_Params.put("vnp_Locale", "vn");
         }
+
         String requestURL = request.getRequestURL().toString();
-        String returnUrl = requestURL.substring(0, requestURL.indexOf(request.getContextPath())) + request.getContextPath() + "/verifyPayment";
+        String contextPath = request.getContextPath();
+        String hostURL = requestURL.substring(0, requestURL.indexOf(contextPath));
+        String returnUrl = hostURL + contextPath + "/verifyPayment";
+//        String returnUrl = "https://www.gamingcenterclub.site/verifyPayment";
         vnp_Params.put("vnp_ReturnUrl", returnUrl);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
-        Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
-        String vnp_CreateDate = formatter.format(cld.getTime());
-        vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
-
-        cld.add(Calendar.MINUTE, 15);
-        String vnp_ExpireDate = formatter.format(cld.getTime());
-        vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
+        vnp_Params.put("vnp_CreateDate", formatter.format(new Date()));
 
         List fieldNames = new ArrayList(vnp_Params.keySet());
         Collections.sort(fieldNames);

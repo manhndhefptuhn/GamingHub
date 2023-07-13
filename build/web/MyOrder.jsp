@@ -1,13 +1,13 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%-- 
     Document   : MyOrder
     Created on : Jun 20, 2023, 9:14:57 AM
     Author     : User
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="zxx">
-
+<html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -100,7 +100,7 @@
                                                         <tr>
                                                             <td>${listOrder.getOrderID()}</td>
                                                             <td>${listOrder.getOrderDate()}</td>
-                                                            <td>${listOrder.getTotalCost()} VND</td>
+                                                            <td><fmt:formatNumber pattern="#,##0" value="${listOrder.getTotalCost()}"/> VNÐ</td>
                                                             <td>${listOrder.getPayment()}</td>
                                                             <td>${listOrderStatus[orderStatusID]}</td>
                                                             <td>

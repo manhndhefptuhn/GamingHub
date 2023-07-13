@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%-- 
     Document   : productDetail
     Created on : 15-06-2023, 18:00:06
@@ -116,14 +118,11 @@
                                 </c:forEach>
                                 <span>( ${totalFeedback} reviews )</span>
                             </div>
-                            <c:if test="${product.getProductStatusID() == 0}">
-                                <div class="product__details__price">$ ${originalPrice}</div>
-                            </c:if>
-                            <c:if test="${product.getProductStatusID() == 1}">
-                                <div class="product__details__price">$ ${originalPrice}</div>
+                            <c:if test="${product.getProductStatusID() == 0 || product.getProductStatusID() == 1}">
+                                <div class="product__details__price"><fmt:formatNumber pattern="#,##0" value="${originalPrice}"/> VNÐ</div>
                             </c:if>
                             <c:if test="${product.getProductStatusID() == 2}">
-                                <div class="product__details__price">$ ${salePrice} <span>$ ${originalPrice}</span></div>
+                                <div class="product__details__price"><fmt:formatNumber pattern="#,##0" value="${salePrice}"/> VNÐ <span><fmt:formatNumber pattern="#,##0" value="${originalPrice}"/> VNÐ</span></div>
                             </c:if>
                             <p>${product.getDescription()}</p>
                             <div class="product__details__button">
@@ -190,9 +189,6 @@
                                         <c:when test="${empty listFeedback}">
                                             <div class="blog__details__comment">
                                                 <h5>No Comment</h5>
-                                                <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                                    <a href="#" class="leave-btn">Leave a comment</a>
-                                                </c:if>
                                             </div>
                                         </c:when>
                                         <c:otherwise>
@@ -279,85 +275,79 @@
                         <c:set var="caseID" value="${listCaseID[productID]}" />
                         <c:set var="caseObject" value="${listImage[caseID]}" />
                         <div class="col-lg-3 col-md-4 col-sm-6">
-                            <c:if test="${listRelated.getProductStatusID() == 0}">
+                            <c:if test="${listRelated.getProductStatusID() == 0 || listRelated.getProductStatusID() == 1}">
                                 <div class="product__item">
                                 </c:if>
-                                <c:if test="${listRelated.getProductStatusID() == 1}">
-                                    <div class="product__item">
+                                <c:if test="${listRelated.getProductStatusID() == 2}">
+                                    <div class="product__item sale">
                                     </c:if>
-                                    <c:if test="${listRelated.getProductStatusID() == 2}">
-                                        <div class="product__item sale">
-                                        </c:if>
-                                        <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath()%>/${caseObject.getImage()}">
-                                            <c:choose>
-                                                <c:when test="${listRelated.getQuantity() == 0}">
-                                                    <div class="label stockout">out of stock</div>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:if test="${listRelated.getProductStatusID() == 1}">
-                                                        <div class="label new">New</div>
-                                                    </c:if>
-                                                    <c:if test="${listRelated.getProductStatusID() == 2}">
-                                                        <div class="label sale">Sale</div>
-                                                    </c:if>
-                                                </c:otherwise>
-                                            </c:choose>
-                                            <ul class="product__hover">
-                                                <li><a href="productDetail?productID=${listRelated.getProductID()}"><span class="arrow_expand"></span></a></li>
-                                                        <c:if test="${sessionScope.user.getRole_ID() == 1}">
-                                                    <li><a href="addToWishlist?productID=${listRelated.getProductID()}"><span class="icon_heart_alt"></span></a></li>
-                                                            <c:if test="${listRelated.getQuantity() == 0}">
-                                                        <li><a href="addToCart?productID=${listRelated.getProductID()}"><span class="icon_bag_alt"></span></a></li>
-                                                            </c:if>
+                                    <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath()%>/${caseObject.getImage()}">
+                                        <c:choose>
+                                            <c:when test="${listRelated.getQuantity() == 0}">
+                                                <div class="label stockout">out of stock</div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:if test="${listRelated.getProductStatusID() == 1}">
+                                                    <div class="label new">New</div>
+                                                </c:if>
+                                                <c:if test="${listRelated.getProductStatusID() == 2}">
+                                                    <div class="label sale">Sale</div>
+                                                </c:if>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <ul class="product__hover">
+                                            <li><a href="productDetail?productID=${listRelated.getProductID()}"><span class="arrow_expand"></span></a></li>
+                                                    <c:if test="${sessionScope.user.getRole_ID() == 1}">
+                                                <li><a href="addToWishlist?productID=${listRelated.getProductID()}"><span class="icon_heart_alt"></span></a></li>
+                                                        <c:if test="${listRelated.getQuantity() != 0}">
+                                                    <li><a href="addToCart?productID=${listRelated.getProductID()}"><span class="icon_bag_alt"></span></a></li>
                                                         </c:if>
-                                            </ul>
+                                                    </c:if>
+                                        </ul>
+                                    </div>
+                                    <div class="product__item__text">
+                                        <h6>${listRelated.getProductName()}</h6>
+                                        <div class="rating">
+                                            <c:set var="rating" value="${listRelatedFeedback[productID]}" />
+                                            <c:forEach var="counter" begin="1" end="5">
+                                                <c:choose>
+                                                    <c:when test="${counter <= rating}">
+                                                        <i class="fa fa-star"></i>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
                                         </div>
-                                        <div class="product__item__text">
-                                            <h6>${listRelated.getProductName()}</h6>
-                                            <div class="rating">
-                                                <c:set var="rating" value="${listRelatedFeedback[productID]}" />
-                                                <c:forEach var="counter" begin="1" end="5">
-                                                    <c:choose>
-                                                        <c:when test="${counter <= rating}">
-                                                            <i class="fa fa-star"></i>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:forEach>
-                                            </div>
-                                            <c:if test="${listRelated.getProductStatusID() == 0}">
-                                                <div class="product__price">$ ${listRelatedPCPrice[productID]}</div>
-                                            </c:if>
-                                            <c:if test="${listRelated.getProductStatusID() == 1}">
-                                                <div class="product__price">$ ${listRelatedPCPrice[productID]}</div>
-                                            </c:if>
-                                            <c:if test="${listRelated.getProductStatusID() == 2}">
-                                                <div class="product__price">$ ${listSalePrice[productID]} <span>$ ${listRelatedPCPrice[productID]}</span></div>
-                                            </c:if>
-                                        </div>
+                                        <c:if test="${listRelated.getProductStatusID() == 0 || listRelated.getProductStatusID() == 1}">
+                                            <div class="product__price"><fmt:formatNumber pattern="#,##0" value="${listRelatedPCPrice[productID]}"/> VNÐ</div>
+                                        </c:if>
+                                        <c:if test="${listRelated.getProductStatusID() == 2}">
+                                            <div class="product__price"><fmt:formatNumber pattern="#,##0" value="${listSalePrice[productID]}"/> VNÐ <span><fmt:formatNumber pattern="#,##0" value="${listRelatedPCPrice[productID]}"/> VNÐ</span></div>
+                                        </c:if>
                                     </div>
                                 </div>
-                            </c:forEach>
-                        </div>
+                            </div>
+                        </c:forEach>
                     </div>
-                    </section>
-                    <!-- Product Details Section End -->
+                </div>
+        </section>
+        <!-- Product Details Section End -->
 
-                    <%@include file="footer.jsp" %>
+        <%@include file="footer.jsp" %>
 
-                    <!-- Js Plugins -->
-                    <script src="<%= request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/bootstrap.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/jquery.magnific-popup.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/jquery-ui.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/mixitup.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/jquery.countdown.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/jquery.slicknav.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/owl.carousel.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/jquery.nicescroll.min.js"></script>
-                    <script src="<%= request.getContextPath()%>/js/main.js"></script>
-                    </body>
+        <!-- Js Plugins -->
+        <script src="<%= request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/bootstrap.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery.magnific-popup.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery-ui.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/mixitup.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery.countdown.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery.slicknav.js"></script>
+        <script src="<%= request.getContextPath()%>/js/owl.carousel.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/jquery.nicescroll.min.js"></script>
+        <script src="<%= request.getContextPath()%>/js/main.js"></script>
+    </body>
 
-                    </html>
+</html>
