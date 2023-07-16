@@ -73,7 +73,8 @@
                                     </div>
                                 </c:when>
                                 <c:otherwise>
-                                    <form action="updateCart" method="POST">
+                                    <form action="updateCart" method="POST" id="cartForm">
+                                        <input type="hidden" name="action" id="actionInput">
                                         <table>
                                             <thead>
                                                 <tr>
@@ -108,7 +109,9 @@
                                                             <input type="hidden" name="productPrice" value="${listCart.getProductPrice()}">
                                                             <input type="hidden" name="productID" value="${listCart.getProductID()}">
                                                             <div class="pro-qty">
+                                                                <span class="dec qtybtn">-</span>
                                                                 <input type="number" name="quantity" value="${listCart.getQuantity()}" min="1" max="${listProductQuantity[productID]}" data-product-id="${productID}">
+                                                                <span class="inc qtybtn">+</span>
                                                             </div>
                                                         </td>
                                                         <td class="cart__total"><fmt:formatNumber pattern="#,##0" value="${listCart.getTotalCost()}"/> VNÐ</td>
@@ -125,15 +128,15 @@
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6">
                                                 <div class="cart__btn update__btn">
-                                                    <button type="submit" style="font-size: 14px;
+                                                    <button type="button" style="font-size: 14px;
                                                             color: #111111;
                                                             font-weight: 600;
                                                             text-transform: uppercase;
                                                             display: inline-block;
                                                             padding: 14px 30px 12px;
                                                             background: #f5f5f5;
-                                                            border: none;">
-                                                        <span class="icon_loading" style="color: #ca1515;"></span> Update cart
+                                                            border: none;" onclick="removeAllProducts()">
+                                                        <span class="icon_loading" style="color: #ca1515;"></span> Remove all 
                                                     </button>
                                                 </div>
                                             </div>
@@ -161,9 +164,64 @@
         <!-- Shop Cart Section End -->
 
         <%@include file="footer.jsp" %>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.pro-qty').each(function () {
+                    var $qtySelector = $(this).find('input');
+                    var productId = $qtySelector.data('product-id');
+                    var maxQuantity = parseInt($('#max-quantity-' + productId).val());
 
+                    $(this).on('click', '.qtybtn', function () {
+                        var $button = $(this);
+                        var oldValue = parseInt($qtySelector.val());
+
+                        if ($button.hasClass('inc')) {
+                            var newVal = oldValue + 1;
+                            if (newVal > maxQuantity) {
+                                newVal = maxQuantity;
+                            }
+                        } else {
+                            var newVal = oldValue - 1;
+                            if (newVal < 1) {
+                                newVal = 1;
+                            }
+                        }
+
+                        $qtySelector.val(newVal);
+
+                        // Call the updateCart function passing the quantity input element
+                        updateCart($qtySelector);
+                    });
+
+                    $qtySelector.on('change', function () {
+                        var currentValue = parseInt($(this).val());
+                        if (isNaN(currentValue) || currentValue < 1) {
+                            $(this).val(1);
+                        } else if (currentValue > maxQuantity) {
+                            $(this).val(maxQuantity);
+                        }
+
+                        // Call the updateCart function passing the quantity input element
+                        updateCart($qtySelector);
+                    });
+                });
+            });
+            function updateCart(quantityInput) {
+                var form = quantityInput.closest('form');
+                form.submit();
+            }
+            
+            function removeAllProducts() {
+    // Set the value of the hidden input field
+    document.getElementById("actionInput").value = "removeAll";
+
+    // Submit the form
+    document.getElementById("cartForm").submit();
+  }
+        </script>
         <!-- Js Plugins -->
-        <script src="<%= request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
+
         <script src="<%= request.getContextPath()%>/js/bootstrap.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/jquery.magnific-popup.min.js"></script>
         <script src="<%= request.getContextPath()%>/js/jquery-ui.min.js"></script>

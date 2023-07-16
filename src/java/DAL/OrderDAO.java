@@ -9,6 +9,7 @@ import Model.Order;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class OrderDAO {
         }
         return 0;
     }
-    
+
     public ArrayList<Order> getAllOrderByUserID(int userID) {
         ArrayList<Order> listOrder = new ArrayList<>();
         try {
@@ -86,7 +87,7 @@ public class OrderDAO {
         }
         return listOrder;
     }
-    
+
     public Order getOrderInformationByID(int orderID) {
         try {
             DBContext db = new DBContext();
@@ -120,7 +121,7 @@ public class OrderDAO {
         }
         return null;
     }
-    
+
     public int updateNote(int orderID, String note) {
         int row = 0;
         try {
@@ -139,7 +140,7 @@ public class OrderDAO {
         }
         return row;
     }
-    
+
     public int updateOrderStatus(int orderID, int i) {
         int row = 0;
         try {
@@ -158,7 +159,7 @@ public class OrderDAO {
         }
         return row;
     }
-    
+
     public int deleteOrder(int orderID) {
         int row = 0;
         try {
@@ -176,5 +177,48 @@ public class OrderDAO {
             System.out.println(e.getMessage());
         }
         return row;
+    }
+
+    public int getTotalOrderType(String salerId, String start, String end, int orderStatus) {
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "select count(*) from `order` where `Saler_ID` = " + salerId + "  "
+                        + "and `Order_Date` <= ?  and `Order_Date` >= ? and `Order_Status` = ? ";
+                PreparedStatement st = con.prepareStatement(sql);
+                st.setString(1, end);
+                st.setString(2, start);
+                st.setInt(3, orderStatus);
+                ResultSet rs = st.executeQuery();
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+    public int getTotalOrder(String salerId, String start, String end) {
+
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "select count(*) from `order` where `Saler_ID` " + salerId + "  and `Order_Date` <= ?  and `Order_Date` >= ?";
+                PreparedStatement st = con.prepareStatement(sql);
+                st.setString(1, end);
+                st.setString(2, start);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
     }
 }

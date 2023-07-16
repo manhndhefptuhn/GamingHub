@@ -32,6 +32,7 @@ public class SliderListController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
         SliderDAO slDAO = new SliderDAO();
         ArrayList<Slider> sliderList = slDAO.getAllSlider();

@@ -21,3 +21,6 @@ public class DBContext {
     private final String userID = "sa";
     private final String password = "123456";
 }
+//gaminghubdb.cwfmeocu1qyh.us-east-1.rds.amazonaws.com
+//admin
+//gaminghub123

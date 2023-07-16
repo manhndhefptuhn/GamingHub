@@ -29,7 +29,8 @@ public class supportDeleteFeedbackResponse extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         FeedbackResponseDAO fbrDAO = new FeedbackResponseDAO();
         int responseId = Integer.parseInt(request.getParameter("responseId"));
         int feedbackID = Integer.parseInt(request.getParameter("feedbackID"));

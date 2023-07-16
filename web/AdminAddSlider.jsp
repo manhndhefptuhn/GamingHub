@@ -49,12 +49,12 @@
                                     <tbody>
                                         <tr>
                                             <th>Title</th>
-                                            <td><input type="text" id="title" name="title" placeholder="Enter title for slider" /><br></td>
+                                            <td><input type="text" id="title" name="title" placeholder="Enter title for slider" required/><br></td>
                                         </tr>
                                         <tr>
                                             <th>Slider picture</th>
                                             <td><img id="previewImage"  alt="Slider Picture" width="150" height="150">
-                                                <input type="file" id="sliderPicture" name="sliderPicture" accept="image/*" onchange="previewSliderPicture(event)"></td>
+                                                <input type="file" id="sliderPicture" name="sliderPicture" accept="image/*" onchange="previewSliderPicture(event)" required></td>
                                         </tr>
                                         <tr>
                                             <th>Backlink</th>
@@ -76,7 +76,6 @@
                                             </td>
                                         </tr>
                                 </table>
-                                <input type="submit" name="back" value="Back" class="btn-update"/>
                                 <input type="submit" name="create" value="Create" class="btn-update"/>  
                             </div>
                         </form>

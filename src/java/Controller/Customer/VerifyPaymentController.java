@@ -5,6 +5,7 @@
 package Controller.Customer;
 
 import DAL.CartDAO;
+import DAL.OrderDAO;
 import DAL.OrderDetailDAO;
 import Model.Cart;
 import Model.User;
@@ -35,7 +36,8 @@ public class VerifyPaymentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         String vnpTxnRef = request.getParameter("vnp_TxnRef");
         String vnpBankTranNo = request.getParameter("vnp_BankTranNo");
         String vnpTransactionNo = request.getParameter("vnp_TransactionNo");
@@ -56,6 +58,8 @@ public class VerifyPaymentController extends HttpServlet {
             session.setAttribute("totalCartProduct", totalCartProduct);
             response.sendRedirect("successful?payment=" + "VNPay" + "&orderID=" + orderID + "");
         } else {
+            OrderDAO oDAO = new OrderDAO();
+            oDAO.deleteOrder(orderID);
             response.sendRedirect("errorCheckout?orderID=" + orderID + "");
         }
     }

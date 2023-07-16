@@ -33,7 +33,8 @@ public class SuccessfulCheckoutController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         int orderID = Integer.parseInt(request.getParameter("orderID"));
         int orderTotalCost = 0;
         OrderDetailDAO ordtDAO = new OrderDetailDAO();

@@ -36,28 +36,31 @@ public class EditSliderController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
         if (request.getParameter("back") != null) {
             request.getRequestDispatcher("sliderList").forward(request, response);
         } else if (request.getParameter("update") != null) {
+            Slider updatedSlider = new Slider();
+            SliderDAO sDAO = new SliderDAO();
             //attribute
             int sliderID = Integer.parseInt(request.getParameter("sliderId"));
+            Slider slider = sDAO.getSliderById(sliderID);
+            System.out.println(slider.getSliderImage());
             String title = request.getParameter("title");
             Part sliderPicturePart = request.getPart("sliderPicture");
             String backlink = request.getParameter("backlink");
             String note = request.getParameter("note");
             boolean status = Boolean.valueOf(request.getParameter("status"));
-
+            String imagePath = null, extension = "";
             if (sliderPicturePart != null) {
-//                sliderPictureFileName = sliderPicturePart.getSubmittedFileName();
-//                String storagePath = "D:/SWP391_Project_UploadedProfilePicture/"; // Đường dẫn tới thư mục lưu trữ ảnh trên máy chủ
-//                String fullPath = storagePath + sliderPictureFileName;
-//
-//                // Sao chép ảnh mới vào vị trí lưu trữ
-//                sliderPicturePart.write(fullPath);
 
                 // Generate a unique image name
                 String originalFilename = sliderPicturePart.getSubmittedFileName();
-                String extension = originalFilename.substring(originalFilename.lastIndexOf('.'));
+                int extensionIndex = originalFilename.lastIndexOf('.');
+                if (extensionIndex >= 0) {
+                    extension = originalFilename.substring(extensionIndex);
+                }
                 String uniqueImageName = System.currentTimeMillis() + extension;
                 ServletContext context = getServletContext();
 
@@ -76,29 +79,30 @@ public class EditSliderController extends HttpServlet {
                 // Save the uploaded image to the destination path
                 sliderPicturePart.write(destinationFilePath);
 
-                String imagePath = "img/slider/" + uniqueImageName;
-                Slider updatedSlider = new Slider();
-                updatedSlider.setSliderID(sliderID);
-                updatedSlider.setSliderTitle(title);
+                imagePath = "img/slider/" + uniqueImageName;
                 updatedSlider.setSliderImage(imagePath);
-                updatedSlider.setBacklink(backlink);
-                updatedSlider.setNote(note);
-                updatedSlider.setStatus(status);
-                
-                SliderDAO sDAO = new SliderDAO();
-                int rowsAffected = sDAO.editSliderInfo(updatedSlider);
-                if (rowsAffected > 0) {
-                    request.setAttribute("notification", "Update Slider Successsfully");
-                    request.getRequestDispatcher("sliderDetail?id="+sliderID+"").forward(request, response);
-                } else {
-                    request.setAttribute("notification", "Something wrong, please try again");
-                    request.getRequestDispatcher("sliderDetail?id="+sliderID+"").forward(request, response);
-                }
+            } else {
+                imagePath = slider.getSliderImage();
+                updatedSlider.setSliderImage(imagePath);
+            }
+            updatedSlider.setSliderID(sliderID);
+            updatedSlider.setSliderTitle(title);
+            updatedSlider.setBacklink(backlink);
+            updatedSlider.setNote(note);
+            updatedSlider.setStatus(status);
+
+            int rowsAffected = sDAO.editSliderInfo(updatedSlider);
+            if (rowsAffected > 0) {
+                request.setAttribute("notification", "Update Slider Successsfully");
+                request.getRequestDispatcher("sliderDetail?id=" + sliderID + "").forward(request, response);
+            } else {
+                request.setAttribute("notification", "Something wrong, please try again");
+                request.getRequestDispatcher("sliderDetail?id=" + sliderID + "").forward(request, response);
             }
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
