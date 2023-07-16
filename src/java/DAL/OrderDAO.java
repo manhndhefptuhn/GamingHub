@@ -15,6 +15,10 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import Model.Chart;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -406,5 +410,44 @@ public class OrderDAO {
             System.out.println(e.getMessage());
         }
         return OrderStatusID;
+    }
+    
+    public List<Chart> getChartRevenueArea(String salerId, String start, int day) throws Exception {
+        List<Chart> list = new ArrayList<>();
+        for (int i = 0; i < day; i++) {
+            int value = 0;
+            String sql = "SELECT SUM(total_cost) FROM `Order` WHERE saler_id = ? AND Order_Date <= DATE_ADD(?, INTERVAL ? DAY) AND Order_Date >= ?";
+            try {
+                DBContext db = new DBContext();
+                Connection con = db.getConnection();
+                PreparedStatement st = con.prepareStatement(sql);
+                st.setString(1, salerId);
+                st.setString(2, start);
+                st.setInt(3, i);
+                st.setString(4, start);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    value = rs.getInt(1);
+                }
+
+                sql = "SELECT DATE_ADD(?, INTERVAL ? DAY)";
+                st = con.prepareStatement(sql);
+                st.setString(1, start);
+                st.setInt(2, i);
+                rs = st.executeQuery();
+                while (rs.next()) {
+                    Chart.ChartBuilder builder = new Chart().new ChartBuilder();
+                    Chart c = builder
+                            .date(rs.getDate(1))
+                            .value(value)
+                            .build();
+                    list.add(c);
+                }
+
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+        return list;
     }
 }

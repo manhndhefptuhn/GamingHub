@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -41,5 +42,31 @@ public class CategoryDAO {
             System.out.println(e.getMessage());
         }
         return listCategory;
+    }
+    
+    public List<Category> getTotalCategory() {
+        List<Category> categoryList = new ArrayList<>();
+
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "SELECT * FROM category";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    Category category = new Category();
+                    category.setCategoryID(rs.getInt("category_ID"));
+                    category.setCategoryName(rs.getString("category_Name"));
+                    category.setStatus(rs.getBoolean("status"));
+
+                    categoryList.add(category);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return categoryList;
     }
 }

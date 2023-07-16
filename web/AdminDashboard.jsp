@@ -15,81 +15,69 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="<%= request.getContextPath()%>/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        
+        <style>
+/*            .dateFromTo {
+                font-size: 20px;
+                padding: 1%;
+                margin: 0;
+                box-sizing: border-box;
+
+            }
+
+*/            input[type="date"] {
+                font-size: 20px;
+                border-radius: 5px;
+            }
+        </style>
     </head>
     <%@include file="AdminNavigation.jsp" %>
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
                 <h1 class="mt-4">Admin Dashboard</h1>
-                <div class="row">
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-primary text-white mb-4">
-                            <div class="card-body">Primary Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                <div class="container-fluid px-4">
+                    <div class="dateFromTo">
+                        <form action="adminDashboardController">
+                            From: 
+                            <input class="" type="date" id="start" name="start" value="${start}">
+                            To: 
+                            <input type="date" id="end" name="end" value="${end}">
+                            <input class="ml-4 btn btn-danger mb-2" type="submit" value="Show statistic"/>
+
+                        </form>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-chart-area me-1"></i>
+                            Revenue statistic
+                        </div>
+                        <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-pie me-1"></i>
+                                    Product status
+                                </div>
+                                <div class="card-body"><canvas id="myPieChart-2" width="100%" height="62"></canvas></div>
+
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-warning text-white mb-4">
-                            <div class="card-body">Warning Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-success text-white mb-4">
-                            <div class="card-body">Success Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-danger text-white mb-4">
-                            <div class="card-body">Danger Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        <div class="col-lg-6">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-pie me-1"></i>
+                                    Product statistic
+                                </div>
+                                <h4 class="text-center mt-4">Number of product: ${totalProduct}</h4>
+                                <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-chart-area me-1"></i>
-                        Area Chart Example
-                    </div>
-                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
-                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-bar me-1"></i>
-                                Bar Chart Example
-                            </div>
-                            <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
-                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-pie me-1"></i>
-                                Pie Chart Example
-                            </div>
-                            <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
-                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </main>
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid px-4">
@@ -99,14 +87,103 @@
             </div>
         </footer>
     </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="<%= request.getContextPath()%>/js/scripts1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="<%= request.getContextPath()%>/assets/demo/chart-area-demo.js"></script>
-<script src="<%= request.getContextPath()%>/assets/demo/chart-bar-demo.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-<script src="<%= request.getContextPath()%>/js/datatables-simple-demo1.js"></script>
-<script src="<%= request.getContextPath()%>/assets/demo/chart-pie-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<!--    <script src="<%= request.getContextPath()%>/js/scripts1.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<!--    <script src="<%= request.getContextPath()%>/assets/demo/chart-area-demo.js"></script>
+    <script src="<%= request.getContextPath()%>/assets/demo/chart-bar-demo.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+<!--    <script src="<%= request.getContextPath()%>/js/datatables-simple-demo1.js"></script>
+    <script src="<%= request.getContextPath()%>/assets/demo/chart-pie-demo.js"></script>-->
+    <script>
+        // Set new default font family and font color to mimic Bootstrap's default styling
+        Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#292b2c';
+        var ctx = document.getElementById("myPieChart");
+        var myPieChart = new Chart(ctx, {
+        type: 'pie',
+                data: {
+                labels: [<c:forEach  items="${categoryList}" var="category" > "${category.categoryName}",</c:forEach>],
+                        datasets: [{
+                        data: [${numberOfProductFromCategory1}, ${numberOfProductFromCategory2}, ${numberOfProductFromCategory3}],
+                                backgroundColor: ['#ffc107', '#28a745', '#7e3bad', '#d91a53', '#007bff', '#6610f2', '#6f42c1', '#17a2b8',
+                                        '#dc3545', '#fd7e14', '#ffc107', '#28a745', '#007bff', '#6610f2', '#6f42c1', '#17a2b8',
+                                        '#dc3545', '#fd7e14', '#ffc107', '#28a745', '#007bff', '#6610f2', '#6f42c1', '#17a2b8',
+                                        '#dc3545', '#fd7e14'],
+                        }],
+                }
+        });
+        
+        var ctx = document.getElementById("myPieChart-2");
+        var myPieChart = new Chart(ctx, {
+        type: 'pie',
+                data: {
+                labels: [<c:forEach  items="${productStatusList}" var="productStatus" > "${productStatus.productStatusName}",</c:forEach>],
+                        datasets: [{
+                        data: [${numberOfProduct1}, ${numberOfProduct2}, ${numberOfProduct3}],
+                                backgroundColor: ['#ffc107', '#28a745', '#7e3bad', '#d91a53', '#007bff', '#6610f2', '#6f42c1', '#17a2b8',
+                                        '#dc3545', '#fd7e14', '#ffc107', '#28a745', '#007bff', '#6610f2', '#6f42c1', '#17a2b8',
+                                        '#dc3545', '#fd7e14', '#ffc107', '#28a745', '#007bff', '#6610f2', '#6f42c1', '#17a2b8',
+                                        '#dc3545', '#fd7e14'],
+                        }],
+                }
+        });
+    </script>
+
+    <script>
+        Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#292b2c';
+        // Area Chart Example
+        var ctx1 = document.getElementById("myAreaChart");
+        var myLineChart1 = new Chart(ctx1, {
+        type: 'line',
+                data: {
+                labels: [<c:forEach  items="${listChartRevenueArea}" var="revenue" > "${revenue.date}",</c:forEach>],
+                        datasets: [{
+                        label: "Daonh Thu",
+                                lineTension: 0.3,
+                                backgroundColor: "rgba(2,117,216,0.2)",
+                                borderColor: "rgba(2,117,216,1)",
+                                pointRadius: 5,
+                                pointBackgroundColor: "rgba(2,117,216,1)",
+                                pointBorderColor: "rgba(255,255,255,0.8)",
+                                pointHoverRadius: 5,
+                                pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                                pointHitRadius: 50,
+                                pointBorderWidth: 2,
+                                data: [<c:forEach  items="${listChartRevenueArea}" var="revenue" > "${revenue.value}",</c:forEach>],
+                        }],
+                },
+                options: {
+                scales: {
+                xAxes: [{
+                time: {
+                unit: 'date'
+                },
+                        gridLines: {
+                        display: false
+                        },
+                        ticks: {
+                        maxTicksLimit: 7
+                        }
+                }],
+                        yAxes: [{
+                        ticks: {
+                        min: 0,
+                                max: ${maxListChartRevenueArea},
+                                maxTicksLimit: 5
+                        },
+                                gridLines: {
+                                color: "rgba(0, 0, 0, .125)",
+                                }
+                        }],
+                },
+                        legend: {
+                        display: false
+                        }
+                }
+        });
+        
+    </script>
 </body>
 </html>

@@ -139,7 +139,7 @@
                                                         <li><a href="SupportDashboard">Support Dashboard</a></li>
                                                         </c:if>
                                                         <c:if test="${sessionScope.user.getRole_ID() == 4}">
-                                                        <li><a href="AdminDashboard.jsp">Admin Dashboard</a></li>
+                                                        <li><a href="adminDashboardController">Admin Dashboard</a></li>
                                                         </c:if>
                                                     <li><a href="logout">Log out</a></li>
                                                 </ul>

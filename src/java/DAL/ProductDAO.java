@@ -1053,4 +1053,44 @@ public class ProductDAO {
         }
         return VGAID;
     }
+    
+    public int getNumberOfProductByCategoryId(int catetoryId){
+        try{
+            DBContext db = new DBContext(); 
+            Connection con = db.getConnection();
+            
+            if (con != null){
+                Statement st = con.createStatement();
+                String sql = "select count(product_id) from product where category_id = " + catetoryId;
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return 0; 
+    }
+    
+    public int getNumberOfProductByProductStatusId(int productStatusId){
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "select COUNT(*) from Product where Product_Status_ID = " + productStatusId;
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return 0;
+    }
 }
