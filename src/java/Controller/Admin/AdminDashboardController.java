@@ -9,9 +9,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import Model.Product;
-import DAL.ProductDAO; 
+import java.io.PrintWriter;
+
+import Model.*;
+import DAL.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,90 +34,141 @@ public class AdminDashboardController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        ProductDAO pd = new ProductDAO(); 
+
+        ProductDAO pd = new ProductDAO();
+        OrderDAO od = new OrderDAO();
+        DateDAO dd = new DateDAO();
+        // CustomerDAO cd = new CustomerDAO();
+        CategoryDAO cateDAO = new CategoryDAO();
+        ProductStatusDAO psDAO = new ProductStatusDAO(); 
+
+        int totalProduct = pd.getTotalNumberOfProduct();
+
+//        int quantityOfId1 = pd.getQuantityOfProductByProductName(1);
+//        int quantityOfId2 = pd.getQuantityOfProductByProductName(2);
+//        int quantityOfId3 = pd.getQuantityOfProductByProductName(3);
+//        int quantityOfId4 = pd.getQuantityOfProductByProductName(4);
+//        int quantityOfId5 = pd.getQuantityOfProductByProductName(5);
+//
+//        int quantityOfId6 = pd.getQuantityOfProductByProductName(6);
+//        int quantityOfId7 = pd.getQuantityOfProductByProductName(7);
+//        int quantityOfId8 = pd.getQuantityOfProductByProductName(8);
+//        int quantityOfId9 = pd.getQuantityOfProductByProductName(9);
+//        int quantityOfId10 = pd.getQuantityOfProductByProductName(10);
+
+        int numberOfProductFromCategory1 = pd.getNumberOfProductByCategoryId(1);
+        int numberOfProductFromCategory2 = pd.getNumberOfProductByCategoryId(2);
+        int numberOfProductFromCategory3 = pd.getNumberOfProductByCategoryId(3);
         
-        int totalProduct = pd.getTotalNumberOfProduct(); 
-        int quantityOfId1 = pd.getQuantityOfProductByProductName(1);
-        int quantityOfId2 = pd.getQuantityOfProductByProductName(2);
-        int quantityOfId3 = pd.getQuantityOfProductByProductName(3);
-        int quantityOfId4 = pd.getQuantityOfProductByProductName(4);
-        int quantityOfId5 = pd.getQuantityOfProductByProductName(5);
-        
-        int quantityOfId6 = pd.getQuantityOfProductByProductName(6);
-        int quantityOfId7 = pd.getQuantityOfProductByProductName(7);
-        int quantityOfId8 = pd.getQuantityOfProductByProductName(8);
-        int quantityOfId9 = pd.getQuantityOfProductByProductName(9);
-        int quantityOfId10 = pd.getQuantityOfProductByProductName(10);
-        
-//        int quantityOfId11 = pd.getQuantityOfProductByProductName(11);
-//        int quantityOfId12 = pd.getQuantityOfProductByProductName(12);
-//        int quantityOfId13 = pd.getQuantityOfProductByProductName(13);
-//        int quantityOfId14 = pd.getQuantityOfProductByProductName(14);
-//        int quantityOfId15 = pd.getQuantityOfProductByProductName(15);
-//        
-//        int quantityOfId16 = pd.getQuantityOfProductByProductName(16);
-//        int quantityOfId17 = pd.getQuantityOfProductByProductName(17);
-//        int quantityOfId18 = pd.getQuantityOfProductByProductName(18);
-//        int quantityOfId19 = pd.getQuantityOfProductByProductName(19);
-//        int quantityOfId20 = pd.getQuantityOfProductByProductName(20);
-//        
-//        int quantityOfId21 = pd.getQuantityOfProductByProductName(21);
-//        int quantityOfId22 = pd.getQuantityOfProductByProductName(22);
-//        int quantityOfId23 = pd.getQuantityOfProductByProductName(23);
-//        int quantityOfId24 = pd.getQuantityOfProductByProductName(24);
-//        int quantityOfId25 = pd.getQuantityOfProductByProductName(25);
-//        
-//        int quantityOfId26 = pd.getQuantityOfProductByProductName(26);
-//        int quantityOfId27 = pd.getQuantityOfProductByProductName(27);
-//        int quantityOfId28 = pd.getQuantityOfProductByProductName(28);
-//        int quantityOfId29 = pd.getQuantityOfProductByProductName(29);
-//        int quantityOfId30 = pd.getQuantityOfProductByProductName(30);
-        
-        List<Product> productList = pd.getAllProduct(); 
-        
-        request.setAttribute("totalProduct", totalProduct);
-        request.setAttribute("quantityOfId1", quantityOfId1);
-        request.setAttribute("quantityOfId2", quantityOfId2);
-        request.setAttribute("quantityOfId3", quantityOfId3);
-        request.setAttribute("quantityOfId4", quantityOfId4);
-        request.setAttribute("quantityOfId5", quantityOfId5);
-        
-        request.setAttribute("quantityOfId6", quantityOfId6);
-        request.setAttribute("quantityOfId7", quantityOfId7);
-        request.setAttribute("quantityOfId8", quantityOfId8);
-        request.setAttribute("quantityOfId9", quantityOfId9);
-        request.setAttribute("quantityOfId10", quantityOfId10);
-        
-        request.setAttribute("productList", productList);
-        
-//        request.setAttribute("quantityOfId11", quantityOfId11);
-//        request.setAttribute("quantityOfId12", quantityOfId12);
-//        request.setAttribute("quantityOfId13", quantityOfId13);
-//        request.setAttribute("quantityOfId14", quantityOfId14);
-//        request.setAttribute("quantityOfId15", quantityOfId15);
-//        
-//        request.setAttribute("quantityOfId16", quantityOfId16);
-//        request.setAttribute("quantityOfId17", quantityOfId17);
-//        request.setAttribute("quantityOfId18", quantityOfId18);
-//        request.setAttribute("quantityOfId19", quantityOfId19);
-//        request.setAttribute("quantityOfId20", quantityOfId20);
-//        
-//        request.setAttribute("quantityOfId21", quantityOfId21);
-//        request.setAttribute("quantityOfId22", quantityOfId22);
-//        request.setAttribute("quantityOfId23", quantityOfId23);
-//        request.setAttribute("quantityOfId24", quantityOfId24);
-//        request.setAttribute("quantityOfId25", quantityOfId25);
-//        
-//        request.setAttribute("quantityOfId26", quantityOfId26);
-//        request.setAttribute("quantityOfId27", quantityOfId27);
-//        request.setAttribute("quantityOfId28", quantityOfId28);
-//        request.setAttribute("quantityOfId29", quantityOfId29);
-//        request.setAttribute("quantityOfId30", quantityOfId30);
+        int numberOfProduct1 = pd.getNumberOfProductByProductStatusId(0);
+        int numberOfProduct2 = pd.getNumberOfProductByProductStatusId(1);
+        int numberOfProduct3 = pd.getNumberOfProductByProductStatusId(2);
         
 
-        request.getRequestDispatcher("adminDashboard.jsp").forward(request, response);
+        List<Product> productList = pd.getAllProduct1();
+        List<Category> categoryList = cateDAO.getTotalCategory();
+        List<ProductStatus> productStatusList = psDAO.getProductStatus(); 
+
+        Date date = dd.get7day();
+        String salerId = "4";
+        String startDateForRevenue = "2023-07-05";
+        String startDateForCustomer = "2023-07-10";
+        String end = date.getEnd().toString();
+
+        String startDate = "";
+        String endDate = "";
+        String start_raw = request.getParameter("start");
+        String end_raw = request.getParameter("end");
+        if (start_raw != null) {
+            startDate = start_raw;
+            endDate = end_raw;
+        }
+
+        List<Chart> listChartRevenueArea = new ArrayList<>(); 
+        int maxListChartRevenueArea = 0;
+        
+        List<Chart> listChartCustomer = new ArrayList<>();
+        int maxListChartCustomerArea = 0;
+        
+        if (startDate.equals("") && endDate.equals("")) {
+            int day = dd.CountDayByStartEnd(startDateForRevenue, end);
+
+            listChartRevenueArea = od.getChartRevenueArea(salerId, startDateForRevenue, day);
+            
+            for (Chart o : listChartRevenueArea) {
+                if (o.getValue() > maxListChartRevenueArea) {
+                    maxListChartRevenueArea = o.getValue();
+                }
+            }
+            maxListChartRevenueArea = (maxListChartRevenueArea / 1000000 + 1) * 1000000;
+
+            int day1 = dd.CountDayByStartEnd(startDateForCustomer, end);
+            // listChartCustomer = cd.getChartCustomerArea(startDateForCustomer, day1);
+            
+            for (Chart c : listChartCustomer) {
+                if (c.getValue() > maxListChartCustomerArea) {
+                    maxListChartCustomerArea = c.getValue();
+                }
+            }
+            maxListChartCustomerArea = (maxListChartCustomerArea / 10 + 1) * 10;
+        } else if (!startDate.equals("") && !endDate.equals("")){
+            int day = dd.CountDayByStartEnd(startDate, endDate);
+
+            listChartRevenueArea = od.getChartRevenueArea(salerId,startDate, day);
+
+            for (Chart o : listChartRevenueArea) {
+                if (o.getValue() > maxListChartRevenueArea) {
+                    maxListChartRevenueArea = o.getValue();
+                }
+            }
+            maxListChartRevenueArea = (maxListChartRevenueArea / 1000000 + 1) * 1000000;
+
+            int day1 = dd.CountDayByStartEnd(startDate, endDate);
+            // listChartCustomer = cd.getChartCustomerArea(startDate, day1);
+            
+            for (Chart c : listChartCustomer) {
+                if (c.getValue() > maxListChartCustomerArea) {
+                    maxListChartCustomerArea = c.getValue();
+                }
+            }
+            maxListChartCustomerArea = (maxListChartCustomerArea / 10 + 1) * 10;
+        }
+
+        request.setAttribute("listChartRevenueArea", listChartRevenueArea);
+        request.setAttribute("maxListChartRevenueArea", maxListChartRevenueArea);
+
+        request.setAttribute("listChartCustomer", listChartCustomer);
+        request.setAttribute("maxListChartCustomerArea", maxListChartCustomerArea);
+
+        request.setAttribute("numberOfProductFromCategory1", numberOfProductFromCategory1);
+        request.setAttribute("numberOfProductFromCategory2", numberOfProductFromCategory2);
+        request.setAttribute("numberOfProductFromCategory3", numberOfProductFromCategory3);
+
+        request.setAttribute("numberOfProduct1", numberOfProduct1);
+        request.setAttribute("numberOfProduct2", numberOfProduct2);
+        request.setAttribute("numberOfProduct3", numberOfProduct3);
+
+        request.setAttribute("totalProduct", totalProduct);
+
+//        request.setAttribute("quantityOfId1", quantityOfId1);
+//        request.setAttribute("quantityOfId2", quantityOfId2);
+//        request.setAttribute("quantityOfId3", quantityOfId3);
+//        request.setAttribute("quantityOfId4", quantityOfId4);
+//        request.setAttribute("quantityOfId5", quantityOfId5);
+//
+//        request.setAttribute("quantityOfId6", quantityOfId6);
+//        request.setAttribute("quantityOfId7", quantityOfId7);
+//        request.setAttribute("quantityOfId8", quantityOfId8);
+//        request.setAttribute("quantityOfId9", quantityOfId9);
+//        request.setAttribute("quantityOfId10", quantityOfId10);
+
+        request.setAttribute("productList", productList);
+        request.setAttribute("categoryList", categoryList);
+        request.setAttribute("productStatusList", productStatusList);
+
+        request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -127,7 +183,11 @@ public class AdminDashboardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -141,7 +201,11 @@ public class AdminDashboardController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
