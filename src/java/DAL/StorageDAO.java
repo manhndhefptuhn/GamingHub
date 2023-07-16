@@ -7,8 +7,11 @@ package DAL;
 import Context.DBContext;
 import Model.Storage;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -40,5 +43,55 @@ public class StorageDAO {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+    public List<Storage> getAllStorage() {
+        List<Storage> storages = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "SELECT * FROM storage";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Storage s = new Storage();
+                    s.setStorageID(rs.getInt(1));
+                    s.setStorageName(rs.getString(2));
+                    s.setPrice(rs.getInt(3));
+                    s.setStatus(rs.getBoolean(4));
+                    storages.add(s);
+                }
+                rs.close();
+                ps.close();
+                con.close();
+            }
+            return storages;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public int getStorageIDByName(String storageName) {
+        int storageID = -1;
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "SELECT Storage_ID FROM storage WHERE Storage_Name LIKE ?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, "%" + storageName + "%");
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    storageID = rs.getInt(1);
+                }
+                rs.close();
+                ps.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return storageID;
     }
 }

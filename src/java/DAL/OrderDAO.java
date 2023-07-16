@@ -6,6 +6,7 @@ package DAL;
 
 import Context.DBContext;
 import Model.Order;
+import Model.OrderStatus;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -220,5 +222,189 @@ public class OrderDAO {
             System.out.println(e.getMessage());
         }
         return 0;
+    }
+    
+    public List<Order> getAllOrder() {
+        List<Order> listOrder = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "SELECT * from `order`";
+                PreparedStatement st = con.prepareStatement(sql);
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    Order o = new Order();
+                    o.setOrderID(rs.getInt(1));
+                    o.setUserID(rs.getInt(2));
+                    o.setFullName(rs.getString(3));
+                    o.setPhoneNumber(rs.getString(4));
+                    o.setAddress(rs.getString(5));
+                    o.setOrderDate(rs.getDate(6));
+                    o.setTotalCost(rs.getInt(7));
+                    o.setPayment(rs.getString(8));
+                    o.setSaleID(rs.getInt(9));
+                    o.setOrderStatus(rs.getInt(10));
+                    o.setNote(rs.getString(11));
+                    listOrder.add(o);
+                }
+                rs.close();
+                st.close();
+                con.close();
+                return listOrder;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    public List<OrderStatus> getAllOrderStatus() {
+        List<OrderStatus> orderStatusList = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection conn = db.getConnection();
+            if (conn != null) {
+                Statement stmt = conn.createStatement();
+                String sql = "SELECT * FROM order_status";
+                ResultSet rs = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    OrderStatus orderStatus = new OrderStatus();
+                    orderStatus.setOrderStatusID(rs.getInt(1));
+                    orderStatus.setOrderStatusName(rs.getString(2));
+                    orderStatus.setStatus(rs.getBoolean(3));
+                    orderStatusList.add(orderStatus);
+                }
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return orderStatusList;
+    }
+    
+    public OrderStatus getOrderStatusByID(int orderStatusID) {
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "SELECT * FROM `order_status` where `order_status_ID` = " + orderStatusID + ";";
+                ResultSet rs = st.executeQuery(sql);
+                if (rs.next()) {
+                    OrderStatus o = new OrderStatus();
+                    o.setOrderStatusID(rs.getInt(1));
+                    o.setOrderStatusName(rs.getString(2));
+                    o.setStatus(rs.getBoolean(3));
+                    return o;
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    public String getOrderStatusNameByID(int orderStatusID) {
+        String orderStatusName = null;
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "SELECT order_status_name FROM order_status WHERE order_status_id = ?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, orderStatusID);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    orderStatusName = rs.getString(1);
+                }
+                rs.close();
+                ps.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return orderStatusName;
+    }
+    public Order getOrderByID(int orderID) {
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "SELECT * FROM `order` WHERE Order_ID = " + orderID + ";";
+                ResultSet rs = st.executeQuery(sql);
+                if (rs.next()) {
+                    Order o = new Order();
+                    o.setOrderID(rs.getInt(1));
+                    o.setUserID(rs.getInt(2));
+                    o.setFullName(rs.getString(3));
+                    o.setPhoneNumber(rs.getString(4));
+                    o.setAddress(rs.getString(5));
+                    o.setOrderDate(rs.getDate(6));
+                    o.setTotalCost(rs.getInt(7));
+                    o.setPayment(rs.getString(8));
+                    o.setSaleID(rs.getInt(9));
+                    o.setOrderStatus(rs.getInt(10));
+                    o.setNote(rs.getString(11));
+                    return o;
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    public void updateOrderStatus(Order order) {
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "UPDATE `order` SET Order_Status = ? WHERE Order_ID = ?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, order.getOrderStatus());
+                ps.setInt(2, order.getOrderID());
+                ps.executeUpdate();
+                ps.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public int getOrderStatusIDByOrderID(int id) {
+        int OrderStatusID = -1;
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "SELECT Order_Status FROM `order` WHERE Order_ID = ?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    OrderStatusID = rs.getInt(1);
+                }
+                rs.close();
+                ps.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return OrderStatusID;
     }
 }
