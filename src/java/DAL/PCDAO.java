@@ -110,5 +110,51 @@ public class PCDAO {
         }
         return specificationMap;
     }
+public void createPC(PC pc) {
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "INSERT INTO pc (Product_ID, Mainboard_ID, CPU_ID, RAM_ID, VGA_ID, Storage_ID, PSU_ID, Case_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, pc.getProductID());
+                ps.setInt(2, pc.getMainboardID());
+                ps.setInt(3, pc.getCpuID());
+                ps.setInt(4, pc.getRamID());
+                ps.setInt(5, pc.getVgaID());
+                ps.setInt(6, pc.getStorageID());
+                ps.setInt(7, pc.getPsuID());
+                ps.setInt(8, pc.getCaseID());
+                ps.executeUpdate();
+                ps.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
+    public static void updatePC(PC pc) {
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "UPDATE pc SET mainboard_ID=?, cpu_ID=?, ram_ID=?, vga_ID=?, storage_ID=?, psu_ID=?, case_ID=? WHERE product_ID=?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, pc.getMainboardID());
+                ps.setInt(2, pc.getCpuID());
+                ps.setInt(3, pc.getRamID());
+                ps.setInt(4, pc.getVgaID());
+                ps.setInt(5, pc.getStorageID());
+                ps.setInt(6, pc.getPsuID());
+                ps.setInt(7, pc.getCaseID());
+                ps.setInt(8, pc.getProductID());
+                ps.executeUpdate();
+                ps.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

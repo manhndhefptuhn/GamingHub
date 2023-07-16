@@ -7,8 +7,11 @@ package DAL;
 import Context.DBContext;
 import Model.CPU;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -40,5 +43,55 @@ public class CPUDAO {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+     public List<CPU> getAllCPU() {
+        List<CPU> cpus = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "SELECT * FROM cpu";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    CPU cpu = new CPU();
+                    cpu.setCpuID(rs.getInt(1));
+                    cpu.setCpuName(rs.getString(2));
+                    cpu.setPrice(rs.getInt(3));
+                    cpu.setStatus(rs.getBoolean(4));
+                    cpus.add(cpu);
+                }
+                rs.close();
+                ps.close();
+                con.close();
+            }
+            return cpus;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public int getCPUIDByName(String cpuName) {
+        int cpuID = -1;
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "SELECT CPU_ID FROM cpu WHERE CPU_Name LIKE ?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, "%" + cpuName + "%");
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    cpuID = rs.getInt(1);
+                }
+                rs.close();
+                ps.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return cpuID;
     }
 }

@@ -19,7 +19,7 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="home">Home</a></li>
-                        <li><a class="dropdown-item" href="userProfile">User Profile</a></li>
+                        <li><a class="dropdown-item" href="#!">User Profile</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="logout">Logout</a></li>
                     </ul>
@@ -32,7 +32,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Head</div>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="SaleDashboard.jsp">
                                 <div class="sb-nav-link-icon"><i class="fa fa-pie-chart"></i></div>
                                 Sale Dashboard
                             </a>
@@ -54,7 +54,7 @@
                             </a>
                             <div class="collapse" id="collapseLayoutsTwo" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">Order List</a>
+                                    <a class="nav-link" href="orderList">Order List</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutsThree" aria-expanded="false" aria-controls="collapseLayoutsThree">
@@ -64,8 +64,8 @@
                             </a>
                             <div class="collapse" id="collapseLayoutsThree" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">Product List</a>
-                                    <a class="nav-link" href="#">Add A Product</a>
+                                    <a class="nav-link" href="productList">Product List</a>
+                                    <a class="nav-link" href="SaleAddProduct.jsp">Add A Product</a>
                                 </nav>
                             </div>
                         </div>

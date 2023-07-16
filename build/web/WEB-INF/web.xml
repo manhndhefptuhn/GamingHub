@@ -216,6 +216,30 @@
         <servlet-name>SaleDashboardController</servlet-name>
         <servlet-class>Controller.Sale.SaleDashboardController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateProductController</servlet-name>
+        <servlet-class>Controller.Sale.CreateProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaleOrderDetailController</servlet-name>
+        <servlet-class>Controller.Sale.SaleOrderDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaleOrderListController</servlet-name>
+        <servlet-class>Controller.Sale.SaleOrderListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaleProductDetailController</servlet-name>
+        <servlet-class>Controller.Sale.SaleProductDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaleUpdateOrderStatusController</servlet-name>
+        <servlet-class>Controller.Sale.SaleUpdateOrderStatusController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateProductController</servlet-name>
+        <servlet-class>Controller.Sale.UpdateProductController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -266,7 +290,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductListController</servlet-name>
-        <url-pattern>/ProductListController</url-pattern>
+        <url-pattern>/productList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SetFeedbackReply</servlet-name>
@@ -431,6 +455,30 @@
     <servlet-mapping>
         <servlet-name>SaleDashboardController</servlet-name>
         <url-pattern>/SaleDashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateProductController</servlet-name>
+        <url-pattern>/CreateProductController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleOrderDetailController</servlet-name>
+        <url-pattern>/SaleOrderDetailController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleOrderListController</servlet-name>
+        <url-pattern>/orderList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleProductDetailController</servlet-name>
+        <url-pattern>/saleProductDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleUpdateOrderStatusController</servlet-name>
+        <url-pattern>/SaleUpdateOrderStatusController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProductController</servlet-name>
+        <url-pattern>/UpdateProductController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
