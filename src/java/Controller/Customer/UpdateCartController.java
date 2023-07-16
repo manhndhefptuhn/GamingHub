@@ -5,16 +5,13 @@
 package Controller.Customer;
 
 import DAL.CartDAO;
-import Model.Cart;
 import Model.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 
 /**
  *
@@ -63,19 +60,21 @@ public class UpdateCartController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-
-        User u = (User) session.getAttribute("user");
-
-        String[] productIDs = request.getParameterValues("productID");
-        String[] quantities = request.getParameterValues("quantity");
-        String[] prices = request.getParameterValues("productPrice");
-        CartDAO cartDAO = new CartDAO();
-        int row, totalCost;
-        for (int i = 0; i < productIDs.length; i++) {
-            try {
-                int productID = Integer.parseInt(productIDs[i]);
-                int quantity = Integer.parseInt(quantities[i]);
-                int productPrice = Integer.parseInt(prices[i]);
+        try {
+            CartDAO cartDAO = new CartDAO();
+            String action = request.getParameter("action");
+            User u = (User) session.getAttribute("user");
+            if (action != null && action.equals("removeAll")) {
+                cartDAO.removeAllCartByUserID(u.getUser_ID());
+                int totalCartProduct = cartDAO.getTotalCartProduct(u.getUser_ID());
+                session.setAttribute("totalCartProduct", totalCartProduct);
+                session.setAttribute("notification", "Remove all from cart successfully");
+                request.getRequestDispatcher("cart").forward(request, response);
+            } else {
+                int row, totalCost;
+                int productID = Integer.parseInt(request.getParameter("productID"));
+                int quantity = Integer.parseInt(request.getParameter("quantity"));
+                int productPrice = Integer.parseInt(request.getParameter("productPrice"));
                 totalCost = productPrice * quantity;
                 row = cartDAO.updateCartIfExist(productPrice, quantity, totalCost, u.getUser_ID(), productID);
                 if (row >= 1) {
@@ -83,9 +82,9 @@ public class UpdateCartController extends HttpServlet {
                 } else {
                     session.setAttribute("wrongNotification", "There's something wrong, please try again");
                 }
-            } catch (Exception e) {
-                session.setAttribute("wrongNotification", "There's something wrong, please try again");
             }
+        } catch (Exception e) {
+            session.setAttribute("wrongNotification", "There's something wrong, please try again");
         }
         request.getRequestDispatcher("cart").forward(request, response);
     }

@@ -64,7 +64,8 @@ public class CreateSliderController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         String imagePath = "", extension = "";
         if (request.getParameter("back") != null) {
             request.getRequestDispatcher("sliderList").forward(request, response);

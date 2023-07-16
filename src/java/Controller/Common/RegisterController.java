@@ -7,6 +7,7 @@ package Controller.Common;
 import DAL.PasswordResetDAO;
 import DAL.UserDAO;
 import Model.User;
+import Service.PasswordUtils;
 import Service.RandomPassword;
 import Service.SendEmail;
 import jakarta.servlet.ServletException;
@@ -62,7 +63,8 @@ public class RegisterController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         try {
             if (request.getParameter("agree-term") == null) {
                 request.setAttribute("notification", "You must accept to terms and conditions");
@@ -79,11 +81,13 @@ public class RegisterController extends HttpServlet {
             PasswordResetDAO pwrsDAO = new PasswordResetDAO();
             UserDAO uDAO = new UserDAO();
             SendEmail se = new SendEmail();
-
+            PasswordUtils pwutl = new PasswordUtils();
+            String hashedPassword = pwutl.hashPassword(password);
+            
             User u = uDAO.checkUserExist(email);
             boolean emailSent;
-            int row, registerUserID;
-            
+            int registerUserID;
+
             if (!phoneNum.matches("[0-9]*")) {
                 request.setAttribute("notification", "Your Phone Number is Invalid");
                 request.getRequestDispatcher("register.jsp").forward(request, response);
@@ -91,8 +95,8 @@ public class RegisterController extends HttpServlet {
             } else if (u == null) {
                 emailSent = se.sendPassword(email, password, fullName, "Request to Register");
                 if (emailSent) {
-                    registerUserID = uDAO.register(fullName, email, password, phoneNum, address);
-                    row = pwrsDAO.resetPassword(registerUserID, password);
+                    registerUserID = uDAO.register(fullName, email, hashedPassword, phoneNum, address);
+                    pwrsDAO.resetPassword(registerUserID, hashedPassword);
                     request.setAttribute("email", email);
                     request.setAttribute("notification", "Sign Up successfully, please check your email for password");
                     request.getRequestDispatcher("Login.jsp").forward(request, response);

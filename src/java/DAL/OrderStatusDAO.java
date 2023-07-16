@@ -6,9 +6,11 @@ package DAL;
 
 import Context.DBContext;
 import Model.Order;
+import Model.OrderStatus;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,7 +61,6 @@ public class OrderStatusDAO {
                 st.setInt(1, orderStatusID);
                 ResultSet rs = st.executeQuery();
                 if (rs.next()) {
-                    orderStatusID = rs.getInt("Order_Status_ID");
                     statusName = rs.getString("Order_Status_Name");
                     return statusName;
                 }
@@ -71,5 +72,31 @@ public class OrderStatusDAO {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public ArrayList<OrderStatus> getAllOrderStatus() {
+        ArrayList<OrderStatus> listOrderStatus = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "select * from `order_status`;";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    OrderStatus ordst = new OrderStatus();
+                    ordst.setOrderStatusID(rs.getInt(1));
+                    ordst.setOrderStatusName(rs.getString(2));
+                    ordst.setStatus(rs.getBoolean(3));
+                    listOrderStatus.add(ordst);
+                }
+                rs.close();
+                con.close();
+                st.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return listOrderStatus;
     }
 }

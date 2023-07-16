@@ -160,26 +160,27 @@
                                             <th>Component Type</th>
                                             <th>Component Name</th>
                                         </tr>
+                                        <c:set var="specification" value="${specification}" />
                                         <tr>
-                                            <td>Mainboard</td><td>${mainboard.getMainboardName()}</td>
+                                            <td>Mainboard</td><td>${specification['mainboardName']}</td>
                                         </tr>
                                         <tr>
-                                            <td>CPU</td><td>${cpu.getCpuName()}</td>
+                                            <td>CPU</td><td>${specification['cpuName']}</td>
                                         </tr>
                                         <tr>
-                                            <td>RAM</td><td>${ram.getRamName()}</td>
+                                            <td>RAM</td><td>${specification['ramName']}</td>
                                         </tr>
                                         <tr>
-                                            <td>VGA</td><td>${vga.getVgaName()}</td>
+                                            <td>VGA</td><td>${specification['vgaName']}</td>
                                         </tr>
                                         <tr>
-                                            <td>Storage</td><td>${storage.getStorageName()}</td>
+                                            <td>Storage</td><td>${specification['storageName']}</td>
                                         </tr>
                                         <tr>
-                                            <td>PSU</td><td>${psu.getPsuName()}</td>
+                                            <td>PSU</td><td>${specification['psuName']}</td>
                                         </tr>
                                         <tr>
-                                            <td>Case</td><td>${casePC.getCaseName()}</td>
+                                            <td>Case</td><td>${specification['caseName']}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -195,12 +196,11 @@
                                             <div class="blog__details__comment">
                                                 <c:set var="listUser" value="${requestScope.listUser}" />
                                                 <c:set var="listResponse" value="${requestScope.listResponse}" />
-                                                <c:set var="listUserResponse" value="${requestScope.listUserResponse}" />
                                                 <c:forEach var="listFeedback" items="${listFeedback}">
                                                     <c:set var="feedbackID" value="${listFeedback.getFeedbackId()}" />
                                                     <c:set var="response" value="${listResponse[feedbackID]}" />
                                                     <c:set var="userObject" value="${listUser[listFeedback.getUserId()]}" />
-                                                    <c:set var="userResponse" value="${listUserResponse[response.getUserID()]}" />
+                                                    <c:set var="userResponse" value="${listUser[response.getUserID()]}" />
                                                     <div class="blog__comment__item">
                                                         <div class="blog__comment__item__pic">
                                                             <c:choose>

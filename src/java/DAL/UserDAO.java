@@ -6,6 +6,7 @@ package DAL;
 
 import Context.DBContext;
 import Model.User;
+import Service.PasswordUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,20 +29,24 @@ public class UserDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT * FROM `user` WHERE `Email` = '" + email + "' and `Password` = '" + password + "';";
+                String sql = "SELECT * FROM `user` WHERE `Email` = '" + email + "';";
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
-                    User u = new User();
-                    u.setUser_ID(rs.getInt(1));
-                    u.setFullName(rs.getString(2));
-                    u.setEmail(rs.getString(3));
-                    u.setPassword(rs.getString(4));
-                    u.setProfile_picture(rs.getString(5));
-                    u.setPhone_Number(rs.getString(6));
-                    u.setAddress(rs.getString(7));
-                    u.setStatus(rs.getBoolean(8));
-                    u.setRole_ID(rs.getInt(9));
-                    return u;
+                    String storedPassword = rs.getString(4);
+                    PasswordUtils passwordUtils = new PasswordUtils();
+                    if (passwordUtils.checkPassword(password, storedPassword)) {
+                        User u = new User();
+                        u.setUser_ID(rs.getInt(1));
+                        u.setFullName(rs.getString(2));
+                        u.setEmail(rs.getString(3));
+                        u.setPassword(rs.getString(4));
+                        u.setProfile_picture(rs.getString(5));
+                        u.setPhone_Number(rs.getString(6));
+                        u.setAddress(rs.getString(7));
+                        u.setStatus(rs.getBoolean(8));
+                        u.setRole_ID(rs.getInt(9));
+                        return u;
+                    }
                 }
                 rs.close();
                 st.close();
@@ -139,20 +144,24 @@ public class UserDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT * FROM `user` WHERE `User_ID` = '" + userID + "' and `Password` = '" + password + "';";
+                String sql = "SELECT * FROM `user` WHERE `User_ID` = '" + userID + "';";
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
-                    User u = new User();
-                    u.setUser_ID(rs.getInt(1));
-                    u.setFullName(rs.getString(2));
-                    u.setEmail(rs.getString(3));
-                    u.setPassword(rs.getString(4));
-                    u.setProfile_picture(rs.getString(5));
-                    u.setPhone_Number(rs.getString(6));
-                    u.setAddress(rs.getString(7));
-                    u.setStatus(rs.getBoolean(8));
-                    u.setRole_ID(rs.getInt(9));
-                    return u;
+                    String storedPassword = rs.getString("Password");
+                    PasswordUtils passwordUtils = new PasswordUtils();
+                    if (passwordUtils.checkPassword(password, storedPassword)) {
+                        User u = new User();
+                        u.setUser_ID(rs.getInt(1));
+                        u.setFullName(rs.getString(2));
+                        u.setEmail(rs.getString(3));
+                        u.setPassword(rs.getString(4));
+                        u.setProfile_picture(rs.getString(5));
+                        u.setPhone_Number(rs.getString(6));
+                        u.setAddress(rs.getString(7));
+                        u.setStatus(rs.getBoolean(8));
+                        u.setRole_ID(rs.getInt(9));
+                        return u;
+                    }
                 }
                 rs.close();
                 st.close();

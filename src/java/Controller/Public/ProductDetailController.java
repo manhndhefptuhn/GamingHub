@@ -37,6 +37,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -58,91 +59,67 @@ public class ProductDetailController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
-        try{
-        int productID = Integer.parseInt(request.getParameter("productID"));
-        ProductDAO pDAO = new ProductDAO();
-        CaseDAO caseDAO = new CaseDAO();
-        PCDAO pcDAO = new PCDAO();
-        CPUDAO cpuDAO = new CPUDAO();
-        MainboardDAO mainDAO = new MainboardDAO();
-        PSUDAO psuDAO = new PSUDAO();
-        RAMDAO ramDAO = new RAMDAO();
-        StorageDAO stoDAO = new StorageDAO();
-        VGADAO vgaDAO = new VGADAO();
-        ProductImagesDAO primgDAO = new ProductImagesDAO();
-        FeedbackDAO fDAO = new FeedbackDAO();
-        UserDAO uDAO = new UserDAO();
-        FeedbackResponseDAO fbrspDAO = new FeedbackResponseDAO();
-        
-        PC pc = pcDAO.getPCByProductID(productID);
+        try {
+            int productID = Integer.parseInt(request.getParameter("productID"));
+            ProductDAO pDAO = new ProductDAO();
+            CaseDAO caseDAO = new CaseDAO();
+            PCDAO pcDAO = new PCDAO();
+            ProductImagesDAO primgDAO = new ProductImagesDAO();
+            FeedbackDAO fDAO = new FeedbackDAO();
+            UserDAO uDAO = new UserDAO();
+            FeedbackResponseDAO fbrspDAO = new FeedbackResponseDAO();
 
-        Mainboard mainboard = mainDAO.getMainboardByID(pc.getMainboardID());
-        CPU cpu = cpuDAO.getCPUByID(pc.getCpuID());
-        RAM ram = ramDAO.getRAMByID(pc.getRamID());
-        VGA vga = vgaDAO.getVGAByID(pc.getVgaID());
-        Storage storage = stoDAO.getStorageByID(pc.getStorageID());
-        PSU psu = psuDAO.getPSUByID(pc.getPsuID());
-        Case casePC = caseDAO.getCaseByID(pc.getCaseID());
+            Map<String, String> specificationMap = pcDAO.getProductSpecification(productID);
+            request.setAttribute("specification", specificationMap);
 
-        request.setAttribute("mainboard", mainboard);
-        request.setAttribute("cpu", cpu);
-        request.setAttribute("ram", ram);
-        request.setAttribute("vga", vga);
-        request.setAttribute("storage", storage);
-        request.setAttribute("psu", psu);
-        request.setAttribute("casePC", casePC);
+            Product p = pDAO.getProductByID(productID);
+            request.setAttribute("product", p);
 
-        Product p = pDAO.getProductByID(productID);
-        request.setAttribute("product", p);
+            int originalPrice = pDAO.getOriginalPriceByID(productID);
+            request.setAttribute("originalPrice", originalPrice);
 
-        int originalPrice = pDAO.getOriginalPriceByID(productID);
-        request.setAttribute("originalPrice", originalPrice);
+            int salePrice = pDAO.getSalePriceByID(productID);
+            request.setAttribute("salePrice", salePrice);
 
-        int salePrice = pDAO.getSalePriceByID(productID);
-        request.setAttribute("salePrice", salePrice);
+            int rating = fDAO.getStarByProductID(productID);
+            request.setAttribute("rating", rating);
+            int totalFeedback = fDAO.getTotalFeedback(productID);
+            request.setAttribute("totalFeedback", totalFeedback);
 
-        int rating = fDAO.getStarByProductID(productID);
-        request.setAttribute("rating", rating);
-        int totalFeedback = fDAO.getTotalFeedback(productID);
-        request.setAttribute("totalFeedback", totalFeedback);
-        
-        //RelatedPC
-        ArrayList<Product> listRelated = pDAO.getRelatedPCExceptCurrent(productID, p.getCategoryID());
-        request.setAttribute("listRelated", listRelated);
+            //RelatedPC
+            ArrayList<Product> listRelated = pDAO.getRelatedPCExceptCurrent(productID, p.getCategoryID());
+            request.setAttribute("listRelated", listRelated);
 
-        Map<Integer, Integer> listRelatedPCPrice = pDAO.getOriginalPriceByID(listRelated);
-        request.setAttribute("listRelatedPCPrice", listRelatedPCPrice);
+            Map<Integer, Integer> listRelatedPCPrice = pDAO.getOriginalPriceByID(listRelated);
+            request.setAttribute("listRelatedPCPrice", listRelatedPCPrice);
 
-        Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listRelated);
-        request.setAttribute("listSalePrice", listSalePrice);
-        
-        Map<Integer, Integer> listRelatedFeedback = fDAO.getStarByProductID(listRelated);
-        request.setAttribute("listRelatedFeedback", listRelatedFeedback);
+            Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listRelated);
+            request.setAttribute("listSalePrice", listSalePrice);
 
-        //Product Images
-        ArrayList<Product_Images> listImageOfProduct = primgDAO.getListImageOfProductByID(productID);
-        request.setAttribute("listImageOfProduct", listImageOfProduct);
+            Map<Integer, Integer> listRelatedFeedback = fDAO.getStarByProductID(listRelated);
+            request.setAttribute("listRelatedFeedback", listRelatedFeedback);
 
-        //Related Images
-        Map<Integer, Case> listImage = caseDAO.getCaseByCaseID();
-        request.setAttribute("listImage", listImage);
-        Map<Integer, Integer> listCaseID = pcDAO.getCaseIDByProductID();
-        request.setAttribute("listCaseID", listCaseID);
+            //Product Images
+            ArrayList<Product_Images> listImageOfProduct = primgDAO.getListImageOfProductByID(productID);
+            request.setAttribute("listImageOfProduct", listImageOfProduct);
 
-        //Feedback
-        ArrayList<Feedback> listFeedback = fDAO.getProductFeedback(productID);
-        request.setAttribute("listFeedback", listFeedback);
-        Map<Integer, FeedbackResponse> listResponse = fbrspDAO.getFeedbackResponse();
-        request.setAttribute("listResponse", listResponse);
-        
-        Map<Integer, User> listUser = uDAO.getUserByUserID();
-        request.setAttribute("listUser", listUser);
-        
-        Map<Integer, User> listUserResponse = uDAO.getUserByUserID();
-        request.setAttribute("listUserResponse", listUserResponse);
-        
-        request.getRequestDispatcher("productDetail.jsp").forward(request, response);
-        }catch (Exception e){
+            //Related Images
+            Map<Integer, Case> listImage = caseDAO.getCaseByCaseID();
+            request.setAttribute("listImage", listImage);
+            Map<Integer, Integer> listCaseID = pcDAO.getCaseIDByProductID();
+            request.setAttribute("listCaseID", listCaseID);
+
+            //Feedback
+            ArrayList<Feedback> listFeedback = fDAO.getProductFeedback(productID);
+            request.setAttribute("listFeedback", listFeedback);
+            Map<Integer, FeedbackResponse> listResponse = fbrspDAO.getFeedbackResponse();
+            request.setAttribute("listResponse", listResponse);
+
+            Map<Integer, User> listUser = uDAO.getUserByUserID();
+            request.setAttribute("listUser", listUser);
+
+            request.getRequestDispatcher("productDetail.jsp").forward(request, response);
+        } catch (Exception e) {
             e.printStackTrace();
             request.getRequestDispatcher("404.jsp").forward(request, response);
         }

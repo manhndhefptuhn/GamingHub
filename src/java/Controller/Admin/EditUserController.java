@@ -55,7 +55,8 @@ public class EditUserController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         if (request.getParameter("back") != null) {
             request.getRequestDispatcher("userList").forward(request, response);
         } else if (request.getParameter("update") != null) {

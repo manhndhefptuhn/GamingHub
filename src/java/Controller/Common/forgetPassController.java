@@ -8,6 +8,7 @@ import DAL.PasswordResetDAO;
 import DAL.UserDAO;
 import Model.PasswordReset;
 import Model.User;
+import Service.PasswordUtils;
 import Service.RandomPassword;
 import Service.SendEmail;
 import jakarta.servlet.ServletException;
@@ -64,7 +65,8 @@ public class forgetPassController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         try {
             String email = request.getParameter("email");
 
@@ -74,12 +76,14 @@ public class forgetPassController extends HttpServlet {
 
             SendEmail se = new SendEmail();
             RandomPassword rdpw = new RandomPassword();
+            PasswordUtils pwutl = new PasswordUtils();
 
             boolean emailSent;
 
             String resetPassword = rdpw.generatePassword();
             String defaultPassword = "1234@1234a";
-
+            String hashResetPassword = pwutl.hashPassword(resetPassword);
+            String hashResetDefaultPassword = pwutl.hashPassword(defaultPassword);
             if (user == null) {
                 request.setAttribute("notification", "Email is not exist");
                 request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
@@ -89,14 +93,14 @@ public class forgetPassController extends HttpServlet {
                     PasswordReset pwrs = pwrsDAO.checkExistRecord(user.getUser_ID());
                     if (emailSent) {
                         if (pwrs != null) {
-                            pwrsDAO.updateResetPassword(pwrs.getResetID(), resetPassword);
-                            uDAO.changePassword(user.getUser_ID(), resetPassword);
+                            pwrsDAO.updateResetPassword(pwrs.getResetID(), hashResetPassword);
+                            uDAO.changePassword(user.getUser_ID(), hashResetPassword);
                             request.setAttribute("notification", "New password is sent, please login again");
                             request.setAttribute("email", email);
                             request.getRequestDispatcher("Login.jsp").forward(request, response);
                         } else {
-                            pwrsDAO.resetPassword(user.getUser_ID(), resetPassword);
-                            uDAO.changePassword(user.getUser_ID(), resetPassword);
+                            pwrsDAO.resetPassword(user.getUser_ID(), hashResetPassword);
+                            uDAO.changePassword(user.getUser_ID(), hashResetPassword);
                             request.setAttribute("notification", "New password is sent, please login again");
                             request.setAttribute("email", email);
                             request.getRequestDispatcher("Login.jsp").forward(request, response);
@@ -107,7 +111,7 @@ public class forgetPassController extends HttpServlet {
                 } else {
                     emailSent = se.sendDefaultPass(email, defaultPassword, user.getFullName());
                     if (emailSent) {
-                        uDAO.changePassword(user.getUser_ID(), defaultPassword);
+                        uDAO.changePassword(user.getUser_ID(), hashResetDefaultPassword);
                         request.setAttribute("email", email);
                         request.setAttribute("notification", "Password is set to default, please check email and login again");
                         request.getRequestDispatcher("Login.jsp").forward(request, response);
