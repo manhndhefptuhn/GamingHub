@@ -18,13 +18,14 @@ import java.util.List;
  * @author Zarius
  */
 public class StorageDAO {
-    public Storage getStorageByID(int storageID){
+
+    public Storage getStorageByID(int storageID) {
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT * FROM `storage` where `Storage_ID` = " + storageID +";";
+                String sql = "SELECT * FROM `storage` where `Storage_ID` = " + storageID + ";";
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
                     Storage s = new Storage();
@@ -44,13 +45,14 @@ public class StorageDAO {
         }
         return null;
     }
-    public List<Storage> getAllStorage() {
+
+    public List<Storage> getAllStorageActive() {
         List<Storage> storages = new ArrayList<>();
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT * FROM storage";
+                String sql = "SELECT * FROM `storage` where `status` = 1";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -93,5 +95,32 @@ public class StorageDAO {
             System.out.println(e.getMessage());
         }
         return storageID;
+    }
+
+    public ArrayList<Storage> getAllStorage() {
+        ArrayList<Storage> listStorage = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "SELECT * FROM `storage`";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    Storage storage = new Storage();
+                    storage.setStorageID(rs.getInt(1));
+                    storage.setStorageName(rs.getString(2));
+                    storage.setPrice(rs.getInt(3));
+                    storage.setStatus(rs.getBoolean(4));
+                    listStorage.add(storage);
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return listStorage;
     }
 }

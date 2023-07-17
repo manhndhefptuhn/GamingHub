@@ -77,13 +77,13 @@ public class CaseDAO {
         }
         return null;
     }
-    public List<Case> getAllCase() {
+    public List<Case> getAllCaseActive() {
         List<Case> cases = new ArrayList<>();
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT * FROM `case`";
+                String sql = "SELECT * FROM `case` where `status` = 1";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -127,5 +127,33 @@ public class CaseDAO {
             System.out.println(e.getMessage());
         }
         return caseID;
+    }
+    
+    public ArrayList<Case> getAllCase() {
+        ArrayList<Case> listCase = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "SELECT * FROM `case`";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    Case c = new Case();
+                    c.setCaseID(rs.getInt(1));
+                    c.setCaseName(rs.getString(2));
+                    c.setPrice(rs.getInt(3));
+                    c.setImage(rs.getString(4));
+                    c.setStatus(rs.getBoolean(5));
+                    listCase.add(c);
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return listCase;
     }
 }

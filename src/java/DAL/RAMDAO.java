@@ -45,13 +45,13 @@ public class RAMDAO {
         return null;
     }
     
-    public List<RAM> getAllRAM() {
+    public List<RAM> getAllRAMActive() {
         List<RAM> rams = new ArrayList<>();
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT * FROM ram";
+                String sql = "SELECT * FROM `ram` where `status` = 1";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -94,5 +94,32 @@ public class RAMDAO {
             System.out.println(e.getMessage());
         }
         return ramID;
+    }
+    
+        public ArrayList<RAM> getAllRAM() {
+        ArrayList<RAM> listRAM = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "SELECT * FROM `ram`";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    RAM ram = new RAM();
+                    ram.setRamID(rs.getInt(1));
+                    ram.setRamName(rs.getString(2));
+                    ram.setPrice(rs.getInt(3));
+                    ram.setStatus(rs.getBoolean(4));
+                    listRAM.add(ram);
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return listRAM;
     }
 }

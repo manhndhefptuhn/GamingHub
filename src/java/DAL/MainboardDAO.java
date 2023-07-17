@@ -46,13 +46,13 @@ public class MainboardDAO {
         return null;
     }
     
-    public List<Mainboard> getAllMainboard() {
+    public List<Mainboard> getAllMainboardActive() {
         List<Mainboard> mainboards = new ArrayList<>();
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT * FROM mainboard";
+                String sql = "SELECT * FROM `mainboard` where `status` = 1";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -95,5 +95,32 @@ public class MainboardDAO {
             System.out.println(e.getMessage());
         }
         return mainboardID;
+    }
+    
+       public ArrayList<Mainboard> getAllMainboard() {
+        ArrayList<Mainboard> listMainboard = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "SELECT * FROM `mainboard`";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    Mainboard mainboard = new Mainboard();
+                    mainboard.setMainboardID(rs.getInt(1));
+                    mainboard.setMainboardName(rs.getString(2));
+                    mainboard.setPrice(rs.getInt(3));
+                    mainboard.setStatus(rs.getBoolean(4));
+                    listMainboard.add(mainboard);
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return listMainboard;
     }
 }

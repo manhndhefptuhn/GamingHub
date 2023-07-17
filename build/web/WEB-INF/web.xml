@@ -240,6 +240,10 @@
         <servlet-name>UpdateProductController</servlet-name>
         <servlet-class>Controller.Sale.UpdateProductController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ComponentListController</servlet-name>
+        <servlet-class>Controller.Sale.ComponentListController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -479,6 +483,10 @@
     <servlet-mapping>
         <servlet-name>UpdateProductController</servlet-name>
         <url-pattern>/UpdateProductController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ComponentListController</servlet-name>
+        <url-pattern>/componentList</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

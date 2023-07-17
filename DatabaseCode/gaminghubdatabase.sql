@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `swp391_se1726_g4` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE  IF NOT EXISTS `swp391_se1726_g4` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `swp391_se1726_g4`;
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
@@ -36,7 +36,7 @@ CREATE TABLE `cart` (
   KEY `FK__Cart__User_ID__5165187F` (`User_ID`),
   CONSTRAINT `FK__Cart__Product_ID__5070F446` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`),
   CONSTRAINT `FK__Cart__User_ID__5165187F` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -57,12 +57,12 @@ DROP TABLE IF EXISTS `case`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `case` (
   `Case_ID` int NOT NULL AUTO_INCREMENT,
-  `Case_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Case_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Price` int DEFAULT NULL,
-  `Images` longtext,
+  `Images` longtext COLLATE utf8mb4_unicode_ci,
   `Status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`Case_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,10 +84,10 @@ DROP TABLE IF EXISTS `category`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `category` (
   `category_ID` int NOT NULL AUTO_INCREMENT,
-  `category_Name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `category_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`category_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,11 +109,11 @@ DROP TABLE IF EXISTS `cpu`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cpu` (
   `CPU_ID` int NOT NULL AUTO_INCREMENT,
-  `CPU_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `CPU_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Price` int DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`CPU_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -138,8 +138,8 @@ CREATE TABLE `feedback` (
   `User_ID` int DEFAULT NULL,
   `Product_ID` int DEFAULT NULL,
   `Create_Date` date DEFAULT NULL,
-  `Content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `Image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Rating` double DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`Feedback_ID`),
@@ -147,7 +147,7 @@ CREATE TABLE `feedback` (
   KEY `FK__Feedback__Produc__5535A963` (`Product_ID`),
   CONSTRAINT `FK__Feedback__Produc__5535A963` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`),
   CONSTRAINT `FK__Feedback__User_I__5441852A` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,13 +172,13 @@ CREATE TABLE `feedback_response` (
   `Feedback_ID` int DEFAULT NULL,
   `User_ID` int DEFAULT NULL,
   `Response_date` date DEFAULT NULL,
-  `Response_content` varchar(255) COLLATE utf8mb3_bin DEFAULT NULL,
+  `Response_content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`Response_ID`),
   KEY `FK_Feedback_Response_Feedback_HE237402_idx` (`Feedback_ID`),
   KEY `FK_Feedback_Response_User_HE823740_idx` (`User_ID`),
   CONSTRAINT `FK_Feedback_Response_Feedback_HE237402` FOREIGN KEY (`Feedback_ID`) REFERENCES `feedback` (`Feedback_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Feedback_Response_User_HE823740` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,11 +200,11 @@ DROP TABLE IF EXISTS `mainboard`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mainboard` (
   `Mainboard_ID` int NOT NULL AUTO_INCREMENT,
-  `Mainboard_Name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Mainboard_Name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Price` int DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`Mainboard_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -227,21 +227,21 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `Order_ID` int NOT NULL AUTO_INCREMENT,
   `User_ID` int DEFAULT NULL,
-  `FullName` varchar(50) DEFAULT NULL,
-  `Address` varchar(50) DEFAULT NULL,
-  `PhoneNumber` varchar(50) DEFAULT NULL,
+  `FullName` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Address` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PhoneNumber` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Order_Date` date DEFAULT NULL,
   `Total_Cost` int DEFAULT NULL,
-  `Payment` varchar(50) DEFAULT NULL,
+  `Payment` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Saler_ID` int DEFAULT NULL,
   `Order_Status` int DEFAULT NULL,
-  `Note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Order_ID`),
   KEY `FK__Order__User_ID__59FA5E80` (`User_ID`),
   KEY `FK__Order__Order_Sta__5AEE82B9` (`Order_Status`),
   CONSTRAINT `FK__Order__Order_Sta__5AEE82B9` FOREIGN KEY (`Order_Status`) REFERENCES `order_status` (`Order_Status_ID`),
   CONSTRAINT `FK__Order__User_ID__59FA5E80` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,7 +273,7 @@ CREATE TABLE `order_detail` (
   KEY `FK__Order_Det__Produ__5EBF139D` (`Product_ID`),
   CONSTRAINT `FK__Order_Det__Order__5DCAEF64` FOREIGN KEY (`Order_ID`) REFERENCES `order` (`Order_ID`),
   CONSTRAINT `FK__Order_Det__Produ__5EBF139D` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,10 +295,10 @@ DROP TABLE IF EXISTS `order_status`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_status` (
   `Order_Status_ID` int NOT NULL AUTO_INCREMENT,
-  `Order_Status_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Order_Status_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`Order_Status_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -321,12 +321,12 @@ DROP TABLE IF EXISTS `password_reset`;
 CREATE TABLE `password_reset` (
   `Reset_ID` int NOT NULL AUTO_INCREMENT,
   `User_ID` int DEFAULT NULL,
-  `Reset_Password` varchar(50) COLLATE utf8mb3_bin DEFAULT NULL,
+  `Reset_Password` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `Time_created` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`Reset_ID`),
   KEY `FK_Password_Reset_User_HE091283_idx` (`User_ID`),
   CONSTRAINT `FK_Password_Reset_User_HE091283` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -370,7 +370,7 @@ CREATE TABLE `pc` (
   CONSTRAINT `FK__PC__RAM_ID__49C3F6B7` FOREIGN KEY (`RAM_ID`) REFERENCES `ram` (`RAM_ID`),
   CONSTRAINT `FK__PC__Storage_ID__4BAC3F29` FOREIGN KEY (`Storage_ID`) REFERENCES `storage` (`Storage_ID`),
   CONSTRAINT `FK__PC__VGA_ID__4AB81AF0` FOREIGN KEY (`VGA_ID`) REFERENCES `vga` (`VGA_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -392,8 +392,8 @@ DROP TABLE IF EXISTS `product`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product` (
   `Product_ID` int NOT NULL AUTO_INCREMENT,
-  `Product_Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `Description` longtext,
+  `Product_Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Description` longtext COLLATE utf8mb4_unicode_ci,
   `Status` tinyint(1) DEFAULT NULL,
   `Quantity` int DEFAULT NULL,
   `Product_Status_ID` int DEFAULT NULL,
@@ -404,7 +404,7 @@ CREATE TABLE `product` (
   KEY `FK_Product_Category_HE170011_idx` (`Category_ID`),
   CONSTRAINT `FK_Product_Category_HE170011` FOREIGN KEY (`Category_ID`) REFERENCES `category` (`category_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Product_Product_Status_HE170004` FOREIGN KEY (`Product_Status_ID`) REFERENCES `product_status` (`Product_Status_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -427,11 +427,11 @@ DROP TABLE IF EXISTS `product_images`;
 CREATE TABLE `product_images` (
   `Product_Images_ID` int NOT NULL AUTO_INCREMENT,
   `Product_ID` int DEFAULT NULL,
-  `Images` longtext,
+  `Images` longtext COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`Product_Images_ID`),
   KEY `FK__Product_I__Produ__440B1D61` (`Product_ID`),
   CONSTRAINT `FK__Product_I__Produ__440B1D61` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=174 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=174 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -453,10 +453,10 @@ DROP TABLE IF EXISTS `product_status`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product_status` (
   `Product_Status_ID` int NOT NULL,
-  `Product_Status_Name` varchar(50) COLLATE utf8mb3_bin DEFAULT NULL,
+  `Product_Status_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`Product_Status_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -478,11 +478,11 @@ DROP TABLE IF EXISTS `psu`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `psu` (
   `PSU_ID` int NOT NULL AUTO_INCREMENT,
-  `PSU_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `PSU_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Price` int DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`PSU_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -504,11 +504,11 @@ DROP TABLE IF EXISTS `ram`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ram` (
   `RAM_ID` int NOT NULL AUTO_INCREMENT,
-  `RAM_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `RAM_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Price` int DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`RAM_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -530,9 +530,9 @@ DROP TABLE IF EXISTS `roles`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `roles` (
   `Role_ID` int NOT NULL AUTO_INCREMENT,
-  `Role_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `Role_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`Role_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -554,13 +554,13 @@ DROP TABLE IF EXISTS `slider`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `slider` (
   `Slider_ID` int NOT NULL AUTO_INCREMENT,
-  `Slider_Title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `Slider_Image` longtext,
-  `Backlink` longtext,
-  `Note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Slider_Title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Slider_Image` longtext COLLATE utf8mb4_unicode_ci,
+  `Backlink` longtext COLLATE utf8mb4_unicode_ci,
+  `Note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`Slider_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -582,11 +582,11 @@ DROP TABLE IF EXISTS `storage`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `storage` (
   `Storage_ID` int NOT NULL AUTO_INCREMENT,
-  `Storage_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Storage_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Price` int DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`Storage_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -608,18 +608,18 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `User_ID` int NOT NULL AUTO_INCREMENT,
-  `FullName` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `Email` varchar(50) NOT NULL,
-  `Password` varchar(50) DEFAULT NULL,
-  `Profile_picture` longtext,
-  `Phone_Number` varchar(50) NOT NULL,
-  `Address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `FullName` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Password` longtext COLLATE utf8mb4_unicode_ci,
+  `Profile_picture` longtext COLLATE utf8mb4_unicode_ci,
+  `Phone_Number` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `Status` tinyint(1) DEFAULT NULL,
   `Role_ID` int DEFAULT NULL,
   PRIMARY KEY (`User_ID`),
   KEY `FK__User__Role_ID__267ABA7A` (`Role_ID`),
   CONSTRAINT `FK__User__Role_ID__267ABA7A` FOREIGN KEY (`Role_ID`) REFERENCES `roles` (`Role_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -641,11 +641,11 @@ DROP TABLE IF EXISTS `vga`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `vga` (
   `VGA_ID` int NOT NULL AUTO_INCREMENT,
-  `VGA_Name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `VGA_Name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Price` int DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`VGA_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -674,7 +674,7 @@ CREATE TABLE `wishlist` (
   KEY `FK_Wishlist_Product_HE108237_idx` (`Product_ID`),
   CONSTRAINT `FK_Wishlist_Product_HE108237` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Wishlist_User_HE179382` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -686,14 +686,6 @@ LOCK TABLES `wishlist` WRITE;
 INSERT INTO `wishlist` VALUES (45,2,54),(47,2,47),(53,2,48),(55,2,32);
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'swp391_se1726_g4'
---
-
---
--- Dumping routines for database 'swp391_se1726_g4'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -704,4 +696,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-12 20:18:06
+-- Dump completed on 2023-07-17 20:12:48

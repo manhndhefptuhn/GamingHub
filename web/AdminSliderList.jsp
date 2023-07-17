@@ -22,7 +22,7 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Slider Detail</h1>
+                    <h1 class="mt-4">Slider List</h1>
                     <div class="card mb-4">
                         <div class="card-body">
                             <c:if test="${notification != null}">
