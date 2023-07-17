@@ -45,13 +45,13 @@ public class VGADAO {
         return null;
     }
     
-    public List<VGA> getAllVGA() {
+    public List<VGA> getAllVGAActive() {
         List<VGA> vgas = new ArrayList<>();
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT * FROM vga";
+                String sql = "SELECT * FROM `vga` where `status` = 1";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -94,5 +94,32 @@ public class VGADAO {
             System.out.println(e.getMessage());
         }
         return vgaID;
+    }
+    
+        public ArrayList<VGA> getAllVGA() {
+        ArrayList<VGA> listVGA = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "SELECT * FROM `vga`";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    VGA vga = new VGA();
+                    vga.setVgaID(rs.getInt(1));
+                    vga.setVgaName(rs.getString(2));
+                    vga.setPrice(rs.getInt(3));
+                    vga.setStatus(rs.getBoolean(4));
+                    listVGA.add(vga);
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return listVGA;
     }
 }

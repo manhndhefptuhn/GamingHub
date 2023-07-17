@@ -52,14 +52,6 @@
                                     <a class="nav-link" href="responseList">Response List</a>
                                 </nav>
                             </div>
-                            
-                            <div class="sb-sidenav-menu-heading">FAQs</div>       
-                            <div aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="faqsList">FAQs List</a>
-                                </nav>
-                            </div>
-                            
                         </div>
                     </div>  
                     

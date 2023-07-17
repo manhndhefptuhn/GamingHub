@@ -44,13 +44,13 @@ public class CPUDAO {
         }
         return null;
     }
-     public List<CPU> getAllCPU() {
+     public List<CPU> getAllCPUActive() {
         List<CPU> cpus = new ArrayList<>();
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT * FROM cpu";
+                String sql = "SELECT * FROM `cpu` where `status` = 1";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -93,5 +93,32 @@ public class CPUDAO {
             System.out.println(e.getMessage());
         }
         return cpuID;
+    }
+    
+    public ArrayList<CPU> getAllCPU() {
+        ArrayList<CPU> listCPU = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "SELECT * FROM `cpu`";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    CPU cpu = new CPU();
+                    cpu.setCpuID(rs.getInt(1));
+                    cpu.setCpuName(rs.getString(2));
+                    cpu.setPrice(rs.getInt(3));
+                    cpu.setStatus(rs.getBoolean(4));
+                    listCPU.add(cpu);
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return listCPU;
     }
 }
