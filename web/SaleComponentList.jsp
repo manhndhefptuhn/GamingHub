@@ -12,7 +12,7 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <title>Admin Slider List</title>
+        <title>Sale Component List</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="<%= request.getContextPath()%>/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -27,7 +27,7 @@
                         <div class="card-body">
                             <c:if test="${notification != null}">
                                 <div>
-                                    <strong style="color: red;">${notification}</strong>
+                                    <strong style="color: greenyellow;">${notification}</strong>
                                 </div>
                             </c:if>
                             <table id="datatablesSimple">
@@ -60,7 +60,7 @@
                                                     </c:choose>
                                                 </td>
                                                 <td>
-                                                    <a href="componentdetail?type=mainboard&id=>">View</a>
+                                                    <a href="componentdetail?type=mainboard&id=<c:out value="${mainboard.getMainboardID()}" />">View</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -83,7 +83,7 @@
                                                     </c:choose>
                                                 </td>
                                                 <td>
-                                                    <a href="componentdetail?type=&id=>">View</a>
+                                                    <a href="componentdetail?type=cpu&id=<c:out value="${cpu.getCpuID()}" />">View</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -106,7 +106,7 @@
                                                     </c:choose>
                                                 </td>
                                                 <td>
-                                                    <a href="componentdetail?type=&id=>">View</a>
+                                                    <a href="componentdetail?type=case&id=<c:out value="${listCase.getCaseID()}" />">View</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -129,7 +129,7 @@
                                                     </c:choose>
                                                 </td>
                                                 <td>
-                                                    <a href="componentdetail?type=&id=>">View</a>
+                                                    <a href="componentdetail?type=psu&id=<c:out value="${psu.getPsuID()}" />">View</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -152,7 +152,7 @@
                                                     </c:choose>
                                                 </td>
                                                 <td>
-                                                    <a href="componentdetail?type=&id=>">View</a>
+                                                    <a href="componentdetail?type=ram&id=<c:out value="${ram.getRamID()}" />">View</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -175,7 +175,7 @@
                                                     </c:choose>
                                                 </td>
                                                 <td>
-                                                    <a href="componentdetail?type=&id=>">View</a>
+                                                    <a href="componentdetail?type=storage&id=<c:out value="${storage.getStorageID()}" />">View</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -198,7 +198,7 @@
                                                     </c:choose>
                                                 </td>
                                                 <td>
-                                                    <a href="componentdetail?type=&id=>">View</a>
+                                                    <a href="componentdetail?type=vga&id=<c:out value="${vga.getVgaID()}" />">View</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
