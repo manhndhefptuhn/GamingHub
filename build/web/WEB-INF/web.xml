@@ -248,6 +248,10 @@
         <servlet-name>DeleteProductImages</servlet-name>
         <servlet-class>Controller.Sale.DeleteProductImages</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ComponentDetailController</servlet-name>
+        <servlet-class>Controller.Sale.ComponentDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -495,6 +499,10 @@
     <servlet-mapping>
         <servlet-name>DeleteProductImages</servlet-name>
         <url-pattern>/deleteProductImages</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ComponentDetailController</servlet-name>
+        <url-pattern>/componentDetailController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
