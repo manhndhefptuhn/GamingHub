@@ -75,8 +75,7 @@
         <div class="offcanvas-menu-wrapper">
             <div class="offcanvas__close">+</div>
             <ul class="offcanvas__widget">
-                <li><span class="icon_search search-switch"></span></li>
-                    <c:if test="${sessionScope.user.getRole_ID() == 1}">
+                <c:if test="${sessionScope.user.getRole_ID() == 1}">
                     <li><a href="wishlist"><span class="icon_heart_alt"></span>
                             <div class="tip">${sessionScope.totalWishlistProduct}</div>
                         </a></li>
@@ -133,7 +132,7 @@
                                                         <li><a href="myOrder">Order History</a></li>
                                                         </c:if>
                                                         <c:if test="${sessionScope.user.getRole_ID() == 2}">
-                                                        <li><a href="SaleDashboard.jsp">Sale Dashboard</a></li>
+                                                        <li><a href="SaleDashboard">Sale Dashboard</a></li>
                                                         </c:if>
                                                         <c:if test="${sessionScope.user.getRole_ID() == 3}">
                                                         <li><a href="SupportDashboard">Support Dashboard</a></li>
@@ -150,8 +149,7 @@
                             </div>
 
                             <ul class="header__right__widget">
-                                <li><span class="icon_search search-switch"></span></li>
-                                    <c:if test="${sessionScope.user.getRole_ID() == 1}">
+                                <c:if test="${sessionScope.user.getRole_ID() == 1}">
                                     <li><a href="wishlist"><span class="icon_heart_alt"></span>
                                             <div class="tip">${sessionScope.totalWishlistProduct}</div>
                                         </a></li>

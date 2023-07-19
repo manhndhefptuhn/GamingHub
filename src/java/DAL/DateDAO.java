@@ -58,29 +58,4 @@ public class DateDAO extends DBContext {
         return null;
     }
 
-    public static void main(String[] args) {
-//        String start = ""; 
-//        String end = ""; 
-//        try {
-//            Date date = get7day();
-//            start = date.getStart().toString();
-//            end = date.getEnd().toString();
-//            System.out.println(start);
-//            System.out.println(end);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-//        start = "2023-07-10";
-//        end = "2023-07-17";
-//        
-//        try {
-//            int date = CountDayByStartEnd(start, end); 
-//            System.out.println(date);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-    }
-
 }

@@ -8,6 +8,7 @@ import DAL.SliderDAO;
 import DAL.UserDAO;
 import Model.Slider;
 import Model.User;
+import Service.PasswordUtils;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -70,7 +71,7 @@ public class CreateUserController extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         //attribute
         String email = request.getParameter("email");
-
+        PasswordUtils pwutl = new PasswordUtils();
         UserDAO uDAO = new UserDAO();
         User user = uDAO.checkUserExist(email);
         if (user != null) {
@@ -86,7 +87,7 @@ public class CreateUserController extends HttpServlet {
             int roleID = Integer.parseInt(request.getParameter("role"));
             String imagePath = "", extension = "";
 
-            if (image != null) {
+            if (image != null && image.getSize() > 0) {
                 // Generate a unique image name
                 String originalFilename = image.getSubmittedFileName();
                 int extensionIndex = originalFilename.lastIndexOf('.');
@@ -115,7 +116,7 @@ public class CreateUserController extends HttpServlet {
             User u = new User();
             u.setEmail(email);
             u.setFullName(name);
-            u.setPassword(password);
+            u.setPassword(pwutl.hashPassword(password));
             u.setPhone_Number(phoneNumber);
             u.setProfile_picture(imagePath);
             u.setAddress(address);

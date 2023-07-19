@@ -114,43 +114,41 @@
                 </div>
             </footer>
         </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-                    $('form').submit(function (event) {
-            const phoneNumber = $('#phone').val();
-                    if (phoneNumber.length !== 10) {
-            event.preventDefault();
-                    $('#notification').text('Please enter a 10-digit phone number').show();
-            } else {
-                $('#notification').hide();
-                }
-                });
-            });
-    </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
-            function previewProfilePicture(event) 
-       
+                                                    $(document).ready(function () {
+                                                        $('form').submit(function (event) {
+                                                            const phoneNumber = $('#phone').val();
+                                                            if (phoneNumber.length !== 10) {
+                                                                event.preventDefault();
+                                                                $('#notification').text('Please enter a 10-digit phone number').show();
+                                                            } else {
+                                                                $('#notification').hide();
+                                                            }
+                                                        });
+                                                    });
+        </script>
+        <script>
+            function previewProfilePicture(event)
+
             {
-                    var input = event.target;
-            var preview = document.getElementById('previewImage');
+                var input = event.target;
+                var preview = document.getElementById('previewImage');
 
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-                reader.onload = function (e) {
-                    preview.src = e.target.result;
-                };
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                    };
 
-                reader.readAsDataURL(input.files[0]);
+                    reader.readAsDataURL(input.files[0]);
+                }
             }
-            }  
-            </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="<%= request.getContextPath()%>/js/scripts1.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-<script src="<%= request.getContextPath()%>/js/datatables-simple-demo1.js"></script>
-</body>
-</body>
-
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="<%= request.getContextPath()%>/js/scripts1.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="<%= request.getContextPath()%>/js/datatables-simple-demo1.js"></script>
+    </body>
 </html>

@@ -4,24 +4,19 @@
  */
 package Controller.Sale;
 
-import DAL.ProductDAO;
-import Model.Product;
+import DAL.ProductImagesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  *
- * @author Tien Dat
+ * @author Zarius
  */
-public class ProductListController extends HttpServlet {
+public class DeleteProductImages extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,13 +30,17 @@ public class ProductListController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("utf-8");
-        response.setCharacterEncoding("utf-8");
-        ArrayList<Product> products = new ProductDAO().getListProduct();
-        Map<Integer, String> mapCategoryName = new ProductDAO().getCategoryNameByProductID(products);
-        request.setAttribute("products", products);
-        request.setAttribute("mapCategoryName", mapCategoryName);
-        request.getRequestDispatcher("SaleProductList.jsp").forward(request, response);
+        String image = request.getParameter("images");
+        int productID = Integer.parseInt(request.getParameter("productID"));
+        ProductImagesDAO pdimgDAO = new ProductImagesDAO();
+        int row = pdimgDAO.removeImage(productID, image);
+        if (row >= 1) {
+            request.setAttribute("notification", "Delete image successfully");
+            request.getRequestDispatcher("saleProductDetail?id=" + productID + "").forward(request, response);
+        } else {
+            request.setAttribute("notification", "Delete image fail");
+            request.getRequestDispatcher("saleProductDetail?id=" + productID + "").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

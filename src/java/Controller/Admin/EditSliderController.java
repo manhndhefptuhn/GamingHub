@@ -5,7 +5,9 @@
 package Controller.Admin;
 
 import DAL.SliderDAO;
+import DAL.UserDAO;
 import Model.Slider;
+import Service.PasswordUtils;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -37,23 +39,22 @@ public class EditSliderController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
-
-        if (request.getParameter("back") != null) {
-            request.getRequestDispatcher("sliderList").forward(request, response);
+        String action = request.getParameter("action");
+        if (action != null && action.equals("back")) {
+            response.sendRedirect("sliderList");
         } else if (request.getParameter("update") != null) {
             Slider updatedSlider = new Slider();
             SliderDAO sDAO = new SliderDAO();
             //attribute
             int sliderID = Integer.parseInt(request.getParameter("sliderId"));
             Slider slider = sDAO.getSliderById(sliderID);
-            System.out.println(slider.getSliderImage());
             String title = request.getParameter("title");
             Part sliderPicturePart = request.getPart("sliderPicture");
             String backlink = request.getParameter("backlink");
             String note = request.getParameter("note");
             boolean status = Boolean.valueOf(request.getParameter("status"));
-            String imagePath = null, extension = "";
-            if (sliderPicturePart != null) {
+            String imagePath = "", extension = "";
+            if (sliderPicturePart != null && sliderPicturePart.getSize() > 0) {
 
                 // Generate a unique image name
                 String originalFilename = sliderPicturePart.getSubmittedFileName();
@@ -83,10 +84,10 @@ public class EditSliderController extends HttpServlet {
                 updatedSlider.setSliderImage(imagePath);
             } else {
                 imagePath = slider.getSliderImage();
-                updatedSlider.setSliderImage(imagePath);
             }
             updatedSlider.setSliderID(sliderID);
             updatedSlider.setSliderTitle(title);
+            updatedSlider.setSliderImage(imagePath);
             updatedSlider.setBacklink(backlink);
             updatedSlider.setNote(note);
             updatedSlider.setStatus(status);

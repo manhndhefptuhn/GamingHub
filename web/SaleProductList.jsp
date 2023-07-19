@@ -25,6 +25,11 @@
                     <h1 class="mt-4">Product List</h1>
                     <div class="card mb-4">
                         <div class="card-body">
+                            <c:if test="${notification != null}">
+                                <div>
+                                    <strong style="color: red;">${notification}</strong>
+                                </div>
+                            </c:if>
                             <c:choose>
                                 <c:when test="${not empty products}">
                                     <table id="datatablesSimple">
@@ -35,18 +40,19 @@
                                                 <th>Quantity</th>
                                                 <th>Category</th>
                                                 <th>Status</th>
-                                                <th>Edit</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <c:set var="mapCategoryName" value="${requestScope.mapCategoryName}" />
                                             <c:forEach var="product" items="${products}">
                                                 <tr>
                                                     <td>${product.getProductID()}</td>
                                                     <td>${product.getProductName()}</td>
                                                     <td>${product.getQuantity()}</td>
-                                                    <td>${dao.getCategoryNameByID(product.getCategoryID())}</td>
+                                                    <td>${mapCategoryName[product.getProductID()]}</td>
                                                     <td>${product.isStatus() ? 'Active' : 'Deactive'}</td>
-                                                    <td><a href="saleProductDetail?id=${product.getProductID()}">Edit</a></td>
+                                                    <td><a href="saleProductDetail?id=${product.getProductID()}">View</a></td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>

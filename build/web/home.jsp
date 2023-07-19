@@ -43,7 +43,7 @@
                         <div class="banner__slider owl-carousel">
                             <c:forEach var="listSlider" items="${listSlider}">
                                 <div class="banner__item">
-                                    <img src="<%= request.getContextPath()%>/${listSlider.getSliderImage()}" alt="${listSlider.getSliderTitle()}" />
+                                    <a href="${listSlider.getBacklink()}"><img src="<%= request.getContextPath()%>/${listSlider.getSliderImage()}" alt="${listSlider.getSliderTitle()}" /></a>
                                 </div>
                             </c:forEach> 
                         </div>

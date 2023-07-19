@@ -15,17 +15,9 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="<%= request.getContextPath()%>/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        
+
         <style>
-/*            .dateFromTo {
-                font-size: 20px;
-                padding: 1%;
-                margin: 0;
-                box-sizing: border-box;
-
-            }
-
-*/            input[type="date"] {
+         input[type="date"] {
                 font-size: 20px;
                 border-radius: 5px;
             }
@@ -61,7 +53,8 @@
                                     <i class="fas fa-chart-pie me-1"></i>
                                     Product status
                                 </div>
-                                <div class="card-body"><canvas id="myPieChart-2" width="100%" height="62"></canvas></div>
+                                <h4 class="text-center mt-4">Number of product: ${totalProduct}</h4>
+                                <div class="card-body"><canvas id="myPieChart-2" width="100%" height="50"></canvas></div>
 
                             </div>
                         </div>
@@ -87,6 +80,8 @@
             </div>
         </footer>
     </div>
+    <c:set var="listNumberOfProduct" value="${requestScope.listNumberOfProduct}" />
+    <c:set var="listNumberOfProductStatus" value="${requestScope.listNumberOfProductStatus}" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <!--    <script src="<%= request.getContextPath()%>/js/scripts1.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
@@ -103,9 +98,9 @@
         var myPieChart = new Chart(ctx, {
         type: 'pie',
                 data: {
-                labels: [<c:forEach  items="${categoryList}" var="category" > "${category.categoryName}",</c:forEach>],
+                labels: [<c:forEach items="${categoryList}" var="category" > "${category.categoryName}",</c:forEach>],
                         datasets: [{
-                        data: [${numberOfProductFromCategory1}, ${numberOfProductFromCategory2}, ${numberOfProductFromCategory3}],
+                        data: [<c:forEach items="${categoryList}" var="category" >${listNumberOfProduct[category.getCategoryID()]}, </c:forEach>],
                                 backgroundColor: ['#ffc107', '#28a745', '#7e3bad', '#d91a53', '#007bff', '#6610f2', '#6f42c1', '#17a2b8',
                                         '#dc3545', '#fd7e14', '#ffc107', '#28a745', '#007bff', '#6610f2', '#6f42c1', '#17a2b8',
                                         '#dc3545', '#fd7e14', '#ffc107', '#28a745', '#007bff', '#6610f2', '#6f42c1', '#17a2b8',
@@ -113,14 +108,13 @@
                         }],
                 }
         });
-        
         var ctx = document.getElementById("myPieChart-2");
         var myPieChart = new Chart(ctx, {
         type: 'pie',
                 data: {
-                labels: [<c:forEach  items="${productStatusList}" var="productStatus" > "${productStatus.productStatusName}",</c:forEach>],
+                labels: [<c:forEach items="${productStatusList}" var="productStatus" > "${productStatus.productStatusName}",</c:forEach>],
                         datasets: [{
-                        data: [${numberOfProduct1}, ${numberOfProduct2}, ${numberOfProduct3}],
+                        data: [<c:forEach items="${productStatusList}" var="productStatus" >${listNumberOfProductStatus[productStatus.getProductStatusID()]}, </c:forEach>],
                                 backgroundColor: ['#ffc107', '#28a745', '#7e3bad', '#d91a53', '#007bff', '#6610f2', '#6f42c1', '#17a2b8',
                                         '#dc3545', '#fd7e14', '#ffc107', '#28a745', '#007bff', '#6610f2', '#6f42c1', '#17a2b8',
                                         '#dc3545', '#fd7e14', '#ffc107', '#28a745', '#007bff', '#6610f2', '#6f42c1', '#17a2b8',
@@ -140,7 +134,7 @@
                 data: {
                 labels: [<c:forEach  items="${listChartRevenueArea}" var="revenue" > "${revenue.date}",</c:forEach>],
                         datasets: [{
-                        label: "Daonh Thu",
+                        label: "Revenue",
                                 lineTension: 0.3,
                                 backgroundColor: "rgba(2,117,216,0.2)",
                                 borderColor: "rgba(2,117,216,1)",
@@ -183,7 +177,7 @@
                         }
                 }
         });
-        
+
     </script>
 </body>
 </html>

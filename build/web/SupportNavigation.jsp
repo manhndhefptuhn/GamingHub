@@ -49,7 +49,6 @@
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="feedbackList">Feedback List</a>
-                                    <a class="nav-link" href="responseList">Response List</a>
                                 </nav>
                             </div>
                         </div>

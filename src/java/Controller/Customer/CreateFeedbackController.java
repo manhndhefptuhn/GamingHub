@@ -66,6 +66,7 @@ public class CreateFeedbackController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
+        String action = request.getParameter("action");
         int orderID = Integer.parseInt(request.getParameter("orderID"));
         int productID = Integer.parseInt(request.getParameter("productID"));
         HttpSession session = request.getSession();
@@ -109,7 +110,7 @@ public class CreateFeedbackController extends HttpServlet {
                 } else {
                     throw new Exception();
                 }
-            } else if (request.getParameter("back") != null) {
+            } else if (action != null && action.equals("back")) {
                 request.getRequestDispatcher("orderDetail?id=" + orderID + "").forward(request, response);
             }
         } catch (Exception e) {

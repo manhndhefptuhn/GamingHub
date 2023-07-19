@@ -110,12 +110,14 @@ public class PCDAO {
         }
         return specificationMap;
     }
-public void createPC(PC pc) {
+
+    public void createPC(PC pc) {
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "INSERT INTO pc (Product_ID, Mainboard_ID, CPU_ID, RAM_ID, VGA_ID, Storage_ID, PSU_ID, Case_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO `pc` \n"
+                        + " VALUES (?,?,?,?,?,?,?,?)";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setInt(1, pc.getProductID());
                 ps.setInt(2, pc.getMainboardID());
@@ -134,12 +136,20 @@ public void createPC(PC pc) {
         }
     }
 
-    public static void updatePC(PC pc) {
+    public void updatePC(PC pc) {
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "UPDATE pc SET mainboard_ID=?, cpu_ID=?, ram_ID=?, vga_ID=?, storage_ID=?, psu_ID=?, case_ID=? WHERE product_ID=?";
+                String sql = "UPDATE `pc` "
+                        + "SET `mainboard_ID` = ?, "
+                        + "`cpu_ID`= ?, "
+                        + "`ram_ID`= ?, "
+                        + "`vga_ID`= ?, "
+                        + "`storage_ID` = ?, "
+                        + "`psu_ID` = ?, "
+                        + "`case_ID`= ? "
+                        + "WHERE `Product_ID` = ?";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setInt(1, pc.getMainboardID());
                 ps.setInt(2, pc.getCpuID());
