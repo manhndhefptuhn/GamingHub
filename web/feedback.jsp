@@ -51,7 +51,8 @@
                                 <c:set var="productID" value="${product.getProductID()}" />
                                 <c:set var="caseID" value="${listCaseID[productID]}" />
                                 <c:set var="caseObject" value="${listImage[caseID]}" />
-                                <form method="POST" action="createFeedback" enctype="multipart/form-data">
+                                <form method="POST" action="createFeedback" enctype="multipart/form-data" id="feedbackForm">
+                                    <input type="hidden" name="action" id="actionInput">
                                     <input type="hidden" name="orderID" value="${orderID}">
                                     <input type="hidden" name="productID" value="${product.getProductID()}">
                                     <div class="card-body">
@@ -97,7 +98,7 @@
                                                     </td>
                                                 </tr>
                                         </table>
-                                        <input type="submit" name="back" value="Back" class="btn-update"/>
+                                        <input type="button" name="back" value="Back" class="btn-update" onclick="backToOrderList()"/>
                                         <input type="submit" name="create" value="Create Feedback" class="btn-update"/>  
                                     </div>
                                 </form>
@@ -149,6 +150,14 @@
 
                                                                     reader.readAsDataURL(input.files[0]);
                                                                 }
+                                                            }
+
+                                                            function backToOrderList() {
+                                                                // Set the value of the hidden input field
+                                                                document.getElementById("actionInput").value = "back";
+
+                                                                // Submit the form
+                                                                document.getElementById("feedbackForm").submit();
                                                             }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>

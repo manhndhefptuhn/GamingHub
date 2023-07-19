@@ -16,9 +16,12 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import Model.Chart;
+import Model.ProductStatus;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -185,35 +188,13 @@ public class OrderDAO {
         return row;
     }
 
-    public int getTotalOrderType(String salerId, String start, String end, int orderStatus) {
+
+    public int getTotalOrderBySale(int saleID, String start, String end) {
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "select count(*) from `order` where `Saler_ID` = " + salerId + "  "
-                        + "and `Order_Date` <= ?  and `Order_Date` >= ? and `Order_Status` = ? ";
-                PreparedStatement st = con.prepareStatement(sql);
-                st.setString(1, end);
-                st.setString(2, start);
-                st.setInt(3, orderStatus);
-                ResultSet rs = st.executeQuery();
-                if (rs.next()) {
-                    return rs.getInt(1);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return 0;
-    }
-
-    public int getTotalOrder(String salerId, String start, String end) {
-
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "select count(*) from `order` where `Saler_ID` " + salerId + "  and `Order_Date` <= ?  and `Order_Date` >= ?";
+                String sql = "select count(*) from `order` where `Saler_ID` = " + saleID + " and `Order_Date` <= ?  and `Order_Date` >= ?";
                 PreparedStatement st = con.prepareStatement(sql);
                 st.setString(1, end);
                 st.setString(2, start);
@@ -227,7 +208,7 @@ public class OrderDAO {
         }
         return 0;
     }
-    
+
     public List<Order> getAllOrder() {
         List<Order> listOrder = new ArrayList<>();
         try {
@@ -263,7 +244,7 @@ public class OrderDAO {
         }
         return null;
     }
-    
+
     public List<OrderStatus> getAllOrderStatus() {
         List<OrderStatus> orderStatusList = new ArrayList<>();
         try {
@@ -289,7 +270,7 @@ public class OrderDAO {
         }
         return orderStatusList;
     }
-    
+
     public OrderStatus getOrderStatusByID(int orderStatusID) {
         try {
             DBContext db = new DBContext();
@@ -315,7 +296,7 @@ public class OrderDAO {
         }
         return null;
     }
-    
+
     public String getOrderStatusNameByID(int orderStatusID) {
         String orderStatusName = null;
         try {
@@ -338,6 +319,7 @@ public class OrderDAO {
         }
         return orderStatusName;
     }
+
     public Order getOrderByID(int orderID) {
         try {
             DBContext db = new DBContext();
@@ -370,7 +352,7 @@ public class OrderDAO {
         }
         return null;
     }
-    
+
     public void updateOrderStatus(Order order) {
         try {
             DBContext db = new DBContext();
@@ -388,7 +370,7 @@ public class OrderDAO {
             System.out.println(e.getMessage());
         }
     }
-    
+
     public int getOrderStatusIDByOrderID(int id) {
         int OrderStatusID = -1;
         try {
@@ -411,20 +393,19 @@ public class OrderDAO {
         }
         return OrderStatusID;
     }
-    
-    public List<Chart> getChartRevenueArea(String salerId, String start, int day) throws Exception {
+
+    public List<Chart> getChartRevenueArea(String start, int day) throws Exception {
         List<Chart> list = new ArrayList<>();
         for (int i = 0; i < day; i++) {
             int value = 0;
-            String sql = "SELECT SUM(total_cost) FROM `Order` WHERE saler_id = ? AND Order_Date <= DATE_ADD(?, INTERVAL ? DAY) AND Order_Date >= ?";
+            String sql = "SELECT SUM(total_cost) FROM `Order` WHERE `Order_Date` <= DATE_ADD(?, INTERVAL ? DAY) AND `Order_Date` >= ?";
             try {
                 DBContext db = new DBContext();
                 Connection con = db.getConnection();
                 PreparedStatement st = con.prepareStatement(sql);
-                st.setString(1, salerId);
-                st.setString(2, start);
-                st.setInt(3, i);
-                st.setString(4, start);
+                st.setString(1, start);
+                st.setInt(2, i);
+                st.setString(3, start);
                 ResultSet rs = st.executeQuery();
                 while (rs.next()) {
                     value = rs.getInt(1);
@@ -449,5 +430,76 @@ public class OrderDAO {
             }
         }
         return list;
+    }
+    
+    public List<Chart> getChartRevenueAreaOfSale(int saleID, String start, int day) throws Exception {
+        List<Chart> list = new ArrayList<>();
+        for (int i = 0; i < day; i++) {
+            int value = 0;
+            String sql = "SELECT SUM(total_cost) FROM `Order` WHERE `Saler_ID` = "+saleID+" and `Order_Date` <= DATE_ADD(?, INTERVAL ? DAY) AND `Order_Date` >= ?";
+            try {
+                DBContext db = new DBContext();
+                Connection con = db.getConnection();
+                PreparedStatement st = con.prepareStatement(sql);
+                st.setString(1, start);
+                st.setInt(2, i);
+                st.setString(3, start);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    value = rs.getInt(1);
+                }
+
+                sql = "SELECT DATE_ADD(?, INTERVAL ? DAY)";
+                st = con.prepareStatement(sql);
+                st.setString(1, start);
+                st.setInt(2, i);
+                rs = st.executeQuery();
+                while (rs.next()) {
+                    Chart.ChartBuilder builder = new Chart().new ChartBuilder();
+                    Chart c = builder
+                            .date(rs.getDate(1))
+                            .value(value)
+                            .build();
+                    list.add(c);
+                }
+
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+        return list;
+    }
+
+    public Map<Integer, Integer> getNumberOfOrderByStatus(ArrayList<OrderStatus> listOrderStatus, int saleID, String start, String end) {
+        Map<Integer, Integer> listNumberOfOrderByStatus = new HashMap<>();
+        DBContext db = new DBContext();
+        int orderStatusID, numberOfOrder;
+        try {
+            Connection con = db.getConnection();
+            if (con != null) {
+                String sql = "select ost.Order_Status_ID, count(o.Order_ID)\n"
+                        + "from `order` as o inner join `order_status` as ost\n"
+                        + "where o.Order_Status = ost.Order_Status_ID and ost.Order_Status_ID = ? and o.Saler_ID = ? and `Order_Date` <= ?  and `Order_Date` >= ?;";
+                PreparedStatement st = con.prepareStatement(sql);
+                st.setString(3, end);
+                st.setString(4, start);
+                for (OrderStatus listOrderStatu : listOrderStatus) {
+                    st.setInt(1, listOrderStatu.getOrderStatusID());
+                    st.setInt(2, saleID);
+                    ResultSet rs = st.executeQuery();
+                    if (rs.next()) {
+                        orderStatusID = rs.getInt(1);
+                        numberOfOrder = rs.getInt(2);
+                        listNumberOfOrderByStatus.put(orderStatusID, numberOfOrder);
+                    }
+                    rs.close();
+                }
+                st.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return listNumberOfOrderByStatus;
     }
 }

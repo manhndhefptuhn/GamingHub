@@ -58,24 +58,13 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="footer__copyright__text">
-                            <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved</p>
+                            <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> Gaming Hub</p>
                         </div>
                     </div>
                 </div>
             </div>
         </footer>
         <!-- Footer Section End -->
-
-        <!-- Search Begin -->
-        <div class="search-model">
-            <div class="h-100 d-flex align-items-center justify-content-center">
-                <div class="search-close-switch">+</div>
-                <form class="search-model-form" method="GET" action="home">
-                    <input type="text" id="search-input" placeholder="Search here.....">
-                </form>
-            </div>
-        </div>
-        <!-- Search End -->
 
     </body>
 </html>

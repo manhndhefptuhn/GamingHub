@@ -91,28 +91,13 @@ public class CreateProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<ProductStatus> allprs = new ProductDAO().getAllProductStatus();
-        request.setAttribute("allprs", allprs);
-        List<Category> allcate = new CategoryDAO().getAllCategory();
-        request.setAttribute("allcate", allcate);
-        List<CPU> allcpu = new CPUDAO().getAllCPUActive();
-        request.setAttribute("allcpu", allcpu);
-        List<Case> allca = new CaseDAO().getAllCaseActive();
-        request.setAttribute("allca", allca);
-        List<Mainboard> allmb = new MainboardDAO().getAllMainboardActive();
-        request.setAttribute("allmb", allmb);
-        List<PSU> allpsu = new PSUDAO().getAllPSUActive();
-        request.setAttribute("allpsu", allpsu);
-        List<RAM> allram = new RAMDAO().getAllRAMActive();
-        request.setAttribute("allram", allram);
-        List<Storage> allst = new StorageDAO().getAllStorageActive();
-        request.setAttribute("allst", allst);
-        List<VGA> allvga = new VGADAO().getAllVGAActive();
-        request.setAttribute("allvga", allvga);
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         
         String productName = request.getParameter("productName");
         String description = request.getParameter("description");
-        boolean status = request.getParameter("status") != null;
+        boolean status = Boolean.valueOf(request.getParameter("status"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         double salePercentage = Double.parseDouble(request.getParameter("salePercentage"));
         int productStatusID = Integer.parseInt(request.getParameter("productStatus"));
@@ -127,9 +112,8 @@ public class CreateProductController extends HttpServlet {
         product.setSalePercentage(salePercentage);
         product.setProductStatusID(productStatusID);
         product.setCategoryID(categoryID);
-        pDAO.createProduct(product);
+        int productID = pDAO.createProduct(product);
 
-        int productID = product.getProductID();
         int cpuID = Integer.parseInt(request.getParameter("cpu"));
         int caseID = Integer.parseInt(request.getParameter("case"));
         int mainboardID = Integer.parseInt(request.getParameter("mainboard"));
@@ -151,8 +135,8 @@ public class CreateProductController extends HttpServlet {
         pcDAO.createPC(pc);
         
         
-        request.setAttribute("message", "Product created with ID " + product.getProductID());
-        request.getRequestDispatcher("SaleAddProduct.jsp").forward(request, response);
+        request.setAttribute("notification", "Product created with ID " + productID);
+        request.getRequestDispatcher("productList").forward(request, response);
     }
 
     /**

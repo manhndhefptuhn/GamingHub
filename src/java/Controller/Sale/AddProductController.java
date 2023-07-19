@@ -2,25 +2,39 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller.Support;
+package Controller.Sale;
 
-import DAL.FeedbackDAO;
-import DAL.FeedbackResponseDAO;
-import Model.FeedbackResponse;
+import DAL.CPUDAO;
+import DAL.CaseDAO;
+import DAL.CategoryDAO;
+import DAL.MainboardDAO;
+import DAL.PSUDAO;
+import DAL.ProductDAO;
+import DAL.RAMDAO;
+import DAL.StorageDAO;
+import DAL.VGADAO;
+import Model.CPU;
+import Model.Case;
+import Model.Category;
+import Model.Mainboard;
+import Model.PSU;
+import Model.ProductStatus;
+import Model.RAM;
+import Model.Storage;
+import Model.VGA;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
- * @author admin
- *
+ * @author Zarius
  */
-public class ResponseListController extends HttpServlet {
+public class AddProductController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,14 +48,37 @@ public class ResponseListController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            FeedbackResponseDAO fbrDAO = new FeedbackResponseDAO();
-            ArrayList<FeedbackResponse> listResponse = fbrDAO.getFeedbackRespones();
-            request.setAttribute("responseList", listResponse);
-            request.getRequestDispatcher("SupportResponseList.jsp").forward(request, response);
-
-        }
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
+        
+        List<ProductStatus> allprs = new ProductDAO().getAllProductStatus();
+        request.setAttribute("allprs", allprs);
+        
+        List<Category> allcate = new CategoryDAO().getAllCategory();
+        request.setAttribute("allcate", allcate);
+        
+        List<CPU> allcpu = new CPUDAO().getAllCPUActive();
+        request.setAttribute("allcpu", allcpu);
+        
+        List<Case> allca = new CaseDAO().getAllCaseActive();
+        request.setAttribute("allca", allca);
+        
+        List<Mainboard> allmb = new MainboardDAO().getAllMainboardActive();
+        request.setAttribute("allmb", allmb);
+        
+        List<PSU> allpsu = new PSUDAO().getAllPSUActive();
+        request.setAttribute("allpsu", allpsu);
+        
+        List<RAM> allram = new RAMDAO().getAllRAMActive();
+        request.setAttribute("allram", allram);
+        
+        List<Storage> allst = new StorageDAO().getAllStorageActive();
+        request.setAttribute("allst", allst);
+        
+        List<VGA> allvga = new VGADAO().getAllVGAActive();
+        request.setAttribute("allvga", allvga);
+        
+        request.getRequestDispatcher("SaleAddProduct.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

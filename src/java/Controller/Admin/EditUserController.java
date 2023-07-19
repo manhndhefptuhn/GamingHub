@@ -6,6 +6,7 @@ package Controller.Admin;
 
 import DAL.UserDAO;
 import Model.User;
+import Service.PasswordUtils;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -57,8 +58,11 @@ public class EditUserController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
-        if (request.getParameter("back") != null) {
-            request.getRequestDispatcher("userList").forward(request, response);
+        String action = request.getParameter("action");
+        UserDAO uDAO = new UserDAO();
+        PasswordUtils pwutl = new PasswordUtils();
+        if (action != null && action.equals("back")) {
+            response.sendRedirect("userList");
         } else if (request.getParameter("update") != null) {
             //attribute
             int userID = Integer.parseInt(request.getParameter("userID"));
@@ -70,7 +74,7 @@ public class EditUserController extends HttpServlet {
             boolean status = Boolean.valueOf(request.getParameter("status"));
             int roleID = Integer.parseInt(request.getParameter("role"));
             String imagePath = "", extension = "";
-            if (image != null) {
+            if (image != null && image.getSize() > 0) {
                 // Generate a unique image name
                 String originalFilename = image.getSubmittedFileName();
                 int extensionIndex = originalFilename.lastIndexOf('.');
@@ -95,18 +99,20 @@ public class EditUserController extends HttpServlet {
                 image.write(destinationFilePath);
 
                 imagePath = "img/avatar/" + uniqueImageName;
+            } else {
+                User user = uDAO.getUserByID(userID);
+                imagePath = user.getProfile_picture();
             }
             User u = new User();
             u.setUser_ID(userID);
             u.setFullName(name);
-            u.setPassword(password);
+            u.setPassword(pwutl.hashPassword(password));
             u.setPhone_Number(phoneNumber);
             u.setProfile_picture(imagePath);
             u.setAddress(address);
             u.setStatus(status);
             u.setRole_ID(roleID);
 
-            UserDAO uDAO = new UserDAO();
             int rowsAffected = uDAO.editUserInfo(u);
             if (rowsAffected > 0) {
                 request.setAttribute("notification", "Update user Successsfully");

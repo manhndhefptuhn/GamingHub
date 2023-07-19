@@ -97,10 +97,6 @@
         <servlet-class>Controller.Common.forgetPassController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ResponseListController</servlet-name>
-        <servlet-class>Controller.Support.ResponseListController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GetSupportDashboardInfo</servlet-name>
         <servlet-class>Controller.Support.GetSupportDashboardInfo</servlet-class>
     </servlet>
@@ -243,6 +239,14 @@
     <servlet>
         <servlet-name>ComponentListController</servlet-name>
         <servlet-class>Controller.Sale.ComponentListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddProductController</servlet-name>
+        <servlet-class>Controller.Sale.AddProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProductImages</servlet-name>
+        <servlet-class>Controller.Sale.DeleteProductImages</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -437,10 +441,6 @@
         <url-pattern>/verifyPayment</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ResponseListController</servlet-name>
-        <url-pattern>/responseList</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>UpdateTrueUser</servlet-name>
         <url-pattern>/trueUser</url-pattern>
     </servlet-mapping>
@@ -487,6 +487,14 @@
     <servlet-mapping>
         <servlet-name>ComponentListController</servlet-name>
         <url-pattern>/componentList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProductController</servlet-name>
+        <url-pattern>/addProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProductImages</servlet-name>
+        <url-pattern>/deleteProductImages</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

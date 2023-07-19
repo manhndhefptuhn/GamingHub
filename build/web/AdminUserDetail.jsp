@@ -44,7 +44,8 @@
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">User Detail</h1>
                     <div class="card mb-4">
-                        <form method="POST" action="editUserController" enctype="multipart/form-data">
+                        <form method="POST" action="editUserController" enctype="multipart/form-data" id="userForm">
+                            <input type="hidden" name="action" id="actionInput">
                             <c:set var="userDetail" value="${requestScope.userDetail}" />
                             <div class="card-body">
                                 <c:if test="${notification != null}">
@@ -113,9 +114,15 @@
                                                     </c:forEach>
                                                 </select>
                                             </td>
+                                            <select  type="text" id="cpu" name="cpu" value="" >
+                                                <span value="${pc.getCpuID()}">${cpu.getCpuName()}</span>
+                                                <c:forEach var="cpu" items="${allcpu}">
+                                                    <option value="${cpu.cpuID}">${cpu.cpuName} - ${cpu.price} VND</option>
+                                                </c:forEach> 
+                                            </select>
                                         </tr>
                                 </table>
-                                <input type="submit" name="back" value="Back" class="btn-update"/>
+                                <input type="button" name="back" value="Back" class="btn-update" onclick="backToUserList()"/>
                                 <input type="submit" name="update" value="Update" class="btn-update"/>  
                             </div>
                         </form>
@@ -132,17 +139,17 @@
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
-                                                    $(document).ready(function () {
-                                                        $('form').submit(function (event) {
-                                                            const phoneNumber = $('#phone').val();
-                                                            if (phoneNumber.length !== 10) {
-                                                                event.preventDefault();
-                                                                $('#notification').text('Please enter a 10-digit phone number').show();
-                                                            } else if(phoneNumber.length === 10){
-                                                                $('#notification').hide();
-                                                            }
-                                                        });
-                                                    });
+                                    $(document).ready(function () {
+                                        $('form').submit(function (event) {
+                                            const phoneNumber = $('#phone').val();
+                                            if (phoneNumber.length !== 10) {
+                                                event.preventDefault();
+                                                $('#notification').text('Please enter a 10-digit phone number').show();
+                                            } else if (phoneNumber.length === 10) {
+                                                $('#notification').hide();
+                                            }
+                                        });
+                                    });
         </script>
         <script>
             function previewProfilePicture(event) {
@@ -158,6 +165,14 @@
 
                     reader.readAsDataURL(input.files[0]);
                 }
+            }
+
+            function backToUserList() {
+                // Set the value of the hidden input field
+                document.getElementById("actionInput").value = "back";
+
+                // Submit the form
+                document.getElementById("userForm").submit();
             }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

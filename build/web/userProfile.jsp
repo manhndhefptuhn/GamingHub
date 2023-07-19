@@ -18,7 +18,6 @@
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/style2.css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/bootstrap.min.css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/scss/extra/userProfile.scss">
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/js/">
     </head>
     <body>
         <style>
@@ -68,7 +67,8 @@
         </style>
         <%  User u = (User)session.getAttribute("user");
             String userRole = (String)request.getAttribute("userRole");%>
-        <form action="updateUserProfile" method="POST" enctype="multipart/form-data">
+        <form action="updateUserProfile" method="POST" enctype="multipart/form-data" id="userForm">
+            <input type="hidden" name="action" id="actionInput">
             <div class="container">
                 <input type="hidden" name="userID" value="${sessionScope.user.getUser_ID()}">
                 <div class="row gutters">
@@ -135,8 +135,8 @@
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="text-center"">
                                             <input type="submit" id="update" name="update" value="Update" class="btn btn-primary">
-                                            <input type="submit" id="changepass" name="changePass" value="Change Password" class="btn btn-primary">
-                                            <input type="submit" id="backtohome" name="backToHome" value="Back to Homepage" class="btn btn-dark">
+                                            <input type="button" id="changepass" name="changePass" value="Change Password" class="btn btn-primary" onclick="changeUserPass()">
+                                            <input type="button" id="backtohome" name="backToHome" value="Back to Homepage" class="btn btn-dark" onclick="backToHomepage()">
                                         </div>
                                     </div>
                                 </div>
@@ -166,6 +166,8 @@
 
             const fileInput = document.getElementById("input-img");
             fileInput.addEventListener("change", handleFileSelect);
+
+
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
@@ -180,6 +182,22 @@
                     }
                 });
             });
+
+            function backToHomepage() {
+                // Set the value of the hidden input field
+                document.getElementById("actionInput").value = "back";
+
+                // Submit the form
+                document.getElementById("userForm").submit();
+            }
+
+            function changeUserPass() {
+                // Set the value of the hidden input field
+                document.getElementById("actionInput").value = "changePass";
+
+                // Submit the form
+                document.getElementById("userForm").submit();
+            }
         </script>
     </body>
 

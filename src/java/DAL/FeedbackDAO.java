@@ -504,7 +504,7 @@ public class FeedbackDAO {
             if (con != null) {
                 Statement st = con.createStatement();
 
-                String sql = "select count(Feedback_ID) from feedback where Create_Date > now() - interval 3 month group by date_format(Create_Date, '%b');";
+                String sql = "select count(Feedback_ID) from `feedback` where Create_Date > now() - interval 3 month group by date_format(Create_Date, '%b');";
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
 

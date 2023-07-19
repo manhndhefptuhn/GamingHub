@@ -32,7 +32,7 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">Head</div>
-                    <a class="nav-link" href="SaleDashboard.jsp">
+                    <a class="nav-link" href="SaleDashboard">
                         <div class="sb-nav-link-icon"><i class="fa fa-pie-chart"></i></div>
                         Sale Dashboard
                     </a>
@@ -65,7 +65,7 @@
                     <div class="collapse" id="collapseLayoutsThree" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="productList">Product List</a>
-                            <a class="nav-link" href="SaleAddProduct.jsp">Add A Product</a>
+                            <a class="nav-link" href="addProduct">Add A Product</a>
                         </nav>
                     </div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutsFour" aria-expanded="false" aria-controls="collapseLayoutsFour">

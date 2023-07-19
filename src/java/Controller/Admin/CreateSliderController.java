@@ -67,60 +67,56 @@ public class CreateSliderController extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         String imagePath = "", extension = "";
-        if (request.getParameter("back") != null) {
+        //attribute
+        String title = request.getParameter("title");
+        Part sliderPicturePart = request.getPart("sliderPicture");
+        String backlink = request.getParameter("backlink");
+        String note = request.getParameter("note");
+        Boolean status = Boolean.parseBoolean(request.getParameter("status"));
+
+        if (sliderPicturePart != null && sliderPicturePart.getSize() > 0) {
+            // Generate a unique image name
+            String originalFilename = sliderPicturePart.getSubmittedFileName();
+            int extensionIndex = originalFilename.lastIndexOf('.');
+            if (extensionIndex >= 0) {
+                extension = originalFilename.substring(extensionIndex);
+            }
+            String uniqueImageName = System.currentTimeMillis() + extension;
+            ServletContext context = getServletContext();
+
+            // Get the real path to the project folder
+            String projectFolderPath = context.getRealPath("/img");
+            // Specify the directory to save the image
+            String uploadDirectory = projectFolderPath + "/slider/";
+            File directory = new File(uploadDirectory);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // Create the destination file path
+            String destinationFilePath = uploadDirectory + uniqueImageName;
+            System.out.println(destinationFilePath);
+            // Save the uploaded image to the destination path
+            sliderPicturePart.write(destinationFilePath);
+
+            imagePath = "img/slider/" + uniqueImageName;
+        }
+        Slider createSlider = new Slider();
+        createSlider.setSliderTitle(title);
+        createSlider.setSliderImage(imagePath);
+        createSlider.setBacklink(backlink);
+        createSlider.setNote(note);
+        createSlider.setStatus(status);
+
+        SliderDAO sDAO = new SliderDAO();
+
+        int rowsAffected = sDAO.createSlider(createSlider);
+        if (rowsAffected > 0) {
+            request.setAttribute("notification", "Create Slider Successsfully");
             request.getRequestDispatcher("sliderList").forward(request, response);
-        } else if (request.getParameter("create") != null) {
-            //attribute
-            String title = request.getParameter("title");
-            Part sliderPicturePart = request.getPart("sliderPicture");
-            String backlink = request.getParameter("backlink");
-            String note = request.getParameter("note");
-            Boolean status = Boolean.parseBoolean(request.getParameter("status"));
-
-            if (sliderPicturePart != null) {
-                // Generate a unique image name
-                String originalFilename = sliderPicturePart.getSubmittedFileName();
-                int extensionIndex = originalFilename.lastIndexOf('.');
-                if (extensionIndex >= 0) {
-                    extension = originalFilename.substring(extensionIndex);
-                }
-                String uniqueImageName = System.currentTimeMillis() + extension;
-                ServletContext context = getServletContext();
-
-                // Get the real path to the project folder
-                String projectFolderPath = context.getRealPath("/img");
-                // Specify the directory to save the image
-                String uploadDirectory = projectFolderPath + "/slider/";
-                File directory = new File(uploadDirectory);
-                if (!directory.exists()) {
-                    directory.mkdirs();
-                }
-
-                // Create the destination file path
-                String destinationFilePath = uploadDirectory + uniqueImageName;
-                System.out.println(destinationFilePath);
-                // Save the uploaded image to the destination path
-                sliderPicturePart.write(destinationFilePath);
-
-                imagePath = "img/slider/" + uniqueImageName;
-            }
-            Slider createSlider = new Slider();
-            createSlider.setSliderTitle(title);
-            createSlider.setSliderImage(imagePath);
-            createSlider.setBacklink(backlink);
-            createSlider.setNote(note);
-            createSlider.setStatus(status);
-
-            SliderDAO sDAO = new SliderDAO();
-
-            int rowsAffected = sDAO.createSlider(createSlider);
-            if (rowsAffected > 0) {
-                request.setAttribute("notification", "Create Slider Successsfully");
-                request.getRequestDispatcher("sliderList").forward(request, response);
-            } else {
-                request.setAttribute("notification", "Something wrong, please try again");
-                request.getRequestDispatcher("sliderList").forward(request, response);
-            }
+        } else {
+            request.setAttribute("notification", "Something wrong, please try again");
+            request.getRequestDispatcher("sliderList").forward(request, response);
         }
     }
 

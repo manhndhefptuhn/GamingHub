@@ -44,7 +44,8 @@
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Slider Detail</h1>
                     <div class="card mb-4">
-                        <form method="POST" action="editSliderController" enctype="multipart/form-data">
+                        <form method="POST" action="editSliderController" enctype="multipart/form-data" id="sliderForm">
+                            <input type="hidden" name="action" id="actionInput">
                             <div class="card-body">
                                 <c:if test="${notification != null}">
                                     <div>
@@ -56,7 +57,7 @@
                                     <tbody>
                                         <tr>
                                             <th>Title</th>
-                                            <td><input type="text" id="title" name="title" value="${slider.getSliderTitle()}" /><br></td>
+                                            <td><input type="text" id="title" name="title" value="${slider.getSliderTitle()}" required/><br></td>
                                         </tr>
                                         <tr>
                                             <th>Slider picture</th>
@@ -82,7 +83,7 @@
                                             </td>
                                         </tr>
                                 </table>
-                                <input type="submit" name="back" value="Back" class="btn-update"/>
+                                <input type="button" name="back" value="Back" class="btn-update" onclick="backToSliderList()"/>
                                 <input type="submit" name="update" value="Update" class="btn-update"/>  
                             </div>
                         </form>
@@ -112,6 +113,13 @@
 
                 reader.readAsDataURL(input.files[0]);
             }
+        }
+        function backToSliderList() {
+            // Set the value of the hidden input field
+            document.getElementById("actionInput").value = "back";
+
+            // Submit the form
+            document.getElementById("sliderForm").submit();
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

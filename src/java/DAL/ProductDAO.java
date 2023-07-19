@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -276,8 +277,8 @@ public class ProductDAO {
         return listRand;
     }
 
-    public List<Product> getListProduct() {
-        List<Product> products = new ArrayList<>();
+    public ArrayList<Product> getListProduct() {
+        ArrayList<Product> products = new ArrayList<>();
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
@@ -559,11 +560,9 @@ public class ProductDAO {
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
-
             if (con != null) {
                 Statement st = con.createStatement();
-//                String sql = "select COUNT(*) from Product";
-                String sql = "select COUNT(*) from Product where product_Id >= 1 AND product_Id <= 10";
+                String sql = "select COUNT(*) from `product`";
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
                     return rs.getInt(1);
@@ -576,73 +575,27 @@ public class ProductDAO {
         return 0;
     }
 
-    public int getQuantityOfProductByProductName(int id) {
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
 
-            if (con != null) {
-                Statement st = con.createStatement();
-                String sql = "select quantity from Product where product_id = " + id;
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    return rs.getInt(1);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        return 0;
-    }
-
-    public List<Product> getAllProduct1() {
-        List<Product> productList = new ArrayList<>();
-
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-
-            if (con != null) {
-                Statement st = con.createStatement();
-                String sql = "SELECT * FROM product WHERE product_Id >= 1 AND product_Id <= 10;";
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    Product product = new Product();
-                    product.setProductID(rs.getInt("product_Id"));
-                    product.setProductName(rs.getString("product_Name"));
-                    product.setStatus(rs.getBoolean("status"));
-                    product.setQuantity(rs.getInt("quantity"));
-
-                    productList.add(product);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return productList;
-    }
-
-    public void createProduct(Product product) {
+    public int createProduct(Product product) {
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "INSERT INTO product (product_name, description, status, quantity, product_status_id, salePercentage, category_id) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO `product` \n"
+                        + "VALUES (?,?,?,?,?,?,?,?)";
                 PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, product.getProductName());
-                ps.setString(2, product.getDescription());
-                ps.setBoolean(3, product.isStatus());
-                ps.setInt(4, product.getQuantity());
-                ps.setInt(5, product.getProductStatusID());
-                ps.setDouble(6, product.getSalePercentage());
-                ps.setInt(7, product.getCategoryID());
+                ps.setNull(1, Types.INTEGER);
+                ps.setString(2, product.getProductName());
+                ps.setString(3, product.getDescription());
+                ps.setBoolean(4, product.isStatus());
+                ps.setInt(5, product.getQuantity());
+                ps.setInt(6, product.getProductStatusID());
+                ps.setDouble(7, product.getSalePercentage());
+                ps.setInt(8, product.getCategoryID());
                 ps.executeUpdate();
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
-                    int generatedProductId = rs.getInt(1);
-                    product.setProductID(generatedProductId);
+                    return rs.getInt(1);
                 }
                 rs.close();
                 ps.close();
@@ -651,6 +604,7 @@ public class ProductDAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        return 0;
     }
 
     public List<ProductStatus> getAllProductStatus() {
@@ -679,130 +633,51 @@ public class ProductDAO {
         return productStatusList;
     }
 
-    public String getProductStatusNameByID(int productStatusID) {
-        String productStatusName = null;
+    public Map<Integer, String> getCategoryNameByProductID(ArrayList<Product> products) {
+        Map<Integer, String> mapCategoryName = new HashMap<>();
+        DBContext db = new DBContext();
+        int productID;
+        String categoryName;
         try {
-            DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT product_status_name FROM product_status WHERE product_status_id = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, productStatusID);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    productStatusName = rs.getString(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return productStatusName;
-    }
-
-    public String getCategoryNameByID(int categoryID) {
-        String categoryName = null;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT category_name FROM category WHERE category_id = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, categoryID);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    categoryName = rs.getString(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return categoryName;
-    }
-
-    public int getProductStatusIDByName(String productStatusName) {
-        int productStatusID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT product_status_id FROM product_status WHERE product_status_name = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, productStatusName);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    productStatusID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return productStatusID;
-    }
-
-    public int getCategoryIDByName(String categoryName) {
-        int categoryID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT category_id FROM category WHERE category_name = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, categoryName);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    categoryID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return categoryID;
-    }
-    
-    public ProductStatus getProductStatusByID(int id) {
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT * FROM product_status WHERE product_status_id = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    ProductStatus p = new ProductStatus();
-                    p.setProductStatusID(rs.getInt(1));
-                    p.setProductStatusName(rs.getString(2));
-                    p.setStatus(rs.getBoolean(3));
+                String sql = "Select p.Product_ID, c.Category_Name "
+                        + "FROM `product` as p INNER JOIN `category` as c "
+                        + "WHERE p.Category_ID = c.Category_ID and p.product_ID = ?";
+                PreparedStatement st = con.prepareStatement(sql);
+                for (Product product : products) {
+                    st.setInt(1, product.getProductID());
+                    ResultSet rs = st.executeQuery();
+                    if (rs.next()) {
+                        productID = rs.getInt(1);
+                        categoryName = rs.getString(2);
+                        mapCategoryName.put(productID, categoryName);
+                    }
                     rs.close();
-                    ps.close();
-                    con.close();
-                    return p;
                 }
+                st.close();
+                con.close();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return mapCategoryName;
     }
-    
-    public static void updateProduct(Product product) {
+
+    public void updateProduct(Product product) {
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "UPDATE product SET Product_Name = ?, Description = ?, Status = ?, Quantity = ?, Product_Status_ID = ?, SalePercentage = ?, Category_ID = ? WHERE Product_ID = ?";
+                String sql = "UPDATE `product` "
+                        + "SET `Product_Name` = ?, "
+                        + "`Description` = ?, "
+                        + "`Status` = ?, "
+                        + "`Quantity` = ?, "
+                        + "`Product_Status_ID` = ?, "
+                        + "`SalePercentage` = ?, "
+                        + "`Category_ID` = ? \n"
+                        + "WHERE `Product_ID` = ?";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setString(1, product.getProductName());
                 ps.setString(2, product.getDescription());
@@ -820,277 +695,66 @@ public class ProductDAO {
             System.out.println(e.getMessage());
         }
     }
-    
-    public int getProductStatusIDByProductID(int id) {
-        int productStatusID = -1;
+
+    public Map<Integer, Integer> getNumberOfProductByCategoryId(ArrayList<Category> categoryList) {
+        Map<Integer, Integer> listNumberOfProduct = new HashMap<>();
+        DBContext db = new DBContext();
+        int categoryID, numberOfProduct;
         try {
-            DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT product_status_id FROM product WHERE product_id = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    productStatusID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return productStatusID;
-    }
-    
-    public int getCategoryIDByProductID(int id) {
-        int categoryID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT category_id FROM product WHERE product_id = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    categoryID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return categoryID;
-    }
-    
-    public Category getCategoryByID(int id) {
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT * FROM category WHERE category_id = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    Category c = new Category();
-                    c.setCategoryID(rs.getInt(1));
-                    c.setCategoryName(rs.getString(2));
-                    c.setStatus(rs.getBoolean(3));
+                String sql = "select c.category_id ,count(product_id) from "
+                        + "`product` as p inner join `category` as c "
+                        + "where p.category_ID = c.category_ID and c.category_ID = ?";
+                PreparedStatement st = con.prepareStatement(sql);
+                for (Category category : categoryList) {
+                    st.setInt(1, category.getCategoryID());
+                    ResultSet rs = st.executeQuery();
+                    if (rs.next()) {
+                        categoryID = rs.getInt(1);
+                        numberOfProduct = rs.getInt(2);
+                        listNumberOfProduct.put(categoryID, numberOfProduct);
+                    }
                     rs.close();
-                    ps.close();
-                    con.close();
-                    return c;
                 }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-    
-    public int getCPUIDByProductID(int id) {
-        int CPUID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT cpu_id FROM pc WHERE product_id = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    CPUID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
+                st.close();
                 con.close();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return CPUID;
+        return listNumberOfProduct;
     }
     
-    public int getCaseIDByProductID(int id) {
-        int CaseID = -1;
+    public Map<Integer, Integer> getNumberOfProductByProductStatusId(ArrayList<ProductStatus> productStatusList) {
+        Map<Integer, Integer> listNumberOfProductByStatus = new HashMap<>();
+        DBContext db = new DBContext();
+        int productStatusID, numberOfProduct;
         try {
-            DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT case_id FROM pc WHERE product_id = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    CaseID = rs.getInt(1);
+                String sql = "select ps.Product_Status_ID ,count(p.product_id) "
+                        + "from `product` as p inner join `product_status` as ps "
+                        + "where p.Product_Status_ID = ps.Product_Status_ID and ps.Product_Status_ID = ? ";
+                PreparedStatement st = con.prepareStatement(sql);
+                for (ProductStatus productStatus : productStatusList) {
+                    st.setInt(1, productStatus.getProductStatusID());
+                    ResultSet rs = st.executeQuery();
+                    if (rs.next()) {
+                        productStatusID = rs.getInt(1);
+                        numberOfProduct = rs.getInt(2);
+                        listNumberOfProductByStatus.put(productStatusID, numberOfProduct);
+                    }
+                    rs.close();
                 }
-                rs.close();
-                ps.close();
+                st.close();
                 con.close();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return CaseID;
+        return listNumberOfProductByStatus;
     }
     
-    public int getMainboardIDByProductID(int id) {
-        int MainboardID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT mainboard_id FROM pc WHERE product_id = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    MainboardID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return MainboardID;
-    }
     
-    public int getPSUIDByProductID(int id) {
-        int PSUID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT psu_id FROM pc WHERE product_id = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    PSUID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return PSUID;
-    }
-    
-    public int getRAMIDByProductID(int id) {
-        int RAMID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT ram_id FROM pc WHERE product_id = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    RAMID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return RAMID;
-    }
-    
-    public int getStorageIDByProductID(int id) {
-        int StorageID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT storage_id FROM pc WHERE product_id = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    StorageID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return StorageID;
-    }
-    
-    public int getVGAIDByProductID(int id) {
-        int VGAID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT vga_id FROM pc WHERE product_id = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    VGAID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return VGAID;
-    }
-    
-    public int getNumberOfProductByCategoryId(int catetoryId){
-        try{
-            DBContext db = new DBContext(); 
-            Connection con = db.getConnection();
-            
-            if (con != null){
-                Statement st = con.createStatement();
-                String sql = "select count(product_id) from product where category_id = " + catetoryId;
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    return rs.getInt(1);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        
-        return 0; 
-    }
-    
-    public int getNumberOfProductByProductStatusId(int productStatusId){
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-
-            if (con != null) {
-                Statement st = con.createStatement();
-                String sql = "select COUNT(*) from Product where Product_Status_ID = " + productStatusId;
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    return rs.getInt(1);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        return 0;
-    }
 }

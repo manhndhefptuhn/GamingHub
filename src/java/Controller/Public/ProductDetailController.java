@@ -4,32 +4,19 @@
  */
 package Controller.Public;
 
-import DAL.CPUDAO;
 import DAL.CaseDAO;
 import DAL.FeedbackDAO;
 import DAL.FeedbackResponseDAO;
-import DAL.MainboardDAO;
 import DAL.PCDAO;
-import DAL.PSUDAO;
 import DAL.ProductDAO;
 import DAL.ProductImagesDAO;
-import DAL.RAMDAO;
-import DAL.StorageDAO;
 import DAL.UserDAO;
-import DAL.VGADAO;
-import Model.CPU;
 import Model.Case;
 import Model.Feedback;
 import Model.FeedbackResponse;
-import Model.Mainboard;
-import Model.PC;
-import Model.PSU;
 import Model.Product;
 import Model.Product_Images;
-import Model.RAM;
-import Model.Storage;
 import Model.User;
-import Model.VGA;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,7 +24,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 /**

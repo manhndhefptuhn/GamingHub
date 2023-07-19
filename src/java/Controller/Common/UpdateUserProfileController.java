@@ -69,6 +69,7 @@ public class UpdateUserProfileController extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         HttpSession session = request.getSession();
         String imagePath = "", extension = "";
+        String action = request.getParameter("action");
         try {
             if (request.getParameter("update") != null) {
                 String fullName = request.getParameter("fullName");
@@ -80,7 +81,7 @@ public class UpdateUserProfileController extends HttpServlet {
                 long maxSizeBytes = 5 * 1024 * 1024; // 5 MB
                 UserDAO uDAO = new UserDAO();
                 // Check if an image was uploaded
-                if (imagePart != null && imagePart.getSize() < maxSizeBytes) {
+                if (imagePart != null && imagePart.getSize() < maxSizeBytes && imagePart.getSize() > 0) {
                     // Generate a unique image name
                     String originalFilename = imagePart.getSubmittedFileName();
                     int extensionIndex = originalFilename.lastIndexOf('.');
@@ -106,6 +107,9 @@ public class UpdateUserProfileController extends HttpServlet {
                     imagePart.write(destinationFilePath);
 
                     imagePath = "img/avatar/" + uniqueImageName;
+                }else{
+                    User user = (User)session.getAttribute("user");
+                    imagePath = user.getProfile_picture();
                 }
                 int row = uDAO.updateUserProfile(fullName, phone, address, imagePath, userID);
                 if (row >= 1) {
@@ -117,9 +121,9 @@ public class UpdateUserProfileController extends HttpServlet {
                     request.setAttribute("notification", "An error occurred. Please try again.");
                     request.getRequestDispatcher("userProfile").forward(request, response);
                 }
-            } else if (request.getParameter("changePass") != null) {
+            } else if (action != null && action.equals("changePass")) {
                 response.sendRedirect("changePass.jsp");
-            } else if (request.getParameter("backToHome") != null) {
+            } else if (action != null && action.equals("back")) {
                 response.sendRedirect("home");
             }
         } catch (Exception e) {
