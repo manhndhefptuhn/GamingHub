@@ -31,22 +31,24 @@ public class RemoveWishlistController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         HttpSession session = request.getSession();
-        try{
-        WishlistDAO wlDAO = new WishlistDAO();
-        User u = (User)session.getAttribute("user");
-        int row, productID, totalWishlistProduct;
-        productID = Integer.parseInt(request.getParameter("productID"));
-        row = wlDAO.removeWishlist(u.getUser_ID(), productID);
-        if (row >= 1) {
-            session.setAttribute("notification", "Remove product from wishlist successfully!");
-            totalWishlistProduct = wlDAO.getTotalWishlistProduct(u.getUser_ID());
-            session.setAttribute("totalWishlistProduct", totalWishlistProduct);
-            request.getRequestDispatcher("wishlist").forward(request, response);
-        } else {
-            throw new Exception();
-        }
-        }catch(Exception e){
+        try {
+            WishlistDAO wlDAO = new WishlistDAO();
+            User u = (User) session.getAttribute("user");
+            int row, productID, totalWishlistProduct;
+            productID = Integer.parseInt(request.getParameter("productID"));
+            row = wlDAO.removeWishlist(u.getUser_ID(), productID);
+            if (row >= 1) {
+                session.setAttribute("notification", "Remove product from wishlist successfully!");
+                totalWishlistProduct = wlDAO.getTotalWishlistProduct(u.getUser_ID());
+                session.setAttribute("totalWishlistProduct", totalWishlistProduct);
+                request.getRequestDispatcher("wishlist").forward(request, response);
+            } else {
+                throw new Exception();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             session.setAttribute("wrongNotification", "There's something wrong, please try again");
             request.getRequestDispatcher("wishlist").forward(request, response);

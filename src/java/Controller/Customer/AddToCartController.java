@@ -47,11 +47,16 @@ public class AddToCartController extends HttpServlet {
             int productID = Integer.parseInt(request.getParameter("productID"));
             User u = (User) session.getAttribute("user");
             Product p = pDAO.getProductByID(productID);
+            //if quantity is not out of stock
             if (p.getQuantity() != 0) {
+                //if user is customer
                 if (u != null && u.getRole_ID() == 1) {
+                    //check if in cart already has product
                     Cart cart = cartDAO.getCart(u.getUser_ID(), productID);
                     int row, totalCartProduct, originalPrice, salePrice, totalCost, quantity, price;
+                    //if not have
                     if (cart == null) {
+                        //if is normal, new product
                         if (p.getProductStatusID() == 0 || p.getProductStatusID() == 1) {
                             originalPrice = pDAO.getOriginalPriceByID(productID);
                             totalCost = originalPrice * 1;
@@ -64,6 +69,7 @@ public class AddToCartController extends HttpServlet {
                             } else {
                                 throw new Exception();
                             }
+                            //if product is sale price
                         } else if (p.getProductStatusID() == 2) {
                             salePrice = pDAO.getSalePriceByID(productID);
                             totalCost = salePrice * 1;
@@ -77,6 +83,7 @@ public class AddToCartController extends HttpServlet {
                                 throw new Exception();
                             }
                         }
+                        //if there is a product in cart with the same id
                     } else {
                         price = cart.getProductPrice();
                         quantity = cartDAO.getQuantityOfProduct(u.getUser_ID(), productID);

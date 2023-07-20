@@ -12,7 +12,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Sign in</title>
+        <title>Log in</title>
         <link rel="icon" type="image/png" href="<%= request.getContextPath()%>/img/shop/logo1.png"/>
         <!-- Font Icon -->
         <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="signin-form">
-                        <h2 class="form-title">Sign in </h2>
+                        <h2 class="form-title">Log in </h2>
                         <form action="login" method="POST" class="register-form" id="login-form">
                             <c:choose>
                                 <c:when test="${email != null}">

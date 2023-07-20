@@ -3,7 +3,7 @@
     Created on : 09-07-2023, 20:41:49
     Author     : Zarius
 --%>
-
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -38,21 +38,42 @@
                                                 <th>ID</th>
                                                 <th>Name</th>
                                                 <th>Quantity</th>
+                                                <th>Price</th>
                                                 <th>Category</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <c:set var="listProductOrigiPrice" value="${requestScope.listProductOrigiPrice}" />
+                                            <c:set var="listProductSalePrice" value="${requestScope.listProductSalePrice}" />
                                             <c:set var="mapCategoryName" value="${requestScope.mapCategoryName}" />
                                             <c:forEach var="product" items="${products}">
                                                 <tr>
                                                     <td>${product.getProductID()}</td>
                                                     <td>${product.getProductName()}</td>
                                                     <td>${product.getQuantity()}</td>
+                                                    <c:choose>
+                                                        <c:when test="${product.getProductStatusID() == 0 || product.getProductStatusID() == 1}">
+                                                            <td><fmt:formatNumber pattern="#,##0" value="${listProductOrigiPrice[product.getProductID()]}"/> VNÐ</td>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <td><fmt:formatNumber pattern="#,##0" value="${listProductSalePrice[product.getProductID()]}"/> VNÐ</td>
+                                                        </c:otherwise>
+                                                    </c:choose>
+
                                                     <td>${mapCategoryName[product.getProductID()]}</td>
                                                     <td>${product.isStatus() ? 'Active' : 'Deactive'}</td>
-                                                    <td><a href="saleProductDetail?id=${product.getProductID()}">View</a></td>
+                                                    <td><a href="saleProductDetail?id=${product.getProductID()}">View</a> |
+                                                        <c:choose>
+                                                            <c:when test="${product.isStatus() == true}">
+                                                                <a href="falseProduct?id=<c:out value="${product.getProductID()}" />">Deactive</a>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <a href="trueProduct?id=<c:out value="${product.getProductID()}" />">Active</a>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>

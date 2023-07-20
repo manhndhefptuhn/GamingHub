@@ -3,7 +3,7 @@
     Created on : 28-05-2023, 15:53:55
     Author     : Zarius
 --%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,8 +11,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Reset password</title>
-
+        <title>Forgot password</title>
+        <link rel="icon" type="image/png" href="<%= request.getContextPath()%>/img/shop/logo1.png"/>
+        
         <!-- Font Icon -->
         <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
@@ -31,7 +32,7 @@
                     </div>
 
                     <div class="signin-form">
-                        <h2 class="form-title">Reset password</h2>
+                        <h2 class="form-title">Forgot password</h2>
                         <form action="forgetPass" method="POST" class="register-form" id="login-form">
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
@@ -42,7 +43,7 @@
                             </c:if>
                             <div class="form-group">
                                 <div class="form-group form-button">
-                                    <input type="submit" name="send-email" id="send_email" class="form-submit" value="Send Email"/>
+                                    <input type="submit" name="send-email" id="send_email" class="form-submit" value="Send Request"/>
                                 </div>
                             </div>
                         </form>

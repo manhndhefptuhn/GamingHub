@@ -34,6 +34,8 @@ public class AddToWishlistController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         HttpSession session = request.getSession();
         try {
             WishlistDAO wlDAO = new WishlistDAO();
@@ -44,9 +46,12 @@ public class AddToWishlistController extends HttpServlet {
             Wishlist wl = wlDAO.getWishlist(u.getUser_ID(), productID);
 
             int row, totalWishlistProduct;
+            //if not exist the product in wishlist
             if (wl == null) {
+                //add the product to wishlist
                 row = wlDAO.addToWishlist(u.getUser_ID(), productID);
                 if (row >= 1) {
+                    //add success
                     session.setAttribute("notification", "Add to wishlist successfully");
                     totalWishlistProduct = wlDAO.getTotalWishlistProduct(u.getUser_ID());
                     session.setAttribute("totalWishlistProduct", totalWishlistProduct);
@@ -55,7 +60,9 @@ public class AddToWishlistController extends HttpServlet {
                     throw new Exception();
                 }
             } else {
+                //already exist in wishlist
                 session.setAttribute("wrongNotification", "This product is already in wishlist!");
+                //back to previous page
                 response.sendRedirect(extractPath(request.getHeader("Referer")));
             }
         } catch (Exception e) {
@@ -66,6 +73,8 @@ public class AddToWishlistController extends HttpServlet {
 
     }
 
+    //extract the path of url
+    //"https://www.example.com/user/profile?id=123"; -> user/profile?id=123
     private String extractPath(String url) {
         try {
             URI uri = new URI(url);

@@ -50,16 +50,21 @@ public class WishListController extends HttpServlet {
             int productPrice, productSalePrice;
 
             User u = (User) session.getAttribute("user");
-
+            
+            //get list wishlist of user
             ArrayList<Wishlist> listWishList = wlDAO.getAllWishItemByUserID(u.getUser_ID());
             request.setAttribute("listWishList", listWishList);
 
+            //get image of each product
             Map<Integer, Case> listImage = caseDAO.getCaseByCaseID();
             request.setAttribute("listImage", listImage);
             Map<Integer, Integer> listCaseID = pcDAO.getCaseIDByProductID();
             request.setAttribute("listCaseID", listCaseID);
+            
+            //get wishlist product name
             Map<Integer, String> listWishlistProductName = pDAO.getWishlistProductNameByProductID(listWishList);
             request.setAttribute("listWishlistProductName", listWishlistProductName);
+            //get wishlist product status (new, sale, normal)
             Map<Integer, Integer> listWishlistProductStatus = pDAO.getProductStatusByProductID(listWishList);
             request.setAttribute("listWishlistProductStatus", listWishlistProductStatus);
 

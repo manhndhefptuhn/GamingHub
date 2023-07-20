@@ -82,35 +82,42 @@ public class UpdateUserProfileController extends HttpServlet {
                 UserDAO uDAO = new UserDAO();
                 // Check if an image was uploaded
                 if (imagePart != null && imagePart.getSize() < maxSizeBytes && imagePart.getSize() > 0) {
-                    // Generate a unique image name
                     String originalFilename = imagePart.getSubmittedFileName();
+                    //find the index of image (example: image.png -> return 5)
                     int extensionIndex = originalFilename.lastIndexOf('.');
                     if (extensionIndex >= 0) {
+                        //return png in the example
                         extension = originalFilename.substring(extensionIndex);
                     }
+                    //generate unique image name using current time millis
+                    //return 123018290381.png
                     String uniqueImageName = System.currentTimeMillis() + extension;
+                    //It is used to access the web application's resources and configuration
                     ServletContext context = getServletContext();
 
                     // Get the real path to the project folder
                     String projectFolderPath = context.getRealPath("/img");
-                    System.out.println(projectFolderPath);
                     // Specify the directory to save the image
                     String uploadDirectory = projectFolderPath + "/avatar/";
+                    //Create file object in the directory just get
                     File directory = new File(uploadDirectory);
                     if (!directory.exists()) {
                         directory.mkdirs();
                     }
 
-                    // Create the destination file path
+                    // Create the destination file path where image will be save
                     String destinationFilePath = uploadDirectory + uniqueImageName;
                     // Save the uploaded image to the destination path
                     imagePart.write(destinationFilePath);
-
+                    
+                    //get the imagePath for insert in db
                     imagePath = "img/avatar/" + uniqueImageName;
                 }else{
+                    //if not get a new image, keep the user image
                     User user = (User)session.getAttribute("user");
                     imagePath = user.getProfile_picture();
                 }
+                //update the user profile
                 int row = uDAO.updateUserProfile(fullName, phone, address, imagePath, userID);
                 if (row >= 1) {
                     User u = uDAO.getUserByID(userID);

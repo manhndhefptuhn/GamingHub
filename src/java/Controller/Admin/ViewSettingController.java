@@ -4,21 +4,22 @@
  */
 package Controller.Admin;
 
+import DAL.CategoryDAO;
+import DAL.RoleDAO;
+import Model.Category;
+import Model.Roles;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import DAL.*;
-import Model.*;
-import java.util.List;
 
 /**
  *
- * @author AN515-57
+ * @author Zarius
  */
-public class UpdateCategoryController extends HttpServlet {
+public class ViewSettingController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,20 +33,20 @@ public class UpdateCategoryController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        int categoryID = Integer.parseInt(request.getParameter("categoryID"));
-        String categoryName = request.getParameter("categoryName");
-        boolean status = Boolean.valueOf(request.getParameter("status"));
-        
-        Category updatedCategory = new Category(); 
-        updatedCategory.setCategoryID(categoryID);
-        updatedCategory.setCategoryName(categoryName);
-        updatedCategory.setStatus(status);
-        
-        CategoryDAO cDAO = new CategoryDAO(); 
-        int rowsAffected = cDAO.editCategoryInfo(updatedCategory); 
-        if (rowsAffected > 0){
-            request.getRequestDispatcher("adminSettingController").forward(request, response);
+        String type = request.getParameter("type");
+        System.out.println(type);
+        if (type.equalsIgnoreCase("role")) {
+            RoleDAO rDAO = new RoleDAO();
+            int roleID = Integer.parseInt(request.getParameter("id"));
+            Roles role = rDAO.getRoleViaID(roleID);
+            request.setAttribute("role", role);
+            request.getRequestDispatcher("AdminSettingDetail.jsp").forward(request, response);
+        } else if (type.equalsIgnoreCase("category")) {
+            CategoryDAO cateDAO = new CategoryDAO();
+            int categoryID = Integer.parseInt(request.getParameter("id"));
+            Category category = cateDAO.getCategoryViaID(categoryID);
+            request.setAttribute("category", category);
+            request.getRequestDispatcher("AdminSettingDetail.jsp").forward(request, response);
         }
     }
 

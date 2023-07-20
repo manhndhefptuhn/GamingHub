@@ -37,10 +37,15 @@ public class ProductListController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
-        ArrayList<Product> products = new ProductDAO().getListProduct();
+        ProductDAO pDAO = new ProductDAO();
+        ArrayList<Product> products = pDAO.getListProduct();
         Map<Integer, String> mapCategoryName = new ProductDAO().getCategoryNameByProductID(products);
         request.setAttribute("products", products);
         request.setAttribute("mapCategoryName", mapCategoryName);
+        Map<Integer, Integer> listProductOrigiPrice = pDAO.getOriginalPriceByID(products);
+        Map<Integer, Integer> listProductSalePrice = pDAO.getSalePriceByID(products);
+        request.setAttribute("listProductOrigiPrice", listProductOrigiPrice);
+        request.setAttribute("listProductSalePrice", listProductSalePrice);
         request.getRequestDispatcher("SaleProductList.jsp").forward(request, response);
     }
 

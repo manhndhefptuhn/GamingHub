@@ -12,8 +12,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Sign Up </title>
-
+        <title>Register</title>
+        <link rel="icon" type="image/png" href="<%= request.getContextPath()%>/img/shop/logo1.png"/>
+        
         <!-- Font Icon -->
         <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -29,7 +30,7 @@
                 <div class="container">
                     <div class="signup-content">
                         <div class="signup-form">
-                            <h2 class="form-title">Sign up</h2>
+                            <h2 class="form-title">Register</h2>
                             <form action="register" method="POST" class="register-form" id="register-form">
                                 <div class="form-group">
                                     <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>

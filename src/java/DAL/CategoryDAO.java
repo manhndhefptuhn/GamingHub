@@ -26,7 +26,7 @@ public class CategoryDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "SELECT * from `category` WHERE Status = 1;";
+                String sql = "SELECT * from `category` WHERE `Status` = 1;";
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
                     Category c = new Category();
@@ -117,10 +117,10 @@ public class CategoryDAO {
         return null; 
     }
     
-    public static int editCategoryInfo(Category category){
+    public int editCategoryInfo(Category category){
         int row = 0; 
         try {
-            String sql = "UPDATE category SET category_name = ?, status = ? WHERE category_ID = ?"; 
+            String sql = "UPDATE `category` SET `category_name` = ?, `status` = ? WHERE `category_ID` = ?"; 
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);

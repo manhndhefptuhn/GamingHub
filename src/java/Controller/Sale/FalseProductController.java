@@ -2,23 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller.Admin;
+package Controller.Sale;
 
+import DAL.ProductDAO;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import DAL.*;
-import Model.*;
-import java.util.List;
 
 /**
  *
- * @author AN515-57
+ * @author Zarius
  */
-public class DeleteRoleController extends HttpServlet {
+public class FalseProductController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +30,20 @@ public class DeleteRoleController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DeleteRoleController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DeleteRoleController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        try {
+            int productID = Integer.parseInt(request.getParameter("id"));
+            ProductDAO pDAO = new ProductDAO();
+            int row = pDAO.updateStatusProduct(productID, 0);
+            if (row >= 1) {
+                request.setAttribute("notification", "Change status succesfully, now product will not be view in product list");
+                request.getRequestDispatcher("productList").forward(request, response);
+            }
+        } catch (Exception e) {
+            request.setAttribute("notification", "There's something wrong, please try again");
+            request.getRequestDispatcher("productList").forward(request, response);
         }
     }
 

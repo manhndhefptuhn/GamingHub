@@ -38,6 +38,22 @@
     </head>
     <body class="sb-nav-fixed">
         <%@include file="header.jsp" %>
+        <!-- Breadcrumb Begin -->
+        <div class="breadcrumb-option">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb__links">
+                            <a href="home"><i class="fa fa-home"></i> Home</a>
+                            <a href="myOrder">My Order</a>
+                            <a href="orderDetail?id=${orderID}">Order Detail</a>
+                            <span>Feedback</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
         <section>
             <div id="layoutSidenav_content">
                 <div class="container">
@@ -111,54 +127,54 @@
         <%@include file="footer.jsp" %>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
-                                                            $(document).ready(function () {
-                                                                $('.rating i').click(function () {
-                                                                    const ratingValue = $(this).data('rating');
-                                                                    $('#rating').val(ratingValue);
-                                                                    updateStarRating(ratingValue);
-                                                                });
-                                                            });
+                                            $(document).ready(function () {
+                                                $('.rating i').click(function () {
+                                                    const ratingValue = $(this).data('rating');
+                                                    $('#rating').val(ratingValue);
+                                                    updateStarRating(ratingValue);
+                                                });
+                                            });
 
-                                                            function updateStarRating(ratingValue) {
-                                                                $('.rating i').each(function () {
-                                                                    const starRating = $(this).data('rating');
-                                                                    if (starRating <= ratingValue) {
-                                                                        $(this).removeClass('fa-star-o').addClass('fa-star');
-                                                                    } else {
-                                                                        $(this).removeClass('fa-star').addClass('fa-star-o');
-                                                                    }
-                                                                });
-                                                            }
-                                                            $('form').submit(function (event) {
-                                                                if ($(event.originalEvent.submitter).val() === 'Create Feedback' && $('#rating').val() < 1) {
-                                                                    event.preventDefault();
-                                                                    $('#rating-notification').text('Please choose at least 1 star').show();
-                                                                } else {
-                                                                    $('#rating-notification').hide();
-                                                                }
-                                                            });
-                                                            function previewFeedbackPicture(event) {
-                                                                var input = event.target;
-                                                                var preview = document.getElementById('previewImage');
+                                            function updateStarRating(ratingValue) {
+                                                $('.rating i').each(function () {
+                                                    const starRating = $(this).data('rating');
+                                                    if (starRating <= ratingValue) {
+                                                        $(this).removeClass('fa-star-o').addClass('fa-star');
+                                                    } else {
+                                                        $(this).removeClass('fa-star').addClass('fa-star-o');
+                                                    }
+                                                });
+                                            }
+                                            $('form').submit(function (event) {
+                                                if ($(event.originalEvent.submitter).val() === 'Create Feedback' && $('#rating').val() < 1) {
+                                                    event.preventDefault();
+                                                    $('#rating-notification').text('Please choose at least 1 star').show();
+                                                } else {
+                                                    $('#rating-notification').hide();
+                                                }
+                                            });
+                                            function previewFeedbackPicture(event) {
+                                                var input = event.target;
+                                                var preview = document.getElementById('previewImage');
 
-                                                                if (input.files && input.files[0]) {
-                                                                    var reader = new FileReader();
+                                                if (input.files && input.files[0]) {
+                                                    var reader = new FileReader();
 
-                                                                    reader.onload = function (e) {
-                                                                        preview.src = e.target.result;
-                                                                    };
+                                                    reader.onload = function (e) {
+                                                        preview.src = e.target.result;
+                                                    };
 
-                                                                    reader.readAsDataURL(input.files[0]);
-                                                                }
-                                                            }
+                                                    reader.readAsDataURL(input.files[0]);
+                                                }
+                                            }
 
-                                                            function backToOrderList() {
-                                                                // Set the value of the hidden input field
-                                                                document.getElementById("actionInput").value = "back";
+                                            function backToOrderList() {
+                                                // Set the value of the hidden input field
+                                                document.getElementById("actionInput").value = "back";
 
-                                                                // Submit the form
-                                                                document.getElementById("feedbackForm").submit();
-                                                            }
+                                                // Submit the form
+                                                document.getElementById("feedbackForm").submit();
+                                            }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

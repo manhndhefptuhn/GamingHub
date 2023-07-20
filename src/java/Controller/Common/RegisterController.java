@@ -77,25 +77,31 @@ public class RegisterController extends HttpServlet {
             String phoneNum = request.getParameter("phoneNum");
 
             RandomPassword rdpw = new RandomPassword();
+            //generate random password
             String password = rdpw.generatePassword();
             PasswordResetDAO pwrsDAO = new PasswordResetDAO();
             UserDAO uDAO = new UserDAO();
             SendEmail se = new SendEmail();
             PasswordUtils pwutl = new PasswordUtils();
+            //hash the random password
             String hashedPassword = pwutl.hashPassword(password);
             
             User u = uDAO.checkUserExist(email);
             boolean emailSent;
             int registerUserID;
-
+            
+            //if phone is not a number
             if (!phoneNum.matches("[0-9]*")) {
                 request.setAttribute("notification", "Your Phone Number is Invalid");
                 request.getRequestDispatcher("register.jsp").forward(request, response);
                 return;
+                //if the email is not been used
             } else if (u == null) {
                 emailSent = se.sendPassword(email, password, fullName, "Request to Register");
                 if (emailSent) {
+                    //if sent mail success, insert into register the record of user
                     registerUserID = uDAO.register(fullName, email, hashedPassword, phoneNum, address);
+                    //insert into reset password table
                     pwrsDAO.resetPassword(registerUserID, hashedPassword);
                     request.setAttribute("email", email);
                     request.setAttribute("notification", "Sign Up successfully, please check your email for password");

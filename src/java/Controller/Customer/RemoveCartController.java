@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
-
 /**
  *
  * @author Zarius
@@ -35,24 +34,24 @@ public class RemoveCartController extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         HttpSession session = request.getSession();
-        try{
-        CartDAO cartDAO = new CartDAO();
-        
-        User u = (User)session.getAttribute("user");
-        
-        int row, productID, totalCartProduct;
+        try {
+            CartDAO cartDAO = new CartDAO();
 
-        productID = Integer.parseInt(request.getParameter("productID"));
-        row = cartDAO.removeCart(u.getUser_ID(), productID);
-        if (row >= 1) {
-            session.setAttribute("notification", "Remove product from cart successfully!");
-            totalCartProduct = cartDAO.getTotalCartProduct(u.getUser_ID());
-            session.setAttribute("totalCartProduct", totalCartProduct);
-            request.getRequestDispatcher("cart").forward(request, response);
-        } else {
-            throw new Exception();
-        }
-        }catch (Exception e){
+            User u = (User) session.getAttribute("user");
+
+            int row, productID, totalCartProduct;
+
+            productID = Integer.parseInt(request.getParameter("productID"));
+            row = cartDAO.removeCart(u.getUser_ID(), productID);
+            if (row >= 1) {
+                session.setAttribute("notification", "Remove product from cart successfully!");
+                totalCartProduct = cartDAO.getTotalCartProduct(u.getUser_ID());
+                session.setAttribute("totalCartProduct", totalCartProduct);
+                request.getRequestDispatcher("cart").forward(request, response);
+            } else {
+                throw new Exception();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             session.setAttribute("wrongNotification", "There's something wrong, please try again");
             request.getRequestDispatcher("home").forward(request, response);

@@ -5,7 +5,9 @@
 package Controller.Sale;
 
 import DAL.OrderDAO;
+import DAL.OrderDetailDAO;
 import Model.Order;
+import Model.OrderDetail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,7 +16,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  *
@@ -35,25 +38,14 @@ public class SaleOrderDetailController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         int orderID = Integer.parseInt(request.getParameter("id"));
-        String fullName = request.getParameter("fullName");
-//        String address = request.getParameter("address");
-//        String phoneNumber = request.getParameter("phone");
-//        String dateString = request.getParameter("orderDate");
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//        Date orderDate = null;
-//        try {
-//            orderDate = format.parse(dateString);
-//        } catch (ParseException e) {
-//            // Handle the ParseException
-//            e.printStackTrace();
-//        }
-//        int totalCost = Integer.parseInt(request.getParameter("totalCost"));
-//        String payment = request.getParameter("paymentType");
-//        int orderStatus = Integer.parseInt(request.getParameter("orderStatus"));
-        
+
         OrderDAO oDAO = new OrderDAO();
+        OrderDetailDAO ordtDAO = new OrderDetailDAO();
         Order order = oDAO.getOrderByID(orderID);
-        
+        ArrayList<OrderDetail> listOrderDetail = ordtDAO.getDetailAllOrder(orderID);
+        Map<Integer, String> listProductName = ordtDAO.getOrderProductNameByProductID(listOrderDetail);
+        request.setAttribute("listOrderDetail", listOrderDetail);
+        request.setAttribute("listProductName", listProductName);
         request.setAttribute("order", order);
         request.getRequestDispatcher("SaleOrderDetail.jsp").forward(request, response);
     }

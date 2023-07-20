@@ -18,8 +18,8 @@ public class DBContext {
     private final String serverName = "localhost"; //127.0.0.1
     private final String dbName = "swp391_se1726_g4";
     private final String portNumber = "3306";
-    private final String userID = "root";
-    private final String password = "Baoluau23";
+    private final String userID = "sa";
+    private final String password = "123456";
 }
 //gaminghubdb.cwfmeocu1qyh.us-east-1.rds.amazonaws.com
 //admin
