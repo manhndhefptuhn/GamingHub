@@ -22,43 +22,40 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Component Detail</h1>
+                    <h1 class="mt-4">Add component</h1>
                     <div class="card mb-4">
-                        <form method="POST" action="componentdetail" enctype="multipart/form-data">
+                        <form method="POST" action="AddComponent" enctype='multipart/form-data'><!-- multipart/form-data -->
                         <div class="card-body">  
                             <c:if test="${notification != null}">
                                 <div>
                                     <strong style="color: greenyellow;">${notification}</strong>
                                 </div>
                             </c:if>
-                            <input type="hidden" name="id" value="${id}" />
-                            <input type="hidden" name="type" value="${type}" />
                             <table id="datatablesSimple">
                                     <tbody>
                                         <tr>
-                                            <th>Type</th>
-                                            <td>${type}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Name</th>
-                                            <td><input type="text" id="name" name="name" value="${name}"/><br></td>
+                                            <th>Component name</th>
+                                            <td><input type="text" id="name" name="name" placeholder="Enter name"/><br></td>
                                         </tr>
                                         
-                                            <tr>
-                                                <th>Image </th>
-                                                <td>
-                                                    <c:if test="${empty image}"><a style="color:gray; opacity:0.7">   No image</a></c:if>
-                                                    <c:if test="${not empty image}">
-                                                        <img src="<%= request.getContextPath()%>/${image}" width="150" height="150"/>                       
-                                                        <input type="file" id="image" name="image" accept="image/*">
-                                                    </c:if>  
-<!--                                                    <input type="file" id="image" name="image" accept="image/*">-->
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <th>Select type</th>
+                                            <td>
+                                                <select name ="type">
+                                                    <option value="mainboard">Mainboard</option>
+                                                    <option value="cpu">CPU</option>
+                                                    <option value="case">Case</option>
+                                                    <option value="vga">VGA</option>
+                                                    <option value="psu">PSU</option> 
+                                                    <option value="ram">RAM</option>
+                                                    <option value="storage">Storage</option>
+                                                </select>
+                                            <br></td>
+                                        </tr>
                                         
                                         <tr>
-                                            <th>Price</th>
-                                            <td><input type="text" id="price" name="price" value="${price}"/><br></td>
+                                            <th>C.Price</th>
+                                            <td><input type="text" id="price" name="price" placeholder="Price VND"/><br></td>
                                         </tr>
                                         
                                         <tr>
@@ -74,8 +71,19 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        
+                                        <tr>
+                                            <th>Image </th>
+                                            <td>
+
+                                                        <img src="" width="150" height="150"/>                       
+                                                        <input type="file" id="image" name="image" accept="image/*">
+ 
+                                            </td>
+                                        </tr>
+                                        
                                 </table>                                   
-                                <input type="submit" name="update" value="Update" class="btn-update"/>
+                                <input type="submit" name="add" value="Add component" class="btn-update"/>
                             </div>
                         </form>  
                         </div>  
@@ -98,5 +106,6 @@
     <script src="<%= request.getContextPath()%>/js/scripts1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="<%= request.getContextPath()%>/js/datatables-simple-demo1.js"></script>
+
 </body>
 </html>

@@ -76,7 +76,7 @@
                     <div class="collapse" id="collapseLayoutsFour" aria-labelledby="headingFour" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="componentList">Component List</a>
-                            <a class="nav-link" href="#">Add A Component</a>
+                            <a class="nav-link" href="AddComponent">Add A Component</a>
                         </nav>
                     </div>
                 </div>

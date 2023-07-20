@@ -81,7 +81,7 @@ public class FeedbackResponseDAO {
      public void SetResponse(int feedbackId, int userId, String content) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String sql = "INSERT INTO `feedback_response` (`Feedback_ID`, `User_ID`, `Response_date`,`Response_content`) VALUES (?,?,?,?)";
-        String sql2 = "update `feedback` set Status = 1 where Feedback_ID = " +feedbackId+ ";";
+
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
@@ -98,8 +98,7 @@ public class FeedbackResponseDAO {
             st.setString(4, content);
             st.executeUpdate();
             
-            st = con.prepareStatement(sql2);
-            st.executeUpdate();
+
             
                     
                        
