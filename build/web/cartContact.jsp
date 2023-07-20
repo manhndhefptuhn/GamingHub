@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Cart Contact</title>
+        <title>Checkout</title>
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
@@ -42,7 +42,7 @@
                         <div class="breadcrumb__links">
                             <a href="home"><i class="fa fa-home"></i> Home</a>
                             <a href="cart"><i class="fa fa-shopping-cart"></i> Cart</a>
-                            <span>Cart Contact</span>
+                            <span>Checkout</span>
                         </div>
                     </div>
                 </div>

@@ -133,7 +133,7 @@ public class SendEmail {
                     + "    <tr>\n"
                     + "      <td class=\"v-container-padding-padding\" style=\"overflow-wrap:break-word;word-break:break-word;padding:50px 60px 0px;font-family:'Raleway',sans-serif;\" align=\"left\">\n"
                     + "        \n"
-                    + "  <h1 class=\"v-text-align v-font-size\" style=\"margin: 0px; line-height: 140%; text-align: left; word-wrap: break-word; font-size: 20px; font-weight: 400;\"><strong>Sign Up Confirmation</strong></h1>\n"
+                    + "  <h1 class=\"v-text-align v-font-size\" style=\"margin: 0px; line-height: 140%; text-align: left; word-wrap: break-word; font-size: 20px; font-weight: 400;\"><strong>"+subject+"</strong></h1>\n"
                     + "\n"
                     + "      </td>\n"
                     + "    </tr>\n"

@@ -5,6 +5,7 @@
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,11 +18,15 @@
         <link href="<%= request.getContextPath()%>/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <style>
-            .datatable-bottom, .datatable-top, .datatable-sorter, thead{
+            .datatable-bottom, .datatable-top, .datatable-sorter, thead {
                 display: none;
             }
-            input{
+            input {
                 width: 50%;
+            }
+
+            #datatablesSimple1 thead, #datatablesSimple1 .datatable-sorter{
+                display: table-header-group;
             }
         </style>
     </head>
@@ -56,28 +61,49 @@
                                         </tr>
                                         <tr>
                                             <th>Order Date</th>
-                                            <td><input style="background-color:#C5C5C5;" type="orderDate" id="orderDate" name="orderDate" value="${order.getOrderDate()}" readonly/><br></td>
+                                            <td><input style="background-color:#C5C5C5;" type="text" id="orderDate" name="orderDate" value="${order.getOrderDate()}" readonly/><br></td>
                                         </tr>
                                         <tr>
                                             <th>Total Cost</th>
-                                            <td><input style="background-color:#C5C5C5;" type="totalCost" id="totalCost" name="totalCost" value="${order.getTotalCost()}" readonly/><br>
+                                            <td><input style="background-color:#C5C5C5;" type="text" id="totalCost" name="totalCost" value="<fmt:formatNumber pattern="#,##0" value="${order.getTotalCost()}"/> VNÐ" readonly/><br>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>Payment Type</th>
-                                            <td><input style="background-color:#C5C5C5;" type="paymentType" id="paymentType" name="paymentType" value="${order.getPayment()}" readonly/><br>
+                                            <td><input style="background-color:#C5C5C5;" type="text" id="paymentType" name="paymentType" value="${order.getPayment()}" readonly/><br>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>Order Status</th>
-                                            <td><input style="background-color:#C5C5C5;" type="orderStatus" id="orderStatus" name="orderStatus" value="${order.getOrderStatus()}"/><br>
+                                            <td><input style="background-color:#C5C5C5;" type="text" id="orderStatus" name="orderStatus" value="${order.getOrderStatus()}"/><br>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>Note</th>
-                                            <td><input style="background-color:#C5C5C5;" type="note" id="note" name="note" value="${order.getNote()}" readonly/><br>
+                                            <td><input style="background-color:#C5C5C5;" type="text" id="note" name="note" value="${order.getNote()}" readonly/><br>
                                             </td>
                                         </tr>
+                                </table>
+                                <table id="datatablesSimple1">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Product Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total Cost</th>  
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:set var="listProductName" value="${requestScope.listProductName}" />
+                                        <c:forEach var="orderDetail" items="${listOrderDetail}">
+                                            <tr>
+                                                <td>${listProductName[orderDetail.getProductID()]}</td>
+                                                <td><fmt:formatNumber pattern="#,##0" value="${orderDetail.getProductPrice()}"/> VNÐ</td>
+                                                <td>${orderDetail.getQuantity()}</td>
+                                                <td><fmt:formatNumber pattern="#,##0" value="${orderDetail.getTotalCost()}"/> VNÐ</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
                                 </table>
                                 <button type="button" id="back" name="back"><a href="orderList" style="text-decoration: none; color: black;">Back</a></button>
                             </div>
@@ -94,9 +120,24 @@
             </footer>
         </div>
     </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            const datatablesSimple = document.getElementById('datatablesSimple');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', event => {
+            const datatablesSimple = document.getElementById('datatablesSimple1');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
+            }
+        });
+
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="<%= request.getContextPath()%>/js/scripts1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-    <script src="<%= request.getContextPath()%>/js/datatables-simple-demo1.js"></script>
 </body>
 </html>

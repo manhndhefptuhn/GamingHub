@@ -14,6 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Cart</title>
+        <link rel="icon" type="image/png" href="<%= request.getContextPath()%>/img/shop/logo1.png"/>
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
@@ -105,6 +106,7 @@
                                                         </td>
                                                         <td class="cart__price"><fmt:formatNumber pattern="#,##0" value="${listCart.getProductPrice()}"/> VNÐ</td>
                                                         <td class="cart__quantity">
+                                                            <!-- get the max quantity of product, productPrice, productID -->
                                                             <input type="hidden" id="max-quantity-${productID}" value="${listProductQuantity[productID]}">
                                                             <input type="hidden" name="productPrice" value="${listCart.getProductPrice()}">
                                                             <input type="hidden" name="productID" value="${listCart.getProductID()}">

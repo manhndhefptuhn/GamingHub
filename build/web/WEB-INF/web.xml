@@ -261,36 +261,24 @@
         <servlet-class>Controller.Admin.AdminSettingController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EditRoleController</servlet-name>
-        <servlet-class>Controller.Admin.EditRoleController</servlet-class>
+        <servlet-name>TrueProductController</servlet-name>
+        <servlet-class>Controller.Sale.TrueProductController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteRoleController</servlet-name>
-        <servlet-class>Controller.Admin.DeleteRoleController</servlet-class>
+        <servlet-name>FalseProductController</servlet-name>
+        <servlet-class>Controller.Sale.FalseProductController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EditCategoryController</servlet-name>
-        <servlet-class>Controller.Admin.EditCategoryController</servlet-class>
+        <servlet-name>ViewSettingController</servlet-name>
+        <servlet-class>Controller.Admin.ViewSettingController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteCategoryController</servlet-name>
-        <servlet-class>Controller.Admin.DeleteCategoryController</servlet-class>
+        <servlet-name>UpdateSettingController</servlet-name>
+        <servlet-class>Controller.Admin.UpdateSettingController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CreateRoleController</servlet-name>
-        <servlet-class>Controller.Admin.CreateRoleController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CreateCategoryController</servlet-name>
-        <servlet-class>Controller.Admin.CreateCategoryController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateRoleController</servlet-name>
-        <servlet-class>Controller.Admin.UpdateRoleController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateCategoryController</servlet-name>
-        <servlet-class>Controller.Admin.UpdateCategoryController</servlet-class>
+        <servlet-name>CreateSettingController</servlet-name>
+        <servlet-class>Controller.Admin.CreateSettingController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -553,36 +541,24 @@
         <url-pattern>/adminSettingController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>EditRoleController</servlet-name>
-        <url-pattern>/editRoleController</url-pattern>
+        <servlet-name>TrueProductController</servlet-name>
+        <url-pattern>/trueProduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteRoleController</servlet-name>
-        <url-pattern>/deleteRoleController</url-pattern>
+        <servlet-name>FalseProductController</servlet-name>
+        <url-pattern>/falseProduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>EditCategoryController</servlet-name>
-        <url-pattern>/editCategoryController</url-pattern>
+        <servlet-name>ViewSettingController</servlet-name>
+        <url-pattern>/settingDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteCategoryController</servlet-name>
-        <url-pattern>/deleteCategoryController</url-pattern>
+        <servlet-name>UpdateSettingController</servlet-name>
+        <url-pattern>/updateSetting</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CreateRoleController</servlet-name>
-        <url-pattern>/createRoleController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CreateCategoryController</servlet-name>
-        <url-pattern>/createCategoryController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateRoleController</servlet-name>
-        <url-pattern>/updateRoleController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateCategoryController</servlet-name>
-        <url-pattern>/updateCategoryController</url-pattern>
+        <servlet-name>CreateSettingController</servlet-name>
+        <url-pattern>/createSetting</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

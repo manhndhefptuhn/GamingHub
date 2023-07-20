@@ -70,6 +70,7 @@ public class ChangePassController extends HttpServlet {
             String oldPassLogin = request.getParameter("oldPassLogin");
             String newPass = request.getParameter("newPass");
             String reNewPass = request.getParameter("reNewPass");
+            //id of user who login with their new generated password
             String userChangeIDForm = request.getParameter("userChangeID");
             int userChangeID = 0;
             if (userChangeIDForm != null) {
@@ -78,12 +79,15 @@ public class ChangePassController extends HttpServlet {
             UserDAO uDAO = new UserDAO();
             PasswordUtils pwutl = new PasswordUtils();
 
+            //get user when login and change pass in user profile
             User u = (User) session.getAttribute("user");
 
+            //get user who login with new generated password
             User userChange = uDAO.getUserByID(userChangeID);
             PasswordResetDAO pwrsDAO = new PasswordResetDAO();
-            //if user request new password in login page then login
+            //if login from login form with new generated password
             if (userChange != null) {
+                //check the record of user in password reset table
                 PasswordReset pwrs = pwrsDAO.checkExistRecord(userChange.getUser_ID());
                 //if re enter passsword is different from new password
                 if (!newPass.equals(reNewPass)) {
@@ -102,7 +106,7 @@ public class ChangePassController extends HttpServlet {
                     request.getRequestDispatcher("changePass.jsp").forward(request, response);
                     //else it is not equals
                 } else if (pwrs != null && !pwutl.checkPassword(newPass, pwrs.getResetPassword())) {
-                    //delete the record in passwordReset table
+                    //delete the record with the userID in passwordReset table
                     pwrsDAO.deleteRecord(userChange.getUser_ID());
                     //change the password of the user
                     uDAO.changePassword(userChange.getUser_ID(), pwutl.hashPassword(newPass));

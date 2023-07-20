@@ -44,9 +44,12 @@ public class ProductDetailController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         try {
+            //get the product id just selected
             int productID = Integer.parseInt(request.getParameter("productID"));
+
             ProductDAO pDAO = new ProductDAO();
             CaseDAO caseDAO = new CaseDAO();
             PCDAO pcDAO = new PCDAO();
@@ -55,33 +58,39 @@ public class ProductDetailController extends HttpServlet {
             UserDAO uDAO = new UserDAO();
             FeedbackResponseDAO fbrspDAO = new FeedbackResponseDAO();
 
+            //get the map of the pc specification
             Map<String, String> specificationMap = pcDAO.getProductSpecification(productID);
             request.setAttribute("specification", specificationMap);
 
+            //get the product by productID
             Product p = pDAO.getProductByID(productID);
             request.setAttribute("product", p);
 
+            //get the originalPrice of product
             int originalPrice = pDAO.getOriginalPriceByID(productID);
             request.setAttribute("originalPrice", originalPrice);
 
+            //get the sale price of product
             int salePrice = pDAO.getSalePriceByID(productID);
             request.setAttribute("salePrice", salePrice);
 
+            //get the rating of the product
             int rating = fDAO.getStarByProductID(productID);
             request.setAttribute("rating", rating);
+            //get the number of feedback of product
             int totalFeedback = fDAO.getTotalFeedback(productID);
             request.setAttribute("totalFeedback", totalFeedback);
 
             //RelatedPC
             ArrayList<Product> listRelated = pDAO.getRelatedPCExceptCurrent(productID, p.getCategoryID());
             request.setAttribute("listRelated", listRelated);
-
+            //related pc original price
             Map<Integer, Integer> listRelatedPCPrice = pDAO.getOriginalPriceByID(listRelated);
             request.setAttribute("listRelatedPCPrice", listRelatedPCPrice);
-
+            //related pc sale price
             Map<Integer, Integer> listSalePrice = pDAO.getSalePriceByID(listRelated);
             request.setAttribute("listSalePrice", listSalePrice);
-
+            //related pc star 
             Map<Integer, Integer> listRelatedFeedback = fDAO.getStarByProductID(listRelated);
             request.setAttribute("listRelatedFeedback", listRelatedFeedback);
 

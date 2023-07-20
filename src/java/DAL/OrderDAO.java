@@ -188,7 +188,6 @@ public class OrderDAO {
         return row;
     }
 
-
     public int getTotalOrderBySale(int saleID, String start, String end) {
         try {
             DBContext db = new DBContext();
@@ -209,13 +208,13 @@ public class OrderDAO {
         return 0;
     }
 
-    public List<Order> getAllOrder() {
+    public List<Order> getAllOrderBySale(int saleID) {
         List<Order> listOrder = new ArrayList<>();
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT * from `order`";
+                String sql = "SELECT * from `order` where `saler_id` = " + saleID + "";
                 PreparedStatement st = con.prepareStatement(sql);
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
@@ -223,8 +222,8 @@ public class OrderDAO {
                     o.setOrderID(rs.getInt(1));
                     o.setUserID(rs.getInt(2));
                     o.setFullName(rs.getString(3));
-                    o.setPhoneNumber(rs.getString(4));
-                    o.setAddress(rs.getString(5));
+                    o.setAddress(rs.getString(4));
+                    o.setPhoneNumber(rs.getString(5));
                     o.setOrderDate(rs.getDate(6));
                     o.setTotalCost(rs.getInt(7));
                     o.setPayment(rs.getString(8));
@@ -333,8 +332,8 @@ public class OrderDAO {
                     o.setOrderID(rs.getInt(1));
                     o.setUserID(rs.getInt(2));
                     o.setFullName(rs.getString(3));
-                    o.setPhoneNumber(rs.getString(4));
-                    o.setAddress(rs.getString(5));
+                    o.setAddress(rs.getString(4));
+                    o.setPhoneNumber(rs.getString(5));
                     o.setOrderDate(rs.getDate(6));
                     o.setTotalCost(rs.getInt(7));
                     o.setPayment(rs.getString(8));
@@ -431,12 +430,12 @@ public class OrderDAO {
         }
         return list;
     }
-    
+
     public List<Chart> getChartRevenueAreaOfSale(int saleID, String start, int day) throws Exception {
         List<Chart> list = new ArrayList<>();
         for (int i = 0; i < day; i++) {
             int value = 0;
-            String sql = "SELECT SUM(total_cost) FROM `Order` WHERE `Saler_ID` = "+saleID+" and `Order_Date` <= DATE_ADD(?, INTERVAL ? DAY) AND `Order_Date` >= ?";
+            String sql = "SELECT SUM(total_cost) FROM `Order` WHERE `Saler_ID` = " + saleID + " and `Order_Date` <= DATE_ADD(?, INTERVAL ? DAY) AND `Order_Date` >= ?";
             try {
                 DBContext db = new DBContext();
                 Connection con = db.getConnection();

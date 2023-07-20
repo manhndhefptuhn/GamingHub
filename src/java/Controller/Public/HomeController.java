@@ -68,6 +68,7 @@ public class HomeController extends HttpServlet {
         request.setAttribute("listGamingProductPrice", listGamingProductPrice);
         Map<Integer, Integer> listGamingProductSalePrice = pDAO.getSalePriceByID(listFourGamingPC);
         request.setAttribute("listGamingProductSalePrice", listGamingProductSalePrice);
+        //get the map star of the product
         Map<Integer, Integer> listGamingFeedback = fDAO.getStarByProductID(listFourGamingPC);
         request.setAttribute("listGamingFeedback", listGamingFeedback);
 
@@ -80,6 +81,7 @@ public class HomeController extends HttpServlet {
         request.setAttribute("listWorkProductPrice", listWorkProductPrice);
         Map<Integer, Integer> listWorkProductSalePrice = pDAO.getSalePriceByID(listFourWorkPC);
         request.setAttribute("listWorkProductSalePrice", listWorkProductSalePrice);
+        //get the map star of the product
         Map<Integer, Integer> listWorkFeedback = fDAO.getStarByProductID(listFourWorkPC);
         request.setAttribute("listWorkFeedback", listWorkFeedback);
 
@@ -92,10 +94,11 @@ public class HomeController extends HttpServlet {
         request.setAttribute("listMiniProductPrice", listMiniProductPrice);
         Map<Integer, Integer> listMiniProductSalePrice = pDAO.getSalePriceByID(listFourMiniPC);
         request.setAttribute("listMiniProductSalePrice", listMiniProductSalePrice);
+        //get the map star of the product
         Map<Integer, Integer> listMiniFeedback = fDAO.getStarByProductID(listFourMiniPC);
         request.setAttribute("listMiniFeedback", listMiniFeedback);
 
-        //MapToGetImage
+        //MapToGetImage From Case
         Map<Integer, Case> listImage = caseDAO.getCaseByCaseID();
         request.setAttribute("listImage", listImage);
         Map<Integer, Integer> listCaseID = pcDAO.getCaseIDByProductID();

@@ -5,6 +5,8 @@
 package Controller.Customer;
 
 import DAL.CartDAO;
+import DAL.ProductDAO;
+import Model.Product;
 import Model.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -69,18 +71,26 @@ public class UpdateCartController extends HttpServlet {
                 int totalCartProduct = cartDAO.getTotalCartProduct(u.getUser_ID());
                 session.setAttribute("totalCartProduct", totalCartProduct);
                 session.setAttribute("notification", "Remove all from cart successfully");
-                request.getRequestDispatcher("cart").forward(request, response);
             } else {
-                int row, totalCost;
-                int productID = Integer.parseInt(request.getParameter("productID"));
-                int quantity = Integer.parseInt(request.getParameter("quantity"));
-                int productPrice = Integer.parseInt(request.getParameter("productPrice"));
-                totalCost = productPrice * quantity;
-                row = cartDAO.updateCartIfExist(productPrice, quantity, totalCost, u.getUser_ID(), productID);
-                if (row >= 1) {
-                    session.setAttribute("notification", "Update cart successfully");
-                } else {
-                    session.setAttribute("wrongNotification", "There's something wrong, please try again");
+                int row, totalCost, productPrice, productID, quantity;
+                String[] productIDs = request.getParameterValues("productID");
+                String[] quantities = request.getParameterValues("quantity");
+                for (int i = 0; i < productIDs.length; i++) {
+                    productID = Integer.parseInt(productIDs[i]);
+                    quantity = Integer.parseInt(quantities[i]);
+                    Product p = new ProductDAO().getProductByID(productID);
+                    if (p.getProductStatusID() == 0 || p.getProductStatusID() == 1) {
+                        productPrice = new ProductDAO().getOriginalPriceByID(productID);
+                    } else {
+                        productPrice = new ProductDAO().getSalePriceByID(productID);
+                    }
+                    totalCost = productPrice * quantity;
+                    row = cartDAO.updateCartIfExist(productPrice, quantity, totalCost, u.getUser_ID(), productID);
+                    if (row >= 1) {
+                        session.setAttribute("notification", "Update cart successfully");
+                    } else {
+                        session.setAttribute("wrongNotification", "There's something wrong, please try again");
+                    }
                 }
             }
         } catch (Exception e) {

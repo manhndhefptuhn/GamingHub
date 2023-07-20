@@ -84,24 +84,33 @@ public class forgetPassController extends HttpServlet {
             String defaultPassword = "1234@1234a";
             String hashResetPassword = pwutl.hashPassword(resetPassword);
             String hashResetDefaultPassword = pwutl.hashPassword(defaultPassword);
+            //If email not exist
             if (user == null) {
                 request.setAttribute("notification", "Email is not exist");
                 request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
             } else {
+                //if email exist and user is customer
                 if (user.getRole_ID() == 1) {
+                    //send random generated password
                     emailSent = se.sendPassword(email, resetPassword, user.getFullName(), "Request new password");
+                    //check if their is a record in password reset table
                     PasswordReset pwrs = pwrsDAO.checkExistRecord(user.getUser_ID());
                     if (emailSent) {
+                        //if email is sent and exists record
                         if (pwrs != null) {
+                            //update the password in password reset table with new generated password been hashed
                             pwrsDAO.updateResetPassword(pwrs.getResetID(), hashResetPassword);
+                            //update user with new generated password been hashed
                             uDAO.changePassword(user.getUser_ID(), hashResetPassword);
                             request.setAttribute("notification", "New password is sent, please login again");
                             request.setAttribute("email", email);
                             request.getRequestDispatcher("Login.jsp").forward(request, response);
                         } else {
+                            //if not exist insert into table password reset with new generated password been hashed and current timestamp
                             pwrsDAO.resetPassword(user.getUser_ID(), hashResetPassword);
+                            //update user with new generated password been hashed
                             uDAO.changePassword(user.getUser_ID(), hashResetPassword);
-                            request.setAttribute("notification", "New password is sent, please login again");
+                            request.setAttribute("notification", "New password is sent, please check email and login again");
                             request.setAttribute("email", email);
                             request.getRequestDispatcher("Login.jsp").forward(request, response);
                         }
@@ -109,8 +118,10 @@ public class forgetPassController extends HttpServlet {
                         throw new Exception();
                     }
                 } else {
+                    //if not customer send default password 
                     emailSent = se.sendDefaultPass(email, defaultPassword, user.getFullName());
                     if (emailSent) {
+                        //if email sent update user with default password hashed
                         uDAO.changePassword(user.getUser_ID(), hashResetDefaultPassword);
                         request.setAttribute("email", email);
                         request.setAttribute("notification", "Password is set to default, please check email and login again");

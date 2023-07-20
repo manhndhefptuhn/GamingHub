@@ -67,8 +67,8 @@
                             </a>
                             <div class="collapse" id="collapseLayoutsThree" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">Setting List</a>
-                                    <a class="nav-link" href="#">???</a>
+                                    <a class="nav-link" href="adminSettingController">Setting List</a>
+                                    <a class="nav-link" href="AdminAddSetting.jsp">Create Setting</a>
                                 </nav>
                             </div>
                         </div>

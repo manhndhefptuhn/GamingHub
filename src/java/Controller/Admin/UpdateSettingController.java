@@ -2,25 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller.Sale;
+package Controller.Admin;
 
-import DAL.PCDAO;
-import DAL.ProductDAO;
-import Model.PC;
-import Model.Product;
+import DAL.CategoryDAO;
+import DAL.RoleDAO;
+import Model.Category;
+import Model.Roles;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
- * @author Tien Dat
+ * @author Zarius
  */
-public class CreateProductController extends HttpServlet {
+public class UpdateSettingController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +38,10 @@ public class CreateProductController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateProductController</title>");
+            out.println("<title>Servlet UpdateSettingController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateProductController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateSettingController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -75,51 +74,45 @@ public class CreateProductController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("utf-8");
-        response.setCharacterEncoding("utf-8");
-        
-        String productName = request.getParameter("productName");
-        String description = request.getParameter("description");
-        boolean status = Boolean.valueOf(request.getParameter("status"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        double salePercentage = Double.parseDouble(request.getParameter("salePercentage"));
-        int productStatusID = Integer.parseInt(request.getParameter("productStatus"));
-        int categoryID = Integer.parseInt(request.getParameter("category"));
-                
-        ProductDAO pDAO = new ProductDAO();
-        Product product = new Product();
-        product.setProductName(productName);
-        product.setDescription(description);
-        product.setStatus(status);
-        product.setQuantity(quantity);
-        product.setSalePercentage(salePercentage);
-        product.setProductStatusID(productStatusID);
-        product.setCategoryID(categoryID);
-        int productID = pDAO.createProduct(product);
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        String type = request.getParameter("type");
+        String action = request.getParameter("action");
+        if (action != null && action.equals("back")) {
+            response.sendRedirect("adminSettingController");
+        } else {
+            if (type.equalsIgnoreCase("role")) {
+                int roleID = Integer.parseInt(request.getParameter("roleID"));
+                String roleName = request.getParameter("roleName");
 
-        int cpuID = Integer.parseInt(request.getParameter("cpu"));
-        int caseID = Integer.parseInt(request.getParameter("case"));
-        int mainboardID = Integer.parseInt(request.getParameter("mainboard"));
-        int storageID = Integer.parseInt(request.getParameter("storage"));
-        int vgaID = Integer.parseInt(request.getParameter("vga"));
-        int ramID = Integer.parseInt(request.getParameter("ram"));
-        int psuID = Integer.parseInt(request.getParameter("psu"));
-        
-        PCDAO pcDAO = new PCDAO();
-        PC pc = new PC();
-        pc.setProductID(productID);
-        pc.setMainboardID(mainboardID);
-        pc.setCpuID(cpuID);
-        pc.setRamID(ramID);
-        pc.setVgaID(vgaID);
-        pc.setStorageID(storageID);
-        pc.setPsuID(psuID);
-        pc.setCaseID(caseID);
-        pcDAO.createPC(pc);
-        
-        
-        request.setAttribute("notification", "Product created with ID " + productID);
-        request.getRequestDispatcher("productList").forward(request, response);
+                Roles updatedRole = new Roles();
+                updatedRole.setRoleID(roleID);
+                updatedRole.setRoleName(roleName);
+
+                RoleDAO rDAO = new RoleDAO();
+                int rowsAffected = rDAO.editRoleInfo(updatedRole);
+                if (rowsAffected > 0) {
+                    request.setAttribute("notification", "Update role successfully");
+                    request.getRequestDispatcher("settingDetail?type=role&id=" + roleID + "").forward(request, response);
+                }
+            } else if (type.equalsIgnoreCase("category")) {
+                int categoryID = Integer.parseInt(request.getParameter("categoryID"));
+                String categoryName = request.getParameter("categoryName");
+                boolean status = Boolean.valueOf(request.getParameter("status"));
+
+                Category updatedCategory = new Category();
+                updatedCategory.setCategoryID(categoryID);
+                updatedCategory.setCategoryName(categoryName);
+                updatedCategory.setStatus(status);
+
+                CategoryDAO cDAO = new CategoryDAO();
+                int rowsAffected = cDAO.editCategoryInfo(updatedCategory);
+                if (rowsAffected > 0) {
+                    request.setAttribute("notification", "Update category successfully");
+                    request.getRequestDispatcher("settingDetail?type=category&id=" + categoryID + "").forward(request, response);
+                }
+            }
+        }
     }
 
     /**

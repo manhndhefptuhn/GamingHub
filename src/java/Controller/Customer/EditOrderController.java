@@ -72,9 +72,9 @@ public class EditOrderController extends HttpServlet {
                 OrderDAO odDAO = new OrderDAO();
                 OrderDetailDAO ordtDAO = new OrderDetailDAO();
                 ArrayList<OrderDetail> listOrderDetail = ordtDAO.getDetailAllOrder(orderID);
-                row = ordtDAO.returnQuantityProduct(listOrderDetail);
+                row = odDAO.updateOrderStatus(orderID, 4);
                 if (row >= 1) {
-                    row1 = odDAO.updateOrderStatus(orderID, 4);
+                    row1 = ordtDAO.returnQuantityProduct(listOrderDetail);
                     if (row1 >= 1) {
                         session.setAttribute("notification", "Cancel order succesfully");
                         request.getRequestDispatcher("orderDetail?id=" + orderID + "").forward(request, response);

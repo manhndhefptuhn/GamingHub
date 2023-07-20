@@ -90,37 +90,39 @@ public class LoginController extends HttpServlet {
                 request.setAttribute("notification", "User is inactive");
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
                 return;
-            } else {
-                PasswordReset pwrs = pwrsDAO.checkExistRecord(u.getUser_ID());
-                //Check if have record in table passwordReset in case forgot passsword
-                if (pwrs != null) {
-                    // If a password reset record exists, check for password expiration
-                    long currentTimeMillis = System.currentTimeMillis();
-                    Timestamp currentTime = new Timestamp(currentTimeMillis);
-                    thirtyMinutesMillis = 30 * 60 * 1000L; // 30 minutes in milliseconds
-                    //get time the request forgot password was created
-                    Timestamp expiryTime = new Timestamp(pwrs.getTimeCreated().getTime() + thirtyMinutesMillis);
-                    //if it after 30 minutes require to send another email
-                    if (currentTime.after(expiryTime) && u.getRole_ID() == 1) {
-                        request.setAttribute("email", email);
-                        request.setAttribute("notification", "Your password is expired, please request password again");
-                        request.getRequestDispatcher("Login.jsp").forward(request, response);
-                        return;
-                        //if not expired required user to change password 
-                    } else if (currentTime.before(expiryTime) && u.getRole_ID() == 1) {
-                        request.setAttribute("userChangeID", pwrs.getUserID());
-                        request.getRequestDispatcher("changePass.jsp").forward(request, response);
-
-                    }
-                    //if user is not customer, have default password and when login require to change
-                } else if (pwutl.checkPassword(defaultPassword, u.getPassword()) && (u.getRole_ID() == 2 || u.getRole_ID() == 3 || u.getRole_ID() == 4)) {
-                    request.setAttribute("userChangeID", u.getUser_ID());
+            }
+            
+            PasswordReset pwrs = pwrsDAO.checkExistRecord(u.getUser_ID());
+            //Check if have record in table passwordReset in case forgot passsword or register
+            if (pwrs != null) {
+                // If a password reset record exists, check for password expiration
+                //get current time in miliseconds
+                long currentTimeMillis = System.currentTimeMillis();
+                //get current timestamp
+                Timestamp currentTime = new Timestamp(currentTimeMillis);
+                thirtyMinutesMillis = 30 * 60 * 1000L; // 30 minutes in milliseconds
+                //get time the request forgot password was created
+                Timestamp expiryTime = new Timestamp(pwrs.getTimeCreated().getTime() + thirtyMinutesMillis);
+                //if it after 30 minutes require to send another email and is customer
+                if (currentTime.after(expiryTime) && u.getRole_ID() == 1) {
+                    request.setAttribute("email", email);
+                    request.setAttribute("notification", "Your password is expired, please request password again");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                    return;
+                    //if not expired required user to change password 
+                } else if (currentTime.before(expiryTime) && u.getRole_ID() == 1) {
+                    request.setAttribute("userChangeID", pwrs.getUserID());
                     request.getRequestDispatcher("changePass.jsp").forward(request, response);
-                    //else user can login and set attribute
-                } else {
-                    session.setAttribute("user", u);
-                    request.getRequestDispatcher("home").forward(request, response);
+
                 }
+                //if user is not customer, have default password and when login require to change
+            } else if (pwutl.checkPassword(defaultPassword, u.getPassword()) && (u.getRole_ID() != 1)) {
+                request.setAttribute("userChangeID", u.getUser_ID());
+                request.getRequestDispatcher("changePass.jsp").forward(request, response);
+            } else {
+                //else user can login and set the session for user
+                session.setAttribute("user", u);
+                request.getRequestDispatcher("home").forward(request, response);
             }
         } catch (Exception e) {
             // Handle any exception that occurs during processing

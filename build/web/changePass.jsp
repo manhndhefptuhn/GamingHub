@@ -12,8 +12,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Reset password</title>
-
+        <title>Change password</title>
+        <link rel="icon" type="image/png" href="<%= request.getContextPath()%>/img/shop/logo1.png"/>
         <!-- Font Icon -->
         <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
@@ -39,17 +39,18 @@
                             <div>
                                 <c:choose>
                                     <c:when test="${sessionScope.user != null}">
+                                        <!-- Change pass in user profile -->
                                         <div class="form-group">
                                             <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                            <input type="password" name="oldPassLogin" id="old-Pass" placeholder="Old password"/>
+                                            <input type="password" name="oldPassLogin" id="old-Pass" placeholder="Old password" required/>
                                         </div>
                                         <div class="form-group">
                                             <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                            <input type="password" name="newPass" id="your-pass" placeholder="New password"/>
+                                            <input type="password" name="newPass" id="your-pass" placeholder="New password" required/>
                                         </div>
                                         <div class="form-group">
                                             <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                            <input type="password" name="reNewPass" id="your-pass2" placeholder="Re-enter password"/>
+                                            <input type="password" name="reNewPass" id="your-pass2" placeholder="Re-enter password" required/>
                                         </div>
                                         <div>
                                             <input type="checkbox" id="reveal-checkbox" class="agree-term" onclick="revealPassword()"/>
@@ -57,14 +58,15 @@
                                         </div>
                                     </c:when>
                                     <c:otherwise>
+                                        <!-- Change pass when login with new password -->
                                         <input type="hidden" name="userChangeID" value="${userChangeID}">
                                         <div class="form-group">
                                             <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                            <input type="password" name="newPass" id="your-pass" placeholder="New password"/>
+                                            <input type="password" name="newPass" id="your-pass" placeholder="New password" required/>
                                         </div>
                                         <div class="form-group">
                                             <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                            <input type="password" name="reNewPass" id="your-pass2" placeholder="Re-enter password"/>
+                                            <input type="password" name="reNewPass" id="your-pass2" placeholder="Re-enter password" required/>
                                         </div>
                                         <div>
                                             <input type="checkbox" id="reveal-checkbox" class="agree-term" onclick="revealPassword1()"/>

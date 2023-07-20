@@ -58,23 +58,27 @@ public class VerifyPaymentController extends HttpServlet {
             session.setAttribute("totalCartProduct", totalCartProduct);
             response.sendRedirect("successful?payment=" + "VNPay" + "&orderID=" + orderID + "");
         } else {
-            OrderDAO oDAO = new OrderDAO();
-            oDAO.deleteOrder(orderID);
+            CartDAO cartDAO = new CartDAO();
+            OrderDetailDAO ordtDAO = new OrderDetailDAO();
+            HttpSession session = request.getSession();
+            User u = (User) session.getAttribute("user");
+            ArrayList<Cart> listCart = cartDAO.getAllCartItemByUserID(u.getUser_ID());
+            ordtDAO.addCartToOrder(listCart, orderID);
             response.sendRedirect("errorCheckout?orderID=" + orderID + "");
         }
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-/**
- * Handles the HTTP <code>GET</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-@Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -88,7 +92,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
      * @throws IOException if an I/O error occurs
      */
     @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -99,7 +103,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
      * @return a String containing servlet description
      */
     @Override
-public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

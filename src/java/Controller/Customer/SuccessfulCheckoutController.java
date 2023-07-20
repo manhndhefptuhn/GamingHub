@@ -4,6 +4,7 @@
  */
 package Controller.Customer;
 
+import DAL.OrderDAO;
 import DAL.OrderDetailDAO;
 import Model.OrderDetail;
 import java.io.IOException;
@@ -36,8 +37,10 @@ public class SuccessfulCheckoutController extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         int orderID = Integer.parseInt(request.getParameter("orderID"));
+        String payment = request.getParameter("payment");
         int orderTotalCost = 0;
         OrderDetailDAO ordtDAO = new OrderDetailDAO();
+        OrderDAO oDAO = new OrderDAO();
         ArrayList<OrderDetail> listOrderDetail = ordtDAO.getDetailAllOrder(orderID);
         Map<Integer, String> listProductName = ordtDAO.getOrderProductNameByProductID(listOrderDetail);
         request.setAttribute("orderID", orderID);
@@ -47,6 +50,11 @@ public class SuccessfulCheckoutController extends HttpServlet {
             orderTotalCost += orderDetail.getTotalCost();
         }
         request.setAttribute("orderTotalCost", orderTotalCost);
+        if(payment.equalsIgnoreCase("VNPay")){
+            oDAO.updateOrderStatus(orderID, 3);
+        }else{
+            oDAO.updateOrderStatus(orderID, 1);
+        }
         request.getRequestDispatcher("cartCompletion.jsp").forward(request, response);
 
     }

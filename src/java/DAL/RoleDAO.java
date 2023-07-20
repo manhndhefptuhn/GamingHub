@@ -128,7 +128,7 @@ public class RoleDAO {
     public int editRoleInfo(Roles role){
         int row = 0; 
         try {
-            String sql = "UPDATE roles SET role_name = ? WHERE role_id = ?";
+            String sql = "UPDATE `roles` SET role_name = ? WHERE role_id = ?";
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);

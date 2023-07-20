@@ -4,21 +4,22 @@
  */
 package Controller.Admin;
 
+import DAL.CategoryDAO;
+import DAL.RoleDAO;
+import Model.Category;
+import Model.Roles;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import DAL.*;
-import Model.*;
-import java.util.List;
 
 /**
  *
- * @author AN515-57
+ * @author Zarius
  */
-public class DeleteCategoryController extends HttpServlet {
+public class CreateSettingController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +38,10 @@ public class DeleteCategoryController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteCategoryController</title>");            
+            out.println("<title>Servlet CreateSettingController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteCategoryController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CreateSettingController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -72,7 +73,43 @@ public class DeleteCategoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String type = request.getParameter("type");
+        try {
+            if (type.equalsIgnoreCase("role")) {
+                String name = request.getParameter("name");
+                Roles role = new Roles();
+                role.setRoleName(name);
+                RoleDAO rDAO = new RoleDAO();
+
+                int rowsAffected = rDAO.createRole(role);
+                if (rowsAffected > 0) {
+                    request.setAttribute("notification", "Create role successfully");
+                    request.getRequestDispatcher("adminSettingController").forward(request, response);
+                } else {
+                    throw new Exception();
+                }
+            } else if (type.equalsIgnoreCase("category")) {
+                String name = request.getParameter("name");
+                Boolean status = Boolean.parseBoolean(request.getParameter("status"));
+
+                Category category = new Category();
+                category.setCategoryName(name);
+                category.setStatus(status);
+
+                CategoryDAO cDAO = new CategoryDAO();
+
+                int rowsAffected = cDAO.createCategory(category);
+                if (rowsAffected > 0) {
+                    request.setAttribute("notification", "Create category successfully");
+                    request.getRequestDispatcher("adminSettingController").forward(request, response);
+                } else {
+                    throw new Exception();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.getRequestDispatcher("404.jsp").forward(request, response);
+        }
     }
 
     /**

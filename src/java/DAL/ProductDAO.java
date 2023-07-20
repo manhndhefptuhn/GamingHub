@@ -756,5 +756,23 @@ public class ProductDAO {
         return listNumberOfProductByStatus;
     }
     
+    public int updateStatusProduct(int id, int i) {
+        int row = 0;
+        try {
+            String sql = "UPDATE `product`\n"
+                    + "   SET `status` = ?\n"
+                    + " WHERE `Product_ID` = ?";
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, i);
+            st.setInt(2, id);
+            row = st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            row = -1;
+        }
+        return row;
+    }
     
 }

@@ -35,9 +35,10 @@ public class ErrorCheckoutController extends HttpServlet {
         HttpSession session = request.getSession();
         int orderID = Integer.parseInt(request.getParameter("orderID"));
         OrderDAO oDAO = new OrderDAO();
-        int row = oDAO.deleteOrder(orderID);
+        oDAO.updateNote(orderID, "Processing failed");
+        oDAO.updateOrderStatus(orderID, 4);
         session.setAttribute("wrongNotification", "Checkout unsuccessful, please try again");
-        request.getRequestDispatcher("home").forward(request, response);
+        request.getRequestDispatcher("cart").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

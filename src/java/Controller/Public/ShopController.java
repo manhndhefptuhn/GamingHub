@@ -38,6 +38,8 @@ public class ShopController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         try {
             CategoryDAO catDAO = new CategoryDAO();
             ProductDAO pDAO = new ProductDAO();
@@ -47,6 +49,7 @@ public class ShopController extends HttpServlet {
 
             int totalProduct, productsPerPage, categoryID, totalPages, startIndex, endIndex, productStatus;
 
+            //get all Active category
             ArrayList<Category> listCategory = catDAO.getAllCategory();
             request.setAttribute("listCategory", listCategory);
 
@@ -62,21 +65,28 @@ public class ShopController extends HttpServlet {
 
             // Get the categoryID parameter from the request
             String categoryIDParam = request.getParameter("categoryID");
+            //get the cpuName from request
             String cpuName = request.getParameter("cpuName");
+            //get the productStatus from request
             String productStatusParam = request.getParameter("productStatus");
             // Check if the categoryID parameter is provided
             if (categoryIDParam != null && !categoryIDParam.isEmpty()) {
                 categoryID = Integer.parseInt(categoryIDParam);
                 if (cpuName != null && !cpuName.isEmpty()) {
                     ArrayList<Product> listAllByCategoryAndByName = pDAO.getAllProductByCategoryAndCpuName(categoryID, cpuName);
+                    //get the totalProduct
                     totalProduct = listAllByCategoryAndByName.size();
 
+                    //get the totalpage of the product
                     totalPages = (int) Math.ceil((double) totalProduct / productsPerPage);
                     request.setAttribute("totalPages", totalPages);
 
+                    //1 - 1 * 9 = 0
                     startIndex = (currentPage - 1) * productsPerPage;
+                    //(0 + 9, 30) = 0
                     endIndex = Math.min(startIndex + productsPerPage, totalProduct);
-
+                    
+                    //get list product with productId from 1 to 9 which index of listAllByCategoryAndByName by 0 to 8
                     ArrayList<Product> listProduct = new ArrayList<>(listAllByCategoryAndByName.subList(startIndex, endIndex));
                     request.setAttribute("listProduct", listProduct);
 
