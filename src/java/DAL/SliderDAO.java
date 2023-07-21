@@ -106,15 +106,15 @@ public class SliderDAO {
 
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "Select * from slider where slider_id = '" + sliderID + "'";
+                String sql = "Select * from `slider` where slider_id = '" + sliderID + "'";
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
-                    slider.setSliderID(rs.getInt("Slider_id"));
-                    slider.setSliderTitle(rs.getString("Slider_title"));
-                    slider.setSliderImage(rs.getString("Slider_Image"));
-                    slider.setBacklink(rs.getString("Backlink"));
-                    slider.setNote(rs.getString("Note"));
-                    slider.setStatus(rs.getBoolean("Status"));
+                    slider.setSliderID(rs.getInt(1));
+                    slider.setSliderTitle(rs.getString(2));
+                    slider.setSliderImage(rs.getString(3));
+                    slider.setBacklink(rs.getString(4));
+                    slider.setNote(rs.getString(5));
+                    slider.setStatus(rs.getBoolean(6));
                 }
                 rs.close();
                 st.close();

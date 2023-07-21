@@ -71,29 +71,6 @@ public class CPUDAO {
         }
         return null;
     }
-
-    public int getCPUIDByName(String cpuName) {
-        int cpuID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT CPU_ID FROM cpu WHERE CPU_Name LIKE ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, "%" + cpuName + "%");
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    cpuID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return cpuID;
-    }
     
     public ArrayList<CPU> getAllCPU() {
         ArrayList<CPU> listCPU = new ArrayList<>();

@@ -99,7 +99,7 @@ public class CategoryDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql = "select * from category where category_ID = " + categoryID + ";";
+                String sql = "select * from `category` where `category_ID` = " + categoryID + ";";
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
                     Category category = new Category();

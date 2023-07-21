@@ -74,29 +74,6 @@ public class StorageDAO {
         return null;
     }
 
-    public int getStorageIDByName(String storageName) {
-        int storageID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT Storage_ID FROM storage WHERE Storage_Name LIKE ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, "%" + storageName + "%");
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    storageID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return storageID;
-    }
-
     public ArrayList<Storage> getAllStorage() {
         ArrayList<Storage> listStorage = new ArrayList<>();
         try {

@@ -36,7 +36,7 @@ public class AdminAddUserController extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         RoleDAO rDAO = new RoleDAO();
-        ArrayList<Roles> listRole = rDAO.getAllRole();
+        ArrayList<Roles> listRole = rDAO.getAllRoleActive();
         request.setAttribute("listRole", listRole);
         request.getRequestDispatcher("AdminAddUser.jsp").forward(request, response);
     }
