@@ -67,7 +67,6 @@ public class EditUserController extends HttpServlet {
             //attribute
             int userID = Integer.parseInt(request.getParameter("userID"));
             String name = request.getParameter("fullName");
-            String password = request.getParameter("password");
             Part image = request.getPart("profilePicture");
             String phoneNumber = request.getParameter("phone");
             String address = request.getParameter("address");
@@ -106,7 +105,6 @@ public class EditUserController extends HttpServlet {
             User u = new User();
             u.setUser_ID(userID);
             u.setFullName(name);
-            u.setPassword(pwutl.hashPassword(password));
             u.setPhone_Number(phoneNumber);
             u.setProfile_picture(imagePath);
             u.setAddress(address);

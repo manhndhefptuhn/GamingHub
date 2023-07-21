@@ -84,10 +84,12 @@ public class UpdateSettingController extends HttpServlet {
             if (type.equalsIgnoreCase("role")) {
                 int roleID = Integer.parseInt(request.getParameter("roleID"));
                 String roleName = request.getParameter("roleName");
-
+                boolean status = Boolean.valueOf(request.getParameter("status"));
+                
                 Roles updatedRole = new Roles();
                 updatedRole.setRoleID(roleID);
                 updatedRole.setRoleName(roleName);
+                updatedRole.setStatus(status);
 
                 RoleDAO rDAO = new RoleDAO();
                 int rowsAffected = rDAO.editRoleInfo(updatedRole);

@@ -60,7 +60,7 @@
                                             <td><input style="background-color:#C5C5C5;" type="text" id="address" name="address" value="${customer.getAddress()}" readonly/><br></td>
                                         </tr>
                                         <tr>
-                                            <th>Role Name</th>
+                                            <th>Role</th>
                                             <td><input style="background-color:#C5C5C5;" type="text" id="role" name="role" value="${customerRole}" readonly/><br>
                                             </td>
                                         </tr>
@@ -80,6 +80,13 @@
             </footer>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            new simpleDatatables.DataTable('#datatablesSimple', {
+                paging: false // Disable pagination
+            });
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="<%= request.getContextPath()%>/js/scripts1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>

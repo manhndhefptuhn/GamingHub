@@ -4,11 +4,14 @@
  */
 package Controller.Admin;
 
+import DAL.PasswordResetDAO;
 import DAL.SliderDAO;
 import DAL.UserDAO;
 import Model.Slider;
 import Model.User;
 import Service.PasswordUtils;
+import Service.RandomPassword;
+import Service.SendEmail;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -73,13 +76,15 @@ public class CreateUserController extends HttpServlet {
         String email = request.getParameter("email");
         PasswordUtils pwutl = new PasswordUtils();
         UserDAO uDAO = new UserDAO();
+        SendEmail se = new SendEmail();
+        RandomPassword rd = new RandomPassword();
+        PasswordResetDAO pwrsDAO = new PasswordResetDAO();
         User user = uDAO.checkUserExist(email);
         if (user != null) {
             request.setAttribute("notification", "User with email exists, please try another email");
             request.getRequestDispatcher("addUser").forward(request, response);
         } else {
             String name = request.getParameter("fullName");
-            String password = request.getParameter("password");
             Part image = request.getPart("profilePicture");
             String phoneNumber = request.getParameter("phone");
             String address = request.getParameter("address");
@@ -114,9 +119,11 @@ public class CreateUserController extends HttpServlet {
                 imagePath = "img/avatar/" + uniqueImageName;
             }
             User u = new User();
+            String password = rd.generatePassword();
+            String hashedPassword = pwutl.hashPassword(password);
             u.setEmail(email);
             u.setFullName(name);
-            u.setPassword(pwutl.hashPassword(password));
+            u.setPassword(hashedPassword);
             u.setPhone_Number(phoneNumber);
             u.setProfile_picture(imagePath);
             u.setAddress(address);
@@ -125,7 +132,8 @@ public class CreateUserController extends HttpServlet {
 
             int rowsAffected = uDAO.createUser(u);
             if (rowsAffected > 0) {
-                request.setAttribute("notification", "Create User Successsfully");
+                se.sendPassword(email, password, name, "Your account just been created!");
+                request.setAttribute("notification", "Create User Successsfully! User will receive an email with a password");
                 request.getRequestDispatcher("userList").forward(request, response);
             } else {
                 request.setAttribute("notification", "Something wrong, please try again");

@@ -13,22 +13,27 @@ import Model.Date;
 
 /**
  *
- * @author son22
+ * @author Zarius
  */
 public class DateDAO extends DBContext {
 
     public int CountDayByStartEnd(String start, String end) throws Exception {
-        String sql = "SELECT ABS(DATEDIFF(?, ?))";
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, start);
-            st.setString(2, end);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                return rs.getInt(1) + 1;
+        DBContext db = new DBContext();
+        try ( Connection con = db.getConnection()) {
+            if (con != null) {
+                String sql = "SELECT ABS(DATEDIFF(?, ?))";
+                PreparedStatement st = con.prepareStatement(sql);
+                st.setString(1, start);
+                st.setString(2, end);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    return rs.getInt(1) + 1;
+                }
+                rs.close();
+                st.close();
+                con.close();
             }
+
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -36,22 +41,25 @@ public class DateDAO extends DBContext {
     }
 
     public Date get7day() throws Exception {
-        String sql = "SELECT CURDATE(), DATE_SUB(CURDATE(), INTERVAL 6 DAY)";
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            PreparedStatement st = con.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Date.Builder builder = new Date().new Builder();
-                Date date = builder
-                        .setStart(rs.getDate(2))
-                        .setEnd(rs.getDate(1))
-                        .build();
+        DBContext db = new DBContext();
+        try ( Connection con = db.getConnection()) {
+            if (con != null) {
+                String sql = "SELECT CURDATE(), DATE_SUB(CURDATE(), INTERVAL 6 DAY)";
+                PreparedStatement st = con.prepareStatement(sql);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    Date.Builder builder = new Date().new Builder();
+                    Date date = builder
+                            .setStart(rs.getDate(2))
+                            .setEnd(rs.getDate(1))
+                            .build();
 
-                return date;
+                    return date;
+                }
+                rs.close();
+                st.close();
+                con.close();
             }
-
         } catch (SQLException e) {
             System.out.println(e);
         }

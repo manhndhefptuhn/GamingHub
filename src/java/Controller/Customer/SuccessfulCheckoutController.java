@@ -51,7 +51,7 @@ public class SuccessfulCheckoutController extends HttpServlet {
         }
         request.setAttribute("orderTotalCost", orderTotalCost);
         if(payment.equalsIgnoreCase("VNPay")){
-            oDAO.updateOrderStatus(orderID, 3);
+            oDAO.updateOrderStatus(orderID, 4);
         }else{
             oDAO.updateOrderStatus(orderID, 1);
         }

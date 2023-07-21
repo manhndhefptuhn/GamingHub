@@ -90,7 +90,7 @@
             labels: [<c:forEach  items="${listOrderStatus}" var="listOrderStatus" > "${listOrderStatus.getOrderStatusName()}",</c:forEach>],
                     datasets: [{
                             data: [<c:forEach  items="${listOrderStatus}" var="listOrderStatus" >${listNumberOfOrderByStatus[listOrderStatus.getOrderStatusID()]}, </c:forEach>],
-                            backgroundColor: ['#007bff', '#ffc107', '#28a745', '#dc3545'],
+                            backgroundColor: ['#007bff', '#ffc107', '#ff6f69','#ffcc5c','#28a745', '#dc3545'],
                         }],
         },
     });
@@ -124,7 +124,6 @@
                                 display: false
                             },
                             ticks: {
-                                maxTicksLimit: 6
                             }
                         }],
                     yAxes: [{

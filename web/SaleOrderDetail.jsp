@@ -56,6 +56,14 @@
                                             <td><input style="background-color:#C5C5C5;" type="text" id="address" name="address" value="${order.getAddress()}" readonly/><br></td>
                                         </tr>
                                         <tr>
+                                            <th>Country</th>
+                                            <td><input style="background-color:#C5C5C5;" type="text" id="address" name="address" value="${order.getCountry()}" readonly/><br></td>
+                                        </tr>
+                                        <tr>
+                                            <th>PostCode</th>
+                                            <td><input style="background-color:#C5C5C5;" type="text" id="address" name="address" value="${order.getPostCode()}" readonly/><br></td>
+                                        </tr>
+                                        <tr>
                                             <th>Phone Number</th>
                                             <td><input style="background-color:#C5C5C5;" type="text" id="phone" name="phone" value="${order.getPhoneNumber()}" readonly/><br></td>
                                         </tr>
@@ -75,7 +83,7 @@
                                         </tr>
                                         <tr>
                                             <th>Order Status</th>
-                                            <td><input style="background-color:#C5C5C5;" type="text" id="orderStatus" name="orderStatus" value="${order.getOrderStatus()}"/><br>
+                                            <td><input style="background-color:#C5C5C5;" type="text" id="orderStatus" name="orderStatus" value="${orderStatus}" readonly/><br>
                                             </td>
                                         </tr>
                                         <tr>
@@ -133,6 +141,12 @@
             if (datatablesSimple) {
                 new simpleDatatables.DataTable(datatablesSimple);
             }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            new simpleDatatables.DataTable('#datatablesSimple', {
+                paging: false // Disable pagination
+            });
         });
 
     </script>

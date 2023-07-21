@@ -77,8 +77,11 @@ public class CreateSettingController extends HttpServlet {
         try {
             if (type.equalsIgnoreCase("role")) {
                 String name = request.getParameter("name");
+                Boolean status = Boolean.parseBoolean(request.getParameter("status"));
+                
                 Roles role = new Roles();
                 role.setRoleName(name);
+                role.setStatus(status);
                 RoleDAO rDAO = new RoleDAO();
 
                 int rowsAffected = rDAO.createRole(role);

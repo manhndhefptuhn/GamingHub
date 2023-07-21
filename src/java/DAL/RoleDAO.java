@@ -59,6 +59,7 @@ public class RoleDAO {
                     Roles r = new Roles();
                     r.setRoleID(rs.getInt(1));
                     r.setRoleName(rs.getString(2));
+                    r.setStatus(rs.getBoolean(3));
                     roleList.add(r);
                 }
                 rs.close();
@@ -99,7 +100,7 @@ public class RoleDAO {
         }
         return listName;
     }
-    
+
     public Roles getRoleViaID(int Role_ID) {
         try {
             DBContext db = new DBContext();
@@ -112,6 +113,7 @@ public class RoleDAO {
                     Roles r = new Roles();
                     r.setRoleID(rs.getInt(1));
                     r.setRoleName(rs.getString(2));
+                    r.setStatus(rs.getBoolean(3));
                     return r;
                 }
                 rs.close();
@@ -124,36 +126,36 @@ public class RoleDAO {
         }
         return null;
     }
-    
-    public int editRoleInfo(Roles role){
-        int row = 0; 
+
+    public int editRoleInfo(Roles role) {
+        int row = 0;
         try {
-            String sql = "UPDATE `roles` SET role_name = ? WHERE role_id = ?";
+            String sql = "UPDATE `roles` SET `role_name` = ?, `status`= ? WHERE role_id = ?";
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, role.getRoleName());
-            ps.setInt(2, role.getRoleID());
-            row = ps.executeUpdate(); 
-        } catch (Exception ex){
+            ps.setBoolean(2, role.isStatus());
+            ps.setInt(3, role.getRoleID());
+            row = ps.executeUpdate();
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
-            row = -1; 
+            row = -1;
         }
-        return row; 
+        return row;
     }
-    
-    public int createRole(Roles createRole){
-        int row = 0; 
 
-        String sql = "INSERT INTO roles (role_id, role_name) VALUES (?, ?)";
-        
+    public int createRole(Roles createRole) {
+        int row = 0;
         try {
+            String sql = "INSERT INTO `roles` VALUES (?, ?, ?)";
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             st.setNull(1, Types.INTEGER);
             st.setString(2, createRole.getRoleName());
+            st.setBoolean(3, createRole.isStatus());
             row = st.executeUpdate();
             st.close();
             con.close();

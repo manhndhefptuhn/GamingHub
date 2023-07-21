@@ -44,6 +44,8 @@ public class SaleOrderDetailController extends HttpServlet {
         Order order = oDAO.getOrderByID(orderID);
         ArrayList<OrderDetail> listOrderDetail = ordtDAO.getDetailAllOrder(orderID);
         Map<Integer, String> listProductName = ordtDAO.getOrderProductNameByProductID(listOrderDetail);
+        String orderStatus = oDAO.getOrderStatusNameByID(order.getOrderStatus());
+        request.setAttribute("orderStatus", orderStatus);
         request.setAttribute("listOrderDetail", listOrderDetail);
         request.setAttribute("listProductName", listProductName);
         request.setAttribute("order", order);

@@ -4,6 +4,7 @@
  */
 package Model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -15,8 +16,10 @@ public class Order {
     private int userID;
     private String fullName;
     private String address;
+    private String country;
+    private int postCode;
     private String phoneNumber;
-    private Date orderDate;
+    private Timestamp orderDate;
     private int totalCost;
     private String payment;
     private int saleID;
@@ -26,11 +29,13 @@ public class Order {
     public Order() {
     }
 
-    public Order(int orderID, int userID, String fullName, String address, String phoneNumber, Date orderDate, int totalCost, String payment, int saleID, int orderStatus, String note) {
+    public Order(int orderID, int userID, String fullName, String address, String country, int postCode, String phoneNumber, Timestamp orderDate, int totalCost, String payment, int saleID, int orderStatus, String note) {
         this.orderID = orderID;
         this.userID = userID;
         this.fullName = fullName;
         this.address = address;
+        this.country = country;
+        this.postCode = postCode;
         this.phoneNumber = phoneNumber;
         this.orderDate = orderDate;
         this.totalCost = totalCost;
@@ -80,11 +85,11 @@ public class Order {
         this.phoneNumber = phoneNumber;
     }
 
-    public Date getOrderDate() {
+    public Timestamp getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(Timestamp orderDate) {
         this.orderDate = orderDate;
     }
 
@@ -126,6 +131,22 @@ public class Order {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public int getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(int postCode) {
+        this.postCode = postCode;
     }
     
     

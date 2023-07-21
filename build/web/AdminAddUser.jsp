@@ -62,21 +62,17 @@
                                             <td><input type="email" id="email" name="email" placeholder="Enter email" required/><br></td>
                                         </tr>
                                         <tr>
-                                            <th>Password</th>
-                                            <td><input type="password" id="password" name="password" placeholder="Enter password" required/><br></td>
-                                        </tr>
-                                        <tr>
                                             <th>Profile Picture</th>
                                             <td><img id="previewImage" width="150" height="150"/>
                                                 <input type="file" id="profilePicture" name="profilePicture" accept="image/*" onchange="previewProfilePicture(event)" ></td>
                                         </tr>
                                         <tr>
                                             <th>Phone Number</th>
-                                            <td><input type="text" id="phone" name="phone" placeholder="Enter phone number" required/><br></td>
+                                            <td><input type="text" id="phone" name="phone" placeholder="Enter phone number"/><br></td>
                                         </tr>
                                         <tr>
                                             <th>Address</th>
-                                            <td><input type="text" id="address" name="address" placeholder="Enter address" required/><br></td>
+                                            <td><input type="text" id="address" name="address" placeholder="Enter address"/><br></td>
                                         </tr>
                                         <tr>
                                             <th>Status</th>
@@ -92,7 +88,7 @@
                                         <tr>
                                             <th>Role</th>
                                             <td>
-                                                <select name="role" id="role">
+                                                <select required name="role" id="role">
                                                     <c:forEach var="listRole" items="${listRole}">
                                                         <option value="${listRole.getRoleID()}">${listRole.getRoleName()}</option>
                                                     </c:forEach>
@@ -115,19 +111,6 @@
             </footer>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script>
-                                                    $(document).ready(function () {
-                                                        $('form').submit(function (event) {
-                                                            const phoneNumber = $('#phone').val();
-                                                            if (phoneNumber.length !== 10) {
-                                                                event.preventDefault();
-                                                                $('#notification').text('Please enter a 10-digit phone number').show();
-                                                            } else {
-                                                                $('#notification').hide();
-                                                            }
-                                                        });
-                                                    });
-        </script>
         <script>
             function previewProfilePicture(event)
 

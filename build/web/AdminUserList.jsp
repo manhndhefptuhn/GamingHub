@@ -66,7 +66,7 @@
                                                     </td>
                                                     <td>
                                                         <a href="userDetail?id=${user.getUser_ID()}">View</a>
-                                                        <c:if test="${roleID != 4}">
+                                                        <c:if test="${user.getUser_ID() != sessionScope.user.getUser_ID()}">
                                                             <c:choose>
                                                                 <c:when test="${(user.isStatus() == true)}">
                                                                     <a href="falseUser?id=<c:out value="${user.getUser_ID()}" />">| Deactive</a>

@@ -36,7 +36,7 @@ public class ErrorCheckoutController extends HttpServlet {
         int orderID = Integer.parseInt(request.getParameter("orderID"));
         OrderDAO oDAO = new OrderDAO();
         oDAO.updateNote(orderID, "Processing failed");
-        oDAO.updateOrderStatus(orderID, 4);
+        oDAO.updateOrderStatus(orderID, 6);
         session.setAttribute("wrongNotification", "Checkout unsuccessful, please try again");
         request.getRequestDispatcher("cart").forward(request, response);
     }
