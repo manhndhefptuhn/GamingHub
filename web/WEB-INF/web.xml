@@ -209,6 +209,10 @@
         <servlet-class>Controller.Admin.CreateUserController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddComponentController</servlet-name>
+        <servlet-class>Controller.Sale.AddComponentController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>SaleDashboardController</servlet-name>
         <servlet-class>Controller.Sale.SaleDashboardController</servlet-class>
     </servlet>
@@ -560,6 +564,11 @@
         <servlet-name>CreateSettingController</servlet-name>
         <url-pattern>/createSetting</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddComponentController</servlet-name>
+        <url-pattern>/AddComponentController</url-pattern>
+    </servlet-mapping>
+
     <session-config>
         <session-timeout>
             30
