@@ -78,7 +78,6 @@
                                                                                         <c:when test="${order.getOrderStatus() == statusCOD.getOrderStatusID()}">
                                                                                             <option value="${order.getOrderStatus()}" selected="selected">${statusCOD.getOrderStatusName()}</option>
                                                                                         </c:when>
-
                                                                                         <c:otherwise>
                                                                                             <option value="${statusCOD.getOrderStatusID()}">${statusCOD.getOrderStatusName()}</option>
                                                                                         </c:otherwise>
@@ -130,6 +129,9 @@
         function submitForm(orderID) {
             document.getElementById('form-' + orderID).submit();
         }
+    </script>
+    <script>
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="<%= request.getContextPath()%>/js/scripts1.js"></script>
