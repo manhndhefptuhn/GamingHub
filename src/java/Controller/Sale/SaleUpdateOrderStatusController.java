@@ -74,14 +74,13 @@ public class SaleUpdateOrderStatusController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int orderID = Integer.parseInt(request.getParameter("orderID"));
-        int statusID = Integer.parseInt(request.getParameter("status"));        
+        int statusID = Integer.parseInt(request.getParameter("status"));
         OrderDAO oDAO = new OrderDAO();
         Order order = oDAO.getOrderByID(orderID);
+        order.setOrderID(orderID);
         order.setOrderStatus(statusID);
         oDAO.updateOrderStatus(order);
-        
-        request.setAttribute("order", order);
-        request.getRequestDispatcher("SaleOrderList.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/orderList");
     }
 
     /**

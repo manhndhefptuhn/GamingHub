@@ -48,14 +48,22 @@
                                                     <td>${order.getOrderDate()}</td>
                                                     <td>${order.getTotalCost()}</td>
                                                     <td>
-                                                        <form id="form-${order.getOrderID()}" method="post">
+
+                                                        <form id="form-${order.getOrderID()}" method="post" action="${pageContext.request.contextPath}/SaleUpdateOrderStatusController">
                                                             <input type="hidden" name="orderID" value="${order.getOrderID()}">
-                                                            <select name="status" onchange="submitForm(${order.getOrderID()})">
-                                                                <option value="${order.getOrderStatus()}">${dao.getOrderStatusNameByID(order.getOrderStatus())}</option>
-                                                                <c:forEach var="status" items="${statuses}">
-                                                                    <option value="${status.orderStatusID}">${status.orderStatusName}</option>                                                                    
-                                                                </c:forEach>
-                                                            </select>
+                                                            <c:set var="isReadOnly" value="${order.getOrderStatus() == 3 || order.getOrderStatus() == 4}" />
+                                                            <c:choose>
+                                                                <c:when test="${isReadOnly}">
+                                                                    ${dao.getOrderStatusNameByID(order.getOrderStatus())}
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <select name="status" onchange="submitForm(${order.getOrderID()})">
+                                                                        <c:forEach var="status" items="${statuses}">
+                                                                            <option value="${status.orderStatusID}" ${status.orderStatusID == order.getOrderStatus() ? 'selected' : ''}>${status.orderStatusName}</option>
+                                                                        </c:forEach>
+                                                                    </select>
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </form>
 
                                                     </td>
@@ -86,6 +94,9 @@
         function submitForm(orderID) {
             document.getElementById('form-' + orderID).submit();
         }
+    </script>
+    <script>
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="<%= request.getContextPath()%>/js/scripts1.js"></script>
