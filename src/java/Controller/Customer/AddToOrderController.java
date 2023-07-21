@@ -71,6 +71,8 @@ public class AddToOrderController extends HttpServlet {
         String fullName = request.getParameter("fullName");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
+        int postCode = Integer.parseInt(request.getParameter("postcode"));
+        String country = request.getParameter("country");
         String note = request.getParameter("note");
         int totalCost = Integer.parseInt(request.getParameter("totalCost"));
         String selectedMethod = request.getParameter("paymentMethod");
@@ -86,10 +88,10 @@ public class AddToOrderController extends HttpServlet {
         ArrayList<Cart> listCart = cartDAO.getAllCartItemByUserID(u.getUser_ID());
 
         if (selectedMethod.equalsIgnoreCase("VNPay")) {
-            orderID = oDAO.addNewORder(u.getUser_ID(), fullName, address, phone, totalCost, selectedMethod, saleID, note);
+            orderID = oDAO.addNewORder(u.getUser_ID(), fullName, address, postCode, country, phone, totalCost, selectedMethod, saleID, note);
             request.getRequestDispatcher("checkout?orderID=" + orderID + "&totalCost=" + totalCost + "").forward(request, response);
         } else if (selectedMethod.equalsIgnoreCase("COD")) {
-            orderID = oDAO.addNewORder(u.getUser_ID(), fullName, address, phone, totalCost, selectedMethod, saleID, note);
+            orderID = oDAO.addNewORder(u.getUser_ID(), fullName, address, postCode, country, phone, totalCost, selectedMethod, saleID, note);
             ordtDAO.addCartToOrder(listCart, orderID);
             ordtDAO.updateQuantityProduct(listCart);
             cartDAO.removeAllCartByUserID(u.getUser_ID());

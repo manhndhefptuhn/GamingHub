@@ -70,6 +70,23 @@
                                         <input type="text" name="phone" placeholder="Enter your phone number" value="${sessionScope.user.getPhone_Number()}" required>
                                     </div>
                                 </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="checkout__form__input">
+                                        <p>PostCode/Zip <span>*</span></p>
+                                        <input type="number" name="postcode" placeholder="Enter your postcode/zip" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="checkout__form__input">
+                                        <p>Country <span>*</span></p>
+                                        <select style="height: 50px; width: 100%; border: 1px solid #e1e1e1; border-radius: 2px; margin-bottom: 25px; font-size: 14px; padding-left: 20px; color: #666666;" name="country" id="country">
+                                            <option selected value="VietNam">VietNam</option>
+                                            <option value="China">China</option>
+                                            <option value="Laos">Laos</option>
+                                            <option value="Cambodia">Cambodia</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="checkout__form__input">
                                         <p>Address <span>*</span></p>

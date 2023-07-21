@@ -34,7 +34,6 @@ public class ViewSettingController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String type = request.getParameter("type");
-        System.out.println(type);
         if (type.equalsIgnoreCase("role")) {
             RoleDAO rDAO = new RoleDAO();
             int roleID = Integer.parseInt(request.getParameter("id"));

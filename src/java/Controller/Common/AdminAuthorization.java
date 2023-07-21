@@ -20,7 +20,7 @@ import java.io.IOException;
  *
  * @author Zarius
  */
-@WebFilter(filterName = "AdminAuthorization", urlPatterns = {"/userDetail", "/editUserController", "/sliderList", "/deleteSlider", "/sliderDetail", "/editSliderController", "/userList", "/trueSlider", "/falseSlider", "/createSlider", "/createUser", "/addUser", "/trueUser", "/falseUser"})
+@WebFilter(filterName = "AdminAuthorization", urlPatterns = {"/userDetail", "/editUserController", "/sliderList", "/deleteSlider", "/sliderDetail", "/editSliderController", "/userList", "/trueSlider", "/falseSlider", "/createSlider", "/createUser", "/addUser", "/trueUser", "/falseUser", "/adminSettingController", "/adminDashboardController", "/createSetting", "/updateSetting", "/settingDetail"})
 public class AdminAuthorization implements Filter {
 
     // The filter configuration object we are associated with.  If

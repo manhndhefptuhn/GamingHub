@@ -11,13 +11,15 @@ package Model;
 public class Roles {
     private int roleID;
     private String roleName;
+    private boolean status;
 
     public Roles() {
     }
 
-    public Roles(int roleID, String roleName) {
+    public Roles(int roleID, String roleName, boolean status) {
         this.roleID = roleID;
         this.roleName = roleName;
+        this.status = status;
     }
 
     public int getRoleID() {
@@ -34,6 +36,14 @@ public class Roles {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     

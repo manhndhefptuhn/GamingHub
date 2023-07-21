@@ -80,7 +80,8 @@ public class SaleUpdateOrderStatusController extends HttpServlet {
         order.setOrderID(orderID);
         order.setOrderStatus(statusID);
         oDAO.updateOrderStatus(order);
-        response.sendRedirect(request.getContextPath() + "/orderList");
+        request.setAttribute("notification", "Change order status successful");
+        request.getRequestDispatcher("orderList").forward(request, response);
     }
 
     /**

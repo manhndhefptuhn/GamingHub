@@ -3,7 +3,7 @@
     Created on : 16-07-2023, 20:03:11
     Author     : Zarius
 --%>
-
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -47,7 +47,7 @@
                                             <tr>
                                                 <td>${mainboard.getMainboardID()}</td>
                                                 <td>${mainboard.getMainboardName()}</td>
-                                                <td>${mainboard.getPrice()}</td>
+                                                <td><fmt:formatNumber pattern="#,##0" value="${mainboard.getPrice()}"/> VNÐ</td>
                                                 <td>Mainboard</td>
                                                 <td>
                                                     <c:choose>
@@ -70,7 +70,7 @@
                                             <tr>
                                                 <td>${cpu.getCpuID()}</td>
                                                 <td>${cpu.getCpuName()}</td>
-                                                <td>${cpu.getPrice()}</td>
+                                                <td><fmt:formatNumber pattern="#,##0" value="${cpu.getPrice()}"/> VNÐ</td>
                                                 <td>CPU</td>
                                                 <td>
                                                     <c:choose>
@@ -93,7 +93,7 @@
                                             <tr>
                                                 <td>${listCase.getCaseID()}</td>
                                                 <td>${listCase.getCaseName()}</td>
-                                                <td>${listCase.getPrice()}</td>
+                                                <td><fmt:formatNumber pattern="#,##0" value="${listCase.getPrice()}"/> VNÐ</td>
                                                 <td>Case</td>
                                                 <td>
                                                     <c:choose>
@@ -116,7 +116,7 @@
                                             <tr>
                                                 <td>${psu.getPsuID()}</td>
                                                 <td>${psu.getPsuName()}</td>
-                                                <td>${psu.getPrice()}</td>
+                                                <td><fmt:formatNumber pattern="#,##0" value="${psu.getPrice()}"/> VNÐ</td>
                                                 <td>PSU</td>
                                                 <td>
                                                     <c:choose>
@@ -139,7 +139,7 @@
                                             <tr>
                                                 <td>${ram.getRamID()}</td>
                                                 <td>${ram.getRamName()}</td>
-                                                <td>${ram.getPrice()}</td>
+                                                <td><fmt:formatNumber pattern="#,##0" value="${ram.getPrice()}"/> VNÐ</td>
                                                 <td>RAM</td>
                                                 <td>
                                                     <c:choose>
@@ -162,7 +162,7 @@
                                             <tr>
                                                 <td>${storage.getStorageID()}</td>
                                                 <td>${storage.getStorageName()}</td>
-                                                <td>${storage.getPrice()}</td>
+                                                <td><fmt:formatNumber pattern="#,##0" value="${storage.getPrice()}"/> VNÐ</td>
                                                 <td>Storage</td>
                                                 <td>
                                                     <c:choose>
@@ -185,7 +185,7 @@
                                             <tr>
                                                 <td>${vga.getVgaID()}</td>
                                                 <td>${vga.getVgaName()}</td>
-                                                <td>${vga.getPrice()}</td>
+                                                <td><fmt:formatNumber pattern="#,##0" value="${vga.getPrice()}"/> VNÐ</td>
                                                 <td>VGA</td>
                                                 <td>
                                                     <c:choose>

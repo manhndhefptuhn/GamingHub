@@ -64,6 +64,17 @@
                                                 <th>Name</th>
                                                 <td><input type="text" id="roleName" name="roleName" value="${role.getRoleName()}" required/><br></td>
                                             </tr>
+                                            <tr>
+                                                <th>Status</th>
+                                                <td>
+                                                    <div class="button-group">
+                                                        <input type="radio" id="active" name="status" value="true" ${role.isStatus() == true ? 'checked' : ''} required>
+                                                        <label for="active">Active</label>
+                                                        <input type="radio" id="deactive" name="status" value="false" ${role.isStatus() == false ? 'checked' : ''} required>
+                                                        <label for="deactive">Not Active</label>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                     </table>
                                 </c:if>
                                 <c:if test="${category != null}">

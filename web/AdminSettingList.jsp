@@ -40,6 +40,7 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Name</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -49,6 +50,16 @@
                                                 <tr>
                                                     <td><c:out value="${roleID}"/></td>
                                                     <td><c:out value="${role.getRoleName()}"/></td>
+                                                    <td>
+                                                            <c:choose>
+                                                                <c:when test="${role.isStatus() == true}">
+                                                                    <c:out value="Active"/>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <c:out value="Deactive"/>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </td>
                                                     <td>
                                                         <a href="settingDetail?type=role&id=${roleID}">View</a> 
                                                     </td>

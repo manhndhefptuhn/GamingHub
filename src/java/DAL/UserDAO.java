@@ -422,7 +422,6 @@ public class UserDAO {
         try {
             String sql = "UPDATE `user` SET "
                     + "`FullName` = ?, "
-                    + "`Password` = ?, "
                     + "`Profile_picture` = ?, "
                     + "`Phone_Number` = ?, "
                     + "`Address` = ?, "
@@ -433,13 +432,12 @@ public class UserDAO {
             Connection con = db.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, user.getFullName());
-            ps.setString(2, user.getPassword());
-            ps.setString(3, user.getProfile_picture());
-            ps.setString(4, user.getPhone_Number());
-            ps.setString(5, user.getAddress());
-            ps.setBoolean(6, user.isStatus());
-            ps.setInt(7, user.getRole_ID());
-            ps.setInt(8, user.getUser_ID());
+            ps.setString(2, user.getProfile_picture());
+            ps.setString(3, user.getPhone_Number());
+            ps.setString(4, user.getAddress());
+            ps.setBoolean(5, user.isStatus());
+            ps.setInt(6, user.getRole_ID());
+            ps.setInt(7, user.getUser_ID());
             row = ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());

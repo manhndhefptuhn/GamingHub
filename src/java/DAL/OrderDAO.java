@@ -18,6 +18,7 @@ import java.util.List;
 import Model.Chart;
 import Model.ProductStatus;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,10 +30,10 @@ import java.util.Map;
  */
 public class OrderDAO {
 
-    public int addNewORder(int userID, String fullName, String address, String phoneNumber, int totalCost, String paymentMethod, int salerID, String note) {
-
+    public int addNewORder(int userID, String fullName, String address, int postCode, String country, String phoneNumber, int totalCost, String paymentMethod, int salerID, String note) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String sql = "INSERT INTO `order` \n"
-                + "values (?,?,?,?,?,?,?,?,?,?,?)";
+                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
@@ -41,13 +42,15 @@ public class OrderDAO {
             st.setInt(2, userID);
             st.setString(3, fullName);
             st.setString(4, address);
-            st.setString(5, phoneNumber);
-            st.setDate(6, new java.sql.Date(System.currentTimeMillis()));
-            st.setInt(7, totalCost);
-            st.setString(8, paymentMethod);
-            st.setInt(9, salerID);
-            st.setInt(10, 1);
-            st.setString(11, note);
+            st.setString(5, country);
+            st.setInt(6, postCode);
+            st.setString(7, phoneNumber);
+            st.setTimestamp(8, timestamp);
+            st.setInt(9, totalCost);
+            st.setString(10, paymentMethod);
+            st.setInt(11, salerID);
+            st.setInt(12, 1);
+            st.setString(13, note);
             st.executeUpdate();
             ResultSet rs = st.getGeneratedKeys();
             if (rs.next()) {
@@ -77,13 +80,15 @@ public class OrderDAO {
                     o.setUserID(rs.getInt(2));
                     o.setFullName(rs.getString(3));
                     o.setAddress(rs.getString(4));
-                    o.setPhoneNumber(rs.getString(5));
-                    o.setOrderDate(rs.getDate(6));
-                    o.setTotalCost(rs.getInt(7));
-                    o.setPayment(rs.getString(8));
-                    o.setSaleID(rs.getInt(9));
-                    o.setOrderStatus(rs.getInt(10));
-                    o.setNote(rs.getString(11));
+                    o.setCountry(rs.getString(5));
+                    o.setPostCode(rs.getInt(6));
+                    o.setPhoneNumber(rs.getString(7));
+                    o.setOrderDate(rs.getTimestamp(8));
+                    o.setTotalCost(rs.getInt(9));
+                    o.setPayment(rs.getString(10));
+                    o.setSaleID(rs.getInt(11));
+                    o.setOrderStatus(rs.getInt(12));
+                    o.setNote(rs.getString(13));
                     listOrder.add(o);
                 }
                 rs.close();
@@ -111,13 +116,15 @@ public class OrderDAO {
                     o.setUserID(rs.getInt(2));
                     o.setFullName(rs.getString(3));
                     o.setAddress(rs.getString(4));
-                    o.setPhoneNumber(rs.getString(5));
-                    o.setOrderDate(rs.getDate(6));
-                    o.setTotalCost(rs.getInt(7));
-                    o.setPayment(rs.getString(8));
-                    o.setSaleID(rs.getInt(9));
-                    o.setOrderStatus(rs.getInt(10));
-                    o.setNote(rs.getString(11));
+                    o.setCountry(rs.getString(5));
+                    o.setPostCode(rs.getInt(6));
+                    o.setPhoneNumber(rs.getString(7));
+                    o.setOrderDate(rs.getTimestamp(8));
+                    o.setTotalCost(rs.getInt(9));
+                    o.setPayment(rs.getString(10));
+                    o.setSaleID(rs.getInt(11));
+                    o.setOrderStatus(rs.getInt(12));
+                    o.setNote(rs.getString(13));
                     return o;
                 }
                 rs.close();
@@ -208,8 +215,8 @@ public class OrderDAO {
         return 0;
     }
 
-    public List<Order> getAllOrderBySale(int saleID) {
-        List<Order> listOrder = new ArrayList<>();
+    public ArrayList<Order> getAllOrderBySale(int saleID) {
+        ArrayList<Order> listOrder = new ArrayList<>();
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
@@ -223,13 +230,15 @@ public class OrderDAO {
                     o.setUserID(rs.getInt(2));
                     o.setFullName(rs.getString(3));
                     o.setAddress(rs.getString(4));
-                    o.setPhoneNumber(rs.getString(5));
-                    o.setOrderDate(rs.getDate(6));
-                    o.setTotalCost(rs.getInt(7));
-                    o.setPayment(rs.getString(8));
-                    o.setSaleID(rs.getInt(9));
-                    o.setOrderStatus(rs.getInt(10));
-                    o.setNote(rs.getString(11));
+                    o.setCountry(rs.getString(5));
+                    o.setPostCode(rs.getInt(6));
+                    o.setPhoneNumber(rs.getString(7));
+                    o.setOrderDate(rs.getTimestamp(8));
+                    o.setTotalCost(rs.getInt(9));
+                    o.setPayment(rs.getString(10));
+                    o.setSaleID(rs.getInt(11));
+                    o.setOrderStatus(rs.getInt(12));
+                    o.setNote(rs.getString(13));
                     listOrder.add(o);
                 }
                 rs.close();
@@ -244,6 +253,32 @@ public class OrderDAO {
         return null;
     }
 
+    public List<OrderStatus> getAllOrderStatusVNPay() {
+        List<OrderStatus> orderStatusList = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection conn = db.getConnection();
+            if (conn != null) {
+                Statement stmt = conn.createStatement();
+                String sql = "SELECT * FROM `order_status` WHERE `Order_Status_Name` not in ('Shipping (COD)')";
+                ResultSet rs = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    OrderStatus orderStatus = new OrderStatus();
+                    orderStatus.setOrderStatusID(rs.getInt(1));
+                    orderStatus.setOrderStatusName(rs.getString(2));
+                    orderStatus.setStatus(rs.getBoolean(3));
+                    orderStatusList.add(orderStatus);
+                }
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return orderStatusList;
+    }
+
     public List<OrderStatus> getAllOrderStatus() {
         List<OrderStatus> orderStatusList = new ArrayList<>();
         try {
@@ -251,7 +286,33 @@ public class OrderDAO {
             Connection conn = db.getConnection();
             if (conn != null) {
                 Statement stmt = conn.createStatement();
-                String sql = "SELECT * FROM order_status";
+                String sql = "SELECT * FROM `order_status`";
+                ResultSet rs = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    OrderStatus orderStatus = new OrderStatus();
+                    orderStatus.setOrderStatusID(rs.getInt(1));
+                    orderStatus.setOrderStatusName(rs.getString(2));
+                    orderStatus.setStatus(rs.getBoolean(3));
+                    orderStatusList.add(orderStatus);
+                }
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return orderStatusList;
+    }
+
+    public List<OrderStatus> getAllOrderStatusCOD() {
+        List<OrderStatus> orderStatusList = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection conn = db.getConnection();
+            if (conn != null) {
+                Statement stmt = conn.createStatement();
+                String sql = "SELECT * FROM `order_status` WHERE `Order_Status_Name` not in ('Shipping')";
                 ResultSet rs = stmt.executeQuery(sql);
                 while (rs.next()) {
                     OrderStatus orderStatus = new OrderStatus();
@@ -302,7 +363,7 @@ public class OrderDAO {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-                String sql = "SELECT order_status_name FROM order_status WHERE order_status_id = ?";
+                String sql = "SELECT `order_status_name` FROM `order_status` WHERE `order_status_id` = ?";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setInt(1, orderStatusID);
                 ResultSet rs = ps.executeQuery();
@@ -329,17 +390,19 @@ public class OrderDAO {
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
                     Order o = new Order();
-                    o.setOrderID(rs.getInt(1));
+                   o.setOrderID(rs.getInt(1));
                     o.setUserID(rs.getInt(2));
                     o.setFullName(rs.getString(3));
                     o.setAddress(rs.getString(4));
-                    o.setPhoneNumber(rs.getString(5));
-                    o.setOrderDate(rs.getDate(6));
-                    o.setTotalCost(rs.getInt(7));
-                    o.setPayment(rs.getString(8));
-                    o.setSaleID(rs.getInt(9));
-                    o.setOrderStatus(rs.getInt(10));
-                    o.setNote(rs.getString(11));
+                    o.setCountry(rs.getString(5));
+                    o.setPostCode(rs.getInt(6));
+                    o.setPhoneNumber(rs.getString(7));
+                    o.setOrderDate(rs.getTimestamp(8));
+                    o.setTotalCost(rs.getInt(9));
+                    o.setPayment(rs.getString(10));
+                    o.setSaleID(rs.getInt(11));
+                    o.setOrderStatus(rs.getInt(12));
+                    o.setNote(rs.getString(13));
                     return o;
                 }
                 rs.close();
@@ -397,7 +460,7 @@ public class OrderDAO {
         List<Chart> list = new ArrayList<>();
         for (int i = 0; i < day; i++) {
             int value = 0;
-            String sql = "SELECT SUM(total_cost) FROM `Order` WHERE `Order_Date` <= DATE_ADD(?, INTERVAL ? DAY) AND `Order_Date` >= ?";
+            String sql = "SELECT SUM(total_cost) FROM `order` WHERE `Order_Date` <= DATE_ADD(?, INTERVAL ? DAY) AND `Order_Date` >= ?";
             try {
                 DBContext db = new DBContext();
                 Connection con = db.getConnection();
@@ -435,7 +498,7 @@ public class OrderDAO {
         List<Chart> list = new ArrayList<>();
         for (int i = 0; i < day; i++) {
             int value = 0;
-            String sql = "SELECT SUM(total_cost) FROM `Order` WHERE `Saler_ID` = " + saleID + " and `Order_Date` <= DATE_ADD(?, INTERVAL ? DAY) AND `Order_Date` >= ?";
+            String sql = "SELECT SUM(total_cost) FROM `order` WHERE `Saler_ID` = " + saleID + " and `Order_Date` <= DATE_ADD(?, INTERVAL ? DAY) AND `Order_Date` >= ?";
             try {
                 DBContext db = new DBContext();
                 Connection con = db.getConnection();

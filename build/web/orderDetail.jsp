@@ -108,6 +108,8 @@
                                                 <li>Order ID<span>${listOrderInfor.getOrderID()}</span></li>
                                                 <li>Name<span>${listOrderInfor.getFullName()}</span></li>
                                                 <li>Address<span>${listOrderInfor.getAddress()}</span></li>
+                                                <li>Country<span>${listOrderInfor.getCountry()}</span></li>
+                                                <li>PostCode<span>${listOrderInfor.getPostCode()}</span></li>
                                                 <li>Phone Number<span>${listOrderInfor.getPhoneNumber()}</span></li>
                                                 <li>Order Date<span>${listOrderInfor.getOrderDate()}</span></li>
                                                 <li>Payment type<span>${listOrderInfor.getPayment()}</span></li>

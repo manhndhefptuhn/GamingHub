@@ -66,7 +66,7 @@
                                         </tr>
                                         <tr>
                                             <th>Password</th>
-                                            <td><input type="password" id="password" name="password" value="${userDetail.getPassword()}"/><br></td>
+                                            <td><input style="background-color:#C5C5C5;" type="password" id="password" name="password" value="${userDetail.getPassword()}" readonly/><br></td>
                                         </tr>
                                         <tr>
                                             <th>Profile Picture</th>
@@ -114,12 +114,6 @@
                                                     </c:forEach>
                                                 </select>
                                             </td>
-                                            <select  type="text" id="cpu" name="cpu" value="" >
-                                                <span value="${pc.getCpuID()}">${cpu.getCpuName()}</span>
-                                                <c:forEach var="cpu" items="${allcpu}">
-                                                    <option value="${cpu.cpuID}">${cpu.cpuName} - ${cpu.price} VND</option>
-                                                </c:forEach> 
-                                            </select>
                                         </tr>
                                 </table>
                                 <input type="button" name="back" value="Back" class="btn-update" onclick="backToUserList()"/>

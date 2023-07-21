@@ -5,6 +5,7 @@
 package Controller.Sale;
 
 import DAL.OrderDAO;
+import DAL.OrderStatusDAO;
 import Model.Order;
 import Model.OrderStatus;
 import Model.User;
@@ -15,7 +16,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -36,12 +40,16 @@ public class SaleOrderListController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        User u = (User)session.getAttribute("user");
-        List<Order> orders = new OrderDAO().getAllOrderBySale(u.getUser_ID());
-        request.setAttribute("dao", new OrderDAO());
+        User u = (User) session.getAttribute("user");
+        OrderStatusDAO odstDAO = new OrderStatusDAO();
+        ArrayList<Order> orders = new OrderDAO().getAllOrderBySale(u.getUser_ID());
+        Map<Integer, String> listOrderStatusName = odstDAO.getMapOrderStatusByID(orders);
+        request.setAttribute("listOrderStatusName", listOrderStatusName);
         request.setAttribute("orders", orders);
-        List<OrderStatus> statuses = new OrderDAO().getAllOrderStatus();
-        request.setAttribute("statuses", statuses);
+        List<OrderStatus> statusesCOD = new OrderDAO().getAllOrderStatusCOD();
+        List<OrderStatus> statusesVNPay = new OrderDAO().getAllOrderStatusVNPay();
+        request.setAttribute("statusesCOD", statusesCOD);
+        request.setAttribute("statusesVNPay", statusesVNPay);
         request.getRequestDispatcher("SaleOrderList.jsp").forward(request, response);
     }
 

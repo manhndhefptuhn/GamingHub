@@ -19,6 +19,7 @@ import java.util.List;
  * @author Zarius
  */
 public class CategoryDAO {
+
     public ArrayList<Category> getAllCategory() {
         ArrayList<Category> listCategory = new ArrayList<>();
         try {
@@ -45,7 +46,7 @@ public class CategoryDAO {
         }
         return listCategory;
     }
-    
+
     public ArrayList<Category> getTotalCategory() {
         ArrayList<Category> categoryList = new ArrayList<>();
         try {
@@ -68,39 +69,40 @@ public class CategoryDAO {
         }
         return categoryList;
     }
-    
-    public int createCategory(Category createCategory){
-        int row = 0; 
-        
-        String sql = "INSERT INTO `category` VALUES (?,?,?)";
-        
+
+    public int createCategory(Category createCategory) {
+        int row = 0;
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
-            PreparedStatement st = con.prepareStatement(sql);
-            st.setNull(1, Types.INTEGER);
-            st.setString(2, createCategory.getCategoryName());
-            st.setBoolean(3, createCategory.isStatus());
-            row = st.executeUpdate();
-            st.close();
-            con.close();
+            if (con != null) {
+                String sql = "INSERT INTO `category` VALUES (?,?,?)";
+                PreparedStatement st = con.prepareStatement(sql);
+                st.setNull(1, Types.INTEGER);
+                st.setString(2, createCategory.getCategoryName());
+                st.setBoolean(3, createCategory.isStatus());
+                row = st.executeUpdate();
+                st.close();
+                con.close();
+            }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             row = -1;
         }
         return row;
     }
-    
-    public Category getCategoryViaID(int categoryID){
+
+    public Category getCategoryViaID(int categoryID) {
         try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
-            if (con != null){
+            if (con != null) {
                 Statement st = con.createStatement();
                 String sql = "select * from category where category_ID = " + categoryID + ";";
                 ResultSet rs = st.executeQuery(sql);
-                if (rs.next()){
-                    Category category = new Category(); 
+                if (rs.next()) {
+                    Category category = new Category();
                     category.setCategoryID(rs.getInt(1));
                     category.setCategoryName(rs.getString(2));
                     category.setStatus(rs.getBoolean(3));
@@ -110,29 +112,33 @@ public class CategoryDAO {
                 st.close();
                 con.close();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
-        return null; 
+
+        return null;
     }
-    
-    public int editCategoryInfo(Category category){
-        int row = 0; 
+
+    public int editCategoryInfo(Category category) {
+        int row = 0;
         try {
-            String sql = "UPDATE `category` SET `category_name` = ?, `status` = ? WHERE `category_ID` = ?"; 
             DBContext db = new DBContext();
             Connection con = db.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, category.getCategoryName());
-            ps.setBoolean(2, category.isStatus());
-            ps.setInt(3, category.getCategoryID());
-            row = ps.executeUpdate();
-        } catch (Exception ex){
+            if (con != null) {
+                String sql = "UPDATE `category` SET `category_name` = ?, `status` = ? WHERE `category_ID` = ?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, category.getCategoryName());
+                ps.setBoolean(2, category.isStatus());
+                ps.setInt(3, category.getCategoryID());
+                row = ps.executeUpdate();
+                ps.close();
+                con.close();
+            }
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
-            row = -1; 
+            row = -1;
         }
-        return row; 
+        return row;
     }
 }

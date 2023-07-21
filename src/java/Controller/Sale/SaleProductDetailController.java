@@ -70,25 +70,25 @@ public class SaleProductDetailController extends HttpServlet {
         List<ProductStatus> allprs = new ProductDAO().getAllProductStatus();
         request.setAttribute("allprs", allprs); 
         
-        List<CPU> allcpu = new CPUDAO().getAllCPU();
+        List<CPU> allcpu = new CPUDAO().getAllCPUActive();
         request.setAttribute("allcpu", allcpu);
 
-        List<Case> allca = new CaseDAO().getAllCase();
+        List<Case> allca = new CaseDAO().getAllCaseActive();
         request.setAttribute("allca", allca);
         
-        List<Mainboard> allmb = new MainboardDAO().getAllMainboard();
+        List<Mainboard> allmb = new MainboardDAO().getAllMainboardActive();
         request.setAttribute("allmb", allmb);
         
-        List<PSU> allpsu = new PSUDAO().getAllPSU();
+        List<PSU> allpsu = new PSUDAO().getAllPSUActive();
         request.setAttribute("allpsu", allpsu);
         
-        List<RAM> allram = new RAMDAO().getAllRAM();
+        List<RAM> allram = new RAMDAO().getAllRAMActive();
         request.setAttribute("allram", allram);
         
-        List<Storage> allst = new StorageDAO().getAllStorage();
+        List<Storage> allst = new StorageDAO().getAllStorageActive();
         request.setAttribute("allst", allst);
         
-        List<VGA> allvga = new VGADAO().getAllVGA();
+        List<VGA> allvga = new VGADAO().getAllVGAActive();
         request.setAttribute("allvga", allvga);
         
         ArrayList<Product_Images> listImageOfProduct = new ProductImagesDAO().getListImageOfProductByID(productID);
