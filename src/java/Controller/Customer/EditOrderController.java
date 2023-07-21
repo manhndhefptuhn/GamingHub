@@ -72,7 +72,7 @@ public class EditOrderController extends HttpServlet {
                 OrderDAO odDAO = new OrderDAO();
                 OrderDetailDAO ordtDAO = new OrderDetailDAO();
                 ArrayList<OrderDetail> listOrderDetail = ordtDAO.getDetailAllOrder(orderID);
-                row = odDAO.updateOrderStatus(orderID, 4);
+                row = odDAO.updateOrderStatus(orderID, 6);
                 if (row >= 1) {
                     row1 = ordtDAO.returnQuantityProduct(listOrderDetail);
                     if (row1 >= 1) {

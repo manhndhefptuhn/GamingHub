@@ -74,12 +74,12 @@ public class ProductDAO {
             if (con != null) {
                 String sql = "SELECT pc.product_ID, (m.price + c.price + r.price + v.price + s.price + p.price + ca.price) AS product_price\n"
                         + "FROM `pc`\n"
-                        + "INNER JOIN mainboard m ON pc.Mainboard_ID = m.Mainboard_ID \n"
+                        + "INNER JOIN `mainboard` m ON pc.Mainboard_ID = m.Mainboard_ID \n"
                         + "INNER JOIN `cpu` c ON pc.CPU_ID = c.CPU_ID\n"
-                        + "INNER JOIN ram r ON pc.RAM_ID = r.RAM_ID\n"
-                        + "INNER JOIN vga v ON pc.VGA_ID = v.VGA_ID\n"
+                        + "INNER JOIN `ram` r ON pc.RAM_ID = r.RAM_ID\n"
+                        + "INNER JOIN `vga` v ON pc.VGA_ID = v.VGA_ID\n"
                         + "INNER JOIN `storage` s ON pc.Storage_ID = s.Storage_ID\n"
-                        + "INNER JOIN psu p ON pc.PSU_ID = p.PSU_ID\n"
+                        + "INNER JOIN `psu` p ON pc.PSU_ID = p.PSU_ID\n"
                         + "INNER JOIN `case` ca ON pc.Case_ID = ca.Case_ID\n"
                         + "WHERE pc.product_ID = ?";
                 PreparedStatement st = con.prepareStatement(sql);
@@ -113,12 +113,12 @@ public class ProductDAO {
             if (con != null) {
                 String sql = "SELECT pro.SalePercentage, pc.product_ID, (m.price + c.price + r.price + v.price + s.price + p.price + ca.price) AS product_price\n"
                         + "FROM `pc`\n"
-                        + "INNER JOIN mainboard m ON pc.Mainboard_ID = m.Mainboard_ID \n"
+                        + "INNER JOIN `mainboard` m ON pc.Mainboard_ID = m.Mainboard_ID \n"
                         + "INNER JOIN `cpu` c ON pc.CPU_ID = c.CPU_ID\n"
-                        + "INNER JOIN ram r ON pc.RAM_ID = r.RAM_ID\n"
-                        + "INNER JOIN vga v ON pc.VGA_ID = v.VGA_ID\n"
+                        + "INNER JOIN `ram` r ON pc.RAM_ID = r.RAM_ID\n"
+                        + "INNER JOIN `vga` v ON pc.VGA_ID = v.VGA_ID\n"
                         + "INNER JOIN `storage` s ON pc.Storage_ID = s.Storage_ID\n"
-                        + "INNER JOIN psu p ON pc.PSU_ID = p.PSU_ID\n"
+                        + "INNER JOIN `psu` p ON pc.PSU_ID = p.PSU_ID\n"
                         + "INNER JOIN `case` ca ON pc.Case_ID = ca.Case_ID\n"
                         + "INNER JOIN `product` pro ON pc.Product_ID = pro.Product_ID\n"
                         + "WHERE pc.product_ID = ?";
@@ -182,12 +182,12 @@ public class ProductDAO {
             if (con != null) {
                 String sql = "SELECT pro.SalePercentage, pc.product_ID, (m.price + c.price + r.price + v.price + s.price + p.price + ca.price) AS product_price\n"
                         + "FROM pc\n"
-                        + "INNER JOIN mainboard m ON pc.Mainboard_ID = m.Mainboard_ID \n"
+                        + "INNER JOIN `mainboard` m ON pc.Mainboard_ID = m.Mainboard_ID \n"
                         + "INNER JOIN `cpu` c ON pc.CPU_ID = c.CPU_ID\n"
-                        + "INNER JOIN ram r ON pc.RAM_ID = r.RAM_ID\n"
-                        + "INNER JOIN vga v ON pc.VGA_ID = v.VGA_ID\n"
+                        + "INNER JOIN `ram` r ON pc.RAM_ID = r.RAM_ID\n"
+                        + "INNER JOIN `vga` v ON pc.VGA_ID = v.VGA_ID\n"
                         + "INNER JOIN `storage` s ON pc.Storage_ID = s.Storage_ID\n"
-                        + "INNER JOIN psu p ON pc.PSU_ID = p.PSU_ID\n"
+                        + "INNER JOIN `psu` p ON pc.PSU_ID = p.PSU_ID\n"
                         + "INNER JOIN `case` ca ON pc.Case_ID = ca.Case_ID\n"
                         + "INNER JOIN `product` pro ON pc.Product_ID = pro.Product_ID\n"
                         + "WHERE pc.product_ID = ?";
@@ -217,12 +217,12 @@ public class ProductDAO {
             if (con != null) {
                 String sql = "SELECT pc.product_ID, (m.price + c.price + r.price + v.price + s.price + p.price + ca.price) AS product_price\n"
                         + "FROM pc\n"
-                        + "INNER JOIN mainboard m ON pc.Mainboard_ID = m.Mainboard_ID \n"
+                        + "INNER JOIN `mainboard` m ON pc.Mainboard_ID = m.Mainboard_ID \n"
                         + "INNER JOIN `cpu` c ON pc.CPU_ID = c.CPU_ID\n"
-                        + "INNER JOIN ram r ON pc.RAM_ID = r.RAM_ID\n"
-                        + "INNER JOIN vga v ON pc.VGA_ID = v.VGA_ID\n"
+                        + "INNER JOIN `ram` r ON pc.RAM_ID = r.RAM_ID\n"
+                        + "INNER JOIN `vga` v ON pc.VGA_ID = v.VGA_ID\n"
                         + "INNER JOIN `storage` s ON pc.Storage_ID = s.Storage_ID\n"
-                        + "INNER JOIN psu p ON pc.PSU_ID = p.PSU_ID\n"
+                        + "INNER JOIN `psu` p ON pc.PSU_ID = p.PSU_ID\n"
                         + "INNER JOIN `case` ca ON pc.Case_ID = ca.Case_ID\n"
                         + "WHERE pc.product_ID = ?";
                 PreparedStatement st = con.prepareStatement(sql);
@@ -380,8 +380,8 @@ public class ProductDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 String sql = "SELECT p.* from `product` as p \n"
-                        + "INNER JOIN pc as pc ON p.Product_ID = pc.Product_ID\n"
-                        + "INNER JOIN cpu as cpu ON pc.CPU_ID = cpu.CPU_ID\n"
+                        + "INNER JOIN `pc` as pc ON p.Product_ID = pc.Product_ID\n"
+                        + "INNER JOIN `cpu` as cpu ON pc.CPU_ID = cpu.CPU_ID\n"
                         + "WHERE p.Status = 1 and p.Category_ID = " + categoryID + " and cpu.CPU_Name like '%" + cpuName + "%'  ORDER BY p.product_id;";
                 Statement st = con.createStatement();
                 ResultSet rs = st.executeQuery(sql);
@@ -614,7 +614,7 @@ public class ProductDAO {
             Connection conn = db.getConnection();
             if (conn != null) {
                 Statement stmt = conn.createStatement();
-                String sql = "SELECT * FROM product_status";
+                String sql = "SELECT * FROM `product_status`";
                 ResultSet rs = stmt.executeQuery(sql);
                 while (rs.next()) {
                     ProductStatus productStatus = new ProductStatus();

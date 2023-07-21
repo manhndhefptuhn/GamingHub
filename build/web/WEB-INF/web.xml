@@ -257,10 +257,6 @@
         <servlet-class>Controller.Sale.ComponentDetailController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SettingListController</servlet-name>
-        <servlet-class>Controller.Admin.SettingListController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AdminSettingController</servlet-name>
         <servlet-class>Controller.Admin.AdminSettingController</servlet-class>
     </servlet>
@@ -535,10 +531,6 @@
     <servlet-mapping>
         <servlet-name>ComponentDetailController</servlet-name>
         <url-pattern>/componentDetailController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SettingListController</servlet-name>
-        <url-pattern>/settingListController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminSettingController</servlet-name>

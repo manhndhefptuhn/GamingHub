@@ -72,29 +72,6 @@ public class PSUDAO {
         }
         return null;
     }
-
-    public int getPSUIDByName(String psuName) {
-        int psuID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT PSU_ID FROM psu WHERE Psu_Name LIKE ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, "%" + psuName + "%");
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    psuID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return psuID;
-    }
     
     public ArrayList<PSU> getAllPSU() {
         ArrayList<PSU> listPSU = new ArrayList<>();

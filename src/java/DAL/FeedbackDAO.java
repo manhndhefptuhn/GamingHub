@@ -224,39 +224,6 @@ public class FeedbackDAO {
         return null;
     }
 
-    //get feedback details via Feedback_ID
-    public ArrayList<Feedback> getFeedbackWithId(String feedbackId) {
-        ArrayList<Feedback> listFeedback = new ArrayList<>();
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                Statement st = con.createStatement();
-                String sql = "select * from `feedback` where `Feedback_ID` = " + feedbackId + ";";
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    Feedback f = new Feedback();
-                    f.setFeedbackId(rs.getInt(1));
-                    f.setUserId(rs.getInt(2));
-                    f.setProductId(rs.getInt(3));
-                    f.setCreateDate(rs.getDate(4));
-                    f.setContent(rs.getString(5));
-                    f.setImage(rs.getString(6));
-                    f.setRating(rs.getDouble(7));
-                    f.setStatus(rs.getBoolean(8));
-                    listFeedback.add(f);
-                }
-                rs.close();
-                st.close();
-                con.close();
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return listFeedback;
-    }
-
     public Map<Integer, String> getUserNameByID(ArrayList<Feedback> listFeedback) {
         Map<Integer, String> listUserName = new HashMap<>();
         DBContext db = new DBContext();

@@ -60,7 +60,6 @@ public class EditUserController extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         String action = request.getParameter("action");
         UserDAO uDAO = new UserDAO();
-        PasswordUtils pwutl = new PasswordUtils();
         if (action != null && action.equals("back")) {
             response.sendRedirect("userList");
         } else if (request.getParameter("update") != null) {

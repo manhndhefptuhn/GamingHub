@@ -12,7 +12,8 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <title>Component Details</title>
+        <title>Sale Add Component</title>
+        <link rel="icon" type="image/png" href="<%= request.getContextPath()%>/img/shop/logo1.png"/>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="<%= request.getContextPath()%>/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -74,7 +75,7 @@
 
                                         <tr>
                                             <th>Component Price</th>
-                                            <td><input type="text" id="price" name="price" placeholder="Price VND"/> VNÐ<br></td>
+                                            <td><input type="number" id="price" name="price" placeholder="Price VND"/> VNÐ<br></td>
                                         </tr>
 
                                         <tr>

@@ -18,6 +18,7 @@ import java.util.List;
  * @author Zarius
  */
 public class RAMDAO {
+
     public RAM getRAMByID(int ramID) {
         try {
             DBContext db = new DBContext();
@@ -44,7 +45,7 @@ public class RAMDAO {
         }
         return null;
     }
-    
+
     public List<RAM> getAllRAMActive() {
         List<RAM> rams = new ArrayList<>();
         try {
@@ -73,30 +74,7 @@ public class RAMDAO {
         return null;
     }
 
-    public int getRAMIDByName(String ramName) {
-        int ramID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT RAM_ID FROM ram WHERE Ram_Name LIKE ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, "%" + ramName + "%");
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    ramID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return ramID;
-    }
-    
-        public ArrayList<RAM> getAllRAM() {
+    public ArrayList<RAM> getAllRAM() {
         ArrayList<RAM> listRAM = new ArrayList<>();
         try {
             DBContext db = new DBContext();

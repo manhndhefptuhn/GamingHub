@@ -78,7 +78,6 @@ public class CreateUserController extends HttpServlet {
         UserDAO uDAO = new UserDAO();
         SendEmail se = new SendEmail();
         RandomPassword rd = new RandomPassword();
-        PasswordResetDAO pwrsDAO = new PasswordResetDAO();
         User user = uDAO.checkUserExist(email);
         if (user != null) {
             request.setAttribute("notification", "User with email exists, please try another email");

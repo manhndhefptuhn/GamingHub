@@ -105,29 +105,6 @@ public class CaseDAO {
         }
         return null;
     }
-
-    public int getCaseIDByName(String caseName) {
-        int caseID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT Case_ID FROM `case` WHERE Case_Name LIKE ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, "%" + caseName + "%");
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    caseID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return caseID;
-    }
     
     public ArrayList<Case> getAllCase() {
         ArrayList<Case> listCase = new ArrayList<>();
