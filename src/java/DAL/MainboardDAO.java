@@ -73,29 +73,6 @@ public class MainboardDAO {
         }
         return null;
     }
-
-    public int getMainboardIDByName(String mainboardName) {
-        int mainboardID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT Mainboard_ID FROM mainboard WHERE Mainboard_Name LIKE ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, "%" + mainboardName + "%");
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    mainboardID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return mainboardID;
-    }
     
        public ArrayList<Mainboard> getAllMainboard() {
         ArrayList<Mainboard> listMainboard = new ArrayList<>();

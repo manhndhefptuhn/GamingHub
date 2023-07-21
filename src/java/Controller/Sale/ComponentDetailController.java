@@ -145,7 +145,7 @@ public class ComponentDetailController extends HttpServlet {
                 String type = request.getParameter("type");
                 String id = request.getParameter("id");
                 String name = request.getParameter("name");
-                String price = request.getParameter("price");
+                int price = Integer.parseInt(request.getParameter("price"));
                 String status = request.getParameter("status");
 
                 Part images = request.getPart("image");

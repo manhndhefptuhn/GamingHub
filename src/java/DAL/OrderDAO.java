@@ -433,29 +433,6 @@ public class OrderDAO {
         }
     }
 
-    public int getOrderStatusIDByOrderID(int id) {
-        int OrderStatusID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT Order_Status FROM `order` WHERE Order_ID = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    OrderStatusID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return OrderStatusID;
-    }
-
     public List<Chart> getChartRevenueArea(String start, int day) throws Exception {
         List<Chart> list = new ArrayList<>();
         for (int i = 0; i < day; i++) {

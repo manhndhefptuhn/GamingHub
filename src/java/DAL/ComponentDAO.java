@@ -14,7 +14,7 @@ import java.sql.Statement;
  * @author admin
  */
 public class ComponentDAO {
-    public void updateComponent(String type, String id, String name, String price, String status){
+    public void updateComponent(String type, String id, String name, int price, String status){
         int stat=0;       
         if(status.equalsIgnoreCase("true")) 
             stat = 1;
@@ -25,17 +25,17 @@ public class ComponentDAO {
                 Statement st = con.createStatement();
                 String sql= " ";
                 if(type.equalsIgnoreCase("mainboard"))
-                    sql = "update `mainboard` set Mainboard_Name = '"+name+"', Price ='"+price+"', Status = '"+stat+"' where Mainboard_ID = "+id+";";
+                    sql = "update `mainboard` set Mainboard_Name = '"+name+"', Price ="+price+", Status = '"+stat+"' where Mainboard_ID = "+id+";";
                 if(type.equalsIgnoreCase("cpu"))
-                    sql = "update `cpu` set CPU_Name = '"+name+"', Price ='"+price+"', Status = '"+stat+"' where CPU_ID = "+id+";";
+                    sql = "update `cpu` set CPU_Name = '"+name+"', Price ="+price+", Status = '"+stat+"' where CPU_ID = "+id+";";
                 if(type.equalsIgnoreCase("psu"))
-                    sql = "update `psu` set PSU_Name = '"+name+"', Price ='"+price+"', Status = '"+stat+"' where PSU_ID = "+id+";";
+                    sql = "update `psu` set PSU_Name = '"+name+"', Price ="+price+", Status = '"+stat+"' where PSU_ID = "+id+";";
                 if(type.equalsIgnoreCase("ram"))
-                    sql = "update `ram` set RAM_Name = '"+name+"', Price ='"+price+"', Status = '"+stat+"' where RAM_ID = "+id+";";
+                    sql = "update `ram` set RAM_Name = '"+name+"', Price ="+price+", Status = '"+stat+"' where RAM_ID = "+id+";";
                 if(type.equalsIgnoreCase("storage"))
-                    sql = "update `storage` set Storage_Name = '"+name+"', Price ='"+price+"', Status = '"+stat+"' where Storage_ID = "+id+";";                
+                    sql = "update `storage` set Storage_Name = '"+name+"', Price ="+price+", Status = '"+stat+"' where Storage_ID = "+id+";";                
                 if(type.equalsIgnoreCase("vga"))
-                    sql = "update `vga` set VGA_Name = '"+name+"', Price ='"+price+"', Status = '"+stat+"' where VGA_ID = "+id+";";
+                    sql = "update `vga` set VGA_Name = '"+name+"', Price ="+price+", Status = '"+stat+"' where VGA_ID = "+id+";";
                 
                 st.executeUpdate(sql);            
                 st.close();
@@ -48,7 +48,7 @@ public class ComponentDAO {
         }
      }
     
-    public void updateCase(String type, String id, String name, String price, String status, String image){
+    public void updateCase(String type, String id, String name, int price, String status, String image){
         int stat=0;       
         if(status.equalsIgnoreCase("true")) 
             stat = 1;
@@ -57,7 +57,7 @@ public class ComponentDAO {
             Connection con = db.getConnection();
             if (con != null) {
                 Statement st = con.createStatement();
-                String sql= "update `case` set Case_Name = '"+name+"', Price ='"+price+"', Status = '"+stat+"', Images = '"+image+"' where Case_ID = "+id+";";
+                String sql= "update `case` set Case_Name = '"+name+"', Price ="+price+", Status = '"+stat+"', Images = '"+image+"' where Case_ID = "+id+";";
                 
                 st.executeUpdate(sql);            
                 st.close();
@@ -70,7 +70,7 @@ public class ComponentDAO {
         }
      }
     
-    public void addCase(String type, String name, String price, String status, String image){
+    public void addCase(String type, String name, int price, String status, String image){
         int stat=0;       
         if(status.equalsIgnoreCase("true")) 
             stat = 1;
@@ -78,33 +78,26 @@ public class ComponentDAO {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
             if (con != null) {
-
                 String sql= "INSERT INTO `"+type+"` (`Case_Name`, `Price`, `Images`,`Status`) VALUES (?,?,?,?)";
                 PreparedStatement st = con.prepareStatement(sql);
-                
                 st.setString(1, name);
-                st.setString(2, price);
+                st.setInt(2, price);
                 st.setString(3, image);
                 st.setInt(4, stat);
                 st.executeUpdate();
-                
-            
                 st.close();
                 con.close();
-
             }
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
      }
     
-    public void addComponent(String type, String name, String price, String status){
+    public void addComponent(String type, String name, int price, String status){
         int stat=0;       
         String sql="";
         if(status.equalsIgnoreCase("true")) 
             stat = 1;
-        
                 if(type.equalsIgnoreCase("mainboard"))
                     sql = "INSERT INTO `mainboard` (`Mainboard_Name`,`Price`,`Status`) VALUES (?,?,?)";
                 if(type.equalsIgnoreCase("cpu"))
@@ -117,27 +110,18 @@ public class ComponentDAO {
                     sql = "INSERT INTO `storage` (`Storage_Name`,`Price`,`Status`) VALUES (?,?,?)";               
                 if(type.equalsIgnoreCase("vga"))
                     sql = "INSERT INTO `vga` (`VGA_Name`,`Price`,`Status`) VALUES (?,?,?)";
-        
          try {
             DBContext db = new DBContext();
             Connection con = db.getConnection();
-            
             if (con != null) {
-
-                
                 PreparedStatement st = con.prepareStatement(sql);
-                
                 st.setString(1, name);
-                st.setString(2, price);
+                st.setInt(2, price);
                 st.setInt(3, stat);
                 st.executeUpdate();
-                
-            
                 st.close();
                 con.close();
-
             }
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

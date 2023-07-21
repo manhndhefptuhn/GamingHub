@@ -73,29 +73,6 @@ public class VGADAO {
         return null;
     }
 
-    public int getVGAIDByName(String vgaName) {
-        int vgaID = -1;
-        try {
-            DBContext db = new DBContext();
-            Connection con = db.getConnection();
-            if (con != null) {
-                String sql = "SELECT VGA_ID FROM vga WHERE Vga_Name LIKE ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, "%" + vgaName + "%");
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    vgaID = rs.getInt(1);
-                }
-                rs.close();
-                ps.close();
-                con.close();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return vgaID;
-    }
-    
         public ArrayList<VGA> getAllVGA() {
         ArrayList<VGA> listVGA = new ArrayList<>();
         try {

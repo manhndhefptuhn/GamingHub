@@ -20,7 +20,10 @@ import java.io.IOException;
  *
  * @author Zarius
  */
-@WebFilter(filterName = "CustomerAuthorization", urlPatterns = {"/feedback", "/addOrder", "/addToWishlist", "/cartContact", "/cart", "/checkout", "/createFeedback", "/editOrder", "/errorCheckout", "/orderDetail", "/verifyPayment", "/successful"})
+@WebFilter(filterName = "CustomerAuthorization", urlPatterns = {"/feedback", "/addOrder", "/addToWishlist", "/cartContact",
+                                                                "/cart", "/checkout", "/createFeedback", "/editOrder", "/errorCheckout",
+                                                                "/orderDetail", "/verifyPayment", "/successful", "/myOrder", "/removeCart",
+                                                                "/removeWishlist", "/updateCart"})
 public class CustomerAuthorization implements Filter {
 
     // The filter configuration object we are associated with.  If

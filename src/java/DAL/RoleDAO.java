@@ -72,6 +72,32 @@ public class RoleDAO {
         return roleList;
     }
 
+    public ArrayList<Roles> getAllRoleActive() {
+        ArrayList<Roles> roleList = new ArrayList<>();
+        try {
+            DBContext db = new DBContext();
+            Connection con = db.getConnection();
+            if (con != null) {
+                Statement st = con.createStatement();
+                String sql = "select * from `roles` where `status` = 1";
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    Roles r = new Roles();
+                    r.setRoleID(rs.getInt(1));
+                    r.setRoleName(rs.getString(2));
+                    r.setStatus(rs.getBoolean(3));
+                    roleList.add(r);
+                }
+                rs.close();
+                st.close();
+                con.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return roleList;
+    }
+
     public Map<Integer, String> getMapRoleNameByID(ArrayList<User> userList) {
         Map<Integer, String> listName = new HashMap<>();
         DBContext db = new DBContext();
@@ -130,14 +156,16 @@ public class RoleDAO {
     public int editRoleInfo(Roles role) {
         int row = 0;
         try {
-            String sql = "UPDATE `roles` SET `role_name` = ?, `status`= ? WHERE role_id = ?";
             DBContext db = new DBContext();
             Connection con = db.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, role.getRoleName());
-            ps.setBoolean(2, role.isStatus());
-            ps.setInt(3, role.getRoleID());
-            row = ps.executeUpdate();
+            if (con != null) {
+                String sql = "UPDATE `roles` SET `role_name` = ?, `status`= ? WHERE role_id = ?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, role.getRoleName());
+                ps.setBoolean(2, role.isStatus());
+                ps.setInt(3, role.getRoleID());
+                row = ps.executeUpdate();
+            }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
@@ -149,16 +177,18 @@ public class RoleDAO {
     public int createRole(Roles createRole) {
         int row = 0;
         try {
-            String sql = "INSERT INTO `roles` VALUES (?, ?, ?)";
             DBContext db = new DBContext();
             Connection con = db.getConnection();
-            PreparedStatement st = con.prepareStatement(sql);
-            st.setNull(1, Types.INTEGER);
-            st.setString(2, createRole.getRoleName());
-            st.setBoolean(3, createRole.isStatus());
-            row = st.executeUpdate();
-            st.close();
-            con.close();
+            if (con != null) {
+                String sql = "INSERT INTO `roles` VALUES (?, ?, ?)";
+                PreparedStatement st = con.prepareStatement(sql);
+                st.setNull(1, Types.INTEGER);
+                st.setString(2, createRole.getRoleName());
+                st.setBoolean(3, createRole.isStatus());
+                row = st.executeUpdate();
+                st.close();
+                con.close();
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             row = -1;

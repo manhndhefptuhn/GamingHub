@@ -85,7 +85,7 @@ public class UpdateSettingController extends HttpServlet {
                 int roleID = Integer.parseInt(request.getParameter("roleID"));
                 String roleName = request.getParameter("roleName");
                 boolean status = Boolean.valueOf(request.getParameter("status"));
-                
+
                 Roles updatedRole = new Roles();
                 updatedRole.setRoleID(roleID);
                 updatedRole.setRoleName(roleName);
@@ -95,6 +95,9 @@ public class UpdateSettingController extends HttpServlet {
                 int rowsAffected = rDAO.editRoleInfo(updatedRole);
                 if (rowsAffected > 0) {
                     request.setAttribute("notification", "Update role successfully");
+                    request.getRequestDispatcher("settingDetail?type=role&id=" + roleID + "").forward(request, response);
+                } else {
+                    request.setAttribute("notification", "There something wrong, please try again later");
                     request.getRequestDispatcher("settingDetail?type=role&id=" + roleID + "").forward(request, response);
                 }
             } else if (type.equalsIgnoreCase("category")) {
@@ -111,6 +114,9 @@ public class UpdateSettingController extends HttpServlet {
                 int rowsAffected = cDAO.editCategoryInfo(updatedCategory);
                 if (rowsAffected > 0) {
                     request.setAttribute("notification", "Update category successfully");
+                    request.getRequestDispatcher("settingDetail?type=category&id=" + categoryID + "").forward(request, response);
+                } else {
+                    request.setAttribute("notification", "There something wrong, please try again later");
                     request.getRequestDispatcher("settingDetail?type=category&id=" + categoryID + "").forward(request, response);
                 }
             }

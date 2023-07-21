@@ -74,9 +74,9 @@ public class CheckoutController extends HttpServlet {
         } else {
             vnp_Params.put("vnp_Locale", "vn");
         }
-        String requestURL = request.getRequestURL().toString();
-        String returnUrl = requestURL.substring(0, requestURL.indexOf(request.getContextPath())) + request.getContextPath() + "/verifyPayment";
-//        String returnUrl = "https://gamingcenterclub.site/verifyPayment";
+//        String requestURL = request.getRequestURL().toString();
+//        String returnUrl = requestURL.substring(0, requestURL.indexOf(request.getContextPath())) + request.getContextPath() + "/verifyPayment";
+        String returnUrl = "https://gamingcenterclub.site/verifyPayment";
         vnp_Params.put("vnp_ReturnUrl", returnUrl);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
