@@ -4,7 +4,7 @@
  */
 package Controller.Customer;
 
-import DAL.WishlistDAO;
+import DAO.WishlistDAO;
 import Model.User;
 import Model.Wishlist;
 import jakarta.servlet.ServletException;

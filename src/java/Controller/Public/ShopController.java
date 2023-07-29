@@ -4,11 +4,11 @@
  */
 package Controller.Public;
 
-import DAL.CaseDAO;
-import DAL.CategoryDAO;
-import DAL.FeedbackDAO;
-import DAL.PCDAO;
-import DAL.ProductDAO;
+import DAO.CaseDAO;
+import DAO.CategoryDAO;
+import DAO.FeedbackDAO;
+import DAO.PCDAO;
+import DAO.ProductDAO;
 import Model.Case;
 import Model.Category;
 import Model.Product;

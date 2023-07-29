@@ -4,9 +4,9 @@
  */
 package Controller.Customer;
 
-import DAL.CartDAO;
-import DAL.ProductDAO;
-import DAL.UserDAO;
+import DAO.CartDAO;
+import DAO.ProductDAO;
+import DAO.UserDAO;
 import Model.Cart;
 import Model.User;
 import java.io.IOException;

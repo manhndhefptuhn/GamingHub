@@ -4,13 +4,13 @@
  */
 package Controller.Public;
 
-import DAL.CaseDAO;
-import DAL.FeedbackDAO;
-import DAL.FeedbackResponseDAO;
-import DAL.PCDAO;
-import DAL.ProductDAO;
-import DAL.ProductImagesDAO;
-import DAL.UserDAO;
+import DAO.CaseDAO;
+import DAO.FeedbackDAO;
+import DAO.FeedbackResponseDAO;
+import DAO.PCDAO;
+import DAO.ProductDAO;
+import DAO.ProductImagesDAO;
+import DAO.UserDAO;
 import Model.Case;
 import Model.Feedback;
 import Model.FeedbackResponse;

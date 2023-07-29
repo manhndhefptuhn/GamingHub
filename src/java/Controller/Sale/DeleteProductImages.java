@@ -4,7 +4,7 @@
  */
 package Controller.Sale;
 
-import DAL.ProductImagesDAO;
+import DAO.ProductImagesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;

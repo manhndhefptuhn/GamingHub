@@ -72,20 +72,6 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="contact__form">
-                                <h5>SEND MESSAGE</h5>
-                                <c:if test="${sendContactNoti!=null}">
-                                    <p style="color: red;"><span>${notification}</span></p>
-                                </c:if>
-                                <form action="sendMessage" method="POST">
-                                    <input type="text" placeholder="Name" name="name" required>
-                                    <input type="text" placeholder="Email" name="email" required>
-                                    <input type="text" placeholder="Subject" name="subject" required>
-                                    <textarea placeholder="Message" name="message" required></textarea>
-
-                                    <button type="submit" class="site-btn">Send Message</button>
-                                </form>
-                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">

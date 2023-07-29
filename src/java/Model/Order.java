@@ -17,7 +17,7 @@ public class Order {
     private String fullName;
     private String address;
     private String country;
-    private int postCode;
+    private String postCode;
     private String phoneNumber;
     private Timestamp orderDate;
     private int totalCost;
@@ -29,7 +29,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(int orderID, int userID, String fullName, String address, String country, int postCode, String phoneNumber, Timestamp orderDate, int totalCost, String payment, int saleID, int orderStatus, String note) {
+    public Order(int orderID, int userID, String fullName, String address, String country, String postCode, String phoneNumber, Timestamp orderDate, int totalCost, String payment, int saleID, int orderStatus, String note) {
         this.orderID = orderID;
         this.userID = userID;
         this.fullName = fullName;
@@ -44,6 +44,8 @@ public class Order {
         this.orderStatus = orderStatus;
         this.note = note;
     }
+
+    
 
     public int getOrderID() {
         return orderID;
@@ -141,13 +143,13 @@ public class Order {
         this.country = country;
     }
 
-    public int getPostCode() {
+    public String getPostCode() {
         return postCode;
     }
 
-    public void setPostCode(int postCode) {
+    public void setPostCode(String postCode) {
         this.postCode = postCode;
     }
-    
+
     
 }

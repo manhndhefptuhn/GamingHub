@@ -4,8 +4,8 @@
  */
 package Controller.Common;
 
-import DAL.PasswordResetDAO;
-import DAL.UserDAO;
+import DAO.PasswordResetDAO;
+import DAO.UserDAO;
 import Model.User;
 import Service.PasswordUtils;
 import Service.RandomPassword;

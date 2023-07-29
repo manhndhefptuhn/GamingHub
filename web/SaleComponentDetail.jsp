@@ -68,8 +68,8 @@
                                         <tr>
                                             <th>Image </th>
                                             <td>
-                                                <c:if test="${empty image}"><a style="color:gray; opacity:0.7">   No image</a></c:if>
-                                                <c:if test="${not empty image}">
+                                                <c:if test="${type ne 'CASE'}"><a style="color:gray; opacity:0.7">   No image</a></c:if>
+                                                <c:if test="${type eq 'CASE'}">
                                                     <img id="previewImage" src="<%= request.getContextPath()%>/${image}" width="150" height="150"/>                       
                                                     <input type="file" id="image" name="image" accept="image/*" onchange="previewCaseImage(event)">
                                                 </c:if>  

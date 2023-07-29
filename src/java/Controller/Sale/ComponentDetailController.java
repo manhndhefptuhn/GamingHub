@@ -4,6 +4,14 @@
  */
 package Controller.Sale;
 
+import DAO.StorageDAO;
+import DAO.MainboardDAO;
+import DAO.VGADAO;
+import DAO.CaseDAO;
+import DAO.RAMDAO;
+import DAO.PSUDAO;
+import DAO.ComponentDAO;
+import DAO.CPUDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,7 +19,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import DAL.*;
 import Model.*;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.annotation.MultipartConfig;

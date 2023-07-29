@@ -4,9 +4,9 @@
  */
 package Controller.Sale;
 
-import DAL.PCDAO;
-import DAL.ProductDAO;
-import DAL.ProductImagesDAO;
+import DAO.PCDAO;
+import DAO.ProductDAO;
+import DAO.ProductImagesDAO;
 import Model.PC;
 import Model.Product;
 import Model.Product_Images;

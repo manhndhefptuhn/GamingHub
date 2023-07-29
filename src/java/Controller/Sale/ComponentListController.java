@@ -4,13 +4,13 @@
  */
 package Controller.Sale;
 
-import DAL.CPUDAO;
-import DAL.CaseDAO;
-import DAL.MainboardDAO;
-import DAL.PSUDAO;
-import DAL.RAMDAO;
-import DAL.StorageDAO;
-import DAL.VGADAO;
+import DAO.CPUDAO;
+import DAO.CaseDAO;
+import DAO.MainboardDAO;
+import DAO.PSUDAO;
+import DAO.RAMDAO;
+import DAO.StorageDAO;
+import DAO.VGADAO;
 import Model.CPU;
 import Model.Case;
 import Model.Mainboard;

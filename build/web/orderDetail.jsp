@@ -63,7 +63,7 @@
                                         <th>Price</th>
                                         <th>Quantity</th>
                                         <th>Total</th>
-                                            <c:if test="${listOrderInfor.getOrderStatus() == 3}">
+                                            <c:if test="${listOrderInfor.getOrderStatus() == 5}">
                                             <th>Feedback</th>
                                             </c:if>
                                     </tr>
@@ -89,7 +89,7 @@
                                             <td class="cart__price"><fmt:formatNumber pattern="#,##0" value="${listOrderDetail.getProductPrice()}"/> VNÐ</td>
                                             <td class="cart__quantity" style="padding-left: 2em;">${listOrderDetail.getQuantity()}</td>
                                             <td class="cart__total"><fmt:formatNumber pattern="#,##0" value="${listOrderDetail.getTotalCost()}"/> VNÐ</td>
-                                            <c:if test="${listOrderInfor.getOrderStatus() == 3}">
+                                            <c:if test="${listOrderInfor.getOrderStatus() == 5}">
                                                 <td><a href="feedback?productID=${productID}&orderID=${listOrderInfor.getOrderID()}" style="padding-left: 2em;"><i class="fa fa-comment"></i></a></td>
                                                     </c:if>
                                         </tr>

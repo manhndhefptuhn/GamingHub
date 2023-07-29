@@ -4,7 +4,7 @@
  */
 package Controller.Admin;
 
-import DAL.UserDAO;
+import DAO.UserDAO;
 import Model.User;
 import Service.PasswordUtils;
 import jakarta.servlet.ServletContext;

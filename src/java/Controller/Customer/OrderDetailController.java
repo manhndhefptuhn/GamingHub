@@ -4,11 +4,11 @@
  */
 package Controller.Customer;
 
-import DAL.CaseDAO;
-import DAL.OrderDAO;
-import DAL.OrderDetailDAO;
-import DAL.OrderStatusDAO;
-import DAL.PCDAO;
+import DAO.CaseDAO;
+import DAO.OrderDAO;
+import DAO.OrderDetailDAO;
+import DAO.OrderStatusDAO;
+import DAO.PCDAO;
 import Model.Case;
 import Model.Order;
 import Model.OrderDetail;

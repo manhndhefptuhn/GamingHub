@@ -4,7 +4,7 @@
  */
 package Controller.Support;
 
-import DAL.FeedbackDAO;
+import DAO.FeedbackDAO;
 import Model.Feedback;
 import java.io.IOException;
 import java.io.PrintWriter;

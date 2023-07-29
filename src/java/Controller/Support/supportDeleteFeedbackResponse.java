@@ -4,7 +4,7 @@
  */
 package Controller.Support;
 
-import DAL.FeedbackResponseDAO;
+import DAO.FeedbackResponseDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

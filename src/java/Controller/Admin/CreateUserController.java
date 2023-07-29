@@ -4,9 +4,9 @@
  */
 package Controller.Admin;
 
-import DAL.PasswordResetDAO;
-import DAL.SliderDAO;
-import DAL.UserDAO;
+import DAO.PasswordResetDAO;
+import DAO.SliderDAO;
+import DAO.UserDAO;
 import Model.Slider;
 import Model.User;
 import Service.PasswordUtils;

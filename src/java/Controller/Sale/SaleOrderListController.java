@@ -4,8 +4,8 @@
  */
 package Controller.Sale;
 
-import DAL.OrderDAO;
-import DAL.OrderStatusDAO;
+import DAO.OrderDAO;
+import DAO.OrderStatusDAO;
 import Model.Order;
 import Model.OrderStatus;
 import Model.User;

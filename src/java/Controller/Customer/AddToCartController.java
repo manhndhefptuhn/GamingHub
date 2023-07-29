@@ -4,8 +4,8 @@
  */
 package Controller.Customer;
 
-import DAL.CartDAO;
-import DAL.ProductDAO;
+import DAO.CartDAO;
+import DAO.ProductDAO;
 import Model.Cart;
 import Model.Product;
 import Model.User;

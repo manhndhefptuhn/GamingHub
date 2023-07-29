@@ -4,7 +4,7 @@
  */
 package Controller.Customer;
 
-import DAL.CartDAO;
+import DAO.CartDAO;
 import Model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

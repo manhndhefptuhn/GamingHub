@@ -4,8 +4,8 @@
  */
 package Controller.Support;
 
-import DAL.FeedbackDAO;
-import DAL.UserDAO;
+import DAO.FeedbackDAO;
+import DAO.UserDAO;
 //import Model.FeedbackDashboard;
 import java.io.IOException;
 import jakarta.servlet.ServletException;

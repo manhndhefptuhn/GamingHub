@@ -4,16 +4,16 @@
  */
 package Controller.Sale;
 
-import DAL.CPUDAO;
-import DAL.CaseDAO;
-import DAL.DateDAO;
-import DAL.MainboardDAO;
-import DAL.OrderDAO;
-import DAL.OrderStatusDAO;
-import DAL.PSUDAO;
-import DAL.RAMDAO;
-import DAL.StorageDAO;
-import DAL.VGADAO;
+import DAO.CPUDAO;
+import DAO.CaseDAO;
+import DAO.DateDAO;
+import DAO.MainboardDAO;
+import DAO.OrderDAO;
+import DAO.OrderStatusDAO;
+import DAO.PSUDAO;
+import DAO.RAMDAO;
+import DAO.StorageDAO;
+import DAO.VGADAO;
 import Model.Chart;
 import Model.Date;
 import Model.OrderStatus;

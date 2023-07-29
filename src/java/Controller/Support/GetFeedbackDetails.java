@@ -1,9 +1,9 @@
 package Controller.Support;
 
-import DAL.FeedbackDAO;
-import DAL.UserDAO;
-import DAL.FeedbackResponseDAO;
-import DAL.ProductDAO;
+import DAO.FeedbackDAO;
+import DAO.UserDAO;
+import DAO.FeedbackResponseDAO;
+import DAO.ProductDAO;
 import Model.Feedback;
 import Model.User;
 import Model.FeedbackResponse;

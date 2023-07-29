@@ -74,7 +74,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="checkout__form__input">
                                         <p>PostCode/Zip <span>*</span></p>
-                                        <input type="number" name="postcode" placeholder="Enter your postcode/zip" required>
+                                        <input type="text" name="postcode" pattern="[0-9]*" placeholder="Enter your postcode/zip" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">

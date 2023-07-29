@@ -4,8 +4,8 @@
  */
 package Controller.Support;
 
-import DAL.FeedbackDAO;
-import DAL.SliderDAO;
+import DAO.FeedbackDAO;
+import DAO.SliderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;

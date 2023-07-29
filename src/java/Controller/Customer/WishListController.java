@@ -4,10 +4,10 @@
  */
 package Controller.Customer;
 
-import DAL.CaseDAO;
-import DAL.PCDAO;
-import DAL.ProductDAO;
-import DAL.WishlistDAO;
+import DAO.CaseDAO;
+import DAO.PCDAO;
+import DAO.ProductDAO;
+import DAO.WishlistDAO;
 import Model.Case;
 import Model.User;
 import Model.Wishlist;

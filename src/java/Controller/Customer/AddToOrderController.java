@@ -4,10 +4,10 @@
  */
 package Controller.Customer;
 
-import DAL.CartDAO;
-import DAL.OrderDAO;
-import DAL.OrderDetailDAO;
-import DAL.UserDAO;
+import DAO.CartDAO;
+import DAO.OrderDAO;
+import DAO.OrderDetailDAO;
+import DAO.UserDAO;
 import Model.Cart;
 import Model.User;
 import java.io.IOException;
@@ -71,7 +71,7 @@ public class AddToOrderController extends HttpServlet {
         String fullName = request.getParameter("fullName");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
-        int postCode = Integer.parseInt(request.getParameter("postcode"));
+        String postCode = request.getParameter("postcode");
         String country = request.getParameter("country");
         String note = request.getParameter("note");
         int totalCost = Integer.parseInt(request.getParameter("totalCost"));

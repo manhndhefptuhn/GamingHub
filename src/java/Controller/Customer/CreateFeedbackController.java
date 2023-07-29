@@ -4,7 +4,7 @@
  */
 package Controller.Customer;
 
-import DAL.FeedbackDAO;
+import DAO.FeedbackDAO;
 import Model.User;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;

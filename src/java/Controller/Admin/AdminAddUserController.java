@@ -4,7 +4,7 @@
  */
 package Controller.Admin;
 
-import DAL.RoleDAO;
+import DAO.RoleDAO;
 import Model.Roles;
 import java.io.IOException;
 import jakarta.servlet.ServletException;

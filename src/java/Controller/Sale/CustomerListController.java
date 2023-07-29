@@ -4,7 +4,7 @@
  */
 package Controller.Sale;
 
-import DAL.UserDAO;
+import DAO.UserDAO;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;

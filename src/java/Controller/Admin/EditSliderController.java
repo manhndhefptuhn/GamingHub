@@ -4,8 +4,8 @@
  */
 package Controller.Admin;
 
-import DAL.SliderDAO;
-import DAL.UserDAO;
+import DAO.SliderDAO;
+import DAO.UserDAO;
 import Model.Slider;
 import Service.PasswordUtils;
 import jakarta.servlet.ServletContext;

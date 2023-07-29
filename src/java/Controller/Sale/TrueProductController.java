@@ -4,8 +4,8 @@
  */
 package Controller.Sale;
 
-import DAL.ProductDAO;
-import DAL.SliderDAO;
+import DAO.ProductDAO;
+import DAO.SliderDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

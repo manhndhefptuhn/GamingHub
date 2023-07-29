@@ -4,7 +4,7 @@
  */
 package Controller.Admin;
 
-import DAL.SliderDAO;
+import DAO.SliderDAO;
 import Model.Slider;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

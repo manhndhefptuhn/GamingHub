@@ -4,8 +4,10 @@
  */
 package Controller.Sale;
 
-import DAL.OrderDAO;
+import DAO.OrderDAO;
+import DAO.OrderDetailDAO;
 import Model.Order;
+import Model.OrderDetail;
 import Model.OrderStatus;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -76,12 +78,26 @@ public class SaleUpdateOrderStatusController extends HttpServlet {
         int orderID = Integer.parseInt(request.getParameter("orderID"));
         int statusID = Integer.parseInt(request.getParameter("status"));
         OrderDAO oDAO = new OrderDAO();
-        Order order = oDAO.getOrderByID(orderID);
-        order.setOrderID(orderID);
-        order.setOrderStatus(statusID);
-        oDAO.updateOrderStatus(order);
-        request.setAttribute("notification", "Change order status successful");
-        request.getRequestDispatcher("orderList").forward(request, response);
+        OrderDetailDAO odDAO = new OrderDetailDAO();
+        List<OrderDetail> listOrderDetail = odDAO.getDetailAllOrder(orderID);
+        if (statusID == 6) {
+            Order order = oDAO.getOrderByID(orderID);
+            order.setOrderID(orderID);
+            order.setOrderStatus(statusID);
+            oDAO.updateOrderStatus(order);
+            odDAO.returnQuantityProduct(listOrderDetail);
+            request.setAttribute("notification", "Cancel the order, update the quantity of product");
+            request.getRequestDispatcher("orderList").forward(request, response);
+
+        } else {
+            Order order = oDAO.getOrderByID(orderID);
+            order.setOrderID(orderID);
+            order.setOrderStatus(statusID);
+            oDAO.updateOrderStatus(order);
+            request.setAttribute("notification", "Change order status successful");
+            request.getRequestDispatcher("orderList").forward(request, response);
+
+        }
     }
 
     /**

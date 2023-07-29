@@ -4,8 +4,8 @@
  */
 package Controller.Customer;
 
-import DAL.OrderDAO;
-import DAL.OrderDetailDAO;
+import DAO.OrderDAO;
+import DAO.OrderDetailDAO;
 import Model.OrderDetail;
 import java.io.IOException;
 import jakarta.servlet.ServletException;

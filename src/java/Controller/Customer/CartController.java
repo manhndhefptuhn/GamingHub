@@ -4,10 +4,10 @@
  */
 package Controller.Customer;
 
-import DAL.CartDAO;
-import DAL.CaseDAO;
-import DAL.PCDAO;
-import DAL.ProductDAO;
+import DAO.CartDAO;
+import DAO.CaseDAO;
+import DAO.PCDAO;
+import DAO.ProductDAO;
 import Model.Cart;
 import Model.Case;
 import Model.User;

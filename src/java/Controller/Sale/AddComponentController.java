@@ -1,6 +1,6 @@
 package Controller.Sale;
 
-import DAL.ComponentDAO;
+import DAO.ComponentDAO;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.PrintWriter;

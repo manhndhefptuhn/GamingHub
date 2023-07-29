@@ -4,8 +4,8 @@
  */
 package Controller.Sale;
 
-import DAL.OrderDAO;
-import DAL.OrderDetailDAO;
+import DAO.OrderDAO;
+import DAO.OrderDetailDAO;
 import Model.Order;
 import Model.OrderDetail;
 import java.io.IOException;

@@ -4,9 +4,9 @@
  */
 package Controller.Customer;
 
-import DAL.CaseDAO;
-import DAL.PCDAO;
-import DAL.ProductDAO;
+import DAO.CaseDAO;
+import DAO.PCDAO;
+import DAO.ProductDAO;
 import Model.Case;
 import Model.Product;
 import java.io.IOException;

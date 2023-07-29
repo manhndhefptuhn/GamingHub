@@ -4,8 +4,8 @@
  */
 package Controller.Admin;
 
-import DAL.CategoryDAO;
-import DAL.RoleDAO;
+import DAO.CategoryDAO;
+import DAO.RoleDAO;
 import Model.Category;
 import Model.Roles;
 import java.io.IOException;
